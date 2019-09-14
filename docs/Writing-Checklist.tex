@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+
+\usepackage{enumitem}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\begin{document}
+
+\title{SRS Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+% Show an item is done by   \item[\done] Frame the problem
+% Show an item will not be fixed by   \item[\wontfix] profit
+
+\begin{itemize}
+  
+\item Avoid Low Information Content phrases
+  \begin{todolist}
+  \item ``in order to'' simplified to ``to''
+  \item ...
+  \end{todolist}
+
+\item \LaTeX points
+  \begin{todolist}
+  \item Periods that do not end sentences for one space, like: ``I like Dr.\ Smith.''
+  \item Long names in math mode use either matit or text, or equivalent: $coeff$
+    versus $\mathit{coeff}$ versus $\text{coeff}$.
+  \end{todolist}
+
+\item Structure
+  \begin{todolist}
+  \item There is always some text between section headings
+  \item There aren't instances of only one subsection within a section
+  \end{todolist}
+  
+\end{itemize}
+
+\end{document}
