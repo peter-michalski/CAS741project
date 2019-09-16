@@ -26,12 +26,13 @@
 \end{tabularx}
 \end{table}
 
-Put your problem statement here.  Comments to you can be added, like this:
+\section{Problem}
 
-\wss{comment}
+\section{Solution}
 
-You can also leave comments for yourself, like this:
+\section{Environment}
 
-\an{comment}
+\section{Stakeholders}
+
 
 \end{document}
