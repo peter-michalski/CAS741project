@@ -96,31 +96,12 @@
 
 \pagenumbering{roman}
 
-\plt{The CA template is related to the SRS template.  Many of the sections are
-  in common.  The notes and advice for the SRS template are not reproduced
-  here.  Please have a look at the SRS template for advice.}
-
-\plt{This CA template is based on \citet{Smith2006}.  An example for a family of
-  material models is given in \citet{SmithMcCutchanAndCarette2017}.  This
-  example is for a physics based family.  Often the families will be based on
-  generic numerical techniques, rather than physics.}
-
-\plt{A good mindset for thinking about the families is often to think of the
-  family as providing a library of services, as opposed to a single executable.
-  The library of services can be used to build an application that uses a subset
-  of the services, which is like providing the smaller library as a single
-  family member.}
-
-\plt{In CAS 741, you will not have to implement the entire family.  We will
-  decide on a reasonable subset of the family for implementation.}
-
 \section{Revision History}
 
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+October 7,2019 & 1.0 & Initial Document\\
 \bottomrule
 \end{tabularx}
 
@@ -155,10 +136,6 @@ description of the unit and the SI name.
   %	\caption{Provide a caption}
 %\end{table}
 
-\plt{Only include the units that your CA actually uses.  If there are no units
-  for your problem, like for a general purpose library, you should still include
-the heading, with the content ``not applicable'' (or similar).}
-
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
@@ -177,7 +154,7 @@ $\eta$ & $Pa-s$ & viscosity
 \\ 
 $A$ & $m^2$ & cross-sectional area
 \\
-$\gamma$ & $\frac{1}{s}$ & shear rate
+$\gamma$ & $\frac{1}{s}$ & velocity gradient
 \\
 $\tau$ & N/A & relaxation rate
 \\
@@ -187,27 +164,26 @@ $f$ & N/A & distribution function
 \\
 $\Omega$ & N/A & collision operator
 \\
-$f^(eq)$ & N/A & equilibrium distribution function
+$f^{eq}$ & N/A & equilibrium distribution function
 \\
 $k$ & N/A & velocity direction
 \\
-$p$ & $\frac{g}{cm^2}$ & fluid density
+$p$ & $\frac{g}{cm^3}$ & fluid density
 \\
 $w$ & N/A & weight coefficient (implementation specific)
 \\
 $u$ & $\frac{m}{s}$ & macroscopic velocity of fluid
 \\
-$\mathrm{D}$ & N/A & dimension component of lattice model
+$\mathrm{D}$ & N/A & signifies the dimension component of lattice model
 \\
-$\mathrm{Q}$ & N/A & number of velocity directions of lattice model, also referred to as linkages
+$\mathrm{Q}$ & N/A & signifies number of velocity directions of lattice model
+\\
+$\sigma$ & N/A & variable number of dimensions in the lattice model
+\\
+$\kappa$ & N/A & variable number of velocity directions of lattice model, also referred to as linkages
 \\
 \bottomrule
 \end{longtable*}
-\plt{Use your problems actual symbols.  The si package is a good idea to use for
-  units.}
-\plt{For the case of a generic numerical library, units will likely not be
-  included.  For instance, a linear ODE solver will not know the units of its
-  coefficients.}
 
 \subsection{Abbreviations and Acronyms}
 
@@ -215,23 +191,22 @@ $\mathrm{Q}$ & N/A & number of velocity directions of lattice model, also referr
 \begin{tabular}{l l} 
   \toprule		
   \textbf{symbol} & \textbf{description}\\
-  \midrule 
+  \midrule
+  1D & 1-Dimensional\\ 
+  2D & 2-Dimensional\\ 
+  3D & 3-Dimensional\\ 
   A & Assumption\\
+  CA & Commonality Analysis\\
   DD & Data Definition\\
-  GD & General Definition\\
   GS & Goal Statement\\
-  IM & Instance Model\\
+  LBM & Lattice Boltzmann Methods\\
+  LBS & Lattice Boltzmann Solvers\\
   LC & Likely Change\\
   PS & Physical System Description\\
   R & Requirement\\
-  SRS & Software Requirements Specification\\
-  \famname{} & \plt{put your famram name here}\\
   T & Theoretical Model\\
   \bottomrule
 \end{tabular}\\
-
-\plt{Add any other abbreviations or acronyms that you add.}
-\plt{Only include abbreviations and acronyms that are actually used.}
 
 \newpage
 
@@ -243,19 +218,25 @@ $\mathrm{Q}$ & N/A & number of velocity directions of lattice model, also referr
 
 \section{Introduction}
 
-Lattice Boltzmann Methods are a family of fluid dynamics algorithms for simulating single-phase and multiphase fluid flows, often incorporating additional physical complexities. \citet{chen1998lattice}. These methods consider the behavious of a collection of particles as a single "unit" at the mesoscopic scale. on probability of particles rather than mapping every particle (miscoscopic scale - Hamilton's equation) which is heavy on data or the Navier -strokes method (macroscopic) which is difficult ot solve analyticlaly. ... very efficient...growing in popularity..
-Lattice Boltzmann methods are a modern approach to computational fluid dynamics and close the gap betweeen the micro and macro scale. 
-
+This document provides a Commonality Analysis (CA) for a family of Lattice Boltzmann Solvers (LBS), which provide services based on Lattice Boltzmann Methods (LBM).
+LBM are a family of fluid dynamics algorithms for simulating single-phase and multiphase fluid flows, often incorporating additional physical complexities. \citet{chen1998lattice}. They consider the behaviours of a collection of particles as a single "unit" at the mesoscopic scale. These methods predict the positional probability of a collection of particles moving through a lattice structure. Various off the shelf Lattice Boltzmann Solvers (LBS) solutions available today allow for a range of fluid and physical model input parameters, computational parameters, and output parameters as outlined in Section \ref{OTSsolutions}.
+The following subsection of this introduction will outline the purpose of this document, a general scope of the family of LBS, the characteristics of the intended reader, and finally an outline of the rest of this document.
 
 \subsection{Purpose of Document}
 
-This document will outline 
+The purpose of this document is to provide general information on the currently available LBS solutions, including their commonalities and variabilities, as well as a baseline understanding of the model and structure of abstract LBM. The information provided here will be used in the development of the design of a solution providing services of a family of LBS.
 
 \subsection{Scope of the Family} 
 
+The family of LBS will model one or more fluids as they pass through a boundary, modeled my a lattice. Fluids with any properties can be modeled, however only those properties that are accepted as inputs by the LBS will affect the model results. The calculation of the LBM distribution function will use up to 3D computational models, and will output the data into memory and render it in up to 3D imaging.
+
 \subsection{Characteristics of Intended Reader} 
 
+The intended reader of this document should have an undergraduate understanding of software requirements and specifications as well as software design principles. Ideally, the user will be knowledgeable of commonality analysis, 
+
 \subsection{Organization of Document}
+
+This document is organized along a template for a CA for scientific computing software proposed by \citet{smith2006systematic}. It follows a standard pattern of presenting a general system description, commonalities of the members of the software family, variabilities of the members of the software family, and the requirements for the family of LBS. The goal statements of the family of LBS, found in section \ref{goalstatements},are refined to the theoretical models in Section \ref{sec_theoretical}. Variabilities within the family are found in \ref{variabilities}. Tables of off the shelf solution commonalities and variabilities are found in Section \ref{OTSsolutions}.
 
 \section{General System Description}
 
@@ -265,51 +246,42 @@ constraints.
 
 \subsection{Potential System Contexts}
 
-\plt{Your system context will likely include an explicit list of user and system
-  responsibilities}
-
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
-\item 
+\item The user must provide the system with correctly formatted physical model parameters.
+\item The user must select the desired mathematical model for the computation.
+\item The user must select the desired format of output for the model.
 \end{itemize}
 \item \famname{} Responsibilities:
 \begin{itemize}
-\item Detect data type mismatch, such as a string of characters instead of a
-  floating point number
-\item 
+\item Detect data type mismatch, such as a negative number instead of a positive number for a parameter, such as $A$ that cannot accept negative values.
+\item Initialize the correct data types and data structures for the model.
+\item Perform the calculations to predict the distribution of fluid particles over time.
+\item Store the distribution function output data.
+\item Store calculated fluid parameters over time.
+\item Visually model the results of the distribution function.
+\item Store the calculation results in a file and/or in memory.
+\item Detect errors during parameter input, model calculation, or model output; store the errors in a file and show the error to the user.
+\item Recover from error states, such as those that develop from division by zero or a buffer overflow.
 \end{itemize}
 \end{itemize}
 
 \subsection{Potential User Characteristics} \label{SecUserCharacteristics}
 
-The end user of \famname{} should have an understanding of undergraduate Level
-1 Calculus and Physics.
+The end user of \famname{} should ideally have an understanding of undergraduate Level 1 Physics and Fluid Dynamics. The ideal end user characteristics may variate between the specific members of the family of solvers. For example, a user of HemeLB, a off the shelf LBM solution for simulating blood flow, would ideally have an understanding of phlebology.
 
 \subsection{Potential System Constraints}
 
-SC - The system will use a lattice structure to map the fluid flow
-
-\plt{You may not have any system constraints.}
-
-\plt{If you need to make design decisions for your family, these decisions will
-  be made here as constraints.  For instance, if all inputs will have to use the
-same file format, this would be a constraint that would be included here.}
-
-\plt{You should generally limit the number of constraints, to keep the CA
-  abstract.}
+The parallel nature of LBS prefers operating and hardware systems that can handle concurrency and large amounts of data. Modern operating systems and computer hardware platforms are suggested. Memory should be scaled to the requirements of the desired LBS library.
 
 \section{Commonalities}
 
 \subsection{Background Overview} \label{Sec_Background}
 
-There are two steps...
-
-The particles are mapped using a lattice structure. The lattice structure can be a !D, 2D, or 3D model with varying velocity directions. The notatin is DXQY, where X epresends the number of dimensions and Y represents the number of velociy directions. The lattice models are vast and standardized, but the individual solvers within the family may only use a subset of them. The LBM uses the distribution funciton to predict which direction of the specified model a group of particles will travel.
-
-Sum of the weight coefficients is 1. 
-
-Particles bounce back when they encounter a boundary.
+As LBS model fluid dynamics within a boundary using a predefined lattice structure, the methods rely on a two step calculation process. The first processes is known as streaming, where the particles move along the lattice via links, and the second process is collision, where energy and momentum is transferred among particles that collide \cite{bao2011lattice}.
+In the LBS solutions, the particles are mapped using a lattice structure. The lattice structure can be a 1D, 2D, or 3D model with varying velocity directions. The notation is D$\sigma$Q$\kappa$, where $\sigma$ represents the number of dimensions and $\kappa$ represents the number of velocity directions.There are many standardized lattice models; individual solvers within the family may only use a subset of them.
+The LBM uses the initial parameters of the fluid to find the probability of where along the lattice linkages a group of particles are most likely to travel. It then moves the particles into the next node, and transfers the energy and momentum if a collision occurs. Then the process repeats for the duration of the modeling instance.
 
 \subsection{Terminology and  Definitions}
 
@@ -328,9 +300,7 @@ also see slide 35?
 
 \subsection{Data Definitions} \label{sec_datadef}
 
-This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given.  \plt{Modify the examples
-  below for your problem, and add additional definitions as appropriate.}
+This section collects and defines all the data needed to build the instance models. The dimension of each quantity is also given.  
 
 ~\newline
 
@@ -362,7 +332,9 @@ Symbol &$\mathrm{e}$\\
 \end{tabular}
 \end{minipage}\\
 
+
 ~\newline
+
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -382,10 +354,10 @@ Symbol &$\mathrm{\eta}$\\
   Equation& $\mathrm{\eta} = \frac{F/A}{\gamma}$\\
   \hline
   Description & 
-                Viscosity is the measure of resistance to deformation. $F$ is the applied force (N), $A$ is the cross-sectional area ($m^2$), and $\gamma$ is the rate of shear ($s^{-1}$). 
+                Viscosity is the measure of resistance to deformation. $F$ is the applied force (N), $A$ is the cross-sectional area ($m^2$), and $\gamma$ is the velocity gradient. 
   \\
   \hline
-  Sources& \\
+  Sources& \citet{viscosity}\\
   \hline
   Ref.\ By & DD\ref{DD_RelaxationRate}\\
   \hline
@@ -415,18 +387,75 @@ Symbol &$\tau$\\
                 The relaxation rate defines how quickly the particles recover to equilibrium state. Adjusting this method in the implementation allows for the simulation of complex physical phenomena, specifically concerning the fluid media. $\mathrm{\eta}$ is the viscosity of the fluid, $t$ is the time interval (s), and $x$ is the position vector.
   \\
   \hline
-  Sources& mainonlinesource\\
+  Sources& \citet{lbmbolton}\\
   \hline
   Ref.\ By & \tref{T_BTE}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
-Also add  about the lattice but in another section - figure out which one.
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_VelocityGradient}\\
+\hline
+Label& \bf Velocity Gradient\\
+\hline
+Symbol &$\gamma$\\
+\hline
+% \hline
+  SI Units &$\frac{1}{s}$\\
+  \hline
+  Equation&$\gamma = \frac{d\mathrm{e}}{dz}$\\
+  \hline
+  Description & 
+                Velocity gradient is the difference in velocity between adjacent fluids. $d\mathrm{e}$ represents the difference in velocities of the fluids and $dz$ is the
+distance of the two velocities.  \\
+  \hline
+  Sources& \citet{viscosity}\\
+  \hline
+  Ref.\ By & DD\ref{DD_Viscosity}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_FluidDensity}\\
+\hline
+Label& \bf Fluid Density\\
+\hline
+Symbol &$p$\\
+\hline
+% \hline
+  SI Units &$\frac{g}{cm^3}$ \\
+  \hline
+  Equation& $p$ = $\frac{g}{cm^3}$ \\
+  \hline
+  Description & 
+                Density is the ratio of mass to volume of a material. $g$ is the mass and $cm^3$ is the volume.  \\
+  \hline
+  Sources& \citet{density}\\
+  \hline
+  Ref.\ By & \tref{T_EDF}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
 
 
 \subsection{Goal Statements}
-
+\label{goalstatements}
 \noindent Given the boundary conditions, lattice model, weighting coefficient of the lattice, simulation time, fluid particle mass, and initial conditions for the momentum, density and position of the fluid particles, as well as any applied external force, the goal statements are:
 
 \begin{itemize}
@@ -435,11 +464,11 @@ Also add  about the lattice but in another section - figure out which one.
 
 \item[\label{G_Model}]G\_model: Model the location of fluid particles within the lattice over time.
 
-\item[\label{G_Velocity}]G\_model: Model the velocity of fluid particles within the lattice over time.
+\item[\label{G_Velocity}]G\_velocity: Model the velocity of fluid particles within the lattice over time.
 
-\item[\label{G_FluidPressure}]G\_model: Model the pressure of fluid particles within the lattice over time.
+\item[\label{G_FluidPressure}]G\_fluidPressure: Model the pressure of fluid particles within the lattice over time.
 
-\item[\label{G_WallPressure}]G\_model: Model the pressure exerted on the walls of the boundary over time.
+\item[\label{G_WallPressure}]G\_wallPressure: Model the pressure exerted on the walls of the boundary over time.
 
 \end{itemize}
 
@@ -463,7 +492,7 @@ on.
   Equation&  $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{\mathrm{F}}{\mathrm{m}}dt, t + dt)d\mathrm{x}d\mathrm{e} - f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e} = \mathrm{\Omega}(f)d\mathrm{x}d\mathrm{e}$\\
   \hline
   Description & 
-  This equation determines the statistical description of a group of particles. The left part of the equation, $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{\mathrm{F}}{\mathrm{kg}}dt, t + dt)d\mathrm{x}d\mathrm{e}$, represents the distribution function result after an external force $\mathrm{F}$ is applied. The middle function, $f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e}  $, represents the distribution function result before the external force is applied. The right hand side of the equation represents the collision operator, $\Omega$.\newline
+  This equation determines the statistical description of a group of particles. The left part of the equation, $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{\mathrm{F}}{\mathrm{kg}}dt, t + dt)d\mathrm{x}d\mathrm{e}$, represents the distribution function result after an external force $\mathrm{F}$ is applied. The middle function, $f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e}  $, represents the distribution function result before the external force is applied. The distribution function $f$ represents the probability that a set of particles will be at a specific location of the lattice at a specified time. The right hand side of the equation represents the collision operator, $\Omega$.\newline
 The variable $\mathrm{x}$ represents the vector of the particles within the lattice, $\mathrm{e}$ is velocity $\mathrm{\frac{m}{s}}$, $\mathrm{t}$ is time ($\mathrm{s}$), $\mathrm{F}$ is force ($\mathrm{N}$), $\mathrm{kg}$ is length ($\mathrm{kg}$). This equation can be further developed for specific instances.\\
   \hline
   Source &
@@ -476,8 +505,6 @@ The variable $\mathrm{x}$ represents the vector of the particles within the latt
 \end{minipage}\\
 
 ~\newline
-
-The distribution function $f$ represents the probability that a set of particles will be at a specific location of the lattice at a specified time.
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -537,22 +564,13 @@ The distribution function $f$ represents the probability that a set of particles
 
 ~\newline
 
-The Lattice-Boltzmann Methods compute velocity and pressure as momentum of the distribution functions.
-
-The Lattice-Boltzmann Methods rely on a two step process for computing fluid dynamics. The first processes is streaming (define more). The methods consider particles at each grid point, moving to an adjacent grid point at its velocity.
-The second process is accounting for collision (define).
-The methods can be applied to a variety of computational fluid dynamics problems, and rely on further derivations of the above theoretical models in order to be applicable to various fluid dynamics scopes.
-
-\plt{In a CA, the TMs often do not need to be refined.  However, this is not a
-  rule.  In some cases, it may make sense to introduce an IM, or possibly even a
-  GD in between the TM and the IM.}
-
 \section{Variabilities}
+\label{variabilities}
 state the binding time for each of the variabilities
 
 input variabilities? what are their associated parameters of variation?  see table lecture 5 slide 39/40
 
-\begin{table}
+\begin{table}[!h]
 \begin{center}
 \begin{tabular}{| c | c |}
 \hline
@@ -594,6 +612,9 @@ also see slide 47
 
 \begin{itemize}
 
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_fluids}:]
+  One or more fluids can be modeled.
+  
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_flowObject}:]
   The fluid can, but does not need to, flow through an object with boundary conditions.
   
@@ -624,7 +645,7 @@ also see slide 47
 
 \subsection{Calculation} \label{sec_Calculation}
 
-\begin{table}
+\begin{table}[!h]
 \begin{center}
 \begin{tabular}{| c | c |}
 \hline
@@ -649,7 +670,7 @@ Variability & Parameter of Variation\\
 
 \subsection{Output} \label{sec_Output} 
 
-\begin{table}
+\begin{table}[!h]
 \begin{center}
 \begin{tabular}{| c | c |}
 \hline
@@ -789,10 +810,11 @@ Their values are defined in this section for easy maintenance.}
 }
 
 \subsection{Off The Shelf Solutions}
+\label{OTSsolutions}
 \subsubsection*{OTS1}
 The following table lists some Lattice Boltzmann Solvers, along with an incomplete list of some input parameters. Cells that are blank represent an unknown value. Assumptions have been stated in the assumptions section.
 
-\begin{table}
+\begin{table}[!h]
 \begin{center}
 \begin{tabular}{| c | c | c | c | c | c | c | c |}
 \hline
@@ -817,14 +839,14 @@ LBSIM\cite{lbsim} & $\geq$0 &  & 2D/3D & 6,19 & $\geq$0 & &\\
 pylbm\cite{pylbm} & $\geq$0 & $\geq$0 & 1D,2D,3D & \makecell{2,3,5,9,\\ 13,15,19} & $\geq$0 & $\geq$0 & file\\
 \hline
 \end{tabular}
-\caption{LBM Solver Inputs}
+\caption{LBS Inputs}
 \end{center}
 \end{table}
 
 \subsubsection{•}
 The following table lists some Lattice Boltzmann Solvers, along with an incomplete list of some computational parameters. Cells that are blank represent an unknown value. Assumptions have been stated in the assumptions section.
 
-\begin{table}
+\begin{table}[!h]
 \begin{center}
 \begin{tabular}{| c | c | c | c |}
 \hline
@@ -849,7 +871,7 @@ LBSIM\cite{lbsim} & D2Q6, D3Q19 & spinoidal decomposition & \\
 pylbm_{\cite{pylbm}} & \pbox{3cm}{ \\ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D2Q15, D3Q15,    D3Q19} & & MPI \\
 \hline
 \end{tabular}
-\caption{LBM Solver Computational Parameters}
+\caption{LBS Computational Parameters}
 \end{center}
 \end{table}
 
@@ -857,7 +879,7 @@ The following table lists some Lattice Boltzmann Solvers, along with an incomple
 
  Cells that are blank represent an unknown value. Assumptions have been stated in the assumptions section.
 
-\begin{table}
+\begin{table}[!h]
 \begin{center}
 \begin{tabular}{| c | c | c | c |}
 \hline
@@ -882,7 +904,7 @@ LBSIM\cite{lbsim} & & & 2D/3D\\
 pylbm\cite{pylbm} & & & 2D/3D \\
 \hline
 \end{tabular}
-\caption{LBM Solver Output Parameters}
+\caption{LBS Output Parameters}
 \end{center}
 \end{table}
 
@@ -890,7 +912,7 @@ pylbm\cite{pylbm} & & & 2D/3D \\
 
 Blank coefficients are unknown to the author at the time of writing.
 
-\begin{table}
+\begin{table}[!h]
 \begin{center}
 \begin{tabular}{| c | c |}
 \hline
@@ -898,21 +920,21 @@ lattice model & coefficient weights (w_i)\\
 \hline
 D1Q2\cite{} & \\
 \hline
-D1Q3\cite{} & 4/6, i = 0;\\ 1/6, i=1,2\\
+D1Q3\cite{} & \pbox{8cm}{4/6, i = 0; 1/6, i=1,2}\\
 \hline
 D1Q5\cite{} & \\
 \hline
-D2Q9\cite{perumal2015review} & 4/9, i = 0;\\ 1/9, i = 1,2,3,4;\\ 1/36, i = 5,6,7,8\\
+D2Q9\cite{perumal2015review} & \pbox{8cm}{4/9,i = 0; 1/9, i = 1,2,3,4; 1/36, i = 5,6,7,8}\\
 \hline
 D2Q13\cite{} & \\
 \hline
 D2Q15\cite{} & \\
 \hline
-D3Q15\cite{perumal2015review} & 2/9, i = 0; \\ 1/9, i = 1,2,...,6; \\ 1/72, i = 7,8,...,14\\
+D3Q15\cite{perumal2015review} & \pbox{10cm}{2/9, i = 0; 1/9, i = 1,2,...,6; 1/72, i = 7,8,...,14}\\
 \hline
-D3Q19\cite{perumal2015review} & 2/9, i = 0;\\ 1/18, i = 1,2,...,6; \\ 1/36, i = 7,8,...,18\\
+D3Q19\cite{perumal2015review} & \pbox{10cm}{2/9, i = 0; 1/18, i = 1,2,...,6; 1/36, i = 7,8,...,18}\\
 \hline
-D3Q27\cite{perumal2015review} & 8/27, i = 0; \\ 2/27, i = 1,2,...,6; \\ 1/54, i = 7,8,...,18; \\ 1/216. i = 19,20,...,26 \\
+D3Q27\cite{perumal2015review} & \pbox{6cm}{8/27, i = 0; 2/27, i = 1,2,...,6; 1/54, i = 7,8,...,18; 1/216. i = 19,20,...,26}\\
 \hline
 
 

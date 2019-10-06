@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  5 OCT 2019 16:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  6 OCT 2019 02:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -907,6 +907,10 @@ LaTeX Info: Redefining \nameref on input line 87.
 \openout3 = `CA.out'.
 
 
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
 Dictionary: translator-basic-dictionary, Language: English 
@@ -930,26 +934,17 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \c__siunitx_mathtt_int=\count311
  [1
 
-]
-
-Package natbib Warning: Citation `Smith2006' on page i undefined on input line 
-106.
-
-
-Package natbib Warning: Citation `SmithMcCutchanAndCarette2017' on page i undef
-ined on input line 106.
-
-[1]
-Underfull \hbox (badness 10000) in paragraph at lines 135--140
+] [1]
+Underfull \hbox (badness 10000) in paragraph at lines 116--121
 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 205
+Underfull \vbox (badness 10000) detected at line 186
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 215--232
+Underfull \hbox (badness 10000) in paragraph at lines 191--210
 
  []
 
@@ -961,161 +956,205 @@ Missing character: There is no ¢ in font cmr12!
 \tf@toc=\write4
 \openout4 = `CA.toc'.
 
- [4] [5] [1]
-Underfull \hbox (badness 10000) in paragraph at lines 335--336
+ [4] [5] [1] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 340--363
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 310--333
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 337--364
-
- []
-
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 365--366
-
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 370--393
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 367--394
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 395--396
-
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 400--423
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 397--424
+Underfull \hbox (badness 10000) in paragraph at lines 307--334
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 451--452
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
 
  []
 
 
-Overfull \hbox (102.6227pt too wide) in paragraph at lines 470--472
-[]|[][][][][][] 
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 456--476
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 342--365
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 453--477
+Underfull \hbox (badness 10000) in paragraph at lines 339--366
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 367--368
+
+ []
+
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 372--395
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--396
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 478--479
+Underfull \hbox (badness 10000) in paragraph at lines 397--398
 
  []
 
 
-Overfull \hbox (102.6227pt too wide) in paragraph at lines 500--502
-[]|[][][][][][] 
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 485--506
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 402--425
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 482--507
+Underfull \hbox (badness 10000) in paragraph at lines 399--426
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 508--509
+Underfull \hbox (badness 10000) in paragraph at lines 427--428
 
  []
 
 
-Overfull \hbox (102.6227pt too wide) in paragraph at lines 527--532
-[]|[][][][][][] 
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 513--536
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 432--454
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 510--537
+Underfull \hbox (badness 10000) in paragraph at lines 429--455
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 538--539
+Underfull \hbox (badness 10000) in paragraph at lines 480--481
 
  []
 
 
-Package natbib Warning: Citation `SmithMcCutchanAndCarette2017' on page 6 undef
-ined on input line 583.
+Overfull \hbox (102.6227pt too wide) in paragraph at lines 499--501
+[]|[][][][][][] 
+ []
 
 
-Package natbib Warning: Citation `Smith2006' on page 6 undefined on input line 
-583.
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 485--505
+[][] 
+ []
 
-[6] [7] [8]
 
-Package natbib Warning: Citation `Smith2006' on page 9 undefined on input line 
-725.
+Underfull \hbox (badness 10000) in paragraph at lines 482--506
 
-[9] (./CA.bbl
-Underfull \hbox (badness 4479) in paragraph at lines 29--33
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 507--508
+
+ []
+
+
+Overfull \hbox (102.6227pt too wide) in paragraph at lines 527--529
+[]|[][][][][][] 
+ []
+
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 512--533
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 509--534
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 535--536
+
+ []
+
+
+Overfull \hbox (102.6227pt too wide) in paragraph at lines 554--559
+[]|[][][][][][] 
+ []
+
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 540--563
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 537--564
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 565--566
+
+ []
+
+
+Package natbib Warning: Citation `SmithMcCutchanAndCarette2017' on page 8 undef
+ined on input line 601.
+
+
+Package natbib Warning: Citation `Smith2006' on page 8 undefined on input line 
+601.
+
+[8] [9] [10]
+
+Package natbib Warning: Citation `Smith2006' on page 11 undefined on input line
+ 746.
+
+[11] (./CA.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 37--41
+[]\OT1/cmr/m/n/12 Shreedharan Bolton, Schwartz.  Lat-tice boltz-mann meth-ods. 
+ URL
+ []
+
+
+Overfull \hbox (45.4866pt too wide) in paragraph at lines 37--41
+[][][][][][]\OT1/cmr/m/n/12 . 
+ []
+
+
+Underfull \hbox (badness 4479) in paragraph at lines 49--53
 []\OT1/cmr/m/n/12 Fernandez.  Mul-ti-phase lat-tice boltz-mann suite user guide
 , 2014.  URL
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 35--39
+Underfull \hbox (badness 10000) in paragraph at lines 55--59
 []\OT1/cmr/m/n/12 Gouarin Graille.  pylbm doc-u-men-ta-tion re-lease 0.3.2, 201
 8.  URL
  []
 
 Missing character: There is no Ì in font cmr12!
 Missing character: There is no ˆ in font cmr12!
-) [10]
+[12]) [13]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 Missing character: There is no â in font cmbx12!
 Missing character: There is no € in font cmbx12!
 Missing character: There is no ¢ in font cmbx12!
 
-Underfull \hbox (badness 5504) in paragraph at lines 839--839
+Underfull \hbox (badness 5504) in paragraph at lines 861--861
 []\OT1/cmr/m/n/12 D2Q9, D3Q15,
  []
 
 
-Underfull \hbox (badness 5504) in paragraph at lines 843--843
+Underfull \hbox (badness 5504) in paragraph at lines 865--865
 []\OT1/cmr/m/n/12 D2Q9, D3Q13,
  []
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.849 pylbm_
+l.871 pylbm_
             {\cite{pylbm}} & \pbox{3cm}{ \\ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1123,7 +1162,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.849 pylbm_{\cite{pylbm}} &
+l.871 pylbm_{\cite{pylbm}} &
                              \pbox{3cm}{ \\ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1138,26 +1177,32 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.849 ...1Q5, D2Q9, D2Q13, D2Q15, D3Q15,    D3Q19}
+l.871 ...1Q5, D2Q9, D2Q13, D2Q15, D3Q15,    D3Q19}
                                                    & & MPI \\
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 849--849
+Underfull \hbox (badness 10000) in paragraph at lines 871--871
 []\OT1/cmr/m/n/12 D1Q2, D1Q3,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 849--849
+Underfull \hbox (badness 10000) in paragraph at lines 871--871
 \OT1/cmr/m/n/12 D1Q5, D2Q9,
  []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.897 lattice model & coefficient weights (w_
+l.919 lattice model & coefficient weights (w_
                                              i)\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1165,7 +1210,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.898 \hline
+l.920 \hline
             
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1174,25 +1219,28 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 924.
-[11] [12] [13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 924.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 946.
+[14] [15] [16]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 946.
  (./CA.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 924.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 924.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 946.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 946.
 Package rerunfilecheck Info: File `CA.out' has not changed.
 (rerunfilecheck)             Checksum: 45B6838B973F64D7BAC4EBBE4455C270;2253.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 924.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 946.
  ) 
 Here is how much of TeX's memory you used:
- 19699 strings out of 492983
- 378940 string characters out of 6134923
- 457371 words of memory out of 5000000
- 23086 multiletter control sequences out of 15000+600000
+ 19722 strings out of 492983
+ 379373 string characters out of 6134923
+ 456536 words of memory out of 5000000
+ 23109 multiletter control sequences out of 15000+600000
  542548 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,26n,39p,10374b,837s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,26n,39p,10374b,853s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on CA.dvi (19 pages, 103236 bytes).
+Output written on CA.dvi (22 pages, 114136 bytes).

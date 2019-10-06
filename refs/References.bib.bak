@@ -115,9 +115,46 @@ url = {https://buildmedia.readthedocs.org/media/pdf/pylbm/develop/pylbm.pdf}
   publisher={Elsevier}
 }
 
+@inproceedings{smith2006systematic,
+  title={Systematic development of requirements documentation for general purpose scientific computing software},
+  author={Smith, Spencer},
+  booktitle={14th IEEE International Requirements Engineering Conference (RE'06)},
+  pages={209--218},
+  year={2006},
+  organization={IEEE}
+}
 
+@article{bao2011lattice,
+  title={Lattice Boltzmann method for fluid simulations},
+  author={Bao, Yuanxun Bill and Meskas, Justin},
+  journal={Department of Mathematics, Courant Institute of Mathematical Sciences, New York University},
+  pages={44},
+  year={2011}
+}
 
+@online{lbmbolton,
+	author = {Bolton, Schwartz, Shreedharan},
+	title = {Lattice Boltzmann Methods},
+	url = {https://personal.ems.psu.edu/~fkd/courses/EGEE520/2017Deliverables/LBM_2017.pdf},
+	organization = {Pennsylvania State University},
+	date = {2017},
+	urldate = {2019}
+}	
 
+@online{viscosity,
+	title = {Viscosity},
+	url = {https://physics.info/viscosity},
+	organization = {The Physics Hypertextbook},
+	urldate = {2019}
+}	
+
+@online{density,
+	title = {Density},
+	url = {https://physics.info/density},
+	organization = {The Physics Hypertextbook},
+	urldate = {2019}
+}	
+	
 
 
 
