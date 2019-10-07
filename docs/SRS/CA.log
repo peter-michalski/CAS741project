@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  6 OCT 2019 02:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  6 OCT 2019 23:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -940,176 +940,405 @@ Underfull \hbox (badness 10000) in paragraph at lines 116--121
  []
 
 
-Underfull \vbox (badness 10000) detected at line 186
+Underfull \vbox (badness 10000) detected at line 189
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 191--210
+Underfull \hbox (badness 10000) in paragraph at lines 197--217
 
  []
 
-[3] (./CA.toc
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ¢ in font cmr12!
-)
+[3] (./CA.toc)
 \tf@toc=\write4
 \openout4 = `CA.toc'.
 
- [4] [5] [1] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 305--306
+ [1] [2] [3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 318--319
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 310--333
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 323--346
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 307--334
-
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 336--337
+Underfull \hbox (badness 10000) in paragraph at lines 320--347
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 342--365
+Underfull \hbox (badness 10000) in paragraph at lines 349--350
+
+ []
+
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 355--378
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 339--366
+Underfull \hbox (badness 10000) in paragraph at lines 352--379
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--368
-
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 372--395
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 369--396
-
- []
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 397--398
-
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 402--425
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 399--426
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 427--428
-
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 432--454
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 429--455
+Underfull \hbox (badness 10000) in paragraph at lines 380--381
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 480--481
-
- []
-
-
-Overfull \hbox (102.6227pt too wide) in paragraph at lines 499--501
-[]|[][][][][][] 
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 485--505
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 385--408
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 482--506
-
- []
-
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 507--508
+Underfull \hbox (badness 10000) in paragraph at lines 382--409
 
  []
 
 
-Overfull \hbox (102.6227pt too wide) in paragraph at lines 527--529
-[]|[][][][][][] 
+Underfull \hbox (badness 10000) in paragraph at lines 410--411
+
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 512--533
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 415--438
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 509--534
+Underfull \hbox (badness 10000) in paragraph at lines 412--439
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 535--536
+Underfull \hbox (badness 10000) in paragraph at lines 440--441
 
  []
 
 
-Overfull \hbox (102.6227pt too wide) in paragraph at lines 554--559
-[]|[][][][][][] 
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 540--563
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 445--467
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 537--564
+Underfull \hbox (badness 10000) in paragraph at lines 442--468
 
  []
 
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 565--566
+[6] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 491--492
 
  []
 
 
-Package natbib Warning: Citation `SmithMcCutchanAndCarette2017' on page 8 undef
-ined on input line 601.
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 496--516
+[][] 
+ []
 
 
-Package natbib Warning: Citation `Smith2006' on page 8 undefined on input line 
-601.
+Underfull \hbox (badness 10000) in paragraph at lines 493--517
 
-[8] [9] [10]
+ []
 
-Package natbib Warning: Citation `Smith2006' on page 11 undefined on input line
- 746.
 
-[11] (./CA.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
+
+ []
+
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 523--543
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 520--544
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 545--546
+
+ []
+
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 550--572
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 547--573
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 574--575
+
+ []
+
+[10] [11]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 646.
+
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 646.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.656 velocity ($e$) & Set of \mathbb
+                                     {R} & scope \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.658 time ($t$) & Set of \mathbb
+                                 {R}& scope \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.660 macroscopic velocity ($u$) & Set of \mathbb
+                                                 {R}& scope \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.662 ...d density ($p$) & Set of positive \mathbb
+                                                  {R}& scope \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.664 ...n vector ($x$) & Vector of Set of \mathbb
+                                                  {R}& scope \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.666 viscosity ($\eta$) & Set of \mathbb
+                                         {R} $\geq$ 0 & scope \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.668 relaxation rate ($\tau$) & Set of \mathbb
+                                               {R} & scope \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.670 ...city gradient ($\gamma$ )& Set of \mathbb
+                                                  {R} & scope\\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.672 force ($F$) & Set of \mathbb
+                                  {R} $\geq$ 0 & scope \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.674 cross-sectional area ($A$) & Set of \mathbb
+                                                 {R} $\geq$ 0 & scope \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 1789) in paragraph at lines 688--688
+[]\OT1/cmr/m/n/12 computational model
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.688 ...Q15, D3Q15, D3Q15i, D3Q19, D3Q19+, D3Q27}
+                                                   & compile \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 4505) in paragraph at lines 688--688
+\OT1/cmr/m/n/12 D2Q13, D2Q15, D3Q15,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 690--690
+[]\OT1/cmr/m/n/12 decomposition tech-nique
+ []
+
+
+Underfull \hbox (badness 1122) in paragraph at lines 690--690
+[]\OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 ParMETIS li-brary, PT[]Scotch
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 690--690
+\OT1/cmr/m/n/12 li-brary, block-wide de-com-po-
+ []
+
+
+Underfull \hbox (badness 5592) in paragraph at lines 690--690
+\OT1/cmr/m/n/12 si-tion, do-main de-com-po-si-tion,
+ []
+
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.692 coefficient weights & Set of \{0 $<$ \mathbb
+                                                  {R} $<$ 1\}; \sum \mathbb{...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.692 ...& Set of \{0 $<$ \mathbb{R} $<$ 1\}; \sum
+                                                   \mathbb{R} = 1 & compile \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.692 ...\mathbb{R} $<$ 1\}; \sum \mathbb{R} = 1 &
+                                                   compile \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[12]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.714 graphical model & Set of \{2D, 3D\}; \sum
+                                                \mathbb{R} = 1 & run \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.714 ... Set of \{2D, 3D\}; \sum \mathbb{R} = 1 &
+                                                   run \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+[13] [14]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.774 T
+       he requirements have been compared using a pairwise process, the resu...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.780 ...xtbf{8} & \textbf{9} & \textbf{10} & \sum
+                                                   \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.781 \hline
+            
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+[15] [16] [17] (./CA.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 37--41
 []\OT1/cmr/m/n/12 Shreedharan Bolton, Schwartz.  Lat-tice boltz-mann meth-ods. 
  URL
@@ -1134,41 +1363,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--59
 
 Missing character: There is no Ì in font cmr12!
 Missing character: There is no ˆ in font cmr12!
-[12]) [13]
+[18]) [19]
+Overfull \hbox (13.28905pt too wide) in paragraph at lines 933--956
+ [] 
+ []
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no ¢ in font cmbx12!
-
-Underfull \hbox (badness 5504) in paragraph at lines 861--861
+Underfull \hbox (badness 5504) in paragraph at lines 973--973
 []\OT1/cmr/m/n/12 D2Q9, D3Q15,
  []
 
 
-Underfull \hbox (badness 5504) in paragraph at lines 865--865
+Underfull \hbox (badness 5504) in paragraph at lines 977--977
 []\OT1/cmr/m/n/12 D2Q9, D3Q13,
  []
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.871 pylbm_
-            {\cite{pylbm}} & \pbox{3cm}{ \\ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.871 pylbm_{\cite{pylbm}} &
-                             \pbox{3cm}{ \\ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
 
 
 ! LaTeX Error: There's no line here to end.
@@ -1177,20 +1385,25 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.871 ...1Q5, D2Q9, D2Q13, D2Q15, D3Q15,    D3Q19}
+l.983 ..., D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q19}
                                                    & & MPI \\
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 871--871
+Underfull \hbox (badness 10000) in paragraph at lines 983--983
 []\OT1/cmr/m/n/12 D1Q2, D1Q3,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 871--871
+Underfull \hbox (badness 10000) in paragraph at lines 983--983
 \OT1/cmr/m/n/12 D1Q5, D2Q9,
+ []
+
+
+Overfull \hbox (14.59926pt too wide) in paragraph at lines 963--986
+ [] 
  []
 
 
@@ -1199,48 +1412,44 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+[20] [21]
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.919 lattice model & coefficient weights (w_
-                                             i)\\
+l.1029 ...odel} & \textbf{coefficient weights} (w_
+                                                  i)\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.920 \hline
-            
+l.1030 \hline
+             
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Package natbib Warning: There were undefined citations.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 946.
-[14] [15] [16]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 946.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1057.
+[22]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1057.
  (./CA.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 946.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 946.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1057.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1057.
+
 Package rerunfilecheck Info: File `CA.out' has not changed.
-(rerunfilecheck)             Checksum: 45B6838B973F64D7BAC4EBBE4455C270;2253.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 946.
+(rerunfilecheck)             Checksum: 7D70B6224646C6546F6E202E74A5F527;2188.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1057.
  ) 
 Here is how much of TeX's memory you used:
- 19722 strings out of 492983
- 379373 string characters out of 6134923
- 456536 words of memory out of 5000000
- 23109 multiletter control sequences out of 15000+600000
+ 19761 strings out of 492983
+ 380068 string characters out of 6134923
+ 452341 words of memory out of 5000000
+ 23145 multiletter control sequences out of 15000+600000
  542548 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,26n,39p,10374b,853s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,26n,39p,10374b,855s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on CA.dvi (22 pages, 114136 bytes).
+Output written on CA.dvi (26 pages, 156600 bytes).

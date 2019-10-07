@@ -9,8 +9,6 @@ Warning--entry type for "viscosity" isn't style-file defined
 --line 144 of file ../../refs/References.bib
 Warning--entry type for "density" isn't style-file defined
 --line 151 of file ../../refs/References.bib
-Warning--I didn't find a database entry for "SmithMcCutchanAndCarette2017"
-Warning--I didn't find a database entry for "Smith2006"
 Warning--I didn't find a database entry for ""
 Warning--to sort, need author or key in viscosity
 Warning--to sort, need author or key in density
@@ -18,45 +16,46 @@ Warning--empty year in density
 Warning--empty year in viscosity
 Warning--empty year in lbsim
 Warning--empty year in lbmbolton
-You've used 17 entries,
+Warning--empty author in IEEEStdGlossarySET1990
+You've used 20 entries,
             2773 wiz_defined-function locations,
-            696 strings with 7620 characters,
-and the built_in function-call counts, 6981 in all, are:
-= -- 632
-> -- 330
-< -- 16
-+ -- 116
-- -- 99
-* -- 512
-:= -- 1019
-add.period$ -- 49
-call.type$ -- 17
-change.case$ -- 83
-chr.to.int$ -- 17
-cite$ -- 42
-duplicate$ -- 324
-empty$ -- 637
-format.name$ -- 128
-if$ -- 1491
+            708 strings with 7911 characters,
+and the built_in function-call counts, 7928 in all, are:
+= -- 722
+> -- 361
+< -- 18
++ -- 128
+- -- 108
+* -- 575
+:= -- 1160
+add.period$ -- 58
+call.type$ -- 20
+change.case$ -- 96
+chr.to.int$ -- 20
+cite$ -- 49
+duplicate$ -- 379
+empty$ -- 731
+format.name$ -- 141
+if$ -- 1694
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 11
-newline$ -- 90
-num.names$ -- 60
-pop$ -- 200
+missing$ -- 14
+newline$ -- 105
+num.names$ -- 68
+pop$ -- 226
 preamble$ -- 1
-purify$ -- 67
+purify$ -- 77
 quote$ -- 0
-skip$ -- 277
+skip$ -- 315
 stack$ -- 0
-substring$ -- 262
-swap$ -- 33
+substring$ -- 284
+swap$ -- 35
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 182
-warning$ -- 6
-while$ -- 63
+type$ -- 210
+warning$ -- 7
+while$ -- 71
 width$ -- 0
-write$ -- 212
-(There were 12 warnings)
+write$ -- 250
+(There were 11 warnings)

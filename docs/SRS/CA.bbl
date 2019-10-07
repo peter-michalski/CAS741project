@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{20}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -57,6 +57,11 @@ Gouarin Graille.
 \newblock URL
   \url{https://buildmedia.readthedocs.org/media/pdf/pylbm/develop/pylbm.pdf}.
 
+\bibitem[IEEE Std 610.12-1990()]{IEEEStdGlossarySET1990}
+IEEE Std 610.12-1990.
+\newblock Ieee standard glossary of software engineering terminology.
+\newblock Standard, IEEE, 1991.
+
 \bibitem[Januszewski and Kostur(2014)]{januszewski2014sailfish}
 Michal Januszewski and Marcin Kostur.
 \newblock Sailfish: A flexible multi-gpu implementation of the lattice
@@ -108,5 +113,16 @@ Spencer Smith.
   purpose scientific computing software.
 \newblock In \emph{14th IEEE International Requirements Engineering Conference
   (RE'06)}, pages 209--218. IEEE, 2006.
+
+\bibitem[Sommerville(2011)]{sommerville}
+Ian Sommerville.
+\newblock \emph{Software Engineering 9}.
+\newblock Pearson Education, 2011.
+
+\bibitem[Uchida and Shima(2005)]{uchida2005experiment}
+Shinji Uchida and Kazuyuki Shima.
+\newblock An experiment of evaluating software understandability.
+\newblock \emph{Journal of Systemic, Cybernetics and Informatics}, 2:\penalty0
+  7--11, 2005.
 
 \end{thebibliography}
