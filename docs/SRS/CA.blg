@@ -9,6 +9,10 @@ Warning--entry type for "viscosity" isn't style-file defined
 --line 144 of file ../../refs/References.bib
 Warning--entry type for "density" isn't style-file defined
 --line 151 of file ../../refs/References.bib
+Warning--entry type for "lbmpenn" isn't style-file defined
+--line 182 of file ../../refs/References.bib
+Warning--entry type for "sheffield" isn't style-file defined
+--line 191 of file ../../refs/References.bib
 Warning--I didn't find a database entry for ""
 Warning--to sort, need author or key in viscosity
 Warning--to sort, need author or key in density
@@ -17,45 +21,48 @@ Warning--empty year in viscosity
 Warning--empty year in lbsim
 Warning--empty year in lbmbolton
 Warning--empty author in IEEEStdGlossarySET1990
-You've used 20 entries,
+Warning--empty year in lbmpenn
+Warning--empty year in sheffield
+Warning--empty school in lopez2014thermal
+You've used 23 entries,
             2773 wiz_defined-function locations,
-            708 strings with 7911 characters,
-and the built_in function-call counts, 7928 in all, are:
-= -- 722
-> -- 361
-< -- 18
-+ -- 128
-- -- 108
-* -- 575
-:= -- 1160
-add.period$ -- 58
-call.type$ -- 20
-change.case$ -- 96
-chr.to.int$ -- 20
-cite$ -- 49
-duplicate$ -- 379
-empty$ -- 731
-format.name$ -- 141
-if$ -- 1694
-int.to.chr$ -- 1
+            718 strings with 8341 characters,
+and the built_in function-call counts, 8810 in all, are:
+= -- 800
+> -- 391
+< -- 21
++ -- 141
+- -- 117
+* -- 629
+:= -- 1299
+add.period$ -- 67
+call.type$ -- 23
+change.case$ -- 107
+chr.to.int$ -- 22
+cite$ -- 58
+duplicate$ -- 425
+empty$ -- 817
+format.name$ -- 153
+if$ -- 1875
+int.to.chr$ -- 2
 int.to.str$ -- 1
 missing$ -- 14
-newline$ -- 105
-num.names$ -- 68
-pop$ -- 226
+newline$ -- 120
+num.names$ -- 80
+pop$ -- 257
 preamble$ -- 1
-purify$ -- 77
+purify$ -- 86
 quote$ -- 0
-skip$ -- 315
+skip$ -- 352
 stack$ -- 0
-substring$ -- 284
-swap$ -- 35
+substring$ -- 290
+swap$ -- 40
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 210
-warning$ -- 7
-while$ -- 71
+type$ -- 243
+warning$ -- 10
+while$ -- 80
 width$ -- 0
-write$ -- 250
-(There were 11 warnings)
+write$ -- 286
+(There were 16 warnings)

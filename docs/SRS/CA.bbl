@@ -1,4 +1,4 @@
-\begin{thebibliography}{20}
+\begin{thebibliography}{23}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -68,6 +68,24 @@ Michal Januszewski and Marcin Kostur.
   boltzmann method.
 \newblock \emph{Computer Physics Communications}, 185\penalty0 (9):\penalty0
   2350--2368, 2014.
+
+\bibitem[Liu({\natexlab{a}})]{lbmpenn}
+Li~Liu, Lu.
+\newblock Lattice boltzmann method, {\natexlab{a}}.
+\newblock URL
+  \url{https://personal.ems.psu.edu/~fkd/courses/EGEE520/2018Deliverables/lbm.pdf}.
+
+\bibitem[Liu({\natexlab{b}})]{sheffield}
+Li~Liu, Lu.
+\newblock The lattice boltzmann method, {\natexlab{b}}.
+\newblock URL
+  \url{https://www.shu.ac.uk/research/specialisms/materials-and-engineering-research-institute/what-we-do/expertise/materials-modelling-and-complex-flows/the-lattice-boltzmann-method}.
+
+\bibitem[Lopez(2014)]{lopez2014thermal}
+Pedro Lopez.
+\newblock \emph{Thermal Lattice Boltzmann Simulation for Rarefied Flow in
+  Microchannels}.
+\newblock PhD thesis, 2014.
 
 \bibitem[Mazzeo and Coveney(2008)]{mazzeo2008hemelb}
 Marco~D Mazzeo and Peter~V Coveney.

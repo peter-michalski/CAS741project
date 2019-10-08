@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  6 OCT 2019 23:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  7 OCT 2019 21:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -846,49 +846,63 @@ LaTeX Info: Redefining \cite on input line 694.
 )
 
 Package hyperref Warning: Option `bookmarks' has already been used,
-(hyperref)                setting the option has no effect on input line 39.
+(hyperref)                setting the option has no effect on input line 37.
 
-Package hyperref Info: Option `colorlinks' set `true' on input line 39.
+Package hyperref Info: Option `colorlinks' set `true' on input line 37.
 (../Comments.tex)
 \c@defnum=\count300
 \c@datadefnum=\count301
-\c@theorynum=\count302
-\c@tablenum=\count303
-\c@assumpnum=\count304
-\c@goalnum=\count305
+\c@goalnum=\count302
+\c@theorynum=\count303
+\c@tablenum=\count304
+\c@assumpnum=\count305
+
+
+! LaTeX Error: Command \c@goalnum already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 \newcounter{goalnum}
+                          %Goal Number
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
 \c@instnum=\count306
 \c@reqnum=\count307
 \c@lcnum=\count308
-
 (/usr/share/texlive/texmf-dist/tex/latex/preprint/fullpage.sty
 Package: fullpage 1999/02/23 1.1 (PWD)
 \FP@margin=\skip72
 ) (./CA.aux)
 \openout1 = `CA.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 87.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 87.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 86.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 86.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    ... okay on input line 86.
 \AtBeginShipoutBox=\box61
-Package hyperref Info: Link coloring ON on input line 87.
+Package hyperref Info: Link coloring ON on input line 86.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -898,9 +912,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count309
 )
-LaTeX Info: Redefining \ref on input line 87.
-LaTeX Info: Redefining \pageref on input line 87.
-LaTeX Info: Redefining \nameref on input line 87.
+LaTeX Info: Redefining \ref on input line 86.
+LaTeX Info: Redefining \pageref on input line 86.
+LaTeX Info: Redefining \nameref on input line 86.
 
 (./CA.out) (./CA.out)
 \@outlinefile=\write3
@@ -921,12 +935,12 @@ File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 \c__siunitx_mathsf_int=\count310
-LaTeX Font Info:    Try loading font information for U+msa on input line 87.
+LaTeX Font Info:    Try loading font information for U+msa on input line 86.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 87.
+LaTeX Font Info:    Try loading font information for U+msb on input line 86.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -935,16 +949,16 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [1
 
 ] [1]
-Underfull \hbox (badness 10000) in paragraph at lines 116--121
+Underfull \hbox (badness 10000) in paragraph at lines 115--120
 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 189
+Underfull \vbox (badness 10000) detected at line 188
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 197--217
+Underfull \hbox (badness 10000) in paragraph at lines 196--221
 
  []
 
@@ -952,139 +966,158 @@ Underfull \hbox (badness 10000) in paragraph at lines 197--217
 \tf@toc=\write4
 \openout4 = `CA.toc'.
 
- [1] [2] [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 318--319
+ [1]
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 323--346
+! LaTeX Error: File `SystemContext' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.244 ...phics[width=0.8\textwidth]{SystemContext}
+                                                  
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[2] [3] [4] [5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
+
+ []
+
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 341--364
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 320--347
+Underfull \hbox (badness 10000) in paragraph at lines 338--365
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 349--350
+Underfull \hbox (badness 10000) in paragraph at lines 367--368
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 355--378
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 373--396
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 352--379
+Underfull \hbox (badness 10000) in paragraph at lines 370--397
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 380--381
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
 
  []
 
-[5]
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 385--408
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 403--426
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 382--409
+Underfull \hbox (badness 10000) in paragraph at lines 400--427
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 428--429
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 410--411
-
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 415--438
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 433--456
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 412--439
+Underfull \hbox (badness 10000) in paragraph at lines 430--457
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 440--441
+Underfull \hbox (badness 10000) in paragraph at lines 458--459
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 445--467
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 463--485
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 442--468
+Underfull \hbox (badness 10000) in paragraph at lines 460--486
 
  []
 
-[6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 491--492
+[8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 509--510
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 496--516
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 514--534
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 493--517
+Underfull \hbox (badness 10000) in paragraph at lines 511--535
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 518--519
+Underfull \hbox (badness 10000) in paragraph at lines 536--537
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 523--543
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 541--561
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 520--544
+Underfull \hbox (badness 10000) in paragraph at lines 538--562
 
  []
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 545--546
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 563--564
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 550--572
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 568--590
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 547--573
+Underfull \hbox (badness 10000) in paragraph at lines 565--591
 
  []
 
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 574--575
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 592--593
 
  []
 
-[10] [11]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 646.
+[12] [13]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 664.
 
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 646.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 664.
 
 
 ! LaTeX Error: \mathbb allowed only in math mode.
@@ -1093,7 +1126,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.656 velocity ($e$) & Set of \mathbb
+l.674 velocity ($e$) & Set of \mathbb
                                      {R} & scope \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1105,7 +1138,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.658 time ($t$) & Set of \mathbb
+l.676 time ($t$) & Set of \mathbb
                                  {R}& scope \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1117,7 +1150,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.660 macroscopic velocity ($u$) & Set of \mathbb
+l.678 macroscopic velocity ($u$) & Set of \mathbb
                                                  {R}& scope \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1129,7 +1162,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.662 ...d density ($p$) & Set of positive \mathbb
+l.680 ...d density ($p$) & Set of positive \mathbb
                                                   {R}& scope \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1141,7 +1174,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.664 ...n vector ($x$) & Vector of Set of \mathbb
+l.682 ...n vector ($x$) & Vector of Set of \mathbb
                                                   {R}& scope \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1153,7 +1186,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.666 viscosity ($\eta$) & Set of \mathbb
+l.684 viscosity ($\eta$) & Set of \mathbb
                                          {R} $\geq$ 0 & scope \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1165,7 +1198,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.668 relaxation rate ($\tau$) & Set of \mathbb
+l.686 relaxation rate ($\tau$) & Set of \mathbb
                                                {R} & scope \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1177,7 +1210,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.670 ...city gradient ($\gamma$ )& Set of \mathbb
+l.688 ...city gradient ($\gamma$ )& Set of \mathbb
                                                   {R} & scope\\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1189,7 +1222,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.672 force ($F$) & Set of \mathbb
+l.690 force ($F$) & Set of \mathbb
                                   {R} $\geq$ 0 & scope \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1201,13 +1234,13 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.674 cross-sectional area ($A$) & Set of \mathbb
+l.692 cross-sectional area ($A$) & Set of \mathbb
                                                  {R} $\geq$ 0 & scope \\
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 1789) in paragraph at lines 688--688
+Underfull \hbox (badness 1789) in paragraph at lines 706--706
 []\OT1/cmr/m/n/12 computational model
  []
 
@@ -1218,34 +1251,34 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.688 ...Q15, D3Q15, D3Q15i, D3Q19, D3Q19+, D3Q27}
+l.706 ...Q15, D3Q15, D3Q15i, D3Q19, D3Q19+, D3Q27}
                                                    & compile \\
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 4505) in paragraph at lines 688--688
+Underfull \hbox (badness 4505) in paragraph at lines 706--706
 \OT1/cmr/m/n/12 D2Q13, D2Q15, D3Q15,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 690--690
+Underfull \hbox (badness 10000) in paragraph at lines 708--708
 []\OT1/cmr/m/n/12 decomposition tech-nique
  []
 
 
-Underfull \hbox (badness 1122) in paragraph at lines 690--690
+Underfull \hbox (badness 1122) in paragraph at lines 708--708
 []\OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 ParMETIS li-brary, PT[]Scotch
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 690--690
+Underfull \hbox (badness 10000) in paragraph at lines 708--708
 \OT1/cmr/m/n/12 li-brary, block-wide de-com-po-
  []
 
 
-Underfull \hbox (badness 5592) in paragraph at lines 690--690
+Underfull \hbox (badness 5592) in paragraph at lines 708--708
 \OT1/cmr/m/n/12 si-tion, do-main de-com-po-si-tion,
  []
 
@@ -1256,7 +1289,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.692 coefficient weights & Set of \{0 $<$ \mathbb
+l.710 coefficient weights & Set of \{0 $<$ \mathbb
                                                   {R} $<$ 1\}; \sum \mathbb{...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -1265,7 +1298,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.692 ...& Set of \{0 $<$ \mathbb{R} $<$ 1\}; \sum
+l.710 ...& Set of \{0 $<$ \mathbb{R} $<$ 1\}; \sum
                                                    \mathbb{R} = 1 & compile \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1273,7 +1306,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.692 ...\mathbb{R} $<$ 1\}; \sum \mathbb{R} = 1 &
+l.710 ...\mathbb{R} $<$ 1\}; \sum \mathbb{R} = 1 &
                                                    compile \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1284,11 +1317,11 @@ my insertion and my current dilemma will both disappear.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[12]
+[14]
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.714 graphical model & Set of \{2D, 3D\}; \sum
+l.732 graphical model & Set of \{2D, 3D\}; \sum
                                                 \mathbb{R} = 1 & run \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1296,7 +1329,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.714 ... Set of \{2D, 3D\}; \sum \mathbb{R} = 1 &
+l.732 ... Set of \{2D, 3D\}; \sum \mathbb{R} = 1 &
                                                    run \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1304,7 +1337,7 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[13] [14]
+[15] [16]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -1312,17 +1345,21 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.774 T
-       he requirements have been compared using a pairwise process, the resu...
-
+l.792 
+      
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 795--797
+
+ []
+
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.780 ...xtbf{8} & \textbf{9} & \textbf{10} & \sum
+l.802 ...xtbf{8} & \textbf{9} & \textbf{10} & \sum
                                                    \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1330,7 +1367,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.781 \hline
+l.803 \hline
             
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1338,7 +1375,7 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[15] [16] [17] (./CA.bbl
+[18] [19] [20] (./CA.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 37--41
 []\OT1/cmr/m/n/12 Shreedharan Bolton, Schwartz.  Lat-tice boltz-mann meth-ods. 
  URL
@@ -1361,20 +1398,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--59
 8.  URL
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--77
+[]\OT1/cmr/m/n/12 Li Liu, Lu.  Lat-tice boltz-mann method, .  URL
+ []
+
+
+Overfull \hbox (14.61159pt too wide) in paragraph at lines 73--77
+[][][][][][]\OT1/cmr/m/n/12 . 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--83
+[]\OT1/cmr/m/n/12 Li Liu, Lu.  The lat-tice boltz-mann method, .  URL
+ []
+
+
+Overfull \hbox (644.7869pt too wide) in paragraph at lines 79--83
+[][][][][][]\OT1/cmr/m/n/12 . 
+ []
+
+[21]
 Missing character: There is no Ì in font cmr12!
 Missing character: There is no ˆ in font cmr12!
-[18]) [19]
-Overfull \hbox (13.28905pt too wide) in paragraph at lines 933--956
+) [22]
+Overfull \hbox (13.28905pt too wide) in paragraph at lines 955--978
  [] 
  []
 
 
-Underfull \hbox (badness 5504) in paragraph at lines 973--973
+Underfull \hbox (badness 5504) in paragraph at lines 995--995
 []\OT1/cmr/m/n/12 D2Q9, D3Q15,
  []
 
 
-Underfull \hbox (badness 5504) in paragraph at lines 977--977
+Underfull \hbox (badness 5504) in paragraph at lines 999--999
 []\OT1/cmr/m/n/12 D2Q9, D3Q13,
  []
 
@@ -1385,24 +1443,24 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.983 ..., D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q19}
+l.1005 ... D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q19}
                                                    & & MPI \\
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 983--983
+Underfull \hbox (badness 10000) in paragraph at lines 1005--1005
 []\OT1/cmr/m/n/12 D1Q2, D1Q3,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 983--983
+Underfull \hbox (badness 10000) in paragraph at lines 1005--1005
 \OT1/cmr/m/n/12 D1Q5, D2Q9,
  []
 
 
-Overfull \hbox (14.59926pt too wide) in paragraph at lines 963--986
+Overfull \hbox (14.59926pt too wide) in paragraph at lines 985--1008
  [] 
  []
 
@@ -1412,11 +1470,11 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[20] [21]
+[23] [24]
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.1029 ...odel} & \textbf{coefficient weights} (w_
+l.1051 ...odel} & \textbf{coefficient weights} (w_
                                                   i)\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1424,7 +1482,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.1030 \hline
+l.1052 \hline
              
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1432,24 +1490,24 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1057.
-[22]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1057.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1079.
+[25]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1079.
  (./CA.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1057.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1057.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1079.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1079.
 
 Package rerunfilecheck Info: File `CA.out' has not changed.
 (rerunfilecheck)             Checksum: 7D70B6224646C6546F6E202E74A5F527;2188.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1057.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1079.
  ) 
 Here is how much of TeX's memory you used:
- 19761 strings out of 492983
- 380068 string characters out of 6134923
- 452341 words of memory out of 5000000
- 23145 multiletter control sequences out of 15000+600000
+ 19781 strings out of 492983
+ 380341 string characters out of 6134923
+ 452433 words of memory out of 5000000
+ 23157 multiletter control sequences out of 15000+600000
  542548 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,26n,39p,10374b,855s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,26n,39p,10374b,857s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on CA.dvi (26 pages, 156600 bytes).
+Output written on CA.dvi (29 pages, 176196 bytes).
