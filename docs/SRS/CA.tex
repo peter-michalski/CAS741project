@@ -124,12 +124,13 @@ description of the unit and the SI name.
     \toprule		
     \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
     \midrule 
-    \si{\metre} & length & metre\\
-    \si{\kilogram} & mass	& kilogram\\
-    $t$ & time & second\\
+    $m$ & length & metre\\
+    $kg$ & mass	& kilogram\\
+    $s$ & time & second\\
     $F$ & force & newton\\
     $cm$ & length & centimetre\\
     $g$ & mass & gram \\
+    $Pa$ & pressure & pascal\\
     \bottomrule
   \end{tabular}
   %	\caption{Provide a caption}
@@ -158,6 +159,8 @@ $\gamma$ & $\frac{1}{s}$ & velocity gradient
 $\tau$ & N/A & relaxation rate
 \\
 $x$ & N/A & position vector
+\\
+$t$ & $s$ & time
 \\
 $f$ & N/A & distribution function
 \\
@@ -348,7 +351,7 @@ Label& \bf Velocity\\
 Symbol &$\mathrm{e}$\\
 \hline
 % \hline
-  SI Units & \si{\frac\metre\second}\\
+  SI Units & $\frac{m}{s}$\\
   \hline
   Equation& $\mathrm{e} = \frac{d \mathrm{r}}{dt}$\\
   \hline
@@ -380,7 +383,7 @@ Label& \bf Viscosity\\
 Symbol &$\mathrm{\eta}$\\
 \hline
 % \hline
-  SI Units & $\mathrm{Pa-s}$\\
+  SI Units & $Pa-s$\\
   \hline
   Equation& $\mathrm{\eta} = \frac{F/A}{\gamma}$\\
   \hline
@@ -518,11 +521,11 @@ on.
   \hline
   Label&\bf Boltzmann Transport Equation\\
   \hline
-  Equation&  $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{F}{\mathrm{kg}}dt, t + dt)d\mathrm{x}d\mathrm{e} - f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e} = \mathrm{\Omega}(f)d\mathrm{x}d\mathrm{e}$\\
+  Equation&  $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)d\mathrm{x}d\mathrm{e} - f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e} = \mathrm{\Omega}(f)d\mathrm{x}d\mathrm{e}$\\
   \hline
   Description & 
-  This equation determines the statistical description of a group of particles. The left part of the equation, $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{F}{\mathrm{kg}}dt, t + dt)d\mathrm{x}d\mathrm{e}$, represents the distribution function result after an external force $\mathrm{F}$ is applied. The middle function, $f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e}  $, represents the distribution function result before the external force is applied. The distribution function $f$ represents the probability that a set of particles will be at a specific location of the lattice at a specified time. The right hand side of the equation represents the collision operator, $\Omega$.\newline
-The variable $\mathrm{x}$ represents the vector of the particles within the lattice, $\mathrm{e}$ is velocity $\mathrm{\frac{m}{s}}$, $t$ is time ($\mathrm{s}$), $F$ is force ($\mathrm{N}$), $\mathrm{kg}$ is mass ($\mathrm{kg}$). This equation can be further developed for specific instances. The user shall select the desired model as stated in A\ref{A_selectModel}, and input the desired starting parameters as stated in A\ref{A_userInputs}.\\
+  This equation determines the statistical description of a group of particles. The left part of the equation, $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)d\mathrm{x}d\mathrm{e}$, represents the distribution function result after an external force $\mathrm{F}$ is applied. The middle function, $f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e}  $, represents the distribution function result before the external force is applied. The distribution function $f$ represents the probability that a set of particles will be at a specific location of the lattice at a specified time. The right hand side of the equation represents the collision operator, $\Omega$.\newline
+The variable $\mathrm{x}$ represents the vector of the particles within the lattice, $\mathrm{e}$ is velocity $\mathrm{\frac{m}{s}}$, $t$ is time ($\mathrm{s}$), $F$ is force ($\mathrm{N}$), $kg$ is mass. This equation can be further developed for specific instances. The user shall select the desired model as stated in A\ref{A_selectModel}, and input the desired starting parameters as stated in A\ref{A_userInputs}.\\
   \hline
   Source &
            \citet{lbmbolton}\newline \citet{mohamad2011lattice}\\

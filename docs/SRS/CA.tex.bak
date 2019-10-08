@@ -124,9 +124,9 @@ description of the unit and the SI name.
     \toprule		
     \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
     \midrule 
-    \si{\metre} & length & metre\\
-    \si{\kilogram} & mass	& kilogram\\
-    $t$ & time & second\\
+    $m$ & length & metre\\
+    $kg$ & mass	& kilogram\\
+    $s$ & time & second\\
     $F$ & force & newton\\
     $cm$ & length & centimetre\\
     $g$ & mass & gram \\
@@ -158,6 +158,8 @@ $\gamma$ & $\frac{1}{s}$ & velocity gradient
 $\tau$ & N/A & relaxation rate
 \\
 $x$ & N/A & position vector
+\\
+$t$ & $s$ & time
 \\
 $f$ & N/A & distribution function
 \\
@@ -849,7 +851,7 @@ The following is a list of NFR by importance as found in the Table \ref{table:nf
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_output}:] 
 A family of LBS solvers will have 2D and 3D output. 1D output is not a common variability. See Table \ref{table:otsinputs}. The solvers follow the assumptions of A\ref{A_lattice}, A\ref{A_weightCoefficients}, A\ref{A_selectModel}.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_wallpressure}:] 
-Wall pressure is not an output variability that is often needed. This may be removed from a family of LBS. See Table \ref{table:otsparm}.
+Wall pressure is not an output variability that is often needed. This may be removed from a family of LBS. See Table \ref{table:otsparm}. The solvers follow the assumptions of A\ref{A_flowObject}, A\ref{A_lattice}, A\ref{A_selectModel}.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_decomposiiton}:] 
 Spinoidal decomposition is most common among LBS family members and should be the standard for a library implementation. See Table \ref{table:otscomp}.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_parallel}:] 
