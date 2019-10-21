@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  7 OCT 2019 23:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  20 OCT 2019 23:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -921,10 +921,6 @@ LaTeX Info: Redefining \nameref on input line 86.
 \openout3 = `CA.out'.
 
 
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
-
-
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
 Dictionary: translator-basic-dictionary, Language: English 
@@ -949,25 +945,25 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [1
 
 ] [1]
-Underfull \hbox (badness 10000) in paragraph at lines 115--120
+Underfull \hbox (badness 10000) in paragraph at lines 116--121
 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 189
+Underfull \vbox (badness 10000) detected at line 190
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 199--224
+Underfull \hbox (badness 10000) in paragraph at lines 206--232
 
  []
 
-[3] (./CA.toc)
+[3] [4] (./CA.toc)
 \tf@toc=\write4
 \openout4 = `CA.toc'.
 
- [1]
-Underfull \hbox (badness 10000) in paragraph at lines 243--244
+ [1] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
 
  []
 
@@ -978,269 +974,163 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.247 ...phics[width=0.8\textwidth]{SystemContext}
+l.255 ...phics[width=0.8\textwidth]{SystemContext}
                                                   
 I could not locate the file with any of these extensions:
 .eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[2] [3] [4] [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 339--340
+[3] [4] [5] [6] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 347--348
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 344--367
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 352--375
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 341--368
+Underfull \hbox (badness 10000) in paragraph at lines 349--376
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 378--379
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 376--399
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 384--407
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--400
+Underfull \hbox (badness 10000) in paragraph at lines 381--408
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 401--402
+Underfull \hbox (badness 10000) in paragraph at lines 409--410
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 406--429
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 414--437
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 403--430
+Underfull \hbox (badness 10000) in paragraph at lines 411--438
 
  []
 
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 431--432
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 439--440
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 436--459
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 444--467
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 433--460
+Underfull \hbox (badness 10000) in paragraph at lines 441--468
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 461--462
+Underfull \hbox (badness 10000) in paragraph at lines 469--470
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 466--488
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 474--496
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 463--489
+Underfull \hbox (badness 10000) in paragraph at lines 471--497
 
  []
 
-[8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 512--513
+[9] [10]
+Underfull \hbox (badness 10000) in paragraph at lines 520--521
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 517--537
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 525--545
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 514--538
+Underfull \hbox (badness 10000) in paragraph at lines 522--546
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 539--540
+Underfull \hbox (badness 10000) in paragraph at lines 547--548
 
  []
 
 
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 544--564
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 552--572
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 541--565
-
- []
-
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 566--567
-
- []
-
-
-Overfull \hbox (1.71794pt too wide) in paragraph at lines 571--593
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 568--594
+Underfull \hbox (badness 10000) in paragraph at lines 549--573
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 595--596
+Underfull \hbox (badness 10000) in paragraph at lines 574--575
 
  []
 
-[12] [13]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 667.
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 579--601
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 576--602
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 603--604
+
+ []
+
+
+Overfull \hbox (1.71794pt too wide) in paragraph at lines 608--626
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 605--627
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 628--629
+
+ []
+
+[13] [14]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 710.
 
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 667.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 710.
 
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.677 velocity ($e$) & Set of \mathbb
-                                     {R} & scope \\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.679 time ($t$) & Set of \mathbb
-                                 {R}& scope \\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.681 macroscopic velocity ($u$) & Set of \mathbb
-                                                 {R}& scope \\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.683 ...d density ($p$) & Set of positive \mathbb
-                                                  {R}& scope \\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.685 ...n vector ($x$) & Vector of Set of \mathbb
-                                                  {R}& scope \\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.687 viscosity ($\eta$) & Set of \mathbb
-                                         {R} $\geq$ 0 & scope \\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.689 relaxation rate ($\tau$) & Set of \mathbb
-                                               {R} & scope \\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.691 ...city gradient ($\gamma$ )& Set of \mathbb
-                                                  {R} & scope\\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.693 force ($F$) & Set of \mathbb
-                                  {R} $\geq$ 0 & scope \\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: \mathbb allowed only in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.695 cross-sectional area ($A$) & Set of \mathbb
-                                                 {R} $\geq$ 0 & scope \\
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 1789) in paragraph at lines 709--709
+Underfull \hbox (badness 1789) in paragraph at lines 752--752
 []\OT1/cmr/m/n/12 computational model
  []
 
@@ -1251,34 +1141,34 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.709 ...Q15, D3Q15, D3Q15i, D3Q19, D3Q19+, D3Q27}
+l.752 ...Q15, D3Q15, D3Q15i, D3Q19, D3Q19+, D3Q27}
                                                    & compile \\
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 4505) in paragraph at lines 709--709
+Underfull \hbox (badness 4505) in paragraph at lines 752--752
 \OT1/cmr/m/n/12 D2Q13, D2Q15, D3Q15,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 711--711
+Underfull \hbox (badness 10000) in paragraph at lines 754--754
 []\OT1/cmr/m/n/12 decomposition tech-nique
  []
 
 
-Underfull \hbox (badness 1122) in paragraph at lines 711--711
+Underfull \hbox (badness 1122) in paragraph at lines 754--754
 []\OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 ParMETIS li-brary, PT[]Scotch
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 711--711
+Underfull \hbox (badness 10000) in paragraph at lines 754--754
 \OT1/cmr/m/n/12 li-brary, block-wide de-com-po-
  []
 
 
-Underfull \hbox (badness 5592) in paragraph at lines 711--711
+Underfull \hbox (badness 5592) in paragraph at lines 754--754
 \OT1/cmr/m/n/12 si-tion, do-main de-com-po-si-tion,
  []
 
@@ -1289,7 +1179,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.713 coefficient weights & Set of \{0 $<$ \mathbb
+l.756 coefficient weights & Set of \{0 $<$ \mathbb
                                                   {R} $<$ 1\}; \sum \mathbb{...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -1298,7 +1188,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.713 ...& Set of \{0 $<$ \mathbb{R} $<$ 1\}; \sum
+l.756 ...& Set of \{0 $<$ \mathbb{R} $<$ 1\}; \sum
                                                    \mathbb{R} = 1 & compile \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1306,7 +1196,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.713 ...\mathbb{R} $<$ 1\}; \sum \mathbb{R} = 1 &
+l.756 ...\mathbb{R} $<$ 1\}; \sum \mathbb{R} = 1 &
                                                    compile \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1317,27 +1207,27 @@ my insertion and my current dilemma will both disappear.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[14]
+[15]
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.735 graphical model & Set of \{2D, 3D\}; \sum
-                                                \mathbb{R} = 1 & run \\
+l.780 graphical model & Set of \{2D, 3D\}; \sum
+                                                \mathbb{R} = 1 & compile \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.735 ... Set of \{2D, 3D\}; \sum \mathbb{R} = 1 &
-                                                   run \\
+l.780 ... Set of \{2D, 3D\}; \sum \mathbb{R} = 1 &
+                                                   compile \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[15] [16]
+[16] [17]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -1345,21 +1235,21 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.795 
+l.836 
       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[17]
-Underfull \hbox (badness 10000) in paragraph at lines 798--800
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 841--843
 
  []
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.805 ...xtbf{8} & \textbf{9} & \textbf{10} & \sum
+l.848 ...xtbf{8} & \textbf{9} & \textbf{10} & \sum
                                                    \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1367,7 +1257,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.806 \hline
+l.849 \hline
             
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1375,66 +1265,70 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[18] [19] [20] (./CA.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 37--41
+[19] [20] [21] (./CA.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 41--45
 []\OT1/cmr/m/n/12 Shreedharan Bolton, Schwartz.  Lat-tice boltz-mann meth-ods. 
  URL
  []
 
 
-Overfull \hbox (45.4866pt too wide) in paragraph at lines 37--41
+Overfull \hbox (45.4866pt too wide) in paragraph at lines 41--45
 [][][][][][]\OT1/cmr/m/n/12 . 
  []
 
 
-Underfull \hbox (badness 4479) in paragraph at lines 49--53
+Underfull \hbox (badness 4479) in paragraph at lines 53--57
 []\OT1/cmr/m/n/12 Fernandez.  Mul-ti-phase lat-tice boltz-mann suite user guide
 , 2014.  URL
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--59
+Underfull \hbox (badness 10000) in paragraph at lines 59--63
 []\OT1/cmr/m/n/12 Gouarin Graille.  pylbm doc-u-men-ta-tion re-lease 0.3.2, 201
 8.  URL
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 73--77
+Underfull \hbox (badness 10000) in paragraph at lines 77--81
 []\OT1/cmr/m/n/12 Li Liu, Lu.  Lat-tice boltz-mann method, .  URL
  []
 
 
-Overfull \hbox (14.61159pt too wide) in paragraph at lines 73--77
+Overfull \hbox (14.61159pt too wide) in paragraph at lines 77--81
 [][][][][][]\OT1/cmr/m/n/12 . 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--83
+Underfull \hbox (badness 10000) in paragraph at lines 83--87
 []\OT1/cmr/m/n/12 Li Liu, Lu.  The lat-tice boltz-mann method, .  URL
  []
 
 
-Overfull \hbox (644.7869pt too wide) in paragraph at lines 79--83
+Overfull \hbox (644.7869pt too wide) in paragraph at lines 83--87
 [][][][][][]\OT1/cmr/m/n/12 . 
  []
 
-[21]
+[22]
 Missing character: There is no Ì in font cmr12!
 Missing character: There is no ˆ in font cmr12!
-) [22]
-Overfull \hbox (13.28905pt too wide) in paragraph at lines 958--981
+) [23]
+Overfull \hbox (13.28905pt too wide) in paragraph at lines 1008--1031
  [] 
  []
 
 
-Underfull \hbox (badness 5504) in paragraph at lines 998--998
+Underfull \hbox (badness 5504) in paragraph at lines 1048--1048
 []\OT1/cmr/m/n/12 D2Q9, D3Q15,
  []
 
 
-Underfull \hbox (badness 5504) in paragraph at lines 1002--1002
+Underfull \hbox (badness 5504) in paragraph at lines 1052--1052
 []\OT1/cmr/m/n/12 D2Q9, D3Q13,
  []
+
+
+Package natbib Warning: Citation `pyLBM' on page 24 undefined on input line 105
+8.
 
 
 ! LaTeX Error: There's no line here to end.
@@ -1443,24 +1337,24 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1008 ... D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q19}
+l.1058 ... D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q19}
                                                    & & MPI \\
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1008--1008
+Underfull \hbox (badness 10000) in paragraph at lines 1058--1058
 []\OT1/cmr/m/n/12 D1Q2, D1Q3,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1008--1008
+Underfull \hbox (badness 10000) in paragraph at lines 1058--1058
 \OT1/cmr/m/n/12 D1Q5, D2Q9,
  []
 
 
-Overfull \hbox (14.59926pt too wide) in paragraph at lines 988--1011
+Overfull \hbox (14.59926pt too wide) in paragraph at lines 1038--1061
  [] 
  []
 
@@ -1470,11 +1364,11 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[23] [24]
+[24] [25]
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.1054 ...odel} & \textbf{coefficient weights} (w_
+l.1104 ...odel} & \textbf{coefficient weights} (w_
                                                   i)\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1482,7 +1376,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.1055 \hline
+l.1105 \hline
              
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1490,24 +1384,30 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1082.
-[25]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1082.
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no ¢ in font cmbx12!
+
+Package natbib Warning: There were undefined citations.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1162.
+[26]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1162.
  (./CA.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1082.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1082.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1162.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1162.
 
 Package rerunfilecheck Info: File `CA.out' has not changed.
-(rerunfilecheck)             Checksum: 7D70B6224646C6546F6E202E74A5F527;2188.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1082.
+(rerunfilecheck)             Checksum: 44E9AB601BA58F5DB71D1E3919528EAE;2270.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1162.
  ) 
 Here is how much of TeX's memory you used:
- 19781 strings out of 492983
- 380341 string characters out of 6134923
- 452433 words of memory out of 5000000
- 23157 multiletter control sequences out of 15000+600000
+ 19789 strings out of 492983
+ 380451 string characters out of 6134923
+ 456035 words of memory out of 5000000
+ 23165 multiletter control sequences out of 15000+600000
  542548 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  36i,26n,39p,10374b,857s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on CA.dvi (29 pages, 176268 bytes).
+Output written on CA.dvi (31 pages, 187984 bytes).

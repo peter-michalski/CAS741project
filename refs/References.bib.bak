@@ -202,4 +202,53 @@ url = {https://buildmedia.readthedocs.org/media/pdf/pylbm/develop/pylbm.pdf}
   year={2014}
 }
 
+@book{ghezzi1991fundamentals,
+  title={Fundamentals of software engineering},
+  author={Ghezzi, Carlo and Jazayeri, Mehdi and Mandrioli, Dino},
+  year={1991},
+  publisher={Prentice Hall PTR}
+}
 
+@online{LBM_CA_PM,
+	author = {Peter Michalski},
+	title = {Lattice Boltzmann Solvers},
+	url = {https://github.com/peter-michalski/LatticeBoltzmannSolvers/blob/master/docs/SRS/CA.pdf},
+	date = {2019},
+	urldate = {2019}
+}	
+
+@online{CAS741_SRS_checklist,
+	author = {Smith},
+	title = {SRS Checklist},
+	url = {https://gitlab.cas.mcmaster.ca/smiths/cas741/blob/master/BlankProjectTemplate/docs/SRS/SRS-Checklist.pdf},
+	urldate = {2019}
+}
+
+@online{reynolds,
+	title = {Flow Regimes},
+	url = {https://physics.info/turbulence},
+	organization = {The Physics Hypertextbook},
+	urldate = {2019}
+}	
+
+@online{pylbmcode,
+	title = {pyLBM},
+	url = {https://github.com/pylbm/pylbm},
+	organization = {github}
+}	
+
+@online{LBM_UVNV_PM,
+	author = {Peter Michalski},
+	title = {Lattice Boltzmann Solvers - Unit VnV},
+	url = {https://github.com/peter-michalski/LatticeBoltzmannSolvers/blob/master/docs/VnVPlan/UnitVnVPlan/UnitVnVPlan.pdf},
+	date = {2019},
+	urldate = {2019}
+}
+
+@online{LBM_UserGuide_PM,
+	author = {Peter Michalski},
+	title = {Lattice Boltzmann Solvers - User Guide},
+	url = {https://github.com/peter-michalski/LatticeBoltzmannSolvers/tree/master/docs/UserGuide},
+	date = {2019},
+	urldate = {2019}
+}

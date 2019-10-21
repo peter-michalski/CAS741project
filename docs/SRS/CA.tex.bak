@@ -101,6 +101,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 October 7,2019 & 1.0 & Initial Document\\
+October 20,2019 & 1.1 & Issues Fixed + 10.4 Added\\
 \bottomrule
 \end{tabularx}
 
@@ -130,6 +131,7 @@ description of the unit and the SI name.
     $F$ & force & newton\\
     $cm$ & length & centimetre\\
     $g$ & mass & gram \\
+    $Pa$ & pressure & pascal\\
     \bottomrule
   \end{tabular}
   %	\caption{Provide a caption}
@@ -147,7 +149,7 @@ systems.  The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$e$ & $\frac{m}{s}$ & velocity
+$\mathrm{e}$ & $\frac{m}{s}$ & velocity
 \\
 $\eta$ & $Pa-s$ & viscosity
 \\ 
@@ -158,6 +160,8 @@ $\gamma$ & $\frac{1}{s}$ & velocity gradient
 $\tau$ & N/A & relaxation rate
 \\
 $x$ & N/A & position vector
+\\
+$l$ & $m$ & characteristic length of the system
 \\
 $t$ & $s$ & time
 \\
@@ -185,9 +189,13 @@ $\kappa$ & N/A & variable number of velocity directions  (linkages) of lattice m
 \\
 $\mathbb{R}$ & N/A & real numbers
 \\
+$\mathbb{N}$ & N/A & natural numbers
+\\
 $c_k$ & NA & unit vector along the lattice streaming direction
 \\
 $c_s$ & $\frac{m}{s}$ & speed of sound
+\\
+$Re$ & NA & Reynolds number
 \\
 \bottomrule
 \end{longtable*}
@@ -203,6 +211,7 @@ $c_s$ & $\frac{m}{s}$ & speed of sound
   2D & 2-Dimensional\\ 
   3D & 3-Dimensional\\ 
   A & Assumption\\
+  AHP & Analytic Hierarchy Process\\
   CA & Commonality Analysis\\
   DD & Data Definition\\
   GS & Goal Statement\\
@@ -213,9 +222,9 @@ $c_s$ & $\frac{m}{s}$ & speed of sound
   MIS & Module Interface Specification\\
   MPI & Message Passing Interface\\
   MTBF & Mean Time Between Failures\\
+  NFR & Non-Functional Requirement\\
   OTS & Off The Shelf\\
   R & Requirement\\
-  SRS & Software Requirements Specification\\
   T & Theoretical Model\\
   VnV & Verification and Validation\\
   \bottomrule
@@ -226,11 +235,11 @@ $c_s$ & $\frac{m}{s}$ & speed of sound
 \tableofcontents
 
 \pagenumbering{arabic}
-
+\newpage
 \section{Introduction}
 
 This document provides a Commonality Analysis (CA) for a family of Lattice Boltzmann Solvers (LBS), which provide services based on Lattice Boltzmann Methods (LBM).
-LBM are a family of fluid dynamics algorithms for simulating single-phase and multiphase fluid flows, often incorporating additional physical complexities \citet{chen1998lattice}. They consider the behaviours of a collection of particles as a single unit at the mesoscopic scale. These methods predict the positional probability of a collection of particles moving through a lattice structure. Off the shelf (OTS) Lattice Boltzmann Solvers (LBS) allow for a range of fluid and physical model input parameters, computational parameters, and output parameters as outlined in Section \ref{OTSsolutions}.
+LBM are a family of fluid dynamics algorithms for simulating single-phase and multiphase fluid flows, often incorporating additional physical complexities (\citet{chen1998lattice}). They consider the behaviours of a collection of particles as a single unit at the mesoscopic scale. These methods predict the positional probability of a collection of particles moving through a lattice structure. Off the shelf (OTS) Lattice Boltzmann Solvers (LBS) allow for a range of fluid and physical model input parameters, computational parameters, and output parameters as outlined in Section \ref{OTSsolutions}.
 The following subsections of this introduction will outline the purpose of this document, a general scope of the family of LBS, the characteristics of the intended reader, and finally an outline of the rest of this document.
 
 \subsection{Purpose of Document}
@@ -239,7 +248,7 @@ The purpose of this document is to provide general information on currently avai
 
 \subsection{Scope of the Family} 
 
-The family of LBS will model one or more fluids as they pass through a boundary, modeled by a lattice. Fluids with any properties can be modeled, however only those properties that are accepted as inputs by the LBS will affect the model results. The calculation of the LBM distribution function will use up to 3D computational models, and will output the data into memory and render it on a screen in up to 3D imaging. The output results can also be rendered to a file.\\
+The family of LBS will model one or more fluids as they pass through a boundary, modeled by a lattice. Fluids with any properties can be modeled, however only those properties that are accepted as inputs by the LBS will affect the model results. The calculation of the LBM distribution function will use 1D, 2D, and 3D computational models, and will output the data into memory and render it on a screen in up to 3D imaging. The output results can also be rendered to a file.\\
 
 \begin{figure}[h!]
 \begin{center}
@@ -251,7 +260,7 @@ The family of LBS will model one or more fluids as they pass through a boundary,
 
 \subsection{Characteristics of Intended Reader} 
 
-The intended reader of this document should have an undergraduate understanding of software requirements specifications and software design principles. Ideally, the user will have at least an undergraduate Level 1 physics understanding.
+The intended reader of this document should have an undergraduate understanding of software requirements specifications and software design principles. Ideally, they will also have at least an undergraduate Level 3 physics understanding, including of lattice structures and fluid dynamics.
 
 \subsection{Organization of Document}
 
@@ -302,7 +311,7 @@ The parallel nature of LBS prefers operating and hardware systems that can handl
 \subsection{Background Overview} \label{Sec_Background}
 
 As LBS model fluid dynamics within a boundary using a predefined lattice structure, the methods rely on a two step calculation process. The first process is streaming, where the particles move along the lattice via links. The second process is collision, where energy and momentum is transferred among particles that collide \cite{bao2011lattice}.
-In the LBS solutions, the particles are mapped using a lattice structure. The lattice structure can be a 1D, 2D, or 3D model with varying velocity directions. The notation is D$\sigma$Q$\kappa$, where $\sigma$ represents the number of dimensions and $\kappa$ represents the number of velocity directions. There are many standardized lattice models; individual solvers within the family may only use a subset of them.
+There are many standardized lattice models - individual solvers within the family might only use a subset of them.
 The LBM uses the initial parameters of the fluid to find the probability of where along the lattice linkages a group of particles are most likely to travel. It then moves the particles into the next node, and transfers the energy and momentum if a collision occurs. Then the process repeats for the duration of the modeling instance.
 
 ~\newpage
@@ -316,16 +325,16 @@ easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item Correctness: The degree to which a system or component is free from faults in its specification, design, and implementation \citet{IEEEStdGlossarySET1990}.
-\item Maintainability: The ease with which a software system or component can be modified to correct faults, improve performance or other attributes, or adapt to a changed environment \citet{IEEEStdGlossarySET1990}.
-\item Performance: The degree to which a system or component accomplishes its designated functions within given constraints, such as speed, accuracy, or memory usage \citet{IEEEStdGlossarySET1990}.
-\item Portability: The ease with which a system or component can e transferred from one hardware or software environment to another \citet{IEEEStdGlossarySET1990}.
-\item Reliability: The ability of a system or component to perform its required functions under stated conditions for a specified period of time \citet{IEEEStdGlossarySET1990}.
-\item Reusability: The degree to which a software module or other work product can be used in more than one computer program or software system \citet{IEEEStdGlossarySET1990}.
-\item Robustness: The degree to which a system or component can function correctly in the presence of invalid inputs or stressful environmental conditions \citet{IEEEStdGlossarySET1990}.
-\item Scalability: The ability of the system to cope with increasing numbers of users without reducing overall QoS that is delivered to any user \citet{sommerville}.
-\item Understandability: The ease of understanding the software system  \citet{uchida2005experiment}.
-\item Usability: The ease with which a user can learn to operate, prepare inputs for, and interpret outputs of a system or component \citet{IEEEStdGlossarySET1990}.
+\item Correctness: The degree to which a system or component is free from faults in its specification, design, and implementation (\citet{IEEEStdGlossarySET1990}).
+\item Maintainability: The ease with which a software system or component can be modified to correct faults, improve performance or other attributes, or adapt to a changed environment (\citet{IEEEStdGlossarySET1990}).
+\item Performance: The degree to which a system or component accomplishes its designated functions within given constraints, such as speed, accuracy, or memory usage (\citet{IEEEStdGlossarySET1990}).
+\item Portability: The ease with which a system or component can e transferred from one hardware or software environment to another (\citet{IEEEStdGlossarySET1990}).
+\item Reliability: The ability of a system or component to perform its required functions under stated conditions for a specified period of time (\citet{IEEEStdGlossarySET1990}).
+\item Reusability: The degree to which a software module or other work product can be used in more than one computer program or software system (\citet{IEEEStdGlossarySET1990}).
+\item Robustness: The degree to which a system or component can function correctly in the presence of invalid inputs or stressful environmental conditions (\citet{IEEEStdGlossarySET1990}).
+\item Scalability: The ability of the system to cope with increasing numbers of users without reducing overall QoS that is delivered to any user (\citet{sommerville}).
+\item Understandability: The ease of understanding the software system  (\citet{uchida2005experiment}).
+\item Usability: The ease with which a user can learn to operate, prepare inputs for, and interpret outputs of a system or component (\citet{IEEEStdGlossarySET1990}).
 
 \end{itemize}
 
@@ -350,7 +359,7 @@ Label& \bf Velocity\\
 Symbol &$\mathrm{e}$\\
 \hline
 % \hline
-  SI Units & \si{\frac\metre\second}\\
+  SI Units & $\frac{m}{s}$\\
   \hline
   Equation& $\mathrm{e} = \frac{d \mathrm{r}}{dt}$\\
   \hline
@@ -360,7 +369,7 @@ Symbol &$\mathrm{e}$\\
   \hline
   Sources& \citet{mohamad2011lattice}\\
   \hline
-  Ref.\ By & \tref{T_BTE} \tref{T_EDF} A\ref{A_speedSound}\\
+  Ref.\ By & \tref{T_BTE} \tref{T_EDF} \tref{T_ReynoldsNum} A\ref{A_speedSound}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -382,7 +391,7 @@ Label& \bf Viscosity\\
 Symbol &$\mathrm{\eta}$\\
 \hline
 % \hline
-  SI Units & $\mathrm{Pa-s}$\\
+  SI Units & $Pa-s$\\
   \hline
   Equation& $\mathrm{\eta} = \frac{F/A}{\gamma}$\\
   \hline
@@ -392,7 +401,7 @@ Symbol &$\mathrm{\eta}$\\
   \hline
   Sources& \citet{viscosity}\\
   \hline
-  Ref.\ By & DD\ref{DD_RelaxationRate} A\ref{A_fluids} A\ref{A_userInputs}\\
+  Ref.\ By & \tref{T_ReynoldsNum} DD\ref{DD_RelaxationRate} A\ref{A_fluids} A\ref{A_userInputs}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -481,7 +490,7 @@ Symbol &$p$\\
   \hline
   Sources& \citet{density}\\
   \hline
-  Ref.\ By & \tref{T_EDF} A\ref{A_fluids} A\ref{A_userInputs}\\
+  Ref.\ By & \tref{T_EDF} \tref{T_ReynoldsNum} A\ref{A_fluids} A\ref{A_userInputs}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -493,11 +502,11 @@ Symbol &$p$\\
 
 \begin{itemize}
 
-\item[G\refstepcounter{goalnum}\thegoalnum \label{G_Location} -]Location: Predict the location of fluid particles in the lattice over time.
+\item[G\refstepcounter{goalnum}\thegoalnum \label{G_Location} -]Location: Predict the location of all fluid particles in the lattice over time.
 
-\item[G\refstepcounter{goalnum}\thegoalnum \label{G_Velocity} -]Velocity: Predict the velocity of fluid particles within the lattice over time.
+\item[G\refstepcounter{goalnum}\thegoalnum \label{G_Velocity} -]Velocity: Predict the velocity of all fluid particles within the lattice over time.
 
-\item[G\refstepcounter{goalnum}\thegoalnum \label{G_FluidPressure} -]Fluid Pressure: Predict the pressure of fluid particles within the lattice over time.
+\item[G\refstepcounter{goalnum}\thegoalnum \label{G_FluidPressure} -]Fluid Pressure: Predict the pressure of all fluid particles within the lattice over time.
 
 \end{itemize}
 
@@ -520,17 +529,17 @@ on.
   \hline
   Label&\bf Boltzmann Transport Equation\\
   \hline
-  Equation&  $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{F}{\mathrm{kg}}dt, t + dt)d\mathrm{x}d\mathrm{e} - f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e} = \mathrm{\Omega}(f)d\mathrm{x}d\mathrm{e}$\\
+  Equation&  $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)d\mathrm{x}d\mathrm{e} - f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e} = \mathrm{\Omega}(f)d\mathrm{x}d\mathrm{e}$\\
   \hline
   Description & 
-  This equation determines the statistical description of a group of particles. The left part of the equation, $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{F}{\mathrm{kg}}dt, t + dt)d\mathrm{x}d\mathrm{e}$, represents the distribution function result after an external force $\mathrm{F}$ is applied. The middle function, $f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e}  $, represents the distribution function result before the external force is applied. The distribution function $f$ represents the probability that a set of particles will be at a specific location of the lattice at a specified time. The right hand side of the equation represents the collision operator, $\Omega$.\newline
-The variable $\mathrm{x}$ represents the vector of the particles within the lattice, $\mathrm{e}$ is velocity $\mathrm{\frac{m}{s}}$, $t$ is time ($\mathrm{s}$), $F$ is force ($\mathrm{N}$), $\mathrm{kg}$ is mass ($\mathrm{kg}$). This equation can be further developed for specific instances. The user shall select the desired model as stated in A\ref{A_selectModel}, and input the desired starting parameters as stated in A\ref{A_userInputs}.\\
+  This equation determines the statistical description of a group of particles. The left part of the equation, $f(\mathrm{x} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)d\mathrm{x}d\mathrm{e}$, represents the distribution function result after an external force $\mathrm{F}$ is applied. The middle function, $f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e}  $, represents the distribution function result before the external force is applied. The distribution function $f$ represents the probability that a set of particles will be at a specific location of the lattice at a specified time. The right hand side of the equation represents the collision operator, $\Omega$.\newline
+The variable $\mathrm{x}$ represents the vector of the particles within the lattice, $\mathrm{e}$ is velocity $\mathrm{\frac{m}{s}}$, $t$ is time ($\mathrm{s}$), $F$ is force ($\mathrm{N}$), $kg$ is mass. This equation can be further developed for specific instances.\\
   \hline
   Source &
            \citet{lbmbolton}\newline \citet{mohamad2011lattice}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \\
+  Ref.\ By & A\ref{A_selectModel} A\ref{A_userInputs}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -552,12 +561,12 @@ The variable $\mathrm{x}$ represents the vector of the particles within the latt
   Description &
   The above equation is a mathematical operator that preserves continuity for a discretized model.
   $\tau$ is the relaxation rate towards equilibrium and should be in the range of 0.5 - 2.0. It is related to viscosity as outlined in DD. 
-  $f^{eq}$ is the equilibrium particle probability distribution function. $f$ is the particle probability distribution function. This equation can be further developed for specific instances. Several fluids in the instance model can be modeled by this equation, as stated in A\ref{A_fluids}. The user shall select the desired model as stated in A\ref{A_selectModel}, and input the desired starting parameters as stated in A\ref{A_userInputs}.\\
+  $f^{eq}$ is the equilibrium particle probability distribution function. $f$ is the particle probability distribution function. This equation can be further developed for specific instances. Several fluids in the instance model can be modeled by this equation.\\
   \hline
   Source &
            \citet{lbmbolton}\newline \citet{mohamad2011lattice}\\
   \hline
-  Ref.\ By & \tref{T_BTE}\\
+  Ref.\ By & \tref{T_BTE} A\ref{A_fluids} A\ref{A_selectModel} A\ref{A_userInputs}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -578,7 +587,7 @@ The variable $\mathrm{x}$ represents the vector of the particles within the latt
   \hline
   Description &
   The above equation captures the probability distribution of the particles. Adjusting this method in the implementation allows for the simulation of complex physical phenomena, including geometry of the boundary.
-  $p$ is the fluid density $(\mathrm{\frac{g}{cm^2}}$). $w$ is the weighting coefficient for the lattice model as the fluid flows through a lattice structure A\ref{A_lattice}. The weighting coefficients are standard, as per A\ref{A_weightCoefficients}. $k$ is the discretized velocity direction, referring to the directions of the chosen lattice model. $\mathrm{c_k}$ is the unit vector along the lattice streaming direction. $\mathrm{u}$ is the macroscopic velocity of the fluid, which is a vector field of velocity at a specific position and time. $\mathrm{c_s}$ is the speed of sound, a constant, as stated in A\ref{A_speedSound}. This equation can be further developed for specific instances. Several fluids in the instance model can be modeled by this equation, as stated in A\ref{A_fluids}. Several fluids in the instance model can be modeled by this equation, as stated in A\ref{A_flowObject}, can be reflected in the velocity direction weights. The user shall select the desired model as stated in A\ref{A_selectModel}, and input the desired starting parameters as stated in A\ref{A_userInputs}.\\
+  $p$ is the fluid density $(\mathrm{\frac{g}{cm^2}}$). $w$ is the weighting coefficient for the lattice model as the fluid flows through a lattice structure. The weighting coefficients are standard. $k$ is the discretized velocity direction, referring to the directions of the chosen lattice model. $\mathrm{c_k}$ is the unit vector along the lattice streaming direction. $\mathrm{u}$ is the macroscopic velocity of the fluid, which is a vector field of velocity at a specific position and time. $\mathrm{c_s}$ is the speed of sound, a constant. This equation can be further developed for specific instances.\\
   \hline
   Source &
            \citet{lbmbolton}
@@ -586,7 +595,32 @@ The variable $\mathrm{x}$ represents the vector of the particles within the latt
            \\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \tref{T_BGK}\\
+  Ref.\ By & \tref{T_BGK} A\ref{A_fluids}  A\ref{A_flowObject} A\ref{A_lattice} A\ref{A_weightCoefficients} A\ref{A_selectModel} A\ref{A_userInputs} A\ref{A_speedSound}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_ReynoldsNum}\\
+  \hline
+Label& \bf Reynolds Number\\
+\hline
+% \hline
+  Equation& $Re$ = $\frac{pl\mathrm{e}}{\eta}$ \\
+  \hline
+  Description & 
+                the ration of inertial resistance to viscous resistance for a flowing fluid. $p$ is the density of the fluid, $\mathrm{e}$ is the velocity, $l$ is the characteristic length of the system, and $\eta$ is the viscosity\\
+  \hline
+  Sources& \citet{reynolds}\\
+  \hline
+  Ref.\ By & A\ref{A_userInputs}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -605,7 +639,7 @@ The variable $\mathrm{x}$ represents the vector of the particles within the latt
   One or more fluids can be modeled. The fluid parameters are defined in DD\ref{DD_Viscosity} and DD\ref{DD_FluidDensity}. They are used in DD\ref{DD_RelaxationRate}, and in DD\ref{DD_VelocityGradient}.
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_flowObject}:]
-  The fluid can, but does not need to, flow through an object with boundary conditions.
+  The fluid may flow through an object with boundary conditions.
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_lattice}:]
   The fluid flows through space via a lattice structure, moving between lattice nodes via linkages ($\mathrm{Q}$).
@@ -620,33 +654,43 @@ The variable $\mathrm{x}$ represents the vector of the particles within the latt
   The user will enter a subset of fluid parameter inputs prior to running the simulation. See Table \ref{table:inputVar}. These inputs are used in DD\ref{DD_Viscosity}, DD\ref{DD_RelaxationRate}, DD\ref{DD_VelocityGradient} and DD\ref{DD_FluidDensity}.
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_speedSound}:]
-  The speed of sound is constant. It's value can be found in Section \ref{symbolicpara}. The constant is referenced in model \tref{T_EDF}.   
+  The speed of sound is constant. Its value can be found in Section \ref{symbolicpara}. The constant is referenced in model \tref{T_EDF}.   
+  
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AVGERROR}:]
+  The average error in outputs between OTS solutions is 3\%.   
 
 \end{itemize}
 
 \begin{table}[!h]
 \begin{center}
-\begin{tabular}{| c | c | c | c | c | c | c | c | c |}
+\begin{tabular}{| c | c | c | c | c | c | c | c | c | c |}
 \hline
-\textbf{Goal} & \textbf{Model} & \textbf{A\ref{A_fluids}} & \textbf{A\ref{A_flowObject}} & \textbf{A\ref{A_lattice}} & \textbf{A\ref{A_weightCoefficients}} & \textbf{A\ref{A_lattice}} & \textbf{A\ref{A_userInputs}} & \textbf{A\ref{A_speedSound}} \\
+\textbf{Goal} & \textbf{Model} & \textbf{A\ref{A_fluids}} & \textbf{A\ref{A_flowObject}} & \textbf{A\ref{A_lattice}} & \textbf{A\ref{A_weightCoefficients}} & \textbf{A\ref{A_selectModel}} & \textbf{A\ref{A_userInputs}} & \textbf{A\ref{A_speedSound}} &
+\textbf{A\ref{A_AVGERROR}} \\
 \hline
-G\ref{G_Location} & \tref{T_BTE} & & & & & \checkmark & \checkmark &\\
+G\ref{G_Location} & \tref{T_BTE} & & & & & \checkmark & \checkmark & & \checkmark\\
 \hline
-G\ref{G_Location} & \tref{T_BGK} & \checkmark & & & & \checkmark & \checkmark &\\
+G\ref{G_Location} & \tref{T_BGK} & \checkmark & & & & \checkmark & \checkmark & & \checkmark\\
 \hline
-G\ref{G_Location} & \tref{T_EDF} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+G\ref{G_Location} & \tref{T_EDF} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-G\ref{G_Velocity} & \tref{T_BTE} & & & & & \checkmark & \checkmark &\\
+G\ref{G_Location} & \tref{T_ReynoldsNum} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & & \checkmark\\ 
 \hline
-G\ref{G_Velocity} & \tref{T_BGK} & \checkmark & & & & \checkmark & \checkmark & \\
+G\ref{G_Velocity} & \tref{T_BTE} & & & & & \checkmark & \checkmark & & \checkmark\\
 \hline
-G\ref{G_Velocity} & \tref{T_EDF} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+G\ref{G_Velocity} & \tref{T_BGK} & \checkmark & & & & \checkmark & \checkmark & & \checkmark \\
 \hline
-G\ref{G_FluidPressure} & \tref{T_BTE} & & & & & \checkmark & \checkmark & \\
+G\ref{G_Velocity} & \tref{T_EDF} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-G\ref{G_FluidPressure} & \tref{T_BGK} & \checkmark & & & & \checkmark & \checkmark &\\
+G\ref{G_Velocity} & \tref{T_ReynoldsNum} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & & \checkmark\\ 
 \hline
-G\ref{G_FluidPressure} & \tref{T_EDF} & \checkmark & & & & \checkmark & \checkmark & \checkmark \\
+G\ref{G_FluidPressure} & \tref{T_BTE} & & & & & \checkmark & \checkmark & & \checkmark \\
+\hline
+G\ref{G_FluidPressure} & \tref{T_BGK} & \checkmark & & & & \checkmark & \checkmark & & \checkmark\\
+\hline
+G\ref{G_FluidPressure} & \tref{T_EDF} & \checkmark & & & & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hline
+G\ref{G_FluidPressure} & \tref{T_ReynoldsNum} & & & \checkmark & \checkmark & \checkmark & \checkmark & & \checkmark \\ 
 \hline
 \end{tabular}
 \caption{Assumption Relationship to Goals and Models}
@@ -665,33 +709,33 @@ G\ref{G_FluidPressure} & \tref{T_EDF} & \checkmark & & & & \checkmark & \checkma
 \hline
 boundary shape & Set of \{defined 2D, defined 3D, undefined\} & compile \\
 \hline
-boundary parameters & Set of \{deflective, non deflective\} & compile \\
+destination for output & Set of \{file, screen, memory\} & compile \\
 \hline
-fluid parameters & Set of \{$e$, $t$, $u$, $p$, $x$, $\eta$, $\tau$, $\gamma$, $F$, $A$\} & compile \\
+boundary parameters & Set of \{deflective, non deflective\} & compile \\
 \hline
 model choice & Set of \{1D, 2D, 3D\} & compile \\
 \hline
-velocity directions & Set of \{2, 3, 5, 9,  13, 15, 19, 27\} & scope \\
+\# of velocity directions & Set of \{2, 3, 5, 9,  13, 15, 19, 27\} & compile \\
 \hline
-velocity ($e$) & Set of \mathbb{R} & scope \\
+velocity ($\mathrm{e}$) & Set of $\mathbb{R}$ & run \\
 \hline
-time ($t$) & Set of \mathbb{R}& scope \\
+time ($t$) & Positive $\mathbb{R}$ & run \\
 \hline
-macroscopic velocity ($u$) & Set of \mathbb{R}& scope \\
+macroscopic velocity ($u$) & Set of $\mathbb{R}$ & run \\
 \hline
-fluid density ($p$) & Set of positive \mathbb{R}& scope \\
+fluid density ($p$) & Set of positive $\mathbb{R}$ & run \\
 \hline
-position vector ($x$) & Vector of Set of \mathbb{R}& scope \\
+position vector ($x$) & Vector of Set of $\mathbb{R}$ & run \\
 \hline
-viscosity ($\eta$) & Set of \mathbb{R} $\geq$ 0 & scope \\
+viscosity ($\eta$) & Set of $\mathbb{R}$ $\geq$ 0 & run \\
 \hline
-relaxation rate ($\tau$) & Set of \mathbb{R} & scope \\
+relaxation rate ($\tau$) & Set of $\mathbb{R}$ & run \\
 \hline
-velocity gradient ($\gamma$ )& Set of \mathbb{R} & scope\\
+velocity gradient ($\gamma$ )& Set of $\mathbb{R}$ & run\\
 \hline
-force ($F$) & Set of \mathbb{R} $\geq$ 0 & scope \\
+force ($F$) & Set of $\mathbb{R}$ $\geq$ 0 & run \\
 \hline
-cross-sectional area ($A$) & Set of \mathbb{R} $\geq$ 0 & scope \\
+cross-sectional area ($A$) & Set of $\mathbb{R}$ $\geq$ 0 & run \\
 \hline
 \end{tabular}
 \caption{Input Variabilities}
@@ -713,6 +757,8 @@ coefficient weights & Set of \{0 $<$ \mathbb{R} $<$ 1\}; \sum \mathbb{R} = 1 & c
 \hline
 input check & \pbox{6cm}{boolean (false if input satisfies input assumptions)} & compile \\
 \hline
+encoding of output & Set of \{binary, text\} & compile \\
+\hline
 exception check & \pbox{6cm}{boolean (false if no exception condition raised)} & compile \\
 \hline
 \end{tabular}
@@ -731,13 +777,9 @@ exception check & \pbox{6cm}{boolean (false if no exception condition raised)} &
 \hline
 Variability & Parameter of Variation & Binding Time\\
 \hline
-graphical model & Set of \{2D, 3D\}; \sum \mathbb{R} = 1 & run \\
+graphical model & Set of \{2D, 3D\}; \sum \mathbb{R} = 1 & compile \\
 \hline
-destination for output & Set of \{file, screen, memory\} = 1 & run \\
-\hline
-fluid characteristics & Set of \pbox{5cm}{\{wall pressure, flow velocity, fluid location\} }& run \\
-\hline
-encoding of output & Set of \{binary, text\} & run \\
+fluid characteristics & Set of \pbox{5cm}{\{wall pressure, flow velocity, fluid location, pressure gradient\} }& run \\
 \hline
 \end{tabular}
 \caption{Output Variabilities}
@@ -756,45 +798,47 @@ qualities that the software is expected to exhibit.
 
 \noindent \begin{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The user shall input a set of fluid parameters, listed in Table \ref{table:inputVar}, into the system, as per A\ref{A_userInputs}. These parameters will be used in calculations for \tref{T_BTE}, \tref{T_BGK}, and \tref{T_EDF}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall read a set of input fluid parameters, listed in Table \ref{table:inputVar}, as per A\ref{A_userInputs}. These parameters will be used in calculations for \tref{T_BTE}, \tref{T_BGK}, and \tref{T_EDF}.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The user shall select from a set of model and velocity direction parameters, listed in Table \ref{table:inputVar}, into the system, as per A\ref{A_selectModel}. These models will be reflected in the calculations of \tref{T_BTE}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system shall allow the user to select from a set of model and velocity direction parameters, listed in Table \ref{table:inputVar}, as per A\ref{A_selectModel}. These models will be reflected in the calculations of \tref{T_BTE}.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system shall verify that the inputs fall within the allowable parameters of variation, see Table \ref{table:inputVar}.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Instantiate}:] The system shall instantiate required data types and structures for the selected model.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_CoefficientWeights}:] The system shall import from memory the relevant coefficient weights for the selected model, as per A\ref{A_weightCoefficients}. The weighting values can be found in Table \ref{coefficientweights}. These models will be reflected in the calculations of \tref{T_BTE}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_CoefficientWeights}:] The system shall import the relevant coefficient weights for the selected model, as per A\ref{A_weightCoefficients}. The weighting values can be found in Table \ref{coefficientweights}. These models will be reflected in the calculations of \tref{T_BTE}.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] The system shall calculate and store in memory the predicted fluid parameters, iterating through streaming and collision processes over the desired model time.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] The system shall calculate and store the predicted fluid parameters, iterating through streaming and collision processes over the desired model time.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The system shall output the results of the calculations to the screen, to a file, and/or to memory.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The system shall output the results of the calculations in a manner consistent with the decisions made regarding variabilities.
 
 \end{itemize}
 
 ~\newpage
 
-\subsection{Nonfunctional Requirements}
+\subsection{Non-Functional Requirements}
 
-The following are non-functional requirements, and their metrics, for a family of LBS. They are defined in Section \ref{termdef}:
+The following are non-functional requirements (NFRs), and their metrics, for a family of LBS. They are defined in Section \ref{termdef}:
 
 \begin{enumerate}
-\item Correctness: The allowable error of the output results, per module, will be less than the average error taken from the results of a sample of OTS solutions.
-\item Maintainability: The system shall be documented with an SRS, VnV, MG, and MIS.
-\item Performance: The system shall be able to run multiple modeling instances at once.
+\item Correctness: The allowable error of the output results, per module, will be less than the AVERAGE\_ERROR taken from the results of a sample of OTS solutions.
+\item Maintainability: The system shall be documented with a CA, VnV, MG, and MIS.
+\item Performance: The system shall be able to run MIN\_INSTANCES at once.
 \item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
 \item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
 \item Reusability: Individual modules of the system can be removed and reused in other systems.
 \item Robustness: The system will not crash when a user provides invalid input.
 \item Scalability: The system must be able to support additional computational models.
 \item Understandability: New users must easily understand which models are available for their use.
-\item Usability: New users will be able to run a simulation in less time than an average taken from a sample of OTS solutions.
+\item Usability: Users will find the system easy to use.
 \end{enumerate}
 \\
 
 ~\newpage
 
-The requirements have been compared using a pairwise process, the results of which are listed in Table \ref{table:nfrpairwise} below. The comparison took into account the available documentation of current off the shelf LBS solutions, listed in Table \ref{table:otsinputs}, Table \ref{table:otscomp}, and Table \ref{table:otsparm}.
+The NFRs have been compared using a pairwise technique based on the Analytic Hierarchy Process (AHP), a decision making method. Each NFR has been compared to every other individual NFR and a professional judgment has been made by the author of this document as to which NFR of the pair has been prioritized in the OTS LBM solutions found in Section \ref{OTSsolutions}. The judgment is based on a test of the OTS solutions and a review of their documentation.
+
+The results of the comparison are listed in Table \ref{table:nfrpairwise} below. The comparison took into account the available documentation of current off the shelf LBS solutions, listed in Table \ref{table:otsinputs}, Table \ref{table:otscomp}, and Table \ref{table:otsparm}.
 \\
 
 \begin{table}[!h]
@@ -867,25 +911,28 @@ LBS generally read input parameters from a file and this should be the standard 
 
 \begin{table}[!h]
 \begin{center}
-\begin{tabular}{| c | c | c | c | c | c | c | c | c |}
+\begin{tabular}{| c | c | c | c | c | c | c | c | c | c |}
 \hline
-& \textbf{\tref{T_BTE} }& \textbf{\tref{T_BGK} } & \textbf{\tref{T_EDF} } & \textbf{DD\ref{DD_Velocity} } & \textbf{DD\ref{DD_Viscosity} } & \textbf{DD\ref{DD_RelaxationRate} } & \textbf{DD\ref{DD_VelocityGradient} } & \textbf{DD\ref{DD_FluidDensity} }\\
+& \textbf{\tref{T_BTE} }& \textbf{\tref{T_BGK} } & \textbf{\tref{T_EDF} } &
+\textbf{\tref{T_ReynoldsNum} } & \textbf{DD\ref{DD_Velocity} } & \textbf{DD\ref{DD_Viscosity} } & \textbf{DD\ref{DD_RelaxationRate} } & \textbf{DD\ref{DD_VelocityGradient} } & \textbf{DD\ref{DD_FluidDensity} }\\
 \hline
-\textbf{\tref{T_BTE} }& & \checkmark & & \checkmark & & \checkmark & &\\
+\textbf{\tref{T_BTE} }& & \checkmark & & & \checkmark & & \checkmark & &\\
 \hline
-\textbf{\tref{T_BGK} }& \checkmark & & \checkmark & & & & &\\
+\textbf{\tref{T_BGK} }& \checkmark & & \checkmark & & & & & &\\
 \hline
-\textbf{\tref{T_EDF} }& & \checkmark & & \checkmark & & & & \checkmark \\
+\textbf{\tref{T_EDF} }& & & \checkmark & & \checkmark & & & & \checkmark \\
 \hline
-\textbf{DD\ref{DD_Velocity} } & \checkmark & & \checkmark & & & & &\\
+\textbf{\tref{T_ReynoldsNum} }& & & & & \checkmark & \checkmark & & & \checkmark \\
 \hline
-\textbf{DD\ref{DD_Viscosity} } & & & & & & \checkmark & \checkmark & \\
+\textbf{DD\ref{DD_Velocity} } & \checkmark & & \checkmark & \checkmark & & & & &\\
 \hline
-\textbf{DD\ref{DD_RelaxationRate} } & \checkmark & & & & \checkmark & & & \\
+\textbf{DD\ref{DD_Viscosity} } & & & & \checkmark & & & \checkmark & \checkmark & \\
 \hline
-\textbf{DD\ref{DD_VelocityGradient} } & & & & & \checkmark & & &\\
+\textbf{DD\ref{DD_RelaxationRate} } & \checkmark & & & & & \checkmark & & & \\
 \hline
-\textbf{DD\ref{DD_FluidDensity} } & & & \checkmark & & & & &\\
+\textbf{DD\ref{DD_VelocityGradient} } & & & & & & \checkmark & & &\\
+\hline
+\textbf{DD\ref{DD_FluidDensity} } & & & \checkmark & \checkmark & & & & &\\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
@@ -894,35 +941,38 @@ LBS generally read input parameters from a file and this should be the standard 
 
 \begin{table}[!h]
 \begin{center}
-\begin{tabular}{| c | c | c | c | c | c | c | c |}
+\begin{tabular}{| c | c | c | c | c | c | c | c | c |}
 \hline
-& \textbf{A\ref{A_fluids} }& \textbf{A\ref{A_flowObject} } & \textbf{A\ref{A_lattice} } &  \textbf{A\ref{A_weightCoefficients} } & \textbf{A\ref{A_selectModel} } & \textbf{A\ref{A_userInputs} } & \textbf{A\ref{A_speedSound} }\\
+& \textbf{A\ref{A_fluids} }& \textbf{A\ref{A_flowObject} } & \textbf{A\ref{A_lattice} } &  \textbf{A\ref{A_weightCoefficients} } & \textbf{A\ref{A_selectModel} } & \textbf{A\ref{A_userInputs} } & \textbf{A\ref{A_speedSound} } &
+\textbf{A\ref{A_AVGERROR} }\\
 \hline
-\textbf{\tref{T_BTE} }& & & & & \checkmark & \checkmark &\\
+\textbf{\tref{T_BTE} }& & & & & \checkmark & \checkmark & & \checkmark \\
 \hline
-\textbf{\tref{T_BGK} }& \checkmark & & & \checkmark & \checkmark & &\\
+\textbf{\tref{T_BGK} }& \checkmark & & & \checkmark & \checkmark & & & \checkmark\\
 \hline
-\textbf{\tref{T_EDF} }& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &\checkmark \\
+\textbf{\tref{T_EDF} }& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &\checkmark & \checkmark\\
 \hline
-\textbf{DD\ref{DD_Velocity} } & & & & & & \checkmark &\\
+\textbf{\tref{T_ReynoldsNum} }& & & & & & \checkmark & & \checkmark\\
 \hline
-\textbf{DD\ref{DD_Viscosity} } & \checkmark & & & & & \checkmark &\\
+\textbf{DD\ref{DD_Velocity} } & & & & & & \checkmark & & \checkmark\\
 \hline
-\textbf{DD\ref{DD_RelaxationRate} } & \checkmark & & & & \checkmark & \checkmark &\\
+\textbf{DD\ref{DD_Viscosity} } & \checkmark & & & & & \checkmark & & \checkmark\\
 \hline
-\textbf{DD\ref{DD_VelocityGradient} } & \checkmark & & & & & \checkmark &\\
+\textbf{DD\ref{DD_RelaxationRate} } & \checkmark & & & & \checkmark & \checkmark & & \checkmark\\
 \hline
-\textbf{DD\ref{DD_FluidDensity} } & \checkmark & & & & & \checkmark &\\
+\textbf{DD\ref{DD_VelocityGradient} } & \checkmark & & & & & \checkmark & & \checkmark\\
 \hline
-\textbf{LC\ref{LC_output} } & & & \checkmark & \checkmark & \checkmark & &\\
+\textbf{DD\ref{DD_FluidDensity} } & \checkmark & & & & & \checkmark & & \checkmark\\
 \hline
-\textbf{LC\ref{LC_wallpressure} } & & \checkmark & \checkmark & & \checkmark & &\\
+\textbf{LC\ref{LC_output} } & & & \checkmark & \checkmark & \checkmark & & &\\
 \hline
-\textbf{LC\ref{LC_decomposiiton} } & & & & & & &\\
+\textbf{LC\ref{LC_wallpressure} } & & \checkmark & \checkmark & & \checkmark & & &\\
 \hline
-\textbf{LC\ref{LC_parallel} } & & & & & & &\\
+\textbf{LC\ref{LC_decomposiiton} } & & & & & & & &\\
 \hline
-\textbf{LC\ref{LC_input} } & & & & & & &\\
+\textbf{LC\ref{LC_parallel} } & & & & & & & &\\
+\hline
+\textbf{LC\ref{LC_input} } & & & & & & & &\\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
@@ -944,7 +994,8 @@ LBS generally read input parameters from a file and this should be the standard 
 \begin{itemize}
 
 \item[\label{Cons_SpeedSound}]Cons\_SpeedSound: The speed of sound $c_s$ is equal to 343 $\frac{m}{s}$. The binding time for this constant is during compile time. This constant is referenced by T\ref{T_EDF}, and is invoked by A\ref{A_speedSound}.
-
+\item[\label{Cons_MIN_INSTANCES}]MIN\_INSTANCES: 2
+\item[\label{Cons_AVERAGE_ERROR}]AVERAGE\_ERROR: 3\%
 \end{itemize}
 
 \subsection{Off The Shelf Solutions}
@@ -974,7 +1025,7 @@ mplabs\cite{mplabs} & $\geq$0 & $\geq$0 & 2D/3D & 9,19 & $\geq$0 & & file\\
 \hline
 LBSIM\cite{lbsim} & $\geq$0 &  & 2D/3D & 6,19 & $\geq$0 & &\\
 \hline
-pylbm\cite{pylbm} & $\geq$0 & $\geq$0 & 1D,2D,3D & \makecell{2,3,5,9,\\ 13,15,19} & $\geq$0 & $\geq$0 & file\\
+pyLBM\cite{pylbm} & $\geq$0 & $\geq$0 & 1D,2D,3D & \makecell{2,3,5,9,\\ 13,15,19} & $\geq$0 & $\geq$0 & file\\
 \hline
 \end{tabular}
 \caption{OTS LBS Inputs}
@@ -1004,7 +1055,7 @@ mplabs\cite{mplabs} & D2Q9, D3Q19 & & MPI \\
 \hline
 LBSIM\cite{lbsim} & D2Q6, D3Q19 & spinoidal decomposition & \\
 \hline
-pylbm\cite{pylbm} & \pbox{3cm}{ \\ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q19} & & MPI \\
+pylbm\cite{pyLBM} & \pbox{3cm}{ \\ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q19} & & MPI \\
 \hline
 \end{tabular}
 \caption{OTS LBS Computational Parameters}
@@ -1034,7 +1085,7 @@ mplabs\cite{mplabs} & & $\geq$0 & 2D/3D \\
 \hline
 LBSIM\cite{lbsim} & & & 2D/3D\\
 \hline
-pylbm\cite{pylbm} & & & 2D/3D \\
+pyLBM\cite{pylbm} & & & 2D/3D \\
 \hline
 \end{tabular}
 \caption{OTS LBS Output Parameters}
@@ -1075,6 +1126,36 @@ D3Q27\cite{perumal2015review} & \pbox{6cm}{8/27, i = 0; 2/27, i = 1,2,...,6; 1/5
 \end{tabular}
 \caption{Lattice Model Coefficient Weights}
 \label{coefficientweights}
+\end{center}
+\end{table}
+
+\subsection{First Stage of Implementation}
+\paragraph{•}
+The first stage of implementation will focus on a library of services using the OTS family member pyLBM.
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{| c | c | c |}
+\hline
+\textbf{variability} & \textbf{value} & \textbf{binding time}\\
+\hline
+Computational Model & D2Q9 & compile \\
+\hline
+$Re$& 0.0001 - 50000 & run\\
+\hline
+$p$ & 0.0708 - 13.6 & run\\
+\hline
+Bulk viscosity & 0.0001 - 20000 & run\\
+\hline
+Shear viscosity & 0.001 - 20000 & run\\
+\hline
+$t$ & $\mathbb{N}$ $>$ 0 & run\\
+\hline
+Pressure gradient & $\mathbb{R}$ & run\\
+\hline
+\end{tabular}
+\caption{First Stage Implementation Values}
+\label{table:fstagevar}
 \end{center}
 \end{table}
 
