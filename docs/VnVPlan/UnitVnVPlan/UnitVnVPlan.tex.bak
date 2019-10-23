@@ -146,12 +146,14 @@ Robot Framework for Python will be used for automated testing. The automated tes
 
 \subsection{Non-Testing Based Verification}
 
-A code walkthrough will be conducted by the developer after each unit of each module has been built.
+A code walkthrough of each module and unit will be conducted by the developer using the rubber duck method.
+
+~\newpage
 
 \section{Unit Test Description}
 \label{unittest}
 
-This test plan has been built with reference to the MIS document titled . The test cases have been selected by splitting each module into three major components: input assignment, calculations, and output. Each of the three sections will be considered as one unit for testing purposes.
+This test plan has been built with reference to the MIS document (REFERENCE) . The test cases have been selected by splitting each module into major components: input assignment, calculations, and output. Each of the these components will have one unit test.
 
 \subsection{Tests for Functional Requirements}
 
@@ -376,6 +378,7 @@ How test will be performed:
     
 \end{enumerate}
 
+~\newpage
 
 \subsection{Tests for Nonfunctional Requirements}
 
@@ -439,6 +442,8 @@ How test will be performed:
 \end{enumerate}
 
 ...
+
+~\newpage
 
 \subsection{Traceability Between Test Cases and Modules}
 
