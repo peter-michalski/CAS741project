@@ -995,7 +995,7 @@ LBS generally read input parameters from a file and this should be the standard 
 
 \item[\label{Cons_SpeedSound}]Cons\_SpeedSound: The speed of sound $c_s$ is equal to 343 $\frac{m}{s}$. The binding time for this constant is during compile time. This constant is referenced by T\ref{T_EDF}, and is invoked by A\ref{A_speedSound}.
 \item[\label{Cons_MIN_INSTANCES}]MIN\_INSTANCES: 2
-\item[\label{Cons_AVERAGE_ERROR}]AVERAGE\_ERROR: 3\%
+\item[\label{Cons_AVERAGE_ERROR}]AVERAGE\_ERROR: 3\% : Inovked by A\ref{A_AVGERROR}
 \end{itemize}
 
 \subsection{Off The Shelf Solutions}

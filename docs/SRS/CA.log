@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  21 OCT 2019 19:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  22 OCT 2019 22:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -921,6 +921,10 @@ LaTeX Info: Redefining \nameref on input line 86.
 \openout3 = `CA.out'.
 
 
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
 Dictionary: translator-basic-dictionary, Language: English 
@@ -1402,12 +1406,12 @@ Package rerunfilecheck Info: File `CA.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1162.
  ) 
 Here is how much of TeX's memory you used:
- 19789 strings out of 492983
- 380451 string characters out of 6134923
- 456035 words of memory out of 5000000
- 23165 multiletter control sequences out of 15000+600000
+ 19791 strings out of 492983
+ 380497 string characters out of 6134923
+ 455817 words of memory out of 5000000
+ 23167 multiletter control sequences out of 15000+600000
  542548 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  36i,26n,39p,10374b,857s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on CA.dvi (31 pages, 187992 bytes).
+Output written on CA.dvi (31 pages, 188176 bytes).
