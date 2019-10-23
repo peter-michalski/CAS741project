@@ -211,7 +211,7 @@ url = {https://buildmedia.readthedocs.org/media/pdf/pylbm/develop/pylbm.pdf}
 
 @online{LBM_CA_PM,
 	author = {Peter Michalski},
-	title = {Lattice Boltzmann Solvers},
+	title = {Lattice Boltzmann Solvers - CA},
 	url = {https://github.com/peter-michalski/LatticeBoltzmannSolvers/blob/master/docs/SRS/CA.pdf},
 	date = {2019},
 	urldate = {2019}

@@ -21,7 +21,7 @@ Warning--empty year in LBM_UserGuide_PM
 Warning--empty year in CAS741_SRS_checklist
 You've used 5 entries,
             2773 wiz_defined-function locations,
-            614 strings with 5538 characters,
+            614 strings with 5543 characters,
 and the built_in function-call counts, 1475 in all, are:
 = -- 126
 > -- 40

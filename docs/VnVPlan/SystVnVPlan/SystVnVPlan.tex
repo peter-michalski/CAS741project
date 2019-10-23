@@ -14,9 +14,6 @@
 \usepackage{makecell}
 
 
-
-
-
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
@@ -68,6 +65,7 @@ October 28, 2019 & 1.0 & Initial Document\\
 
 \section{Symbols, Abbreviations and Acronyms}
 
+\subsection{Abbreviations and Acronyms}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{l l} 
   \toprule		
@@ -77,7 +75,7 @@ October 28, 2019 & 1.0 & Initial Document\\
   2D & Two Dimensional\\
   C & Pseudo-Oracle Control Value\\
   CA & Commonality Analysis\\
-  D & All Input Values\\
+  V & All Input Values\\
   I & Individual Parameter Input Values\\
   IDE & Integrated Development Environment\\
   LBM & Lattice Boltzmann Method\\
@@ -85,6 +83,7 @@ October 28, 2019 & 1.0 & Initial Document\\
   MG & Module Guide\\
   MIS & Module Interface Specification\\
   MTBF & Mean Time Between Failures\\
+  NAN & Not A Number\\
   NFR & Non-Functional Requirement\\
   O & Program Output\\
   OTS & Off The Shelf\\
@@ -92,14 +91,39 @@ October 28, 2019 & 1.0 & Initial Document\\
   R & Functional Requirement\\
   SRS & Software Requirement Specification\\
   VnV & Verification and Validation\\
-  $Re$ & Reynolds Number\\
-  $p$ & Density \\
-  $t$ & Time \\
-  $\eta_b$ & Bulk Viscosity \\
-  $\eta_s$ & Shear Viscosity \\
   \bottomrule
 \end{tabular}\\
 
+\newpage
+
+\subsection{Symbols}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l l} 
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  $Re$ & Reynolds Number\\
+  $\rho$ & Density \\
+  $t$ & Time \\
+  $\eta_b$ & Bulk Viscosity \\
+  $\eta_s$ & Shear Viscosity \\
+  $\mathbb{N}$ & natural numbers\\
+  $X_{min}$ & Lowest X-Axis Interval of Boundary\\
+  $X_{max}$ & Highest X-Axis Interval of Boundary\\
+  $Y_{min}$ & Lowest Y-Axis Interval of Boundary\\
+  $Y_{max}$ & Highest Y-Axis Interval of Boundary\\
+  $R$ & Radius of Cylinder\\
+  $\mathrm{e_{sch}}$ & Velocity Slowdown Factor\\
+  $\mathrm{e_{fac}}$ & Velocity of Scheme\\
+  $S$ & Spatial Step - Number of Spatial Subsections\\
+  $\mathrm{e_{max}}$ & Max Velocity in the Middle of Channel\\
+  $\mathrm{D}$ & Signifies the Dimension Component of Lattice Model\\
+  $\mathrm{Q}$ & Signifies Number of Velocity Directions of Lattice Model\\
+  $D_{l}$ & Length of the Domain\\
+  $D_{w}$ & Width of the Domain\\
+  \bottomrule
+\end{tabular}\\
 
 \newpage
 
@@ -142,7 +166,7 @@ The intended objective of this plan is to verify that functional requirements an
 
 \begin{enumerate}
 \item Correctness: The allowable error of the output results, per module, will be less than the average error taken from the results of a sample of OTS solutions.
-\item Maintainability: The system shall be documented with a CA, VnV, MG, and MIS.
+\item Maintainability: The system shall be documented with a Commonality Analysis (CA), Verification and Validation (VnV) plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
 \item Performance: The system shall be able to run MIN\_INSTANCES at once.
 \item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
 \item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
@@ -156,7 +180,7 @@ The intended objective of this plan is to verify that functional requirements an
 
 \subsection{Relevant Documentation}
 
-The Commonality Analysis of \myprogname can be found in (\citet{LBM_CA_PM}).\\ 
+The Commonality Analysis of {\myprogname} can be found in (\citet{LBM_CA_PM}).\\ 
 
 \newpage
 
@@ -172,9 +196,9 @@ The CA of {\myprogname} shall be verified in the following ways:
 
 \begin{enumerate}
 \item Feedback: Reviewers from the class shall provide feedback on GitHub.
-\item Static Analysis - Walkthrough: The document shall be manually reviewed by the writer using the SRS checklist upon its initial creation, as found in the CAS741 GitLab repository (\citet{CAS741_SRS_checklist}).
-\item Static Analysis - Review: The document shall be manually reviewed by the writer using the SRS checklist after VnV completion, as found in the CAS741 GitLab repository (\citet{CAS741_SRS_checklist}).
-\item Static Analysis - Final: The document shall be manually reviewed by the writer using the SRS checklist after MG and MIS development, as found in the CAS741 repository (\citet{CAS741_SRS_checklist}).
+\item Initial Review: The document shall be manually reviewed by the writer using the SRS checklist upon its initial creation, as found in the CAS741 GitLab repository (\citet{CAS741_SRS_checklist}).
+\item Second Review: The document shall be manually reviewed by the writer using the SRS checklist after VnV completion, as found in the CAS741 GitLab repository (\citet{CAS741_SRS_checklist}).
+\item Final Review: The document shall be manually reviewed by the writer using the SRS checklist after MG and MIS development, as found in the CAS741 repository (\citet{CAS741_SRS_checklist}).
 \end{enumerate}
 
 \subsection{Design Verification Plan}
@@ -189,17 +213,17 @@ The design shall be verified by ensuring that functional requirements and NFRs a
 \noindent The implementation shall be verified in the following ways:
 
 \begin{enumerate}
-\item Code walkthrough - author: Module unit code shall be inspected for functional errors by the author as the MS document is developed. Defects shall be noted in GitHub using issue creation. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
-\item Code walkthrough - peers: Module unit code shall be inspected for functional errors by class peers after the MS document is developed. Defects shall be noted in GitHub using issue creation. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
-\item Dynamic unit tests: Dynamic unit test will be carried out, as listed in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
-\item System tests: System tests will be carried out, as listed in Section \ref{systest}.
+\item Code Walkthrough - Author: Module unit code shall be inspected for functional errors by the author immediately after MS document version 1.0 is developed. A rubber duck debugging method will be followed. Any defects shall be immediately fixed. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
+\item Code Walkthrough - Peer: Module unit code shall be inspected for functional errors by Ao Dong after MS document version 1.0 is submitted on GitHub. Defects shall be noted in GitHub using issue creation. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
+\item Dynamic Unit Tests - Author: Dynamic unit test will be carried out, as listed in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
+\item System Tests: System tests will be carried out as listed in Section \ref{systest}. The author shall conduct the tests of the functional requirements. Tests of the NFRs shall be conducted by those listed in the outline of each test.
 \end{enumerate}
 
 
 
 \subsection{Software Validation Plan}
 
-The system shall be validated by ensuring that all functional requirements, as listed in Section \ref{objectives}, are met. The pseudo-oracle data that the output can be tested against can be found in Section \ref{verificationdata}.
+The system shall be validated by ensuring that all functional requirements, as listed in Section \ref{objectives}, are met. The file names containing the pseudo-oracle output data that the system output is tested against can be found in the specific test sections below.
 
 
 ~\newpage	 
@@ -225,23 +249,50 @@ The subsections below are designed to cover several of the functional requiremen
 
 \item{input-reading-id1\\}
 
-Control: Program (P) reading of input values (D) from a file.\\
+Control: Program (P) reading of input values (V) from a file.\\
 					
 Initial State: No input file in Input directory.\\
 					
 Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\$Re$: 500\\
-Final time of simulation: 75\\
-Density: 1.0\\
-Bulk Viscosity: 1.e-3\\
+$t$: 75\\
+$\rho$: 1.0\\
+$\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$\mathrm{e_{max}}$ = 0.1\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+
 					
-Output: All inputs printed to the screen as output (O). An error message of "cannot read file" should be shown if the system could not read the file.\\
+Output: All inputs printed to the screen as output (O). An error message of ``cannot read file" should be shown if the system could not read the file.\\
 Outputs printed to the screen:\\
 $Re$: 500\\
 $t$: 75\\
-$p$: 1.0\\
+$\rho$: 1.0\\
 $\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$\mathrm{e_{max}}$ = 0.1\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
 
-Test Case Derivation: P(D) is correct if P:D -$>$ O and O = D\\
+Test Case Derivation: P(V) is correct if P:V -$>$ O and O = V\\
 
 The result required for the test to pass is the successful printing of all input values to the screen. This test satisfies R1.\\
 					
@@ -261,17 +312,31 @@ How test will be performed:
 					
 \item{input-bounds-id2\\}
 
-Control: Program (P) testing of input values (D) read from a file.\\
+Control: Program (P) testing of input values (V) read from a file.\\
 					
 Initial State: No input file in Input directory.\\
 					
 Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\$Re$: 500000\\
 $t$: 0\\
-$p$: 15\\
+$\rho$: 15\\
 $\eta_b$: 100\\
 $\eta_s$: 30000\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$\mathrm{e_{max}}$ = 0.1\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+
 					
-Output: A descriptive failure message printed to the screen as seen below. In the below figure, X will contain all parameter names that are out of bounds.\\
+Output: A descriptive failure message printed to the screen as seen below. In the below figure, X will contain all parameter names that are out of bounds. In this test that will include $Re$, $t$, $\rho$, $\eta_b$, and $\eta_s$.
 
 \begin{figure}[h!]
 \begin{center}
@@ -282,8 +347,8 @@ Output: A descriptive failure message printed to the screen as seen below. In th
 \end{figure}
 
 Test Case Derivation: 
-I (individual inputs) are an element of D\\
-P(D) is incorrect if P:D and at least one I is out of bounds as per Table \ref{table:inputdatabounds}: Input Data Bounds. This test satisfies R3.\\ 
+I (individual inputs) are an element of V\\
+P(V) is incorrect if P:V and at least one I is out of bounds as per Table \ref{table:inputdatabounds}: Input Data Bounds. This test satisfies R3.\\ 
 
 					
 How test will be performed: 
@@ -292,7 +357,7 @@ How test will be performed:
 \item Outside of the system, the input values will be written to a comma delimited text file, as outlined in the User Guide (\citet{LBM_UserGuide_PM}).
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module TestInput found under the home directory will be run using a python IDE.
-\item If the test is successful, The system will output a descriptive error message, as seen above, to the screen.\\
+\item If the test is successful, the system will output a descriptive error message, as seen above, to the screen.\\
 
 
 \end{enumerate}
@@ -311,17 +376,27 @@ How test will be performed:
 
 \item{tutorial-test-id3\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $Re$: 500\\
 $t$: 75\\
-$p$: 1.0\\
+$\rho$: 1.0\\
 $\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 
-					
+		
 Output: Vorticity vector values printed to the screen. \\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values of this test for pyLBM can be found in the file id3output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
@@ -339,16 +414,25 @@ How test will be performed:
 					
 \item{laminar-test-id4\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $Re$: 0.0001\\
 $t$: 75\\
-$p$: 1.0\\
+$\rho$: 1.0\\
 $\eta_b$: 1.e-3\\
-
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 					
 Output: Vorticity vector values printed to the screen.\\
 
@@ -368,15 +452,25 @@ How test will be performed:
 
 \item{turbulent-test-id5\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $Re$: 50000\\
 $t$: 75\\
-$p$: 1.0\\
+$\rho$: 1.0\\
 $\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
@@ -396,15 +490,25 @@ How test will be performed:
 
 \item{low-density-test-id6\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $Re$: 500\\
 $t$: 75\\
-$p$: 7.08e-2\\
+$\rho$: 7.08e-2\\
 $\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
@@ -424,15 +528,25 @@ How test will be performed:
 
 \item{high-density-test-id7\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $Re$: 500\\
 $t$: 75\\
-$p$: 13.6\\
+$\rho$: 13.6\\
 $\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
@@ -452,15 +566,25 @@ How test will be performed:
 
 \item{low-bulk-viscosity-test-id8\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $Re$: 500\\
 $t$: 75\\
-$p$: 1.0\\
+$\rho$: 1.0\\
 $\eta_b$: 1.e-4\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen.  \\
 
@@ -480,15 +604,25 @@ How test will be performed:
 
 \item{high-bulk-viscosity-test-id9\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $Re$: 500\\
 $t$: 75\\
-$p$: 1.0\\
+$\rho$: 1.0\\
 $\eta_b$: 1.e-2\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\ 
 
@@ -503,7 +637,7 @@ How test will be performed:
 \item Outside of the system, the input parameter values will be written to a comma delimited text file, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
+\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel or through a script.\\
 \end{enumerate}
 
 \end{enumerate}
@@ -519,21 +653,26 @@ How test will be performed:
 
 \item{tutorial-test-id10\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $t$: 50\\
-$p$: 1\\
+$\rho$: 1\\
 $\eta_b$: 1.e-2\\
 $\eta_s$: 1.e-2\\
-
+$S$ = 16\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{max}}$ = 0.1\\
+$X_{min}$ = 0.\\
 
 					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Pouiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -7.074e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -7.074e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
 This test satisfies R6 and R7.\\
 					
 How test will be performed: 
@@ -547,21 +686,26 @@ How test will be performed:
 
 \item{low-density-test-id11\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $t$: 50\\
-$p$: 0.0708\\
+$\rho$: 0.0708\\
 $\eta_b$: 1.e-2\\
 $\eta_s$: 1.e-2\\
-
+$S$ = 16\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{max}}$ = 0.1\\
+$X_{min}$ = 0.\\
 
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Pouiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -4.103e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -4.103e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
 This test satisfies R6 and R7.\\
 					
 How test will be performed: 
@@ -575,21 +719,26 @@ How test will be performed:
 
 \item{high-density-test-id12\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $t$: 50\\
-$p$: 13.6\\
+$\rho$: 13.6\\
 $\eta_b$: 1.e-2\\
 $\eta_s$: 1.e-2\\
-
+$S$ = 16\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{max}}$ = 0.1\\
+$X_{min}$ = 0.\\
 
 					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Pouiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -1.522e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -1.522e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
 This test satisfies R6 and R7.\\
 					
 How test will be performed: 
@@ -603,21 +752,26 @@ How test will be performed:
 
 \item{low-bulk-viscosity-test-id13\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $t$: 50\\
-$p$: 1\\
+$\rho$: 1\\
 $\eta_b$: 1.e-4\\
 $\eta_s$: 1.e-2\\
-
+$S$ = 16\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{max}}$ = 0.1\\
+$X_{min}$ = 0.\\
 
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Pouiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -1.462e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -1.462e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
 This test satisfies R6 and R7.\\
 					
 How test will be performed: 
@@ -631,21 +785,26 @@ How test will be performed:
 
 \item{high-bulk-viscosity-test-id14\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $t$: 50\\
-$p$: 1\\
+$\rho$: 1\\
 $\eta_b$: 20000\\
 $\eta_s$: 1.e-2\\
-
+$S$ = 16\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{max}}$ = 0.1\\
+$X_{min}$ = 0.\\
 
 					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Pouiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -3.262e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -3.262e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
 This test satisfies R6 and R7.\\
 					
 How test will be performed: 
@@ -659,21 +818,26 @@ How test will be performed:
 
 \item{low-shear-viscosity-test-id15\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $t$: 50\\
-$p$: 1\\
+$\rho$: 1\\
 $\eta_b$: 1.e-2\\
 $\eta_s$: 1.e-3\\
-
+$S$ = 16\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{max}}$ = 0.1\\
+$X_{min}$ = 0.\\
 
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Pouiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -1.604e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -1.604e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
 This test satisfies R6 and R7.\\
 					
 How test will be performed: 
@@ -687,21 +851,26 @@ How test will be performed:
 
 \item{high-shear-viscosity-test-id16\\}
 
-Control: Program (P) module execution using inputs (D), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
 Initial State: No input file in Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
 $t$: 50\\
-$p$: 1\\
+$\rho$: 1\\
 $\eta_b$: 1.e-2\\
 $\eta_s$: 20000\\
-
+$S$ = 16\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{max}}$ = 0.1\\
+$X_{min}$ = 0.\\
 
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Pouiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -6.868e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -6.868e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
 This test satisfies R6 and R7.\\
 					
 How test will be performed: 
@@ -739,50 +908,62 @@ Initial State: Maintainability of the repository has not been tested.\\
 Input/Condition: A production version of {\myprogname} has been released.\\
 					
 Output/Result: A graded report describing the maintainability of the repository.\\
+
+Test Case Derivation: This test will determine if the system documentation allows for easy maintainability by checking how much documentation is available, as well as reviewing its clarity and traceability. A score of higher than 3 in each of the tested categories will indicate that the system documentation is maintainable.\\ 
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item  A reviewer with a background in technical writing is selected for the review process.
-\item The reviewer shall check the repository for the following documentation: SRS/CA, VnV Plan, MG, MIS, User Guide.
-\item The reviewer shall mark 1 point for each of the above documents.
-\item The review shall read through each of the above reports and provide a grade between 1 and 5 for clarity of the writing. A score of 1 represents a document that is hard to understand, and a score of 5 represents a document that is easy to understand. The user shall divide the sum of the scores for all of the reports by 5.
-\item The review shall read through each of the above reports and provide a grade between 1 and 5 for traceability within the document. A score of 1 represents no links within the report, and a score of 5 represents many links between sections of the report. The user shall then divide the sum of the scores for all of the reports by 5.
-\item The reviewer will generate a brief report with the above three values, from steps (c) to (e).\\
+\item Ao Dong shall check the repository for the following documentation: SRS/CA, VnV Plan, MG, MIS, User Guide.
+\item Ao Dong shall mark 1 point for each of the above documents.
+\item Ao Dong shall read through each of the above reports and provide a grade between 1 and 5 for clarity of the writing. A score of 1 represents a document that is hard to understand, and a score of 5 represents a document that is easy to understand. The user shall divide the sum of the scores for all of the reports by 5.
+\item Ao Dong shall read through each of the above reports and provide a grade between 1 and 5 for traceability within the document. A score of 1 represents no links within the report, and a score of 5 represents many links between sections of the report. The user shall then divide the sum of the scores for all of the reports by 5.
+\item Ao Dong will generate a brief report with the above three values, from steps (c) to (e).\\
 \end{enumerate}
 
 \end{enumerate}
 
 \subsubsection{Performance}
 		
-\paragraph{Multiple Instances}
+\paragraph{Running Time}
 
 \begin{enumerate}
 
 \item{performance-id18\\}
 
-Type: Concurrent Performance\\
+Type: Running Time\\
 					
 Initial State: Input file is in the appropriate directory. The file contains the required parameter values for 2 different modules - Von Karman Vortex Street and Poiseuille Flow.\\
 					
 Input/Condition: A comma delimited file with the following input parameters and values:\\
 $Re$: 500\\
 $t$: 200\\
-$p$: 1.0\\
+$\rho$: 1.0\\
 $\eta_b$: 1.e-3\\
-$\eta_s$: 1.e-2\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 					
-Output/Result: The time taken to run two modules sequentially as well as the time taken to run the two modules concurrently. If the time taken to run the modules concurrently is less than the time taken to run the modules sequentially then the system has successfully passed this performance test.\\  
-					
+Output/Result: A timed comparison of running
+each of the two system modules, Von Karman Vortex Street and Poiseuille Flow, against the psuedo-oracle pyLBM using pyCharm IDE. The test will be passed if both system modules are faster than the pseudo-oracle.\\
+
 How test will be performed: 
 
 \begin{enumerate}
-\item The user shall initiate the Poiseuille Flow module in one tab of PyCharm IDE, and Van Harman Vortex Street in another tab.
-\item The user shall begin a timer and run the Poiseuille Flow module, waiting until the pressure gradient is printed to the screen to stop the timer. The user shall repeat this process five times and then average the amount of time taken to run the module.
-\item The Von Karman Vortex Street module shall be modified to print the vorticity vector to the screen.
-\item The user shall begin a timer and run the Von Karman Vortex Street module, waiting until the vorticity vector is printed to the screen to stop the timer. The user shall repeat this process five times and then average the amount of time taken to run the module.
-\item The user shall begin a timer and run the Von Karman Vortex Street module and Poiseullie Flow module simultaneously, waiting until the vorticity vector and pressure gradient are printed to the screen to stop the timer. The user shall repeat this process five times and then average the amount of time taken to run the module.
-\item The user shall compare the timed values to ensure that the time taken to run both modules simultaneously is less than the sum of the times taken to run the modules independently.\\
+\item Outside of the system, the input parameter values will be written, by the author, to a comma delimited text file, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory of the project.
+\item The author shall first start a timer and then select the Poiseuille Flow module to run.
+\item Upon completion of the module the author shall note the module running time.
+\item The author shall repeat steps (c) to (d) for the Von Karman Vortex Street module. 
+\item The author shall then run each of the problems, Poiseuille Flow and Von Karman Vortex Street, using the pseudo-oralce pyLBM using pyCharm IDE, making sure to time the running of each problem.
+\item The author shall compare the running time of each of the two system modules, Von Karman Vortex Street and Poiseuille Flow, against the psuedo-oracle.\\
 \end{enumerate}
 
 \end{enumerate}
@@ -797,13 +978,23 @@ How test will be performed:
 
 Type: Portability Check\\
 					
-Initial State: Have PyCharm IDE installed on three separate operating systems (can use virtual machines for this): macOS, Windows, Linux. \\
+Initial State: Have PyCharm IDE installed on three separate operating systems (virtual machines can be used for this): macOS, Windows, Linux. \\
 					
 Input/Condition: A comma delimited file with the following input parameters and values:\\
 $Re$: 500\\
 $t$: 75\\
-$p$: 1.0\\
+$\rho$: 1.0\\
 $\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 
 					
 Output/Result: This case is a check of the ability of the LBM solution to run on multiple operating systems. The result required for the test to pass is a vorticity vector printed to the screen of each instance which matches, within the allowable AVERAGE\_ERROR, the vorticity vector value found in the file id19output.txt located in the OracleOutput folder.\\
@@ -812,18 +1003,18 @@ How test will be performed:
 
 \begin{enumerate}
 
-\item Fore each operating system, the input parameter values will be written to a comma delimited text file, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
-\item The Von Karman Vortex Street module shall be modified to print the vorticity vector to the screen.
-\item The module for Von Karman Vortex Street will be selected to run
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values of the pseudo-oracle.\\
+\item The input parameter values will be written, by the author, to a comma delimited text file, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory of the project, in each of the operating system instances.
+\item The Von Karman Vortex Street module shall be modified, by the author, to print the vorticity vector to the screen.
+\item The author shall run the Von Karman Vortex Street module.
+\item Upon completion of the module, the author will compare the output values of the vorticity vector to the vorticity vector values of the pseudo-oracle.\\
 \end{enumerate}
 
 \end{enumerate}
 
 \subsubsection{Robustness}
 		
-System robustness is tested through the Input Bounds check in Section \ref{testfr}.
+System robustness is tested through the Input Bounds test (input-bounds-id2) in Section \ref{testfr}.
 
 \subsubsection{Usability}
 
@@ -835,18 +1026,28 @@ System robustness is tested through the Input Bounds check in Section \ref{testf
 
 Type: Usability Survey\\
 					
-Initial State: The LBM solver repository, the below input parameters, and an instruction to run the Von Karman Vortex Street module are provided to five users via GitHub.\\
+Initial State: The {\myprogname} repository, the below input parameters, and an instruction to run the Von Karman Vortex Street module are provided to three anonymous users via GitHub.\\
 					
 Input/Condition: A usability survey with the questions listed in Section \ref{usabilitysurevyquestions} and a comma delimited file with the following input parameters and values:\\
 $Re$: 500\\
 $t$: 75\\
-$p$: 1.0\\
+$\rho$: 1.0\\
 $\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
 
 				
 Output/Result: Survey results.\\
 
-Test Case Derivation: This case is a check of the usability of the LBM solver. Respondents will be asked to rank their experience of running a module.\\
+Test Case Derivation: This case is a check of the usability of the LBM solver. Respondents will be asked to rank their experience of running a module. A final average grade of higher than 3 will indicate that the users found the system to be user friendly.\\
 	
 How test will be performed: 
 
@@ -973,7 +1174,7 @@ id20 & & & & & & & & & & \checkmark \\
 \label{symbolpara}
 \begin{itemize}
 
-\item[\label{Cons_AVERAGE_ERROR}]AVERAGE\_ERROR: 3\%\\
+\item[\label{Cons_AVERAGE_ERROR}]AVERAGE\_ERROR: 3\%\\This error allowance will be used for both scalar and vector outputs, adjusted accordingly.
 
 \end{itemize}
 
@@ -1007,18 +1208,47 @@ Please answer the following five questions using the rubric:\\
 \hline
 $Re$& 0.0001 - 50000\\
 \hline
-$p$ & 0.0708 - 13.6\\
+$\rho$ & 0.0708 - 13.6\\
 \hline
 $\eta_b$ & 0.0001 - 0.01\\
 \hline
 $\eta_s$ & 0.001 - 20000\\
 \hline
-$t$ & $\mathbb{N}$ $>$ 0\\
+$t$ & $\mathbb{N}$\\
+\hline
+$X_{min}$ & 0.\\
+\hline
+$X_{max}$ & 3.\\
+\hline
+$Y_{min}$ & 0.\\
+\hline
+$Y_{max}$ & 1.\\
+\hline
+$R$ & 0.05\\
+\hline
+$\mathrm{e_{sch}}$ & 1.\\
+\hline
+$\mathrm{e_{fac}}$ & 20\\
+\hline
+$\mathrm{e_{max}}$ & 0.1\\
+\hline
+$S$ & 64 or 16 (module specific)\\
+\hline
+$\mathrm{D}$ & 2\\
+\hline
+$\mathrm{Q}$ & 9\\
+\hline
+$D_{l}$ & 2\\
+\hline
+$D_{w}$ & 1\\
 \hline
 \end{tabular}
 \caption{Input Data Bounds}
 \label{table:inputdatabounds}
 \end{center}
 \end{table}
+
+
+\noindent The upper and lower bounds of $Re$, $\rho$, $\eta_b$ and $\eta_s$ are derived from the allowable input range of the pseudo-oracle pyLBM. Input values outside of these bounds are known to sometimes return NAN module results. $t$ can be any $\mathbb{N}$. Fixed value variables of tests in this testing report are: $X_{min}$, $X_{max}$, $Y_{min}$, $Y_{max}$, $R$, $D_{l}$, $D_{w}$, $\mathrm{e_{sch}}$, $\mathrm{e_{fac}}$, $\mathrm{e_{max}}$, $S$ (module specific), $\mathrm{D}$, and $\mathrm{Q}$.
 
 \end{document}

@@ -11,7 +11,7 @@ pylbm.
 
 \bibitem[Michalski({\natexlab{a}})]{LBM_CA_PM}
 Peter Michalski.
-\newblock Lattice boltzmann solvers, {\natexlab{a}}.
+\newblock Lattice boltzmann solvers - ca, {\natexlab{a}}.
 \newblock URL
   \url{https://github.com/peter-michalski/LatticeBoltzmannSolvers/blob/master/docs/SRS/CA.pdf}.
 

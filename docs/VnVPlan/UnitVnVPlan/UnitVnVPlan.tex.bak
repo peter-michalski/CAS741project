@@ -1,5 +1,19 @@
 \documentclass[12pt, titlepage]{article}
 
+
+\usepackage{amsmath, mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{caption}
+\usepackage{pbox}
+\usepackage{makecell}
+
+
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
@@ -40,6 +54,8 @@ October 28, 2019 & 1.0 & Initial Document\\
 
 \tableofcontents
 
+~\newpage
+
 \listoftables
 
 \wss{Do not include if not relevant}
@@ -48,7 +64,7 @@ October 28, 2019 & 1.0 & Initial Document\\
 
 \wss{Do not include if not relevant}
 
-\newpage
+~\newpage
 
 \section{Symbols, Abbreviations and Acronyms}
 
@@ -64,26 +80,61 @@ October 28, 2019 & 1.0 & Initial Document\\
 \wss{symbols, abbreviations or acronyms -- you can reference the SRS, MG or MIS
   tables if needed}
 
-\newpage
+~\newpage
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  unit V\&V plan}
+\noindent This document covers the unit verification and validation of {\myprogname} . Functional and non-functional requirements, as found in Section \ref{purpose} and retrieved from the Commonality Analysis (\citet{LBM_CA_PM}), will be tested. The document will outline the general information of the system in Section \ref{generalinfo}, which will be followed by a testing plan in Section \ref{testplan}. Finally, individual tests will be described in Section \ref{unittest}. 
 
 \section{General Information}
+\label{generalinfo}
 
 \subsection{Purpose}
+\label{purpose}
 
-The software being tested is named: \myprogname . This software reads inputs, and calculates outputs, using Lattice Boltzmann Methods (LBM) for select problems. the software outputs the results to the screen.\\ 
+\noindent The purpose of this plan is to verify that select functional requirements and non-functional requirements (NFR), as found in the Commonality Analysis (CA) titled Lattice Boltzmann Solvers (\citet{LBM_CA_PM}), have been met in select system units.\\ 
+
+\noindent The functional requirements are:\\
+\noindent \begin{itemize}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall read a set of input fluid parameters.
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system shall allow the user to select from a set of model and velocity direction parameters.
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system shall verify that the inputs fall within the allowable parameters of variation.
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Instantiate}:] The system shall instantiate required data types and structures for the selected model.
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_CoefficientWeights}:] The system shall import the relevant coefficient weights for the selected model.
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] The system shall calculate and store the predicted fluid parameters, iterating through streaming and collision processes over the desired model time.
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The system shall output the results of the calculations in a manner consistent with the decisions made regarding variabilities.\\
+
+\end{itemize}
+
+\noindent The NFRs are:
+
+\begin{enumerate}
+\item Correctness: The allowable error of the output results, per module, will be less than the average error taken from the results of a sample of OTS solutions.
+\item Maintainability: The system shall be documented with a Commonality Analysis (CA), Verification and Validation (VnV) plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
+\item Performance: The system shall be able to run MIN\_INSTANCES at once.
+\item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
+\item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
+\item Reusability: Individual modules of the system can be removed and reused in other systems.
+\item Robustness: The system will not crash when a user provides invalid input.
+\item Scalability: The system must be able to support additional computational models.
+\item Understandability: New users must easily understand which models are available for their use.
+\item Usability: Users will find the system easy to use.
+\end{enumerate}
+
 
 \subsection{Scope}
 
-The modules that will be tested include Poiseuille flow modeled in a D2Q9 lattice, and Von Karman Vortex Street modeled in a D2Q9 lattice. These are being tested as they can be verified against the pseudo oracle pyLBM.
+The modules that will be tested include Poiseuille flow modeled in a D2Q9 lattice, and Von Karman Vortex Street modeled in a D2Q9 lattice. These are being tested as they can be verified against the pseudo oracle pyLBM. This unit VnV plan will test units within these two modules.
 
-Libraries that will not be tested include the streaming and collision libraries borrowed from pyLBM.
 
 \section{Plan}
+\label{testplan}
 	
 \subsection{Verification and Validation Team}
 
@@ -98,6 +149,7 @@ Robot Framework for Python will be used for automated testing. The automated tes
 A code walkthrough will be conducted by the developer after each unit of each module has been built.
 
 \section{Unit Test Description}
+\label{unittest}
 
 This test plan has been built with reference to the MIS document titled . The test cases have been selected by splitting each module into three major components: input assignment, calculations, and output. Each of the three sections will be considered as one unit for testing purposes.
 
@@ -392,11 +444,12 @@ How test will be performed:
 
 \wss{Provide evidence that all of the modules have been considered.}
 
-\bibliographystyle{plainnat}
+~\newpage
+\clearpage
+\bibliographystyle {plainnat}
+\bibliography {../../../refs/References}
 
-\bibliography{SRS}
-
-\newpage
+~\newpage
 
 \section{Appendix}
 
