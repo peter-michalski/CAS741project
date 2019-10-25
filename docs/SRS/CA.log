@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  22 OCT 2019 22:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  25 OCT 2019 10:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1232,6 +1232,15 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 [16] [17]
+! Undefined control sequence.
+l.832 ... LBM models are available in {\myprogname
+                                                  }.
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
 
 ! LaTeX Error: There's no line here to end.
 
@@ -1414,4 +1423,4 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  36i,26n,39p,10374b,857s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on CA.dvi (31 pages, 188176 bytes).
+Output written on CA.dvi (31 pages, 188352 bytes).

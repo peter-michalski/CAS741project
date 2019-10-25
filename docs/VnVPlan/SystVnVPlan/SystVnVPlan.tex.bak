@@ -777,7 +777,7 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -4.103e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -4.103e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
 
 					
 How test will be performed: 
@@ -810,7 +810,7 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value (C) from the pseudo-oracle, -1.522e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -1.522e-01. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
 
 					
 How test will be performed: 
@@ -843,7 +843,7 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value (C) from the pseudo-oracle, -1.462e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C output from the pseudo-oracle, -1.462e-01. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
 
 					
 How test will be performed: 
@@ -876,7 +876,7 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value (C) from the pseudo-oracle, -3.262e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -3.262e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
 
 					
 How test will be performed: 
@@ -909,7 +909,7 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value (C) from the pseudo-oracle, -1.604e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -1.604e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
 
 					
 How test will be performed: 
@@ -942,7 +942,7 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value (C) from the pseudo-oracle, -6.868e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -6.868e-01. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
 
 					
 How test will be performed: 
