@@ -122,6 +122,7 @@ October 28, 2019 & 1.0 & Initial Document\\
   $\mathrm{Q}$ & Signifies Number of Velocity Directions of Lattice Model\\
   $D_{l}$ & Length of the Domain\\
   $D_{w}$ & Width of the Domain\\
+  $E_r$ & Relative Error\\
   \bottomrule
 \end{tabular}\\
 
@@ -167,13 +168,13 @@ The intended objective of this plan is to verify that functional requirements an
 \begin{enumerate}
 \item Correctness: The allowable error of the output results, per module, will be less than the average error taken from the results of a sample of OTS solutions.
 \item Maintainability: The system shall be documented with a Commonality Analysis (CA), Verification and Validation (VnV) plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
-\item Performance: The system shall be able to run MIN\_INSTANCES at once.
+\item Performance: The system shall be able to run modules faster than the pseudo-oracle pyLBM.
 \item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
 \item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
 \item Reusability: Individual modules of the system can be removed and reused in other systems.
 \item Robustness: The system will not crash when a user provides invalid input.
 \item Scalability: The system must be able to support additional computational models.
-\item Understandability: New users must easily understand which models are available for their use.
+\item Understandability: New users must easily understand which LBM models are available in {\myprogname}.
 \item Usability: Users will find the system easy to use.
 \end{enumerate}
 
@@ -188,7 +189,7 @@ The Commonality Analysis of {\myprogname} can be found in (\citet{LBM_CA_PM}).\\
 \label{testplan}	
 \subsection{Verification and Validation Team}
 
-This VnV plan will be conducted by Peter Michalski.
+This VnV plan will be conducted by Peter Michalski and several classmates.
 
 \subsection{CA Verification Plan}
 
@@ -238,7 +239,7 @@ The system shall be validated by ensuring that all functional requirements, as l
 
 \label{testfr}
 
-The subsections below are designed to cover several of the functional requirements of the system. Subsection \ref{frinput} will cover R1 and R3. Subsections \ref{frvkvs} and \ref{frpf} will cover R6 and R7, and will test out the input vales at their allowable edges. The remaining functional requirements may be tested using the Unit Vnv Plan.
+The subsections below are designed to cover several of the functional requirements of the system. Subsection \ref{frinput} will cover R1 and R3. Subsections \ref{frvkvs} and \ref{frpf} will cover R4, R5, R6, and R7, and will test out the input vales at their allowable edges. The remaining functional requirements may be tested using the Unit Vnv Plan.
 
 \subsubsection{Input}
 \label{frinput}
@@ -370,7 +371,7 @@ How test will be performed:
 \label{frvkvs}
 		
 \paragraph{Dynamic Testing - Manual:}
-\paragraph{} These dynamic tests will compare output with output from the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the same inputs as {\myprogname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
+\paragraph{} These dynamic tests will compare {\myprogname} output with output from the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the same inputs as {\myprogname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
 
 \begin{enumerate}
 
@@ -399,8 +400,8 @@ $\mathrm{Q}$ = 9\\
 		
 Output: Vorticity vector values printed to the screen. \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values of this test for pyLBM can be found in the file id3output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7.\\	
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values (C) of this test for pyLBM can be found in the file id3output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+
 
 How test will be performed: 
 
@@ -411,8 +412,79 @@ How test will be performed:
 \item The module for Von Karman Vortex Street will be selected to run.
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
+
+\item{Reynolds-Rel-Error-test-id4\\}
+
+Control: Program (P) module execution using  inputs (V) with varying $Re$ parameter (I), and observing variance of the relative error ($E_r$) of the output (O) when matching to a control value (C) \\
 					
-\item{laminar-test-id4\\}
+Initial State: No input file in Input directory.\\
+					
+Input(first iteration of test): A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
+$Re$: 500\\
+$t$: 75\\
+$\rho$: 1.0\\
+$\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
+
+Input(second iteration of test): A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
+$Re$: 1500\\
+$t$: 75\\
+$\rho$: 1.0\\
+$\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
+
+Input(third iteration of test): A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The inputs values for this test will be:\\
+$Re$: 2500\\
+$t$: 75\\
+$\rho$: 1.0\\
+$\eta_b$: 1.e-3\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
+
+		
+Output: In each iteration we will have vorticity vector values printed to the screen.\\
+
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the files id4\_1\_output.txt, id4\_2\_output.txt and id4\_3\_output.txt, located in the OracleOutput folder. The files hold the C values for iterations 1, 2, and 3 respectively. Each iteration will calculate the relative error of O to its respective C counterpart. The $E_r$ of each iteration will be compared to discover how changes in $Re$ affect correctness. This may be helpful in improving correctness of the implementation.\\	
+
+How test will be performed: 
+
+\begin{enumerate}
+\item The Von Karman Vortex Street module will be adjusted to print the vorticity vector values to the screen.
+\item Outside of the system, the input parameter values will be written to a comma delimited text file, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory of the project.
+\item The module for Von Karman Vortex Street will be selected to run.
+\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script. A relative error value will be calculated.\\
+\item Steps (a) - (e) will be repeated for each test iteration.
+\item The $E_r$ of each iteration will be compared.\\
+\end{enumerate}
+					
+\item{laminar-test-id5\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -436,8 +508,8 @@ $\mathrm{Q}$ = 9\\
 					
 Output: Vorticity vector values printed to the screen.\\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values of this test for pyLBM can be found in the file id4output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7. It also covers a very small Reynolds number representing laminar flow.\\	
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id5output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of O and C of less than or equal to AVERAGE\_ERROR.\\
+This test covers a very small Reynolds number representing laminar flow.\\	
 
 					
 How test will be performed: 
@@ -450,7 +522,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{turbulent-test-id5\\}
+\item{turbulent-test-id6\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -474,8 +546,8 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values of this test for pyLBM can be found in the file id3output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7. It also covers a very large Reynolds number representing very turbulent flow.\\	
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id6output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+This test covers a very large Reynolds number representing very turbulent flow.\\	
 
 					
 How test will be performed: 
@@ -488,7 +560,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{low-density-test-id6\\}
+\item{low-density-test-id7\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -512,8 +584,8 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values of this test for pyLBM can be found in the file id3output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7. It also covers the low bound for density using a density of liquid hydrogen.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id7output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+This test covers the low bound for density using a density of liquid hydrogen.\\
 
 					
 How test will be performed: 
@@ -526,7 +598,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{high-density-test-id7\\}
+\item{high-density-test-id8\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -550,8 +622,8 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values of this test for pyLBM can be found in the file id3output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7. It also covers the high bound for density using a density close to that of mercury.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id8output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+This test covers the high bound for density using a density close to that of mercury.\\
 
 					
 How test will be performed: 
@@ -564,7 +636,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{low-bulk-viscosity-test-id8\\}
+\item{low-bulk-viscosity-test-id9\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -588,8 +660,8 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values of this test for pyLBM can be found in the file id3output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7. It also covers the low bound for bulk viscosity.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id9output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+This test covers the low bound for bulk viscosity.\\
 
 					
 How test will be performed: 
@@ -602,7 +674,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{high-bulk-viscosity-test-id9\\}
+\item{high-bulk-viscosity-test-id10\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -626,8 +698,8 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values of this test for pyLBM can be found in the file id3output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7. It also covers the high bound for bulk viscosity.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id10output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+This test covers the high bound for bulk viscosity.\\
 
 					
 How test will be performed: 
@@ -647,11 +719,11 @@ How test will be performed:
 \label{frpf}
 
 \paragraph{Dynamic Testing - Manual:}
-\paragraph{} These dynamic tests will compare output with output from the pseudo oracle myLBM (\citet{pylbmcode}). The input oracle will have the same inputs as {\myprogname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
+\paragraph{} These dynamic tests will compare {\myprogname} output with output from the pseudo oracle myLBM (\citet{pylbmcode}). The input oracle will have the same inputs as {\myprogname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
 
 \begin{enumerate}
 
-\item{tutorial-test-id10\\}
+\item{tutorial-test-id11\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -672,8 +744,8 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -7.074e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -7.074e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+
 					
 How test will be performed: 
 
@@ -684,7 +756,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}			
 
-\item{low-density-test-id11\\}
+\item{low-density-test-id12\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -705,8 +777,8 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -4.103e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -4.103e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+
 					
 How test will be performed: 
 
@@ -717,7 +789,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{high-density-test-id12\\}
+\item{high-density-test-id13\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -738,8 +810,8 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -1.522e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -1.522e-01. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+
 					
 How test will be performed: 
 
@@ -750,7 +822,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{low-bulk-viscosity-test-id13\\}
+\item{low-bulk-viscosity-test-id14\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -771,8 +843,8 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -1.462e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C output from the pseudo-oracle, -1.462e-01. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+
 					
 How test will be performed: 
 
@@ -783,7 +855,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{high-bulk-viscosity-test-id14\\}
+\item{high-bulk-viscosity-test-id15\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -804,8 +876,8 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -3.262e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -3.262e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+
 					
 How test will be performed: 
 
@@ -816,7 +888,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{low-shear-viscosity-test-id15\\}
+\item{low-shear-viscosity-test-id16\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -837,8 +909,8 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -1.604e-03. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -1.604e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+
 					
 How test will be performed: 
 
@@ -849,7 +921,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{high-shear-viscosity-test-id16\\}
+\item{high-shear-viscosity-test-id17\\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -870,8 +942,8 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the output value from the pseudo-oracle, -6.868e-01. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
-This test satisfies R6 and R7.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -6.868e-01. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+
 					
 How test will be performed: 
 
@@ -899,7 +971,7 @@ System correctness is tested via the functional tests of Section \ref{testfr} us
 
 \begin{enumerate}
 
-\item{maintainability-id17\\}
+\item{maintainability-id18\\}
 
 Type: Maintainability Walkthrough\\
 					
@@ -929,7 +1001,7 @@ How test will be performed:
 
 \begin{enumerate}
 
-\item{performance-id18\\}
+\item{performance-id19\\}
 
 Type: Running Time\\
 					
@@ -974,7 +1046,7 @@ How test will be performed:
 
 \begin{enumerate}
 
-\item{portability-id19\\}
+\item{portability-id20\\}
 
 Type: Portability Check\\
 					
@@ -997,7 +1069,7 @@ $\mathrm{D}$ = 2\\
 $\mathrm{Q}$ = 9\\
 
 					
-Output/Result: This case is a check of the ability of the LBM solution to run on multiple operating systems. The result required for the test to pass is a vorticity vector printed to the screen of each instance which matches, within the allowable AVERAGE\_ERROR, the vorticity vector value found in the file id19output.txt located in the OracleOutput folder.\\
+Output/Result: This case is a check of the ability of the LBM solution to run on multiple operating systems. The result required for the test to pass is a vorticity vector printed to the screen of each instance which matches, within the allowable AVERAGE\_ERROR, the vorticity vector value found in the file id20output.txt located in the OracleOutput folder.\\
 					
 How test will be performed: 
 
@@ -1022,7 +1094,7 @@ System robustness is tested through the Input Bounds test (input-bounds-id2) in 
 
 \begin{enumerate}
 
-\item{usability-id20\\}
+\item{usability-id21\\}
 
 Type: Usability Survey\\
 					
@@ -1073,35 +1145,43 @@ id1 & \checkmark & & & & & &\\
 \hline
 id2 & & & \checkmark & & & &\\
 \hline
-id3 & & & & & & \checkmark & \checkmark \\
+id3 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id4 & & & & & & \checkmark & \checkmark \\
+id4 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id5 & & & & & & \checkmark & \checkmark \\
+id5 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id6 & & & & & & \checkmark & \checkmark \\
+id6 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id7 & & & & & & \checkmark & \checkmark \\
+id7 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id8 & & & & & & \checkmark & \checkmark \\
+id8 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id9 & & & & & & \checkmark & \checkmark \\
+id9 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id10 & & & & & & \checkmark & \checkmark \\
+id10 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id11 & & & & & & \checkmark & \checkmark \\
+id11 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id12 & & & & & & \checkmark & \checkmark \\
+id12 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id13 & & & & & & \checkmark & \checkmark \\
+id13 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id14 & & & & & & \checkmark & \checkmark \\
+id14 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id15 & & & & & & \checkmark & \checkmark \\
+id15 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id16 & & & & & & \checkmark & \checkmark \\
+id16 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id16 & & & & & & \checkmark & \checkmark \\
+id17 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hline
+id18 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hline
+id19 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hline
+id20 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hline
+id21 & \checkmark & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Test Cases and Functional Requirements}
@@ -1120,7 +1200,7 @@ id2 & & & & & & & \checkmark & & &\\
 \hline
 id3 & \checkmark & & & & & & & & &\\
 \hline
-id4 & \checkmark & & & & & & & & &\\
+id4 & & & & & & & & & &\\
 \hline
 id5 & \checkmark & & & & & & & & &\\
 \hline
@@ -1146,13 +1226,15 @@ id15 & \checkmark & & & & & & & & &\\
 \hline
 id16 & \checkmark & & & & & & & & &\\
 \hline
-id17 & & \checkmark & & & & & & & &\\
+id17 & \checkmark & & & & & & & & &\\
 \hline
-id18 & & & \checkmark & & & & & & &\\
+id18 & & \checkmark & & & & & & & &\\
 \hline
-id19 & \checkmark & & & \checkmark & & & & & &\\
+id19 & & & \checkmark & & & & & & &\\
 \hline
-id20 & & & & & & & & & & \checkmark \\
+id20 & \checkmark & & & \checkmark & & & & & &\\
+\hline
+id21 & & & & & & & & & & \checkmark \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Test Cases and NFRs}

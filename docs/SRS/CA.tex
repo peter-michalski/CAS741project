@@ -821,15 +821,15 @@ qualities that the software is expected to exhibit.
 The following are non-functional requirements (NFRs), and their metrics, for a family of LBS. They are defined in Section \ref{termdef}:
 
 \begin{enumerate}
-\item Correctness: The allowable error of the output results, per module, will be less than the AVERAGE\_ERROR taken from the results of a sample of OTS solutions.
-\item Maintainability: The system shall be documented with a CA, VnV, MG, and MIS.
-\item Performance: The system shall be able to run MIN\_INSTANCES at once.
+\item Correctness: The allowable error of the output results, per module, will be less than the average error taken from the results of a sample of OTS solutions.
+\item Maintainability: The system shall be documented with a Commonality Analysis (CA), Verification and Validation (VnV) plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
+\item Performance: The system shall be able to run modules faster than the pseudo-oracle pyLBM.
 \item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
 \item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
 \item Reusability: Individual modules of the system can be removed and reused in other systems.
 \item Robustness: The system will not crash when a user provides invalid input.
 \item Scalability: The system must be able to support additional computational models.
-\item Understandability: New users must easily understand which models are available for their use.
+\item Understandability: New users must easily understand which LBM models are available in {\myprogname}.
 \item Usability: Users will find the system easy to use.
 \end{enumerate}
 \\
