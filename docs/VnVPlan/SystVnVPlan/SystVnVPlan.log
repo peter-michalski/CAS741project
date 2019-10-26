@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  24 OCT 2019 23:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=latex 2019.9.8)  25 OCT 2019 20:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -463,97 +463,97 @@ Overfull \hbox (68.58977pt too wide) in paragraph at lines 2--2
 \openout6 = `SystVnVPlan.lof'.
 
  [3]
-Underfull \hbox (badness 10000) in paragraph at lines 70--96
+Underfull \hbox (badness 10000) in paragraph at lines 70--97
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 102--128
+Underfull \hbox (badness 10000) in paragraph at lines 103--129
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 148--149
+Underfull \hbox (badness 10000) in paragraph at lines 149--150
 
  []
 
 [1]
-Underfull \hbox (badness 10000) in paragraph at lines 162--163
+Underfull \hbox (badness 10000) in paragraph at lines 163--164
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
+Underfull \hbox (badness 10000) in paragraph at lines 185--186
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 207--208
+Underfull \hbox (badness 10000) in paragraph at lines 208--209
 
  []
 
 [4] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+Underfull \hbox (badness 10000) in paragraph at lines 252--253
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 253--254
+Underfull \hbox (badness 10000) in paragraph at lines 254--255
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 255--256
+Underfull \hbox (badness 10000) in paragraph at lines 256--257
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 257--274
+Underfull \hbox (badness 10000) in paragraph at lines 258--275
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 276--295
+Underfull \hbox (badness 10000) in paragraph at lines 277--296
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 296--297
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 298--299
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 314--315
+Underfull \hbox (badness 10000) in paragraph at lines 315--316
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 316--317
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 318--319
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 320--338
+Underfull \hbox (badness 10000) in paragraph at lines 321--339
 
  []
 
@@ -566,14 +566,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.344 ...s[width=0.6\textwidth]{errorMessage.jpeg}
+l.345 ...s[width=0.6\textwidth]{errorMessage.jpeg}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 File: errorMessage.jpeg Graphic file (type eps)
 <errorMessage.jpeg>
-Underfull \hbox (badness 10000) in paragraph at lines 350--353
+Underfull \hbox (badness 10000) in paragraph at lines 351--353
 
  []
 
@@ -692,12 +692,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 509--510
 
  []
 
-
+[15]
 Underfull \hbox (badness 10000) in paragraph at lines 511--513
 
  []
 
-[15]
+
 Underfull \hbox (badness 10000) in paragraph at lines 522--523
 
  []
@@ -737,12 +737,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 560--561
 
  []
 
-
+[17]
 Underfull \hbox (badness 10000) in paragraph at lines 563--564
 
  []
 
-[17]
+
 Underfull \hbox (badness 10000) in paragraph at lines 565--566
 
  []
@@ -812,7 +812,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 639--640
 
  []
 
-
+[20]
 Underfull \hbox (badness 10000) in paragraph at lines 641--642
 
  []
@@ -827,7 +827,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 645--660
 
  []
 
-[20]
+
 Underfull \hbox (badness 10000) in paragraph at lines 661--662
 
  []
@@ -837,12 +837,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 663--665
 
  []
 
-
+[21]
 Underfull \hbox (badness 10000) in paragraph at lines 674--675
 
  []
 
-[21]
+
 Underfull \hbox (badness 10000) in paragraph at lines 677--678
 
  []
@@ -862,7 +862,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 683--698
 
  []
 
-
+[22]
 Underfull \hbox (badness 10000) in paragraph at lines 699--700
 
  []
@@ -872,7 +872,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 701--703
 
  []
 
-[22]
+
 Underfull \hbox (badness 10000) in paragraph at lines 712--713
 
  []
@@ -1007,12 +1007,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 860--861
 
  []
 
-
+[28]
 Underfull \hbox (badness 10000) in paragraph at lines 862--863
 
  []
 
-[28]
+
 Underfull \hbox (badness 10000) in paragraph at lines 864--875
 
  []
@@ -1027,12 +1027,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 879--880
 
  []
 
-
+[29]
 Underfull \hbox (badness 10000) in paragraph at lines 891--892
 
  []
 
-[29]
+
 Underfull \hbox (badness 10000) in paragraph at lines 893--894
 
  []
@@ -1280,6 +1280,6 @@ Here is how much of TeX's memory you used:
  11551 multiletter control sequences out of 15000+600000
  12572 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,11n,39p,2166b,488s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,11n,39p,2166b,490s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on SystVnVPlan.dvi (49 pages, 175048 bytes).
+Output written on SystVnVPlan.dvi (49 pages, 175700 bytes).
