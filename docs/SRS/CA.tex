@@ -152,7 +152,9 @@ systems.  The symbols are listed in alphabetical order.
 \midrule 
 $\mathrm{e}$ & $\frac{m}{s}$ & velocity
 \\
-$\eta$ & $Pa-s$ & viscosity
+$\eta$ & $Pa-s$ & viscosity \wss{The units are not shown correctly.  (The font
+  is incorrect, and the units themselves should be pascal seconds (Pa times s).
+  I suggest using the si package, as in the SRS.tex example.}
 \\ 
 $A$ & $m^2$ & cross-sectional area
 \\
@@ -587,8 +589,27 @@ The variable $\mathrm{x}$ represents the vector of the particles within the latt
   Equation&  $f_{k}^{eq} = pw_{k}[1 + \frac{2\overrightarrow{c_k}\overrightarrow{u}-\overrightarrow{u}\overrightarrow{u}}{2c_s^2}+\frac{(\overrightarrow{c_k}\overrightarrow{u})^2}{2c_s^4}] + O(u^2)$\\
   \hline
   Description &
-  The above equation captures the probability distribution of the particles. Adjusting this method in the implementation allows for the simulation of complex physical phenomena, including geometry of the boundary.
-  $\rho$ is the fluid density $(\mathrm{\frac{g}{cm^2}}$). $w$ is the weighting coefficient for the lattice model as the fluid flows through a lattice structure. The weighting coefficients are standard. $k$ is the discretized velocity direction, referring to the directions of the chosen lattice model. $\mathrm{c_k}$ is the unit vector along the lattice streaming direction. $\mathrm{u}$ is the macroscopic velocity of the fluid, which is a vector field of velocity at a specific position and time. $\mathrm{c_s}$ is the speed of sound, a constant. This equation can be further developed for specific instances.\\
+  The above equation captures the probability distribution of the
+                particles. Adjusting this method in the implementation allows
+                for the simulation of complex physical phenomena, including
+                geometry of the boundary.
+  $\rho$ is the fluid density $(\mathrm{\frac{g}{cm^2}}$). $w$ is the weighting
+                coefficient for the lattice model as the fluid flows through a
+                lattice structure. The weighting coefficients are standard. $k$
+                is the discretized velocity direction, referring to the
+                directions of the chosen lattice model. $\mathrm{c_k}$ is the
+                unit vector along the lattice streaming direction. $\mathrm{u}$
+                is the macroscopic velocity of the fluid, which is a vector
+                field of velocity at a specific position and
+                time. $\mathrm{c_s}$ is the speed of sound, a constant. This
+                equation can be further developed for specific
+                instances. \wss{This is the only equation (I think) where you
+                use the over arrow to indicate a vector.  In some other cases
+                you do not indicate at all which quantities are vectors.  Rather
+                than the arrow notation, I suggest the less busy bold notation.
+                Please how all of your vector quantities using bold face.  You
+                should introduce this convention at the beginning of your document.}
+\\
   \hline
   Source &
            \citet{lbmbolton}
@@ -617,7 +638,10 @@ Label& \bf Reynolds Number\\
   Equation& $Re$ = $\frac{pl\mathrm{e}}{\eta}$ \\
   \hline
   Description & 
-                the ration of inertial resistance to viscous resistance for a flowing fluid. $\rho$ is the density of the fluid, $\mathrm{e}$ is the velocity, $l$ is the characteristic length of the system, and $\eta$ is the viscosity\\
+                the ration \wss{ratio} of inertial resistance to viscous
+                resistance for a flowing fluid. $\rho$ is the density of the
+                fluid, $\mathrm{e}$ is the velocity, $l$ is the characteristic
+                length of the system, and $\eta$ is the viscosity\\
   \hline
   Sources& \citet{reynolds}\\
   \hline
@@ -637,28 +661,60 @@ Label& \bf Reynolds Number\\
 \begin{itemize}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_fluids}:]
-  One or more fluids can be modeled. The fluid parameters are defined in DD\ref{DD_Viscosity} and DD\ref{DD_FluidDensity}. They are used in DD\ref{DD_RelaxationRate}, and in DD\ref{DD_VelocityGradient}.
+  One or more fluids can be modeled. The fluid parameters are defined in
+  DD\ref{DD_Viscosity} and DD\ref{DD_FluidDensity}. They are used in
+  DD\ref{DD_RelaxationRate}, and in DD\ref{DD_VelocityGradient}. \wss{I like the
+    traceability, but I don't see how this is a variability.  As far as
+    assumptions go, I also do not know what is being said here.}
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_flowObject}:]
-  The fluid may flow through an object with boundary conditions.
+  The fluid may flow through an object with boundary conditions. \wss{I'm not
+    sure of the purpose of this assumption.}
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_lattice}:]
-  The fluid flows through space via a lattice structure, moving between lattice nodes via linkages ($\mathrm{Q}$).
+  The fluid flows through space via a lattice structure, moving between lattice
+  nodes via linkages ($\mathrm{Q}$). 
+
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_weightCoefficients}:]
-  Weight coefficients are standard for each lattice model. See the Table \ref{coefficientweights}.
+  Weight coefficients are standard for each lattice model. See the Table
+  \ref{coefficientweights}.  \wss{I like this variability.  It isn't really
+    connected to the rest of the document, since it doesn't tell me where weight
+    coefficients are used, but it does tell me of the discrete set of choices
+    that people use for the values.  We can make it a bit better when we add a
+    data definition for the discretization.  (I'll be discussing this
+    discretization DD separately.)}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_selectModel}:]
-  The user will select the desired model prior to running the simulation. The position vector of DD\ref{DD_RelaxationRate} is influenced by this.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_selectModel}:] The user
+  will select the desired model prior to running the simulation. The position
+  vector of DD\ref{DD_RelaxationRate} is influenced by this. \wss{In the \LaTeX,
+    you are not using 80 character line widths.  I've fixed this in a few spots,
+    but it would be great if you could start working with an editor that
+    supports 80 character line widths.}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_userInputs}:]
-  The user will enter a subset of fluid parameter inputs prior to running the simulation. See Table \ref{table:inputVar}. These inputs are used in DD\ref{DD_Viscosity}, DD\ref{DD_RelaxationRate}, DD\ref{DD_VelocityGradient} and DD\ref{DD_FluidDensity}.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_userInputs}:] The user
+  will enter a subset of fluid parameter inputs prior to running the
+  simulation. See Table \ref{table:inputVar}. These inputs are used in
+  DD\ref{DD_Viscosity}, DD\ref{DD_RelaxationRate}, DD\ref{DD_VelocityGradient}
+  and DD\ref{DD_FluidDensity}. \wss{I don't think this is an assumption.  It
+    sounds like a requirement.}
   
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_speedSound}:]
-  The speed of sound is constant. Its value can be found in Section \ref{symbolicpara}. The constant is referenced in model \tref{T_EDF}.   
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_speedSound}:] The speed
+  of sound is constant. Its value can be found in Section
+  \ref{symbolicpara}. The constant is referenced in model \tref{T_EDF}. \wss{The
+    speed of sound depends on what material it is moving through.  Do you really
+    need to assume it is constant?  The Lattice Boltzmann solver will be using
+    different materials.}
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AVGERROR}:]
-  The average error in outputs between OTS solutions is 3\%.   
+  The average error in outputs between OTS solutions is 3\%.  \wss{What is an
+    OTS solution - I searched the document.  This looks to be a reference to off
+    the shelf solutions.  I like the idea of comparing your results to OTS
+    solutions.  However, this isn't an assumption, but a nonfunctional
+    requirement.  Furthermore, it isn't really a nonfunctional requirement we
+    should include.  Rather than a priori specify the average error.  I would
+    prefer if we \emph{a posteriori} described the average error.  This should
+    be discussed in your verification and validation plan.}
 
 \end{itemize}
 
@@ -744,6 +800,15 @@ cross-sectional area ($A$) & Set of $\mathbb{R}$ $\geq$ 0 & run \\
 \end{center}
 \end{table}
 
+\wss{You are on to something with this table, but there are some things that do
+  not make sense to me.  Many of the variabilities are inputs, like viscosity,
+  force etc.  I think it is cleaner to think of them as inputs, not
+  variabilities.  I don't understand the ``boundary shape'' variability.  The
+  model choice variability should be relabelled, dimension.  The number of
+  velocity directions looks interesting.  This is a variability that should be
+  explained.  I'm sure that it depends on the dimension variability, so this
+  connection should also be explained.}
+
 \begin{table}[!h]
 \begin{center}
 \begin{tabular}{| c | c | c |}
@@ -769,6 +834,10 @@ exception check & \pbox{6cm}{boolean (false if no exception condition raised)} &
 \label{calcVar}
 \end{center}
 \end{table}
+
+\wss{The D1Q2 etc variabilities are great.  You should explain your convention
+  for their naming and connect them to the rest of the document.  It should help
+  when we add a DD for the velocity discretization.}
 
 ~\newpage
 
@@ -989,6 +1058,15 @@ LBS generally read input parameters from a file and this should be the standard 
 \newpage
 
 \section{Appendix}
+
+\wss{I really like what you have in the appendix.  It is obvious you have had a
+  careful look at the existing solutions and made an effort to classify them by
+  variabilities.  However, you have left out variabilities.  Please add the
+  variabilities identified by Mohammad.  I sent you a spreadsheet created by him
+  on September 12.  The name of the file is LBM Opensources.xls.  He has
+  variabilities related to turbulence, and non-Newtonian fluids.  If you do not
+  know the value of a given variability for a given package, you can enter a
+  question mark for now.}
 
 \subsection{Symbolic Parameters}
 \label{symbolicpara}
