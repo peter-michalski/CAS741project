@@ -37,6 +37,7 @@
 }
 
 \input{../Comments}
+\input{../Common}
 
 % For easy change of table widths
 \newcommand{\colZwidth}{1.0\textwidth}
@@ -66,7 +67,7 @@
 \newcounter{assumpnum} %Assumption Number
 \newcommand{\atheassumpnum}{P\theassumpnum}
 \newcommand{\aref}[1]{A\ref{#1}}
-\newcounter{goalnum} %Goal Number
+%\newcounter{goalnum} %Goal Number
 \newcommand{\gthegoalnum}{P\thegoalnum}
 \newcommand{\gsref}[1]{GS\ref{#1}}
 \newcounter{instnum} %Instance Number
@@ -749,11 +750,13 @@ cross-sectional area ($A$) & Set of $\mathbb{R}$ $\geq$ 0 & run \\
 \hline
 \textbf{Variability} & \textbf{Parameter of Variation} & \textbf{Binding Time}\\
 \hline
-\pbox{4cm}{computational model (see Section \ref{systemconstraints}) }& \pbox{5cm}{ \\ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q15i, D3Q19, D3Q19+, D3Q27} & compile \\
+\pbox{4cm}{computational model (see Section \ref{systemconstraints}) } &
+                                                                        \pbox{5cm}{ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q15i, D3Q19, D3Q19+, D3Q27} & compile \\
+
 \hline
 \pbox{4.75cm}{decomposition technique (see Section \ref{systemconstraints}) }& Set of \pbox{6cm}{\{ParMETIS library, PT\textunderscore Scotch library, block-wide decomposition, domain decomposition, spinoidal decomposition\}} & compile \\
 \hline
-coefficient weights & Set of \{0 $<$ \mathbb{R} $<$ 1\}; \sum \mathbb{R} = 1 & compile \\
+coefficient weights & Set of $\{ 0 < \mathbb{R} < 1 \}; \sum \mathbb{R} = 1$ & compile \\
 \hline
 input check & \pbox{6cm}{boolean (false if input satisfies input assumptions)} & compile \\
 \hline
@@ -777,7 +780,7 @@ exception check & \pbox{6cm}{boolean (false if no exception condition raised)} &
 \hline
 Variability & Parameter of Variation & Binding Time\\
 \hline
-graphical model & Set of \{2D, 3D\}; \sum \mathbb{R} = 1 & compile \\
+graphical model & Set of $\{2D, 3D\}; \sum \mathbb{R} = 1$ & compile \\
 \hline
 fluid characteristics & Set of \pbox{5cm}{\{wall pressure, flow velocity, fluid location, pressure gradient\} }& run \\
 \hline
@@ -829,10 +832,9 @@ The following are non-functional requirements (NFRs), and their metrics, for a f
 \item Reusability: Individual modules of the system can be removed and reused in other systems.
 \item Robustness: The system will not crash when a user provides invalid input.
 \item Scalability: The system must be able to support additional computational models.
-\item Understandability: New users must easily understand which LBM models are available in {\myprogname}.
+\item Understandability: New users must easily understand which LBM models are available in {\progname}.
 \item Usability: Users will find the system easy to use.
 \end{enumerate}
-\\
 
 ~\newpage
 
@@ -845,7 +847,7 @@ The results of the comparison are listed in Table \ref{table:nfrpairwise} below.
 \begin{center}
 \begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c | c |}
 \hline
-\pbox{1.25cm}{\textbf{NFR/ NFR} }& \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \sum \\
+\pbox{1.25cm}{\textbf{NFR/ NFR} }& \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & $\sum$ \\
 \hline
 \textbf{1} & - & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 9 \\
 \hline
@@ -1055,7 +1057,7 @@ mplabs\cite{mplabs} & D2Q9, D3Q19 & & MPI \\
 \hline
 LBSIM\cite{lbsim} & D2Q6, D3Q19 & spinoidal decomposition & \\
 \hline
-pylbm\cite{pyLBM} & \pbox{3cm}{ \\ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q19} & & MPI \\
+pylbm\cite{pylbm} & \pbox{3cm}{ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q19} & & MPI \\
 \hline
 \end{tabular}
 \caption{OTS LBS Computational Parameters}
@@ -1101,7 +1103,7 @@ pyLBM\cite{pylbm} & & & 2D/3D \\
 \begin{center}
 \begin{tabular}{| c | c |}
 \hline
-\textbf{lattice model} & \textbf{coefficient weights} (w_i)\\
+\textbf{lattice model} & \textbf{coefficient weights} ($w_i$)\\
 \hline
 D1Q2\cite{} & \\
 \hline
