@@ -406,7 +406,7 @@ Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. Th
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module will be adjusted to print the vorticity vector values to the screen.
+\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
 \item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
@@ -475,7 +475,7 @@ Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. Th
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module will be adjusted to print the vorticity vector values to the screen.
+\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
 \item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
@@ -515,7 +515,7 @@ This test covers a very small Reynolds number representing laminar flow.\\
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module will be adjusted to print the vorticity vector values to the screen.
+\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
 \item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
@@ -553,7 +553,7 @@ This test covers a very large Reynolds number representing very turbulent flow.\
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module will be adjusted to print the vorticity vector values to the screen.
+\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
 \item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
@@ -591,7 +591,7 @@ This test covers the low bound for density using a density of liquid hydrogen.\\
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module will be adjusted to print the vorticity vector values to the screen.
+\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
 \item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
@@ -629,7 +629,7 @@ This test covers the high bound for density using a density close to that of mer
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module will be adjusted to print the vorticity vector values to the screen.
+\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
 \item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
@@ -667,7 +667,7 @@ This test covers the low bound for bulk viscosity.\\
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module will be adjusted to print the vorticity vector values to the screen.
+\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
 \item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
@@ -705,7 +705,7 @@ This test covers the high bound for bulk viscosity.\\
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module will be adjusted to print the vorticity vector values to the screen.
+\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
 \item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
@@ -1077,7 +1077,7 @@ How test will be performed:
 
 \item The input parameter values will be written, by the author, to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project, in each of the operating system instances.
-\item The Von Karman Vortex Street module shall be modified, by the author, to print the vorticity vector to the screen.
+\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
 \item The author shall run the Von Karman Vortex Street module.
 \item Upon completion of the module, the author will compare the output values of the vorticity vector to the vorticity vector values of the pseudo-oracle.\\
 \end{enumerate}
