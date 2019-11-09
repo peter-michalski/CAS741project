@@ -503,6 +503,72 @@ Symbol &$\rho$\\
 \end{minipage}\\
 
 
+\subsubsection{Instance Models} \label{sec_instance}    
+
+\plt{The motivation for this section is to reduce the problem defined in
+	``Physical System Description'' (Section~\ref{sec_phySystDescrip}) to one
+	expressed in mathematical terms. The IMs are built by refining the TMs and/or
+	GDs.  This section should remain abstract.  The SRS should specify the
+	requirements without considering the implementation.}
+
+This section transforms the problem defined in Section~\ref{Sec_pd} into 
+one which is expressed in mathematical terms. It uses concrete symbols defined 
+in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
+identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
+
+The goals \plt{reference your goals} are solved by \plt{reference your instance
+	models}.  \plt{other details, with cross-references where appropriate.}
+\plt{Modify the examples below for your problem, and add additional models as
+	appropriate.}
+
+~\newline
+
+%Instance Model 1
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+		\hline
+		Label& \bf Energy balance on water to find $T_W$\\
+		\hline
+		Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, $T_C$, 
+		$T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
+		& The input is constrained so that $T_\text{init} \leq T_C$ (\aref{A_charge})\\
+		\hline
+		Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
+		&$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
+		&$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
+		\hline
+		Description&$T_W$ is the water temperature (\si{\celsius}).\\
+		&$T_P$ is the PCM temperature (\si{\celsius}).\\
+		&$T_C$ is the coil temperature (\si{\celsius}).\\
+		&$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
+		&$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
+		& The above equation applies as long as the water is in liquid form,
+		$0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are the melting
+		and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
+		\\
+		\hline
+		Sources& Citation here \\
+		\hline
+		Ref.\ By & \iref{epcm}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+%~\newline
+
+\subsubsection*{Derivation of ...}
+
+\plt{The derivation shows how the IM is derived from the TMs/GDs.  In cases
+	where the derivation cannot be described under the Description field, it will
+	be necessary to include this subsection.}
+
+
 \subsection{Goal Statements}
 \label{goalstatements}
 \noindent Given the lattice model, boundary conditions, simulation time, fluid characteristics, and forces, the goal statements are:
