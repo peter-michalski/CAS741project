@@ -4,60 +4,64 @@ The top-level auxiliary file: SystVnVPlan.aux
 The style file: plainnat.bst
 Database file #1: ../../../refs/References.bib
 Warning--entry type for "LBM_CA_PM" isn't style-file defined
---line 212 of file ../../../refs/References.bib
+--line 203 of file ../../../refs/References.bib
 Warning--entry type for "CAS741_SRS_checklist" isn't style-file defined
---line 220 of file ../../../refs/References.bib
+--line 211 of file ../../../refs/References.bib
 Warning--entry type for "pylbmcode" isn't style-file defined
---line 234 of file ../../../refs/References.bib
+--line 225 of file ../../../refs/References.bib
 Warning--entry type for "LBM_UVNV_PM" isn't style-file defined
---line 240 of file ../../../refs/References.bib
+--line 231 of file ../../../refs/References.bib
 Warning--entry type for "LBM_UserGuide_PM" isn't style-file defined
---line 248 of file ../../../refs/References.bib
+--line 239 of file ../../../refs/References.bib
+Repeated entry---line 287 of file ../../../refs/References.bib
+ : @book{ghezzi1991fundamentals
+ :                             ,
+I'm skipping whatever remains of this entry
 Warning--to sort, need author or key in pylbmcode
 Warning--empty year in pylbmcode
 Warning--empty year in LBM_CA_PM
 Warning--empty year in LBM_UVNV_PM
 Warning--empty year in LBM_UserGuide_PM
 Warning--empty year in CAS741_SRS_checklist
-You've used 5 entries,
+You've used 6 entries,
             2773 wiz_defined-function locations,
-            614 strings with 5543 characters,
-and the built_in function-call counts, 1475 in all, are:
-= -- 126
-> -- 40
+            619 strings with 5675 characters,
+and the built_in function-call counts, 1882 in all, are:
+= -- 156
+> -- 70
 < -- 4
-+ -- 19
-- -- 12
-* -- 87
-:= -- 207
-add.period$ -- 14
-call.type$ -- 5
-change.case$ -- 19
-chr.to.int$ -- 3
-cite$ -- 17
-duplicate$ -- 75
-empty$ -- 164
-format.name$ -- 16
-if$ -- 315
++ -- 29
+- -- 21
+* -- 121
+:= -- 273
+add.period$ -- 17
+call.type$ -- 6
+change.case$ -- 24
+chr.to.int$ -- 4
+cite$ -- 19
+duplicate$ -- 96
+empty$ -- 197
+format.name$ -- 26
+if$ -- 398
 int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 0
-newline$ -- 32
-num.names$ -- 16
-pop$ -- 63
+missing$ -- 2
+newline$ -- 37
+num.names$ -- 20
+pop$ -- 78
 preamble$ -- 1
-purify$ -- 14
+purify$ -- 19
 quote$ -- 0
-skip$ -- 67
+skip$ -- 81
 stack$ -- 0
-substring$ -- 11
-swap$ -- 8
+substring$ -- 13
+swap$ -- 9
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 55
+type$ -- 61
 warning$ -- 6
-while$ -- 12
+while$ -- 15
 width$ -- 0
-write$ -- 63
-(There were 11 warnings)
+write$ -- 75
+(There was 1 error message)

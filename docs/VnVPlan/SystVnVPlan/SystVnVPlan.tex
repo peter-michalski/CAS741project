@@ -173,7 +173,7 @@ The intended objective of this plan is to verify that functional requirements an
 \item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
 \item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
 \item Reusability: Individual modules of the system can be removed and reused in other systems.
-\item Robustness: The system will not crash when a user provides invalid input.
+\item Robustness: The system shall behave reasonably in circumstances that were not anticipated in the requirements specification \cite{ghezzi1991fundamentals}.
 \item Scalability: The system must be able to support additional computational models.
 \item Understandability: New users must easily understand which LBM models are available in {\myprogname}.
 \item Usability: Users will find the system easy to use.
@@ -963,7 +963,7 @@ How test will be performed:
 
 \subsubsection{Correctness}
 
-System correctness is tested via the functional tests of Section \ref{testfr} using an allowable AVERAGE\_ERROR as stated in A8 of the CA (\citet{LBM_CA_PM}).
+System correctness is tested via the functional tests of Section \ref{testfr} using an allowable AVERAGE\_ERROR as stated in Section \ref{symbolpara}.
 
 \subsubsection{Maintainability}
 		

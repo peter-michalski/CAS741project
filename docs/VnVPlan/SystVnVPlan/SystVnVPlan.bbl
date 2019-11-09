@@ -1,4 +1,4 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{6}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -8,6 +8,12 @@
 \bibitem[pyl()]{pylbmcode}
 pylbm.
 \newblock URL \url{https://github.com/pylbm/pylbm}.
+
+\bibitem[Ghezzi et~al.(1991)Ghezzi, Jazayeri, and
+  Mandrioli]{ghezzi1991fundamentals}
+Carlo Ghezzi, Mehdi Jazayeri, and Dino Mandrioli.
+\newblock \emph{Fundamentals of software engineering}.
+\newblock Prentice Hall PTR, 1991.
 
 \bibitem[Michalski({\natexlab{a}})]{LBM_CA_PM}
 Peter Michalski.
