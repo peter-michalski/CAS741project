@@ -19,7 +19,11 @@
 \usepackage{caption}
 \usepackage{pbox}
 \usepackage{makecell}
+\usepackage[mathscr]{euscript}
 
+
+\DeclareSymbolFont{rsfs}{U}{rsfs}{m}{n}
+\DeclareSymbolFontAlphabet{\mathscrsfs}{rsfs}
 
 \usepackage[sort&compress,square,comma,numbers]{natbib}
 
@@ -103,7 +107,7 @@
 \midrule
 Oct. 7,2019 & 1.0 & Initial Document\\
 Oct. 20,2019 & 1.1 & First Issues Fixed + 10.4 Added\\
-Nov. 8,2019 & 2.0 & Iteration One Issues Fixed\\
+Nov. 9,2019 & 2.0 & Iteration One Issues Fixed\\
 \bottomrule
 \end{tabularx}
 
@@ -127,13 +131,13 @@ description of the unit and the SI name.
     \toprule		
     \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
     \midrule 
-    $m$ & length & metre\\
-    $kg$ & mass	& kilogram\\
-    $s$ & time & second\\
-    $N$ & force & newton\\
     $cm$ & length & centimetre\\
     $g$ & mass & gram \\
+    $kg$ & mass	& kilogram\\
+    $m$ & length & metre\\
+    $N$ & force & newton\\
     $Pa$ & pressure & pascal\\
+    $s$ & time & second\\
     \bottomrule
   \end{tabular}
   %	\caption{Provide a caption}
@@ -149,61 +153,63 @@ their units.  The choice of symbols was made to be consistent with Lattice Boltz
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$\mathrm{e}$ & $\frac{m}{s}$ & velocity
-\\
-$\eta$ & $\si{\pascal}\cdot\si{\second}$ & viscosity
-\\ 
-$A$ & $m^2$ & cross-sectional area
-\\
 $\mathrm{a}$ & $\frac{m}{s^2}$ & acceleration rate
 \\
-$\gamma$ & $\frac{1}{s}$ & velocity gradient
-\\
-$\tau$ & N/A & relaxation rate
-\\
-\textbf{x} & N/A & position vector
-\\
-$l$ & $m$ & characteristic length of the system
-\\
-$t$ & $s$ & time
-\\
-$F$ & $N$ & force
-\\
-$f$ & N/A & distribution function
-\\
-$\Omega$ & N/A & collision operator
-\\
-$f^{eq}$ & N/A & equilibrium distribution function
-\\
-$i$ & N/A & velocity direction
-\\
-$\rho$ & $\frac{g}{cm^3}$ & fluid density
-\\
-$w$ & N/A & weight coefficient (implementation specific)
-\\
-\textbf{u} & N/A & macroscopic velocity of fluid vector
-\\
-$\mathrm{D}$ & N/A & signifies the dimension component of lattice model
-\\
-$\mathrm{Q}$ & N/A & signifies number of velocity directions of lattice model
-\\
-$\sigma$ & N/A & variable number of dimensions in the lattice model
-\\
-$\kappa$ & N/A & variable number of velocity directions  (linkages) of lattice model
-\\
-$\mathbb{R}$ & N/A & real numbers
-\\
-$\mathbb{N}$ & N/A & natural numbers
+$A$ & $m^2$ & cross-sectional area
 \\
 $\textbf{c}_\textbf{i}$ & N/A & unit vector along the lattice streaming direction
 \\
 $c_s$ & $\frac{m}{s}$ & speed of sound
 \\
+$\mathrm{D}$ & N/A & signifies the dimension component of lattice model
+\\
+$\mathscr{D}$ & N/A & denotes DD in Table \ref{table:tracemodels}
+\\
+$\mathrm{e}$ & $\frac{m}{s}$ & velocity
+\\
+$\eta$ & $\si{\pascal}\cdot\si{\second}$ & viscosity
+\\ 
+$f$ & N/A & distribution function
+\\
+$f^{eq}$ & N/A & equilibrium distribution function
+\\
+$F$ & $N$ & force
+\\
+$\gamma$ & $\frac{1}{s}$ & velocity gradient
+\\
+$i$ & N/A & velocity direction (linkages of lattice model)
+\\
+$l$ & $m$ & characteristic length of the system
+\\
+$\nabla$ & N/A & gradient
+\\
+$\mathbb{N}$ & N/A & natural numbers
+\\
+$\Omega$ & N/A & collision operator
+\\
+$\mathrm{Q}$ & N/A & signifies number of velocity directions of lattice model
+\\
+$\rho$ & $\frac{g}{cm^3}$ & fluid density
+\\
+$\mathbb{R}$ & N/A & real numbers
+\\
 $Re$ & N/A & Reynolds number
 \\
-$\zeta$ & N/A & Turbulence
+$t$ & $s$ & time
 \\
-$?$ & N/A & Unknown Value 
+$\tau$ & N/A & relaxation rate
+\\
+\textbf{u} & $\frac{m}{s}$ & macroscopic velocity of fluid vector
+\\
+$w$ & N/A & weight coefficient (implementation specific)
+\\
+\textbf{x} & N/A & position vector
+\\
+$z$ & N/A & position of a fluid
+\\
+$\zeta$ & N/A & turbulence
+\\
+$?$ & N/A & unknown value 
 \\
 \bottomrule
 \end{longtable*}
@@ -370,15 +376,15 @@ Symbol &$\mathrm{e}$\\
 % \hline
   SI Units & $\frac{m}{s}$\\
   \hline
-  Equation& $\mathrm{e} = \frac{d \mathrm{r}}{dt}$\\
+  Equation& $\mathrm{e} = \frac{d \mathrm{\textbf{x}}}{dt}$\\
   \hline
   Description & 
-                 Velocity is the distance that an object moves relative to time. $r$ is the the distance ($\mathrm{m}$) in change for our change in time {t} of units ($\mathrm{s}$).
+                 Velocity is the distance that an object moves relative to time. \textbf{x} is the position vector. $t$ is time.
   \\
   \hline
   Sources& \citet{mohamad2011lattice}\\
   \hline
-  Ref.\ By & \tref{T_BTE} \tref{T_EDF} \tref{T_ReynoldsNum} \\
+  Ref.\ By & A\ref{A_fluids} DD\ref{DD_VELVIR} IM\ref{lbmim1} \tref{T_ReynoldsNum} \tref{T_CFBTE} \tref{T_BTE} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -403,12 +409,12 @@ Symbol &$\mathrm{\eta}$\\
   Equation& $\mathrm{\eta} = \frac{F/A}{\gamma}$\\
   \hline
   Description & 
-                Viscosity is the measure of resistance to deformation. $F$ is the applied force (N), $A$ is the cross-sectional area ($m^2$), and $\gamma$ is the velocity gradient. 
+                Viscosity is the measure of resistance to deformation. $F$ is the applied force ($N$), $A$ is the cross-sectional area ($m^2$), and $\gamma$ is the velocity gradient. 
   \\
   \hline
   Sources& \citet{viscosity}\\
   \hline
-  Ref.\ By & \tref{T_ReynoldsNum} DD\ref{DD_RelaxationRate} A\ref{A_fluids} \\
+  Ref.\ By & A\ref{A_fluids} A\ref{A_fluids} DD\ref{DD_RelaxationRate} \tref{T_ReynoldsNum} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -438,7 +444,7 @@ Symbol &$\tau$\\
   \hline
   Sources& \citet{lbmbolton}\\
   \hline
-  Ref.\ By & \tref{T_BTE} A\ref{A_fluids} A\ref{A_selectModel} \\
+  Ref.\ By & A\ref{A_fluids} A\ref{A_selectModel} DD\ref{DD_BGK} DD\ref{DD_RELUPD}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -468,7 +474,7 @@ distance of the two velocities.  \\
   \hline
   Sources& \citet{viscosity}\\
   \hline
-  Ref.\ By & DD\ref{DD_Viscosity} A\ref{A_fluids} \\
+  Ref.\ By & A\ref{A_fluids} DD\ref{DD_Viscosity}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -489,16 +495,16 @@ Label& \bf Fluid Density\\
 Symbol &$\rho$\\
 \hline
 % \hline
-  SI Units &$\frac{g}{cm^3}$ \\
+  SI Units &$\frac{g}{(cm)^3}$ \\
   \hline
-  Equation& $\rho$ = $\frac{g}{cm^3}$ \\
+  Equation& $\rho$ = $\frac{g}{(cm)^3}$ \\
   \hline
   Description & 
-                Density is the ratio of mass to volume of a material. $g$ is the mass and $cm^3$ is the volume.  \\
+                Density is the ratio of mass to volume of a material. $g$ is the mass and $(cm)^3$ is the volume.  \\
   \hline
   Sources& \citet{density}\\
   \hline
-  Ref.\ By & \tref{T_EDF} \tref{T_ReynoldsNum} A\ref{A_fluids} \\
+  Ref.\ By & A\ref{A_fluids} DD\ref{DD_EDF} \tref{T_ReynoldsNum} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -530,7 +536,7 @@ Symbol &$\rho$\\
 		\hline
 		Sources& \citet{gibiansky}\\
 		\hline
-		Ref.\ By & \tref{T_BTE} A\ref{A_fluids} A\ref{A_selectModel} \\
+		Ref.\ By & IM\ref{lbmim1} \tref{T_BTE}\\
 		\hline
 	\end{tabular}
 \end{minipage}\\
@@ -560,7 +566,7 @@ Symbol &$\rho$\\
 		\hline
 		Sources& \citet{gibiansky}\\
 		\hline
-		Ref.\ By & \\
+		Ref.\ By & A\ref{A_selectModel} IM\ref{lbmim1}\\
 		\hline
 	\end{tabular}
 \end{minipage}\\
@@ -578,19 +584,19 @@ Symbol &$\rho$\\
 		\hline
 		Label& \bf Discretization of Velocity\\
 		\hline
-		Symbol &$\mathrm{e}$\\
+		Symbol &$\mathrm{e}_i$\\
 		\hline
 		% \hline
 		SI Units & $\frac{m}{s}$ \\
 		\hline
-		Equation& $\mathrm{e} = \mathrm{e_i}$ \\
+		Equation& $\mathrm{e}_i = \mathrm{e}$ \\
 		\hline
 		Description &
-		Velocity $\mathrm{e}$ is discretized into a finite number of directions depending on the chosen model. For example a D2Q9 model has 9 velocity directions, $\mathrm{e_0}$ to $\mathrm{e_8}$.\\
+		Velocity $\mathrm{e}$ is discretized into a finite number of directions $i$ in $\mathrm{e}_i$. The number of directions depends on the chosen model. For example a D2Q9 model has 9 velocity directions, $\mathrm{e_0}$ to $\mathrm{e_8}$. Each velocity direction will have a weight coefficient ${w_i}$ in a future IM revision.\\
 		\hline
 		Sources& \citet{gibiansky}\\
 		\hline
-		Ref.\ By & \\
+		Ref.\ By & A\ref{A_lattice} A\ref{A_weightCoefficients} DD\ref{DD_EDF} IM\ref{lbmim1}\\
 		\hline
 	\end{tabular}
 \end{minipage}\\
@@ -616,11 +622,53 @@ Symbol &$\rho$\\
 		Equation& $f_{i} = f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ \\
 		\hline
 		Description &
-		Velocity distribution $f_{i}$ for the velocity direction $i$ is updated for the next iteration.\\
+		Velocity distribution $f_{i}$ for the velocity direction $i$ is updated for the next iteration. $f_{i}^{eq}$ is equilibrium distribution, $\tau$ is the relaxation rate towards equilibrium.\\
 		\hline
 		Sources& \citet{gibiansky}\\
 		\hline
-		Ref.\ By & \\
+		Ref.\ By & DD\ref{DD_BGK} IM\ref{lbmim1}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& DD\refstepcounter{datadefnum}\thedatadefnum 
+		\label{DD_EDF}\\
+		\hline
+		Label& \bf Equilibrium Distribution Function\\
+		\hline
+		Symbol &$f_{i}^{eq}$\\
+		\hline
+		% \hline
+		SI Units & N/A \\
+		\hline
+		Equation& $f_{i}^{eq} = w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$ \\
+		\hline
+		Description &
+		The above equation captures the probability distribution of the
+		particles. Adjusting this method in the implementation allows
+		for the simulation of complex physical phenomena, including
+		geometry of the boundary.
+		$\rho$ is the fluid density $(\mathrm{\frac{g}{cm^2}}$). $w_{i}$ is the weighting
+		coefficient for the lattice model as the fluid flows through a
+		lattice structure. The weighting coefficients are standard. $i$
+		is the discretized velocity direction, referring to the
+		directions of the chosen lattice model. $\textbf{e}_\textbf{i}$ is the
+		unit vector along the lattice streaming direction. $\textbf{u}$
+		is the macroscopic velocity of the fluid, which is a vector
+		field of velocity at a specific position and
+		time. ${c_s}$ is the speed of sound.\\
+		\hline
+		Sources&  \citet{lbmbolton} \newline \citet{gibiansky} \newline \citet{mohamad2011lattice}\\
+		\hline
+		Ref.\ By & DD\ref{DD_BGK} DD\ref{DD_RELUPD}\\
 		\hline
 	\end{tabular}
 \end{minipage}\\
@@ -656,49 +704,6 @@ on.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_EDF}\\
-  \hline
-  Label&\bf Equilibrium Distribution Function\\
-  \hline
-  Equation&  $f_{i}^{eq} = pw_{i}[1 + \frac{2\textbf{c}_\textbf{i}\textbf{u}-\textbf{u}\textbf{u}}{2c_s^2}+\frac{(\textbf{c}_\textbf{i}\textbf{u})^2}{2c_s^4}] + O(u^2)$\\
-  \hline
-  Description &
-  The above equation captures the probability distribution of the
-                particles. Adjusting this method in the implementation allows
-                for the simulation of complex physical phenomena, including
-                geometry of the boundary.
-  $\rho$ is the fluid density $(\mathrm{\frac{g}{cm^2}}$). $w$ is the weighting
-                coefficient for the lattice model as the fluid flows through a
-                lattice structure. The weighting coefficients are standard. $i$
-                is the discretized velocity direction, referring to the
-                directions of the chosen lattice model. $\textbf{c}_\textbf{i}$ is the
-                unit vector along the lattice streaming direction. $\textbf{u}$
-                is the macroscopic velocity of the fluid, which is a vector
-                field of velocity at a specific position and
-                time. $\mathrm{c_s}$ is the speed of sound, a constant. This
-                equation can be further developed for specific
-                instances.
-\\
-  \hline
-  Source &
-           \citet{lbmbolton}
-           \newline \citet{mohamad2011lattice}
-           \\
-  % The above web link should be replaced with a proper citation to a publication
-  \hline
-  Ref.\ By & DD\ref{DD_BGK} A\ref{A_fluids}  A\ref{A_flowObject} A\ref{A_lattice} A\ref{A_weightCoefficients} A\ref{A_selectModel} \\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
   Number& T\refstepcounter{theorynum}\thetheorynum \label{T_ReynoldsNum}\\
   \hline
 Label& \bf Reynolds Number\\
@@ -710,11 +715,11 @@ Label& \bf Reynolds Number\\
                 The ratio of inertial resistance to viscous
                 resistance for a flowing fluid. $\rho$ is the density of the
                 fluid, $\mathrm{e}$ is the velocity, $l$ is the characteristic
-                length of the system, and $\eta$ is the viscosity\\
+                length of the system, and $\eta$ is the viscosity. $Re$ will be used to refine \tref{T_BTE} in the future.\\
   \hline
   Sources& \citet{reynolds}\\
   \hline
-  Ref.\ By & \\
+  Ref.\ By & A\ref{A_flowObject}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -739,7 +744,7 @@ Label& \bf Reynolds Number\\
 		\hline
 		Sources& \citet{gibiansky}\\
 		\hline
-		Ref.\ By & \tref{T_CFBTE} \tref{T_BTE}\\
+		Ref.\ By & \tref{T_CFBTE}\\
 		\hline
 	\end{tabular}
 \end{minipage}\\
@@ -759,12 +764,12 @@ Label& \bf Reynolds Number\\
 		Equation&  $(\frac{d}{dt} + \mathrm{e} \cdot \nabla_\mathrm{x} + \frac{F}{m} \cdot \nabla_\mathrm{e})f = 0$\\
 		\hline
 		Description & 
-		Describes the statistical behaviour of a system that does not have collisions, denoted by the right hand side being equal to zero. $\nabla_\mathrm{x}$ and $\nabla_\mathrm{x}$ are the gradient in the position and velocity spaces.\\
+		Describes the statistical behaviour of a system that does not have collisions, denoted by the right hand side being equal to zero. $\nabla_\mathrm{x}$ and $\nabla_\mathrm{e}$ are the gradient in the position and velocity spaces.\\
 		\hline
 		Source &
 		\citet{gibiansky}\\
 		\hline
-		Ref.\ By &\\
+		Ref.\ By & \tref{T_BTE}\\
 		\hline
 	\end{tabular}
 \end{minipage}\\
@@ -789,7 +794,7 @@ Label& \bf Reynolds Number\\
 		Source &
 		\citet{gibiansky}\\
 		\hline
-		Ref.\ By &\\
+		Ref.\ By & IM\ref{lbmim1}\\
 		\hline
 	\end{tabular}
 \end{minipage}\\
@@ -806,64 +811,65 @@ Label& \bf Reynolds Number\\
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_fluids}:]
   One or more fluids with distinct properties can be simultaneously released into the boundary. The fluid parameters are defined in
-  DD\ref{DD_Viscosity} and DD\ref{DD_FluidDensity}. They are used in
-  DD\ref{DD_RelaxationRate}, and in DD\ref{DD_VelocityGradient}.
+  DD\ref{DD_Velocity}, DD\ref{DD_VelocityGradient} and DD\ref{DD_FluidDensity}. They are used in
+  DD\ref{DD_Viscosity}, and in DD\ref{DD_RelaxationRate}.
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_flowObject}:]
-  The dimensions of boundary conditions, including flow obstacles, may vary.
+  The dimensions of boundary conditions, including flow obstacles, may vary. This may be observed in DD\ref{DD_Viscosity} and \tref{T_ReynoldsNum}.
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_lattice}:]
   The fluid flows through space via a lattice structure, moving between lattice
-  nodes via linkages ($\mathrm{Q}$). 
+  nodes via linkages ($\mathrm{Q}$). This is referenced in DD\ref{DD_VELVIR}.
 
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_weightCoefficients}:]
   Weight coefficients are standard for each lattice model. See the Table
-  \ref{coefficientweights}.  \wss{I like this variability.  It isn't really
-    connected to the rest of the document, since it doesn't tell me where weight
-    coefficients are used, but it does tell me of the discrete set of choices
-    that people use for the values.  We can make it a bit better when we add a
-    data definition for the discretization.  (I'll be discussing this
-    discretization DD separately.)}
+  \ref{coefficientweights}. This is referenced in DD\ref{DD_VELVIR}.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_selectModel}:] The user
   will select the desired model prior to running the simulation. The position
-  vector of DD\ref{DD_RelaxationRate} is influenced by this.
+  vectors in DD\ref{DD_RelaxationRate} and DD\ref{DD_PDF} are influenced by this.
 
 \end{itemize}
 
 \begin{table}[!h]
 \begin{center}
-\begin{tabular}{| c | c | c | c | c | c | c |}
+\begin{tabular}{| c | c | c | c | c | c |}
 \hline
-\textbf{Goal} & \textbf{Model} & \textbf{A\ref{A_fluids}} & \textbf{A\ref{A_flowObject}} & \textbf{A\ref{A_lattice}} & \textbf{A\ref{A_weightCoefficients}} & \textbf{A\ref{A_selectModel}} \\
+\textbf{Model} & \textbf{A\ref{A_fluids}} & \textbf{A\ref{A_flowObject}} & \textbf{A\ref{A_lattice}} & \textbf{A\ref{A_weightCoefficients}} & \textbf{A\ref{A_selectModel}} \\
 \hline
-G\ref{G_Location} & \tref{T_BTE} & & & & & \checkmark \\
+\textbf{DD\ref{DD_Velocity}} & \checkmark & & & & \\
 \hline
-G\ref{G_Location} & DD\ref{DD_BGK} & \checkmark & & & & \checkmark \\
+\textbf{DD\ref{DD_Viscosity}} & \checkmark & \checkmark & & & \\
 \hline
-G\ref{G_Location} & \tref{T_EDF} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\textbf{DD\ref{DD_RelaxationRate}} & \checkmark & & & & \checkmark \\
 \hline
-G\ref{G_Location} & \tref{T_ReynoldsNum} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+\textbf{DD\ref{DD_VelocityGradient}} & \checkmark & & & & \\
 \hline
-G\ref{G_Velocity} & \tref{T_BTE} & & & & & \checkmark \\
+\textbf{DD\ref{DD_FluidDensity}} & \checkmark & & & & \\
 \hline
-G\ref{G_Velocity} & DD\ref{DD_BGK} & \checkmark & & & & \checkmark \\
+\textbf{DD\ref{DD_BGK}} & & & & & \\
 \hline
-G\ref{G_Velocity} & \tref{T_EDF} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\textbf{DD\ref{DD_PDF}} & & & & & \checkmark \\
 \hline
-G\ref{G_Velocity} & \tref{T_ReynoldsNum} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+\textbf{DD\ref{DD_VELVIR}} & & & \checkmark & \checkmark & \\
 \hline
-G\ref{G_FluidPressure} & \tref{T_BTE} & & & & & \checkmark \\
+\textbf{DD\ref{DD_RELUPD}} & & & & & \\
 \hline
-G\ref{G_FluidPressure} & DD\ref{DD_BGK} & \checkmark & & & & \checkmark \\
+\textbf{DD\ref{DD_EDF}} & & & & & \\
 \hline
-G\ref{G_FluidPressure} & \tref{T_EDF} & \checkmark & & & & \checkmark \\
+\textbf{\tref{T_ReynoldsNum}} & & \checkmark & & & \\ 
 \hline
-G\ref{G_FluidPressure} & \tref{T_ReynoldsNum} & & & \checkmark & \checkmark & \checkmark \\ 
+\textbf{\tref{T_Force}} & & & & & \\
+\hline
+\textbf{\tref{T_CFBTE}} & & & & & \\
+\hline
+\textbf{\tref{T_BTE}} & & & & & \\
+\hline
+\textbf{IM\ref{lbmim1}} & & & & & \\
 \hline
 \end{tabular}
-\caption{Assumption Relationship to Goals and Models}
+\caption{Assumption Relationship to Data Definitions and Models}
 \end{center}
 \end{table}   
 
@@ -996,15 +1002,15 @@ qualities that the software is expected to exhibit.
 
 \noindent \begin{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall read a set of input fluid parameters, listed in Table \ref{table:inputVar}. These parameters will be used in calculations for \tref{T_BTE}, DD\ref{DD_BGK}, and \tref{T_EDF}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall read a set of input fluid parameters, listed in Table \ref{table:inputVar}.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system shall allow the user to select from a set of model and velocity direction parameters, listed in Table \ref{table:inputVar}, as per A\ref{A_selectModel}. These models will be reflected in the calculations of \tref{T_BTE}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system shall allow the user to select from a set of model and velocity direction parameters, listed in Table \ref{table:inputVar}, as per A\ref{A_selectModel}.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system shall verify that the inputs fall within the allowable parameters of variation, see Table \ref{table:inputVar}.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Instantiate}:] The system shall instantiate required data types and structures for the selected model.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_CoefficientWeights}:] The system shall import the relevant coefficient weights for the selected model, as per A\ref{A_weightCoefficients}. The weighting values can be found in Table \ref{coefficientweights}. These models will be reflected in the calculations of \tref{T_BTE}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_CoefficientWeights}:] The system shall import the relevant coefficient weights for the selected model, as per A\ref{A_weightCoefficients}. The weighting values can be found in Table \ref{coefficientweights}.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] The system shall calculate and store the predicted fluid parameters, iterating through streaming and collision processes over the desired model time.
 
@@ -1021,7 +1027,7 @@ The following are non-functional requirements (NFRs), and their metrics, for a f
 \begin{enumerate}
 \item Correctness: The allowable error of the output results, per module, will be less than the average error taken from the results of a sample of OTS solutions.
 \item Maintainability: The system shall be documented with a Commonality Analysis (CA), Verification and Validation (VnV) plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
-\item Performance: The system shall be able to run modules faster than an OTS implementation.
+\item Performance: The system shall be able to run modules faster than a sample OTS implementation.
 \item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
 \item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
 \item Reusability: Individual modules of the system can be removed and reused in other systems.
@@ -1090,9 +1096,9 @@ The following is a list of NFR by importance as found in the Table \ref{table:nf
 \noindent \begin{itemize}
 
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_output}:] 
-A family of LBS solvers will have 2D and 3D output. 1D output is not a common variability. See Table \ref{table:otsinputs}. The solvers follow the assumptions of A\ref{A_lattice}, A\ref{A_weightCoefficients}, A\ref{A_selectModel}.
+A family of LBS solvers will have 2D and 3D output. 1D output is not a common variability. See Table \ref{table:otsinputs}.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_wallpressure}:] 
-Wall pressure is not an output variability that is often needed. This may be removed from a family of LBS. See Table \ref{table:otsparm}. The solvers follow the assumptions of A\ref{A_flowObject}, A\ref{A_lattice}, A\ref{A_selectModel}.
+Wall pressure is not an output variability that is often needed. This may be removed from a family of LBS. See Table \ref{table:otsparm}.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_decomposiiton}:] 
 Spinoidal decomposition is most common among LBS family members and should be the standard for a library implementation. See Table \ref{table:otscomp}.
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_parallel}:] 
@@ -1107,32 +1113,44 @@ LBS generally read input parameters from a file and this should be the standard 
 \section{Traceability Matrices and Graphs}
 
 \begin{table}[!h]
-\begin{center}
-\begin{tabular}{| c | c | c | c | c | c | c | c | c | c |}
-\hline
-& \textbf{\tref{T_BTE} }& \textbf{DD\ref{DD_BGK} } & \textbf{\tref{T_EDF} } &
-\textbf{\tref{T_ReynoldsNum} } & \textbf{DD\ref{DD_Velocity} } & \textbf{DD\ref{DD_Viscosity} } & \textbf{DD\ref{DD_RelaxationRate} } & \textbf{DD\ref{DD_VelocityGradient} } & \textbf{DD\ref{DD_FluidDensity} }\\
-\hline
-\textbf{\tref{T_BTE} }& & \checkmark & & & \checkmark & & \checkmark & &\\
-\hline
-\textbf{DD\ref{DD_BGK} }& \checkmark & & \checkmark & & & & & &\\
-\hline
-\textbf{DD\ref{DD_BGK} }& & & \checkmark & & \checkmark & & & & \checkmark \\
-\hline
-\textbf{\tref{T_ReynoldsNum} }& & & & & \checkmark & \checkmark & & & \checkmark \\
-\hline
-\textbf{DD\ref{DD_Velocity} } & \checkmark & & \checkmark & \checkmark & & & & &\\
-\hline
-\textbf{DD\ref{DD_Viscosity} } & & & & \checkmark & & & \checkmark & \checkmark & \\
-\hline
-\textbf{DD\ref{DD_RelaxationRate} } & \checkmark & & & & & \checkmark & & & \\
-\hline
-\textbf{DD\ref{DD_VelocityGradient} } & & & & & & \checkmark & & &\\
-\hline
-\textbf{DD\ref{DD_FluidDensity} } & & & \checkmark & \checkmark & & & & &\\
-\hline
-\end{tabular}
+	\begin{center}
+		\begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c |}
+			\hline
+			 & \textbf{$\mathscr{D}$\ref{DD_Velocity}} & \textbf{$\mathscr{D}$\ref{DD_Viscosity}} & \textbf{$\mathscr{D}$\ref{DD_RelaxationRate}} & \textbf{$\mathscr{D}$\ref{DD_VelocityGradient}} & \textbf{$\mathscr{D}$\ref{DD_FluidDensity}} & \textbf{$\mathscr{D}$\ref{DD_BGK}} & \textbf{$\mathscr{D}$\ref{DD_PDF}} & \textbf{$\mathscr{D}$\ref{DD_VELVIR}} & \textbf{$\mathscr{D}$\ref{DD_RELUPD}} & \textbf{$\mathscr{D}$\ref{DD_EDF}} & \textbf{\tref{T_ReynoldsNum}} & \textbf{\tref{T_Force}} & \textbf{\tref{T_CFBTE}} & \textbf{\tref{T_BTE}} & \textbf{IM\ref{lbmim1}} \\
+			\hline
+			$\mathscr{D}$\ref{DD_Velocity} & & & & & & & & \checkmark & & & \checkmark & & \checkmark & \checkmark & \checkmark\\
+			\hline
+			$\mathscr{D}$\ref{DD_Viscosity} & & & \checkmark & \checkmark & & & & & & & \checkmark & & & &\\
+			\hline
+			$\mathscr{D}$\ref{DD_RelaxationRate} & & \checkmark & & & & \checkmark & & & \checkmark & & & & & &\\
+			\hline
+			$\mathscr{D}$\ref{DD_VelocityGradient} & & \checkmark & & & & & & & & & & & & &\\
+			\hline
+			$\mathscr{D}$\ref{DD_FluidDensity} & & & & & & & & & & \checkmark & \checkmark & & & &\\
+			\hline
+			$\mathscr{D}$\ref{DD_BGK} & & & \checkmark & & & & & & \checkmark & \checkmark & & & & \checkmark & \checkmark\\
+			\hline
+			$\mathscr{D}$\ref{DD_PDF} & & & & & & & & & & & & & & & \checkmark\\
+			\hline
+			$\mathscr{D}$\ref{DD_VELVIR} & \checkmark & & & & & & & & &  \checkmark& & & & & \checkmark\\
+			\hline
+			$\mathscr{D}$\ref{DD_RELUPD} & & & \checkmark & & & \checkmark& & & & \checkmark& & & & & \checkmark\\
+			\hline
+			$\mathscr{D}$\ref{DD_EDF} & & & & & \checkmark & \checkmark& &  \checkmark& \checkmark& & & & & &\\
+			\hline
+			\textbf{\tref{T_ReynoldsNum}} & \checkmark & \checkmark & & & \checkmark & & & & & & & & & &\\ 
+			\hline
+			\textbf{\tref{T_Force}} & & & & & & & & & & & & & \checkmark& &\\
+			\hline
+			\textbf{\tref{T_CFBTE}} & \checkmark & & & & & & & & & & & \checkmark& & \checkmark &\\
+			\hline
+			\textbf{\tref{T_BTE}} & \checkmark & & & & & \checkmark & & & & & & &\checkmark & &\checkmark\\
+			\hline
+			\textbf{IM\ref{lbmim1}} & \checkmark & & & & & \checkmark &  \checkmark& \checkmark& \checkmark & & & & & \checkmark&\\
+			\hline
+		\end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
+\label{table:tracemodels}
 \end{center}
 \end{table}   
 
@@ -1141,24 +1159,6 @@ LBS generally read input parameters from a file and this should be the standard 
 \begin{tabular}{| c | c | c | c | c | c | }
 \hline
 & \textbf{A\ref{A_fluids} }& \textbf{A\ref{A_flowObject} } & \textbf{A\ref{A_lattice} } &  \textbf{A\ref{A_weightCoefficients} } & \textbf{A\ref{A_selectModel} } \\
-\hline
-\textbf{\tref{T_BTE} }& & & & & \checkmark \\
-\hline
-\textbf{DD\ref{DD_BGK} }& \checkmark & & & \checkmark & \checkmark \\
-\hline
-\textbf{\tref{T_EDF} }& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
-\hline
-\textbf{\tref{T_ReynoldsNum} }& & & & & \\
-\hline
-\textbf{DD\ref{DD_Velocity} } & & & & & \\
-\hline
-\textbf{DD\ref{DD_Viscosity} } & \checkmark & & & & \\
-\hline
-\textbf{DD\ref{DD_RelaxationRate} } & \checkmark & & & & \checkmark \\
-\hline
-\textbf{DD\ref{DD_VelocityGradient} } & \checkmark & & & & \\
-\hline
-\textbf{DD\ref{DD_FluidDensity} } & \checkmark & & & & \\
 \hline
 \textbf{LC\ref{LC_output} } & & & \checkmark & \checkmark & \checkmark \\
 \hline
@@ -1171,7 +1171,7 @@ LBS generally read input parameters from a file and this should be the standard 
 \textbf{LC\ref{LC_input} } & & & & & \\
 \hline
 \end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
+\caption{Traceability Matrix Showing the Connections Between Assumptions and Likely Changes}
 \end{center}
 \end{table}   
 
