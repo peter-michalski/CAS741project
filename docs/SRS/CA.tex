@@ -130,7 +130,7 @@ description of the unit and the SI name.
     $m$ & length & metre\\
     $kg$ & mass	& kilogram\\
     $s$ & time & second\\
-    $F$ & force & newton\\
+    $N$ & force & newton\\
     $cm$ & length & centimetre\\
     $g$ & mass & gram \\
     $Pa$ & pressure & pascal\\
@@ -155,6 +155,8 @@ $\eta$ & $\si{\pascal}\cdot\si{\second}$ & viscosity
 \\ 
 $A$ & $m^2$ & cross-sectional area
 \\
+$\mathrm{a}$ & $\frac{m}{s^2}$ & acceleration rate
+\\
 $\gamma$ & $\frac{1}{s}$ & velocity gradient
 \\
 $\tau$ & N/A & relaxation rate
@@ -165,13 +167,15 @@ $l$ & $m$ & characteristic length of the system
 \\
 $t$ & $s$ & time
 \\
+$F$ & $N$ & force
+\\
 $f$ & N/A & distribution function
 \\
 $\Omega$ & N/A & collision operator
 \\
 $f^{eq}$ & N/A & equilibrium distribution function
 \\
-$k$ & N/A & velocity direction
+$i$ & N/A & velocity direction
 \\
 $\rho$ & $\frac{g}{cm^3}$ & fluid density
 \\
@@ -191,7 +195,7 @@ $\mathbb{R}$ & N/A & real numbers
 \\
 $\mathbb{N}$ & N/A & natural numbers
 \\
-$\textbf{c}_\textbf{k}$ & N/A & unit vector along the lattice streaming direction
+$\textbf{c}_\textbf{i}$ & N/A & unit vector along the lattice streaming direction
 \\
 $c_s$ & $\frac{m}{s}$ & speed of sound
 \\
@@ -251,7 +255,8 @@ The following subsections of this introduction will outline the purpose of this 
 
 The purpose of this document is to provide general information on currently available LBS solutions, including their commonalities and variabilities, as well as a baseline understanding of the model and structure of abstract LBM. The information provided here will be used in the development of the design of a solution providing services of a family of LBS.
 
-\subsection{Scope of the Family} 
+\subsection{Scope of the Family}
+\label{scopeoffamily} 
 
 The family of LBS will model one or more fluids as they pass through a boundary, modeled by a lattice. Fluids with any properties can be modeled, however only those properties that are accepted as inputs by the LBS will affect the model results. The calculation of the LBM distribution function will use 1D, 2D, and 3D computational models, and will output the data into memory and render it on a screen in up to 3D imaging. The output results can also be rendered to a file.\\
 
@@ -306,10 +311,7 @@ constraints.
 
 The end user of \famname{} should ideally have an understanding of undergraduate Level 1 physics and fluid dynamics. The ideal end user characteristics may differ between the members of the family of solvers. For example, a user of HemeLB, an off the shelf LBM solution for simulating blood flow, would ideally have an understanding of phlebology.
 
-\subsection{Potential System Constraints}
-\label{systemconstraints}
-
-The parallel nature of LBS prefers operating and hardware systems that can handle concurrency and large amounts of data. Modern operating systems and computer hardware platforms are suggested. Memory should be scaled to the requirements of the desired LBS library, and decomposition technique.
+~\newpage
 
 \section{Commonalities}
 
@@ -381,9 +383,7 @@ Symbol &$\mathrm{e}$\\
 \end{tabular}
 \end{minipage}\\
 
-
 ~\newline
-
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -428,7 +428,7 @@ Label& \bf Relaxation Rate Towards Equilibrium\\
 Symbol &$\tau$\\
 \hline
 % \hline
-  SI Units & NA\\
+  SI Units & N/A\\
   \hline
   Equation&$\tau = \frac{12\mathrm{\eta}\Delta t}{\Delta\mathrm{\textbf{x}}^2} + \frac{1}{2}$\\
   \hline
@@ -481,7 +481,8 @@ distance of the two velocities.  \\
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_FluidDensity}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum 
+\label{DD_FluidDensity}\\
 \hline
 Label& \bf Fluid Density\\
 \hline
@@ -502,28 +503,7 @@ Symbol &$\rho$\\
 \end{tabular}
 \end{minipage}\\
 
-
-\subsubsection{Instance Models} \label{sec_instance}    
-
-\plt{The motivation for this section is to reduce the problem defined in
-	``Physical System Description'' (Section~\ref{sec_phySystDescrip}) to one
-	expressed in mathematical terms. The IMs are built by refining the TMs and/or
-	GDs.  This section should remain abstract.  The SRS should specify the
-	requirements without considering the implementation.}
-
-This section transforms the problem defined in Section~\ref{Sec_pd} into 
-one which is expressed in mathematical terms. It uses concrete symbols defined 
-in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
-identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
-
-The goals \plt{reference your goals} are solved by \plt{reference your instance
-	models}.  \plt{other details, with cross-references where appropriate.}
-\plt{Modify the examples below for your problem, and add additional models as
-	appropriate.}
-
 ~\newline
-
-%Instance Model 1
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -531,43 +511,121 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 		\hline
 		\rowcolor[gray]{0.9}
-		Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+		Number& DD\refstepcounter{datadefnum}\thedatadefnum 
+		\label{DD_BGK}\\
 		\hline
-		Label& \bf Energy balance on water to find $T_W$\\
+		Label& \bf Bhatnagar-Gross-Krook Collision Operator\\
 		\hline
-		Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, $T_C$, 
-		$T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-		& The input is constrained so that $T_\text{init} \leq T_C$ (\aref{A_charge})\\
+		Symbol &$\mathrm{\Omega}$\\
 		\hline
-		Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
-		&$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
-		&$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
+		% \hline
+		SI Units &N/A \\
 		\hline
-		Description&$T_W$ is the water temperature (\si{\celsius}).\\
-		&$T_P$ is the PCM temperature (\si{\celsius}).\\
-		&$T_C$ is the coil temperature (\si{\celsius}).\\
-		&$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-		&$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-		& The above equation applies as long as the water is in liquid form,
-		$0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are the melting
-		and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
-		\\
+		Equation& $\mathrm{\Omega_i} = \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ \\
 		\hline
-		Sources& Citation here \\
+		Description & 
+		The above equation is a mathematical operator that preserves continuity for a discretized model, for each velocity direction $i$.
+		$\tau$ is the relaxation rate towards equilibrium and should be in the range of 0.5 - 2.0. It is related to viscosity as outlined in DD\ref{DD_RelaxationRate}. 
+		$f^{eq}$ is the equilibrium particle probability distribution function. $f$ is the particle probability distribution function.  \\
 		\hline
-		Ref.\ By & \iref{epcm}\\
+		Sources& \citet{gibiansky}\\
+		\hline
+		Ref.\ By & \tref{T_BTE} A\ref{A_fluids} A\ref{A_selectModel} \\
 		\hline
 	\end{tabular}
 \end{minipage}\\
 
-%~\newline
+~\newline
 
-\subsubsection*{Derivation of ...}
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& DD\refstepcounter{datadefnum}\thedatadefnum 
+		\label{DD_PDF}\\
+		\hline
+		Label& \bf Probability Density Function\\
+		\hline
+		Symbol &$f(\mathrm{\textbf{x}},\mathrm{e},t)$\\
+		\hline
+		% \hline
+		SI Units &N/A \\
+		\hline
+		Equation& $f(\mathrm{\textbf{x}},\mathrm{e},t) = f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$ \\
+		\hline
+		Description & 
+		The probability that a particle is at position $\textbf{x}$ and has velocity $\mathrm{e}$ at time t. $F$ is force ($\mathrm{N}$), $kg$ is mass.\\
+		\hline
+		Sources& \citet{gibiansky}\\
+		\hline
+		Ref.\ By & \\
+		\hline
+	\end{tabular}
+\end{minipage}\\
 
-\plt{The derivation shows how the IM is derived from the TMs/GDs.  In cases
-	where the derivation cannot be described under the Description field, it will
-	be necessary to include this subsection...}
+~\newline
 
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& DD\refstepcounter{datadefnum}\thedatadefnum 
+		\label{DD_VELVIR}\\
+		\hline
+		Label& \bf Discretization of Velocity\\
+		\hline
+		Symbol &$\mathrm{e}$\\
+		\hline
+		% \hline
+		SI Units & $\frac{m}{s}$ \\
+		\hline
+		Equation& $\mathrm{e} = \mathrm{e_i}$ \\
+		\hline
+		Description &
+		Velocity $\mathrm{e}$ is discretized into a finite number of directions depending on the chosen model. For example a D2Q9 model has 9 velocity directions, $\mathrm{e_0}$ to $\mathrm{e_8}$.\\
+		\hline
+		Sources& \citet{gibiansky}\\
+		\hline
+		Ref.\ By & \\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& DD\refstepcounter{datadefnum}\thedatadefnum 
+		\label{DD_RELUPD}\\
+		\hline
+		Label& \bf Relaxation Update\\
+		\hline
+		Symbol &$f_{i}$\\
+		\hline
+		% \hline
+		SI Units & N/A \\
+		\hline
+		Equation& $f_{i} = f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ \\
+		\hline
+		Description &
+		Velocity distribution $f_{i}$ for the velocity direction $i$ is updated for the next iteration.\\
+		\hline
+		Sources& \citet{gibiansky}\\
+		\hline
+		Ref.\ By & \\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+~\newpage
 
 \subsection{Goal Statements}
 \label{goalstatements}
@@ -598,65 +656,11 @@ on.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_BTE}\\
-  \hline
-  Label&\bf Boltzmann Transport Equation\\
-  \hline
-  Equation&  $f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)d\mathrm{x}d\mathrm{e} - f(\mathrm{\textbf{x}},\mathrm{e},t)d\mathrm{x}d\mathrm{e} = \mathrm{\Omega}(f)d\mathrm{x}d\mathrm{e}$\\
-  \hline
-  Description & 
-  This equation determines the statistical description of a group of particles. The left part of the equation, $f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)d\mathrm{x}d\mathrm{e}$, represents the distribution function result after an external force $\mathrm{F}$ is applied. The middle function, $f(\mathrm{x},\mathrm{e},t)d\mathrm{x}d\mathrm{e}  $, represents the distribution function result before the external force is applied. The distribution function $f$ represents the probability that a set of particles will be at a specific location of the lattice at a specified time. The right hand side of the equation represents the collision operator, $\Omega$.\newline
-The variable $\mathrm{\textbf{x}}$ represents the vector of the particles within the lattice, $\mathrm{e}$ is velocity $\mathrm{\frac{m}{s}}$, $t$ is time ($\mathrm{s}$), $F$ is force ($\mathrm{N}$), $kg$ is mass. This equation can be further developed for specific instances.\\
-  \hline
-  Source &
-           \citet{lbmbolton}\newline \citet{mohamad2011lattice}\\
-  % The above web link should be replaced with a proper citation to a publication
-  \hline
-  Ref.\ By & A\ref{A_selectModel} \\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_BGK}\\
-  \hline
-  Label&\bf Bhatnagar-Gross-Krook Collision Operator\\
-  \hline
-  Equation&  $\mathrm{\Omega} = \frac{\Delta t}{\tau}(f^{eq}(r,t)-f(r,t))$\\
-  \hline
-  Description &
-  The above equation is a mathematical operator that preserves continuity for a discretized model.
-  $\tau$ is the relaxation rate towards equilibrium and should be in the range of 0.5 - 2.0. It is related to viscosity as outlined in DD. 
-  $f^{eq}$ is the equilibrium particle probability distribution function. $f$ is the particle probability distribution function. This equation can be further developed for specific instances. Several fluids in the instance model can be modeled by this equation.\\
-  \hline
-  Source &
-           \citet{lbmbolton}\newline \citet{mohamad2011lattice}\\
-  \hline
-  Ref.\ By & \tref{T_BTE} A\ref{A_fluids} A\ref{A_selectModel} \\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
   Number& T\refstepcounter{theorynum}\thetheorynum \label{T_EDF}\\
   \hline
   Label&\bf Equilibrium Distribution Function\\
   \hline
-  Equation&  $f_{k}^{eq} = pw_{k}[1 + \frac{2\textbf{c}_\textbf{k}\textbf{u}-\textbf{u}\textbf{u}}{2c_s^2}+\frac{(\textbf{c}_\textbf{k}\textbf{u})^2}{2c_s^4}] + O(u^2)$\\
+  Equation&  $f_{i}^{eq} = pw_{i}[1 + \frac{2\textbf{c}_\textbf{i}\textbf{u}-\textbf{u}\textbf{u}}{2c_s^2}+\frac{(\textbf{c}_\textbf{i}\textbf{u})^2}{2c_s^4}] + O(u^2)$\\
   \hline
   Description &
   The above equation captures the probability distribution of the
@@ -665,9 +669,9 @@ The variable $\mathrm{\textbf{x}}$ represents the vector of the particles within
                 geometry of the boundary.
   $\rho$ is the fluid density $(\mathrm{\frac{g}{cm^2}}$). $w$ is the weighting
                 coefficient for the lattice model as the fluid flows through a
-                lattice structure. The weighting coefficients are standard. $k$
+                lattice structure. The weighting coefficients are standard. $i$
                 is the discretized velocity direction, referring to the
-                directions of the chosen lattice model. $\textbf{c}_\textbf{k}$ is the
+                directions of the chosen lattice model. $\textbf{c}_\textbf{i}$ is the
                 unit vector along the lattice streaming direction. $\textbf{u}$
                 is the macroscopic velocity of the fluid, which is a vector
                 field of velocity at a specific position and
@@ -682,7 +686,7 @@ The variable $\mathrm{\textbf{x}}$ represents the vector of the particles within
            \\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \tref{T_BGK} A\ref{A_fluids}  A\ref{A_flowObject} A\ref{A_lattice} A\ref{A_weightCoefficients} A\ref{A_selectModel} \\
+  Ref.\ By & DD\ref{DD_BGK} A\ref{A_fluids}  A\ref{A_flowObject} A\ref{A_lattice} A\ref{A_weightCoefficients} A\ref{A_selectModel} \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -713,6 +717,81 @@ Label& \bf Reynolds Number\\
   Ref.\ By & \\
   \hline
 \end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_Force}\\
+		\hline
+		Label& \bf Force\\
+		\hline
+		% \hline
+		Equation& $F$ = $kg \cdot \mathrm{a}$ \\
+		\hline
+		Description & 
+		Magnitude of movement that is the product of mass $kg$ and acceleration $\mathrm{a}$.\\
+		\hline
+		Sources& \citet{gibiansky}\\
+		\hline
+		Ref.\ By & \tref{T_CFBTE} \tref{T_BTE}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_CFBTE}\\
+		\hline
+		Label&\bf Collision Free Boltzmann Transport Equation\\
+		\hline
+		Equation&  $(\frac{d}{dt} + \mathrm{e} \cdot \nabla_\mathrm{x} + \frac{F}{m} \cdot \nabla_\mathrm{e})f = 0$\\
+		\hline
+		Description & 
+		Describes the statistical behaviour of a system that does not have collisions, denoted by the right hand side being equal to zero. $\nabla_\mathrm{x}$ and $\nabla_\mathrm{x}$ are the gradient in the position and velocity spaces.\\
+		\hline
+		Source &
+		\citet{gibiansky}\\
+		\hline
+		Ref.\ By &\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_BTE}\\
+		\hline
+		Label&\bf Boltzmann Transport Equation\\
+		\hline
+		Equation&  $(\frac{d}{dt} + \mathrm{e} \cdot \nabla_\mathrm{x} + \frac{F}{m} \cdot \nabla_\mathrm{e})f = \Omega(t)$\\
+		\hline
+		Description & 
+		Describes the statistical behaviour of a system that does not have collisions. $\nabla_\mathrm{x}$ and $\nabla_\mathrm{x}$ are the gradient in the position and velocity spaces. $\Omega(t)$ is a collision operator that changes the equation to describe an inhomogeneous system.\\
+		\hline
+		Source &
+		\citet{gibiansky}\\
+		\hline
+		Ref.\ By &\\
+		\hline
+	\end{tabular}
 \end{minipage}\\
 
 ~\newline
@@ -761,7 +840,7 @@ Label& \bf Reynolds Number\\
 \hline
 G\ref{G_Location} & \tref{T_BTE} & & & & & \checkmark \\
 \hline
-G\ref{G_Location} & \tref{T_BGK} & \checkmark & & & & \checkmark \\
+G\ref{G_Location} & DD\ref{DD_BGK} & \checkmark & & & & \checkmark \\
 \hline
 G\ref{G_Location} & \tref{T_EDF} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
@@ -769,7 +848,7 @@ G\ref{G_Location} & \tref{T_ReynoldsNum} & \checkmark & \checkmark & \checkmark 
 \hline
 G\ref{G_Velocity} & \tref{T_BTE} & & & & & \checkmark \\
 \hline
-G\ref{G_Velocity} & \tref{T_BGK} & \checkmark & & & & \checkmark \\
+G\ref{G_Velocity} & DD\ref{DD_BGK} & \checkmark & & & & \checkmark \\
 \hline
 G\ref{G_Velocity} & \tref{T_EDF} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
@@ -777,7 +856,7 @@ G\ref{G_Velocity} & \tref{T_ReynoldsNum} & \checkmark & \checkmark & \checkmark 
 \hline
 G\ref{G_FluidPressure} & \tref{T_BTE} & & & & & \checkmark \\
 \hline
-G\ref{G_FluidPressure} & \tref{T_BGK} & \checkmark & & & & \checkmark \\
+G\ref{G_FluidPressure} & DD\ref{DD_BGK} & \checkmark & & & & \checkmark \\
 \hline
 G\ref{G_FluidPressure} & \tref{T_EDF} & \checkmark & & & & \checkmark \\
 \hline
@@ -818,11 +897,11 @@ dimension & Set of \{1D, 2D, 3D\} & compile \\
 \hline
 \textbf{Variability} & \textbf{Parameter of Variation} & \textbf{Binding Time}\\
 \hline
-\pbox{4cm}{computational model (see Section \ref{systemconstraints}) } &
+\pbox{4cm}{computational model} &
                                                                         \pbox{5cm}{ D1Q2, D1Q3, D1Q5, D2Q9, D2Q13, D2Q15, D3Q15, D3Q15i, D3Q19, D3Q19+, D3Q27} & compile \\
 
 \hline
-\pbox{4.75cm}{decomposition technique (see Section \ref{systemconstraints}) }& Set of \pbox{6cm}{\{ParMETIS library, PT\textunderscore Scotch library, block-wide decomposition, domain decomposition, spinoidal decomposition\}} & compile \\
+\pbox{4.75cm}{decomposition technique}& Set of \pbox{6cm}{\{ParMETIS library, PT\textunderscore Scotch library, block-wide decomposition, domain decomposition, spinoidal decomposition\}} & compile \\
 \hline
 coefficient weights & Set of $\{ 0 < \mathbb{R} < 1 \}; \sum \mathbb{R} = 1$ & compile \\
 \hline
@@ -837,6 +916,54 @@ exception check & \pbox{6cm}{boolean (false if no exception condition raised)} &
 \label{calcVar}
 \end{center}
 \end{table}
+
+~\newpage
+
+\subsubsection{Instance Models} \label{sec_instance}    
+
+This section transforms the problem defined in Section \ref{scopeoffamily} into 
+one which is expressed in mathematical terms. It uses concrete symbols defined 
+in Section \ref{sec_datadef} to replace the abstract symbols in the models 
+identified in Sections~\ref{sec_theoretical}.
+
+The goals in Section \ref{goalstatements} are solved by IM\ref{lbmim1}.
+
+~\newline
+
+%Instance Model 1
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& IM\refstepcounter{instnum}\theinstnum \label{lbmim1}\\
+		\hline
+		Label& \bf Lattice Boltzmann Method to find $f_i()$\\
+		\hline		
+		Input&$\mathrm{\textbf{x}}$, $\mathrm{e}_i$, $t$, $\mathrm{\Omega}_i$\\
+		\hline
+		Output& $f_i()$ for every velocity direction $i$.\\
+		\hline
+		Description&
+		The equation is: $f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t) = \mathrm{\Omega}_i (t)$.\\
+		&This equation determines the statistical description of a group of particles.\\
+		&The left had side of the equation handles the streaming step of the method (fluid movement and propagation). The distribution for a velocity direction for the next iteration is computed by looking up the distribution at $\mathrm{\textbf{x}}$ - $\mathrm{e}_i \Delta t$.\\
+		&The right hand side of the equation handles the collision step.\\ &$\mathrm{\Omega}_i (t)$ assumes that the net effect of the collision step is a state of equilibrium.\\
+		&$\mathrm{\textbf{x}}$ is the position vector.\\ 
+		&$\mathrm{e}_i$ is the velocity for the velocity direction $i$.\\ 
+		&$t$ is the time.\\ 
+		&$\mathrm{\Omega}_i$ is the collision operator result for velocity direction $i$.\\
+		\hline
+		Sources& \citet{gibiansky} \\
+		\hline
+		Ref.\ By & \\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+%~\newline
 
 ~\newpage
 
@@ -869,7 +996,7 @@ qualities that the software is expected to exhibit.
 
 \noindent \begin{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall read a set of input fluid parameters, listed in Table \ref{table:inputVar}. These parameters will be used in calculations for \tref{T_BTE}, \tref{T_BGK}, and \tref{T_EDF}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall read a set of input fluid parameters, listed in Table \ref{table:inputVar}. These parameters will be used in calculations for \tref{T_BTE}, DD\ref{DD_BGK}, and \tref{T_EDF}.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system shall allow the user to select from a set of model and velocity direction parameters, listed in Table \ref{table:inputVar}, as per A\ref{A_selectModel}. These models will be reflected in the calculations of \tref{T_BTE}.
 
@@ -894,7 +1021,7 @@ The following are non-functional requirements (NFRs), and their metrics, for a f
 \begin{enumerate}
 \item Correctness: The allowable error of the output results, per module, will be less than the average error taken from the results of a sample of OTS solutions.
 \item Maintainability: The system shall be documented with a Commonality Analysis (CA), Verification and Validation (VnV) plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
-\item Performance: The system shall be able to run modules faster than the pseudo-oracle pyLBM.
+\item Performance: The system shall be able to run modules faster than an OTS implementation.
 \item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
 \item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
 \item Reusability: Individual modules of the system can be removed and reused in other systems.
@@ -983,14 +1110,14 @@ LBS generally read input parameters from a file and this should be the standard 
 \begin{center}
 \begin{tabular}{| c | c | c | c | c | c | c | c | c | c |}
 \hline
-& \textbf{\tref{T_BTE} }& \textbf{\tref{T_BGK} } & \textbf{\tref{T_EDF} } &
+& \textbf{\tref{T_BTE} }& \textbf{DD\ref{DD_BGK} } & \textbf{\tref{T_EDF} } &
 \textbf{\tref{T_ReynoldsNum} } & \textbf{DD\ref{DD_Velocity} } & \textbf{DD\ref{DD_Viscosity} } & \textbf{DD\ref{DD_RelaxationRate} } & \textbf{DD\ref{DD_VelocityGradient} } & \textbf{DD\ref{DD_FluidDensity} }\\
 \hline
 \textbf{\tref{T_BTE} }& & \checkmark & & & \checkmark & & \checkmark & &\\
 \hline
-\textbf{\tref{T_BGK} }& \checkmark & & \checkmark & & & & & &\\
+\textbf{DD\ref{DD_BGK} }& \checkmark & & \checkmark & & & & & &\\
 \hline
-\textbf{\tref{T_EDF} }& & & \checkmark & & \checkmark & & & & \checkmark \\
+\textbf{DD\ref{DD_BGK} }& & & \checkmark & & \checkmark & & & & \checkmark \\
 \hline
 \textbf{\tref{T_ReynoldsNum} }& & & & & \checkmark & \checkmark & & & \checkmark \\
 \hline
@@ -1017,7 +1144,7 @@ LBS generally read input parameters from a file and this should be the standard 
 \hline
 \textbf{\tref{T_BTE} }& & & & & \checkmark \\
 \hline
-\textbf{\tref{T_BGK} }& \checkmark & & & \checkmark & \checkmark \\
+\textbf{DD\ref{DD_BGK} }& \checkmark & & & \checkmark & \checkmark \\
 \hline
 \textbf{\tref{T_EDF} }& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
