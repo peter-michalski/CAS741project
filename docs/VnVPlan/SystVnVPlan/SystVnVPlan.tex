@@ -26,15 +26,16 @@
 }
 \usepackage[sort&compress,square,comma,numbers]{natbib}
 \newcounter{reqnum} %Requirement Number
-\newcommand{\myprogname}{Lattice Boltzmann Solver} 
-
+\newcommand{\famname}{Lattice Boltzmann Solver} 
+\newcounter{testcounter} %Assumption Number
+\newcommand{\athetestcounter}{P\thetestcounter}
 \input{../../Comments}
 \input{../../Common}
 
 \begin{document}
 
 
-\title{System Verification and Validation Plan for \myprogname} 
+\title{System Verification and Validation Plan for \famname} 
 \author{Peter Michalski}
 \date{\today}
 	
@@ -76,7 +77,6 @@ October 28, 2019 & 1.0 & Initial Document\\
   A & Assumption\\
   C & Pseudo-Oracle Control Value\\
   CA & Commonality Analysis\\
-  V & All Input Values\\
   I & Individual Parameter Input Values\\
   IDE & Integrated Development Environment\\
   LBM & Lattice Boltzmann Method\\
@@ -91,6 +91,7 @@ October 28, 2019 & 1.0 & Initial Document\\
   P & Program\\
   R & Functional Requirement\\
   SRS & Software Requirement Specification\\
+  V & Set of All Inputs\\
   VnV & Verification and Validation\\
   \bottomrule
 \end{tabular}\\
@@ -104,26 +105,26 @@ October 28, 2019 & 1.0 & Initial Document\\
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  $Re$ & Reynolds Number\\
-  $\rho$ & Density \\
-  $t$ & Time \\
+  $\mathrm{D}$ & Signifies the Dimension Component of Lattice Model\\
+  $D_{l}$ & Length of the Domain\\
+  $D_{w}$ & Width of the Domain\\
+  $\mathrm{e_{fac}}$ & Velocity of Scheme\\
+  $\mathrm{e_{max}}$ & Max Velocity in the Middle of Channel\\
+  $\mathrm{e_{sch}}$ & Velocity Slowdown Factor\\
+  $E_r$ & Relative Error\\
   $\eta_b$ & Bulk Viscosity \\
   $\eta_s$ & Shear Viscosity \\
   $\mathbb{N}$ & natural numbers\\
-  $X_{min}$ & Lowest X-Axis Interval of Boundary\\
-  $X_{max}$ & Highest X-Axis Interval of Boundary\\
-  $Y_{min}$ & Lowest Y-Axis Interval of Boundary\\
-  $Y_{max}$ & Highest Y-Axis Interval of Boundary\\
-  $R$ & Radius of Cylinder\\
-  $\mathrm{e_{sch}}$ & Velocity Slowdown Factor\\
-  $\mathrm{e_{fac}}$ & Velocity of Scheme\\
-  $S$ & Spatial Step - Number of Spatial Subsections\\
-  $\mathrm{e_{max}}$ & Max Velocity in the Middle of Channel\\
-  $\mathrm{D}$ & Signifies the Dimension Component of Lattice Model\\
   $\mathrm{Q}$ & Signifies Number of Velocity Directions of Lattice Model\\
-  $D_{l}$ & Length of the Domain\\
-  $D_{w}$ & Width of the Domain\\
-  $E_r$ & Relative Error\\
+  $R$ & Radius of Cylinder\\
+  $Re$ & Reynolds Number\\
+  $\rho$ & Density \\
+  $S$ & Spatial Step - Number of Spatial Subsections\\
+  $t$ & Time \\
+  $X_{max}$ & Highest X-Axis Interval of Boundary\\
+  $X_{min}$ & Lowest X-Axis Interval of Boundary\\
+  $Y_{max}$ & Highest Y-Axis Interval of Boundary\\
+  $Y_{min}$ & Lowest Y-Axis Interval of Boundary\\
   \bottomrule
 \end{tabular}\\
 
@@ -131,15 +132,15 @@ October 28, 2019 & 1.0 & Initial Document\\
 
 \pagenumbering{arabic}
 
-\noindent This document covers the system Verification and Validation (VnV) of \myprogname . Functional and non-functional requirements, as found in Section \ref{objectives} and retrieved from the Commonality Analysis (CA) (\citet{LBM_CA_PM}), will be tested. The document will outline the general information of the system in Section \ref{generalinfo}, which will be followed by a testing plan in Section \ref{testplan}. Finally, individual tests will be described in Section \ref{systest}. 
+\noindent This document covers the system Verification and Validation (VnV) of \famname . Functional and non-functional requirements, as found in Section \ref{objectives} and retrieved from the Commonality Analysis (CA) (\citet{LBM_CA_PM}), will be tested. The document will outline the general information of the system in Section \ref{generalinfo}, which will be followed by a testing plan in Section \ref{testplan}. Finally, individual tests will be described in Section \ref{systest}. 
 
 \section{General Information}
 \label{generalinfo}
 \subsection{Summary}
 
-The software being tested is \myprogname . This software reads inputs from a file, and calculates outputs using Lattice Boltzmann Methods (LBM).The software outputs the results to the screen, to a file, and/or to memory.\\ 
+The software being tested is \famname . This software reads inputs from a file, and calculates outputs using Lattice Boltzmann Methods (LBM).The software outputs the results to the screen, to a file, and/or to memory.\\ 
 
-\noindent {\myprogname} can model many fluid dynamics problems, including Poiseuille Flow and Von Karman Vortex Street. Both of these problems will be used in our functional test cases, as the results of {\myprogname} can be compared to the results of the pseudo-oracle pyLBM (\citet{pylbmcode}).
+\noindent {\famname} can model many fluid dynamics problems, including Poiseuille Flow and Von Karman Vortex Street. Both of these problems will be used in our functional test cases, as the results of {\famname} can be compared to the results of the pseudo-oracle pyLBM (\citet{pylbmcode}).
 
 \subsection{Objectives}
 \label{objectives}
@@ -175,14 +176,14 @@ The intended objective of this plan is to verify that functional requirements an
 \item Reusability: Individual modules of the system can be removed and reused in other systems.
 \item Robustness: The system shall behave reasonably in circumstances that were not anticipated in the requirements specification \cite{ghezzi1991fundamentals}.
 \item Scalability: The system must be able to support additional computational models.
-\item Understandability: New users must easily understand which LBM models are available in {\myprogname}.
+\item Understandability: New users must easily understand which LBM models are available in {\famname}.
 \item Usability: Users will find the system easy to use.
 \end{enumerate}
 
 
 \subsection{Relevant Documentation}
 
-The CA of {\myprogname} can be found in (\citet{LBM_CA_PM}).\\ 
+The CA of {\famname} can be found in (\citet{LBM_CA_PM}).\\ 
 
 \newpage
 
@@ -194,7 +195,7 @@ This VnV plan will be conducted by Peter Michalski and several classmates.
 
 \subsection{CA Verification Plan}
 
-The CA of {\myprogname} shall be verified in the following ways:
+The CA of {\famname} shall be verified in the following ways:
 
 \begin{enumerate}
 \item Feedback: Reviewers from the class shall provide feedback on GitHub.
@@ -215,8 +216,8 @@ The design shall be verified by ensuring that functional requirements and NFRs a
 \noindent The implementation shall be verified in the following ways:
 
 \begin{enumerate}
-\item Code Walkthrough - Author: Module unit code shall be inspected for functional errors by the author immediately after MS document version 1.0 is developed. A rubber duck debugging method will be followed. Any defects shall be immediately fixed. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
-\item Code Walkthrough - Peer: Module unit code shall be inspected for functional errors by Ao Dong after MS document version 1.0 is submitted on GitHub. Defects shall be noted in GitHub using issue creation. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
+\item Code Walkthrough - Author: Module unit code shall be inspected for functional errors by the author immediately after MIS document version 1.0 is developed. A rubber duck debugging method will be followed. Any defects shall be immediately fixed. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
+\item Code Walkthrough - Peer: Module unit code shall be inspected for functional errors by Ao Dong after MIS document version 1.0 is submitted on GitHub. Defects shall be noted in GitHub using issue creation. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
 \item Dynamic Unit Tests - Author: Dynamic unit test will be carried out, as listed in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
 \item System Tests: System tests will be carried out as listed in Section \ref{systest}. The author shall conduct the tests of the functional requirements. Tests of the NFRs shall be conducted by those listed in the outline of each test.
 \end{enumerate}
@@ -225,7 +226,7 @@ The design shall be verified by ensuring that functional requirements and NFRs a
 
 \subsection{Software Validation Plan}
 
-{\myprogname} shall be validated by ensuring that all functional requirements, as listed in Section \ref{objectives}, are met. The file names containing the pseudo-oracle output data that the system output is tested against can be found in the specific test sections below.
+{\famname} shall be validated by ensuring that all functional requirements, as listed in Section \ref{objectives}, are met. The file names containing the pseudo-oracle output data that the system output is tested against can be found in the specific test sections below.
 
 
 ~\newpage	 
@@ -249,13 +250,13 @@ The subsections below are designed to cover several of the functional requiremen
 
 \begin{enumerate}
 
-\item{input-reading-id1\\}
+\item{input-reading-id\refstepcounter{testcounter}\thetestcounter A \label{inputreadingtest}\\}
 
 Control: Program (P) reading of input values (V) from a file.\\
-					
+				
 Initial State: No input file in Input directory.\\
 					
-Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\$Re$: 500\\
+Input: A comma delimited text file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\$Re$: 500\\
 $t$: 75\\
 $\rho$: 1.0\\
 $\eta_b$: 1.e-3\\
@@ -274,7 +275,7 @@ $D_{l}$ = 2\\
 $D_{w}$ = 1\\
 
 					
-Output: All inputs printed to the screen as output (O). An error message of ``cannot read file" should be shown if the system could not read the file.\\
+Output: All inputs printed to the screen as output (O).\\
 Outputs printed to the screen:\\
 $Re$: 500\\
 $t$: 75\\
@@ -303,18 +304,43 @@ How test will be performed:
 \begin{enumerate}
 \item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
-\item The module TestInput found under the home directory will be run using pyCharm.
-\item If successful, The system will output the input parameters to the screen. If unsuccessful, the system will output an error message to the screen.
+\item {\famname} will be run.
+\item If successful, The system will output the input parameters to the screen.
 \end{enumerate}
+
+\item{input-reading-id\ref{inputreadingtest}B\\}
+
+Control: Program (P) reading of input values (V) from a file.\\
+
+Initial State: No input file in Input directory.\\
+
+Input: A comma delimited text file with the following input:\\
+ccQseHfFspBLAYZjCGZtJYMAdeAc
+
+Output: An error message of ``cannot read file" should be shown.\\
+
+Test Case Derivation: P(V) is correct if P:V -$>$ Error Message \\
+
+The result required for the test to pass is the successful printing of the error message. This test satisfies R1.\\
+
+How test will be performed: 
+
+\begin{enumerate}
+	\item Outside of the system, the input parameter value will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
+	\item The file will be placed into the Input directory, under the home directory of the project.
+	\item {\famname} will be run.
+	\item If successful, the system will output an error message to the screen.
+\end{enumerate}
+
 \end{enumerate}
 			
 \paragraph{Input Bounds}
 
 \begin{enumerate}			
 					
-\item{input-bounds-id2\\}
+\item{input-bounds-id\refstepcounter{testcounter}\thetestcounter A \label{inputboundstest}\\}
 
-Control: Program (P) testing of input values (V) read from a file.\\
+Control: Program (P) testing of high input values (V) read from a file.\\
 					
 Initial State: No input file in Input directory.\\
 					
@@ -357,10 +383,61 @@ How test will be performed:
 \begin{enumerate}
 \item Outside of the system, the input values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide (\citet{LBM_UserGuide_PM}).
 \item The file will be placed into the Input directory, under the home directory of the project.
-\item The module TestInput found under the home directory will be run using a python IDE.
+\item {\famname} will be run.
 \item If the test is successful, the system will output a descriptive error message, as seen above, to the screen.\\
 
 
+\end{enumerate}
+
+\item{input-bounds-id\ref{inputboundstest}B\\}
+
+Control: Program (P) testing of low input values (V) read from a file.\\
+
+Initial State: No input file in Input directory.\\
+
+Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\$Re$: -500000\\
+$t$: 0\\
+$\rho$: -15\\
+$\eta_b$: -100\\
+$\eta_s$: -30000\\
+$X_{min}$ = 0.\\
+$X_{max}$ = 3.\\
+$Y_{min}$ = 0.\\
+$Y_{max}$ = 1.\\
+$R$ = 0.05\\
+$\mathrm{e_{sch}}$ = 1.\\
+$\mathrm{e_{fac}}$ = 20\\
+$\mathrm{e_{max}}$ = 0.1\\
+$S$ = 64\\
+$\mathrm{D}$ = 2\\
+$\mathrm{Q}$ = 9\\
+$D_{l}$ = 2\\
+$D_{w}$ = 1\\
+
+
+Output: A descriptive failure message printed to the screen as seen below. In the below figure, X will contain all parameter names that are out of bounds. In this test that will include $Re$, $t$, $\rho$, $\eta_b$, and $\eta_s$.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{errorMessage.jpeg}
+		\caption{Input out of Bounds}
+		\label{Fig_InputError}
+	\end{center}
+\end{figure}
+
+Test Case Derivation: 
+I (individual inputs) are an element of V. P(V) is incorrect if P:V and at least one I is out of bounds as per Table \ref{table:inputdatabounds}: Input Data Bounds. This test satisfies R3.\\ 
+
+
+How test will be performed: 
+
+\begin{enumerate}
+	\item Outside of the system, the input values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide (\citet{LBM_UserGuide_PM}).
+	\item The file will be placed into the Input directory, under the home directory of the project.
+	\item {\famname} will be run.
+	\item If the test is successful, the system will output a descriptive error message, as seen above, to the screen.\\
+	
+	
 \end{enumerate}
 
 \end{enumerate}
@@ -371,11 +448,11 @@ How test will be performed:
 \label{frvkvs}
 		
 \paragraph{Dynamic Testing - Manual:}
-\paragraph{} These dynamic tests will compare {\myprogname} output with output from the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the same inputs as {\myprogname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
+\paragraph{} These dynamic tests will compare {\famname} output with output from the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the same inputs as {\famname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
 
 \begin{enumerate}
 
-\item{tutorial-test-id3\\}
+\item{tutorial-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -413,7 +490,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{Reynolds-Rel-Error-test-id4\\}
+\item{Reynolds-Rel-Error-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using  inputs (V) with varying $Re$ parameter (I), and observing variance of the relative error ($E_r$) of the output (O) when compared to a control value (C) \\
 					
@@ -484,7 +561,7 @@ How test will be performed:
 \item The $E_r$ of each iteration will be compared.\\
 \end{enumerate}
 					
-\item{laminar-test-id5\\}
+\item{laminar-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -522,7 +599,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{turbulent-test-id6\\}
+\item{turbulent-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -560,7 +637,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{low-density-test-id7\\}
+\item{low-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -598,7 +675,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{high-density-test-id8\\}
+\item{high-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -636,7 +713,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{low-bulk-viscosity-test-id9\\}
+\item{low-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -674,7 +751,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
 \end{enumerate}
 
-\item{high-bulk-viscosity-test-id10\\}
+\item{high-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -719,11 +796,11 @@ How test will be performed:
 \label{frpf}
 
 \paragraph{Dynamic Testing - Manual:}
-\paragraph{} These dynamic tests will compare {\myprogname} output with output from the pseudo oracle myLBM (\citet{pylbmcode}). The input oracle will have the same inputs as {\myprogname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
+\paragraph{} These dynamic tests will compare {\famname} output with output from the pseudo-oracle myLBM (\citet{pylbmcode}). The input oracle will have the same inputs as {\famname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
 
 \begin{enumerate}
 
-\item{tutorial-test-id11\\}
+\item{tutorial-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -756,7 +833,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}			
 
-\item{low-density-test-id12\\}
+\item{low-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -789,7 +866,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{high-density-test-id13\\}
+\item{high-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -822,7 +899,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{low-bulk-viscosity-test-id14\\}
+\item{low-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -855,7 +932,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{high-bulk-viscosity-test-id15\\}
+\item{high-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -888,7 +965,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{low-shear-viscosity-test-id16\\}
+\item{low-shear-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -921,7 +998,7 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{high-shear-viscosity-test-id17\\}
+\item{high-shear-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
@@ -971,13 +1048,13 @@ System correctness is tested via the functional tests of Section \ref{testfr} us
 
 \begin{enumerate}
 
-\item{maintainability-id18\\}
+\item{maintainability-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Type: Maintainability Walkthrough\\
 					
 Initial State: Maintainability of the repository has not been tested.\\
 					
-Input/Condition: A production version of {\myprogname} has been released.\\
+Input/Condition: A production version of {\famname} has been released.\\
 					
 Output/Result: A graded report describing the maintainability of the repository.\\
 
@@ -1001,7 +1078,7 @@ How test will be performed:
 
 \begin{enumerate}
 
-\item{performance-id19\\}
+\item{performance-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Type: Running Time\\
 					
@@ -1024,7 +1101,7 @@ $\mathrm{D}$ = 2\\
 $\mathrm{Q}$ = 9\\
 					
 Output/Result: A timed comparison of running
-each of the two system modules, Von Karman Vortex Street and Poiseuille Flow, against the psuedo-oracle pyLBM using pyCharm IDE. The test will be passed if both system modules are faster than the pseudo-oracle.\\
+each of the two system modules, Von Karman Vortex Street and Poiseuille Flow, against the psuedo-oracle pyLBM using pyCharm IDE. The percentage difference in running time between {\famname} and the pseudo-oracle will noted and analyzed.\\
 
 How test will be performed: 
 
@@ -1046,7 +1123,7 @@ How test will be performed:
 
 \begin{enumerate}
 
-\item{portability-id20\\}
+\item{portability-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Type: Portability Check\\
 					
@@ -1086,7 +1163,7 @@ How test will be performed:
 
 \subsubsection{Robustness}
 		
-System robustness is tested through the Input Bounds test (input-bounds-id2) in Section \ref{testfr}.
+System robustness is tested through the Input Bounds test in Section \ref{testfr}.
 
 \subsubsection{Usability}
 
@@ -1094,11 +1171,11 @@ System robustness is tested through the Input Bounds test (input-bounds-id2) in 
 
 \begin{enumerate}
 
-\item{usability-id21\\}
+\item{usability-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Type: Usability Survey\\
 					
-Initial State: The {\myprogname} repository, the below input parameters, and an instruction to run the Von Karman Vortex Street module are provided to three anonymous users via GitHub.\\
+Initial State: The {\famname} repository, the below input parameters, and an instruction to run the Von Karman Vortex Street module are provided to three anonymous users via GitHub.\\
 					
 Input/Condition: A usability survey with the questions listed in Section \ref{usabilitysurevyquestions} and a comma delimited file with the following input parameters and values:\\
 $Re$: 500\\
@@ -1119,7 +1196,7 @@ $\mathrm{Q}$ = 9\\
 				
 Output/Result: Survey results.\\
 
-Test Case Derivation: This case is a check of the usability of the LBM solver. Respondents will be asked to rank their experience of running a module. A final average grade of higher than 3 will indicate that the users found the system to be user friendly.\\
+Test Case Derivation: This case is a check of the usability of {\famname} . Respondents will be asked to rank their experience of running a module. A final average grade of 3 will indicate that the users found the system to have average usability. The higher the score, the better the perception of usability.\\
 	
 How test will be performed: 
 
@@ -1141,9 +1218,13 @@ How test will be performed:
 \hline
 & R1 & R2 & R3 & R4 & R5 & R6 & R7\\
 \hline
-id1 & \checkmark & & & & & &\\
+id1A & \checkmark & & & & & &\\
 \hline
-id2 & & & \checkmark & & & &\\
+id1B & \checkmark & & & & & &\\
+\hline
+id2A & & & \checkmark & & & &\\
+\hline
+id2B & & & \checkmark & & & &\\
 \hline
 id3 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
@@ -1194,9 +1275,13 @@ id21 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkma
 \hline
 Cases / NFR & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
 \hline
-id1 & & & & & & & & & &\\
+id1A & & & & & & & & & &\\
 \hline
-id2 & & & & & & & \checkmark & & &\\
+id1B & & & & & & & & & &\\
+\hline
+id2A & & & & & & & \checkmark & & &\\
+\hline
+id2B & & & & & & & \checkmark & & &\\
 \hline
 id3 & \checkmark & & & & & & & & &\\
 \hline
@@ -1262,7 +1347,7 @@ id21 & & & & & & & & & & \checkmark \\
 
 \subsection{Usability Survey Questions}
 \label{usabilitysurevyquestions}
-Please answer the following five questions using the rubric:\\
+Using the following rubric please rate the five statements found below:\\
 \linebreak
 \indent 1 - strongly disagree\\
 \indent 2 - somewhat disagree\\
