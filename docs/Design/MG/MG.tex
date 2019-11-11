@@ -30,11 +30,12 @@
 \newcounter{mnum}
 \newcommand{\mthemnum}{M\themnum}
 \newcommand{\mref}[1]{M\ref{#1}}
+\newcommand{\famname}{Lattice Boltzmann Solvers} % PUT YOUR PROGRAM NAME HERE
 
 \begin{document}
 
-\title{Module Guide for \progname{}} 
-\author{Author Name}
+\title{Module Guide for \famname{}} 
+\author{Peter Michalski}
 \date{\today}
 
 \maketitle
@@ -46,8 +47,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Nov. 25, 2019 & 1.0 & Initial Document\\
 \bottomrule
 \end{tabularx}
 
@@ -65,16 +65,16 @@ This section records information for easy reference.
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   AC & Anticipated Change\\
+  CA & Commonality Analysis\\
   DAG & Directed Acyclic Graph \\
+  LBM & Lattice Boltzmann Method\\
   M & Module \\
   MG & Module Guide \\
   OS & Operating System \\
   R & Requirement\\
   SC & Scientific Computing \\
-  SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
+  \famname & Program Solves LBM Problems using Libraries\\
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
   \bottomrule
 \end{tabular}\\
 
@@ -110,8 +110,7 @@ Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
   structures must obtain it by calling access programs belonging to that module.
 \end{itemize}
 
-After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
+After completing the first stage of the design, the Commonality Analysis (CA)  (refer to \citet{LBM_CA_PM}), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
 specifies the modular structure of the system and is intended to allow both
 designers and maintainers to easily identify the parts of the software.  The
 potential readers of this document are as follows:
@@ -137,7 +136,7 @@ was constructed according to the likely changes. Section \ref{SecConnection}
 specifies the connections between the software requirements and the
 modules. Section \ref{SecMD} gives a detailed description of the
 modules. Section \ref{SecTM} includes two traceability matrices. One checks
-the completeness of the design against the requirements provided in the SRS. The
+the completeness of the design against the requirements provided in the CA. The
 other shows the relation between anticipated changes and the modules. Section
 \ref{SecUse} describes the use relation between modules.
 
@@ -159,9 +158,16 @@ change.
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
   hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acCA}:] The control algorithm  for \famname.  
+\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The algorithm for reading input data.
+\item[\refstepcounter{acnum} \actheacnum \label{acInputParameters}:] The algorithm for checking input data parameters.
+\item[\refstepcounter{acnum} \actheacnum \label{acLBM}:] The control algorithm for the LBM libraries.  
+\item[\refstepcounter{acnum} \actheacnum \label{acStreaming}:] The algorithm for streaming particles. 
+\item[\refstepcounter{acnum} \actheacnum \label{acCollision}:] The algorithm for collision between particles. 
+\item[\refstepcounter{acnum} \actheacnum \label{acProblemFormat}:] The format of the problem models.
+\item[\refstepcounter{acnum} \actheacnum \label{acModels}:] The format of the lattice models.
+\item[\refstepcounter{acnum} \actheacnum \label{acBoundary}:] The format of the boundary conditions.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The output image rendering algorithm. 
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -176,7 +182,6 @@ decisions will be changed.
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -187,8 +192,17 @@ below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
 \begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware Hiding Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSC}:] System Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIR}:] Input Reading Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIC}:] Input Checking Module
+\item [\refstepcounter{mnum} \mthemnum \label{mLC}:] LBM Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mST}:] Streaming Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCO}:] Collision Module
+\item [\refstepcounter{mnum} \mthemnum \label{mPR}:] Problem Module
+\item [\refstepcounter{mnum} \mthemnum \label{mLA}:] Lattice Module
+\item [\refstepcounter{mnum} \mthemnum \label{mBO}:] Boundary Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOU}:] Output Module
 \end{description}
 
 
@@ -199,22 +213,24 @@ actually be implemented.
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding Module} & ~ \\
+{Hardware-Hiding Module}
+& \mref{mHH} Hardware Hiding Module\\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
+& \mref{mSC} System Control Module\\
+& \mref{mIR} Input Reading Module\\
+& \mref{mIC} Input Checking Module\\
+& \mref{mLC} LBM Control Module\\
+& \mref{mST} Streaming Module\\
+& \mref{mCO} Collision Module\\ 
+& \mref{mPR} Problem Module\\
+& \mref{mLA} Lattice Module\\
+& \mref{mBO} Boundary Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{1}{0.3\textwidth}{Software Decision Module}
+& \mref{mOU} Output Module\\
 \bottomrule
 
 \end{tabular}
@@ -222,20 +238,15 @@ actually be implemented.
 \label{TblMH}
 \end{table}
 
+~\newpage
+
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
 The design of the system is intended to satisfy the requirements developed in
-the SRS. In this stage, the system is decomposed into modules. The connection
+the CA. In this stage, the system is decomposed into modules. The connection
 between requirements and modules is listed in Table \ref{TblRT}.
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.  In scientific examples, the choice of algorithm
-could potentially go here, if that is a decision that is exposed by the
-interface.}
+~\newpage
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -246,8 +257,8 @@ module. The \emph{Services} field specifies \emph{what} the module will do
 without documenting \emph{how} to do it. For each module, a suggestion for the
 implementing software is given under the \emph{Implemented By} title. If the
 entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  \emph{\progname{}} means the
-module will be implemented by the \progname{} software.
+system or by standard programming language libraries.  \emph{\famname{}} means the
+module will be implemented by the \famname{} software.
 
 Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
@@ -269,23 +280,85 @@ to be implemented.
 \begin{description}
 \item[Secrets:]The contents of the required behaviours.
 \item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
+  the system as specified in the Commonality Analysis (CA)
   documents. This module serves as a communication layer between the
   hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
+  module will need to change if there are changes in the CA.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{System Control Module (\mref{mSC})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
+\item[Secrets:]The algorithm to control \famname .
+\item[Services:]Controls the execution of \famname , including calling submodules.
+\item[Implemented By:] \famname
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Input Reading Module (\mref{mIR})}
+
+\begin{description}
+	\item[Secrets:]The algorithm to read the input data.
+	\item[Services:]Reads input data and formats it.
+	\item[Implemented By:] \famname
+\end{description}
+
+\subsubsection{Input Checking Module (\mref{mIC})}
+
+\begin{description}
+	\item[Secrets:]The algorithm to check that input values fall within allowable parameters.
+	\item[Services:]Verifies that the input data falls within allowable parameters.
+	\item[Implemented By:] \famname
+\end{description}
+
+\subsubsection{LBM Control Module (\mref{mLC})}
+
+\begin{description}
+	\item[Secrets:]The algorithm to control which LBM library will be executed.
+	\item[Services:]Controls which LBM library will be used to solve a problem.
+	\item[Implemented By:] \famname
+\end{description}
+
+\subsubsection{Streaming Module (\mref{mST})}
+
+\begin{description}
+	\item[Secrets:]The algorithm to calculate the streaming of particles.
+	\item[Services:]Calculates the streaming of fluid particles along lattice links.
+	\item[Implemented By:] \famname
+\end{description}
+
+\subsubsection{Collision Module (\mref{mCO})}
+
+\begin{description}
+	\item[Secrets:]The algorithm to calculate the collision of particles.
+	\item[Services:]Calculates the collision of fluid particles as they travel along lattice links.
+	\item[Implemented By:] \famname
+\end{description}
+
+\subsubsection{Problem Module (\mref{mPR})}
+
+\begin{description}
+	\item[Secrets:]The format and structure of LBM input parameters.
+	\item[Services:]Converts the problem data into am input data structure for the LBM library.
+	\item[Implemented By:] \famname
+\end{description}
+
+\subsubsection{Lattice Module (\mref{mLA})}
+
+\begin{description}
+	\item[Secrets:]The format and structure of the lattice model.
+	\item[Services:]Converts data for the selected lattice model into a data structure for \mref{mPR}.
+	\item[Implemented By:] \famname
+\end{description}
+
+\subsubsection{Boundary Module (\mref{mBO})}
+
+\begin{description}
+	\item[Secrets:]The format and structure of the model boundary.
+	\item[Services:]Converts data for the model boundary into a data structure for \mref{mPR}.
+	\item[Implemented By:] \famname
+\end{description}
+
 
 
 \subsection{Software Decision Module}
@@ -293,7 +366,7 @@ to be implemented.
 \begin{description}
 \item[Secrets:] The design decision based on mathematical theorems, physical
   facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
+  \emph{not} described in the CA.
 \item[Services:] Includes data structure and algorithms used in the system that
   do not provide direct interaction with the user. 
   % Changes in these modules are more likely to be motivated by a desire to
@@ -301,7 +374,15 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Output Module (\mref{mOU})}
+
+\begin{description}
+	\item[Secrets:] The algorithm to convert the LBM algorithm output into an image.
+	\item[Services:] Converts the information from the LBM algorithm into an image format for saving.
+	\item[Implemented By:] --
+\end{description}
+
+~\newpage
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -316,17 +397,13 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+R1 & \mref{mHH}, \mref{mSC}, \mref{mIR}\\
+R2 & \mref{mSC}, \mref{mLA}\\
+R3 & \mref{mSC}, \mref{mIC}\\
+R4 & \mref{mSC}, \mref{mPR}, \mref{mLA}, \mref{mBO}\\
+R5 & \mref{mSC}, \mref{mPR}, \mref{mLA}\\
+R6 & \mref{mSC}, \mref{mLC}, \mref{mST}, \mref{mCO}\\
+R7 & \mref{mHH}, \mref{mSC}, \mref{mOU}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -340,22 +417,23 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acCA} & \mref{mSC}\\
+\acref{acInput} & \mref{mIR}\\
+\acref{acInputParameters} & \mref{mIC}\\
+\acref{acLBM} & \mref{mLC}\\
+\acref{acStreaming} & \mref{mST}\\
+\acref{acCollision} & \mref{mCO}\\
+\acref{acProblemFormat} & \mref{mPR}\\
+\acref{acModels} & \mref{mLA}\\
+\acref{acBoundary} & \mref{mBO}\\
+\acref{acOutput} & \mref{mOU}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
 \label{TblACT}
 \end{table}
+
+~\newpage
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
@@ -372,11 +450,12 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=1.0\textwidth]{DAG_CAS741}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
 
+~\newpage
 %\section*{References}
 
 \bibliographystyle {plainnat}
