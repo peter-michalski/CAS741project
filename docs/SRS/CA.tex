@@ -43,6 +43,7 @@
 \input{../Comments}
 \input{../Common}
 
+
 % For easy change of table widths
 \newcommand{\colZwidth}{1.0\textwidth}
 \newcommand{\colAwidth}{0.13\textwidth}
@@ -167,7 +168,7 @@ $\mathscr{D}$ & N/A & denotes DD in Table \ref{table:tracemodels}
 \\
 $\mathrm{e}$ & $\frac{m}{s}$ & velocity
 \\
-$\eta$ & $\si{\pascal}\cdot\si{\second}$ & viscosity
+$\eta$ & $\si{\pascal}\cdot\si{\second}$ & viscosity %\wss{The units are not shown correctly.  (The font is incorrect, and the units themselves should be pascal seconds (Pa times s).I suggest using the si package, as in the SRS.tex example.}
 \\ 
 $f$ & N/A & distribution function
 \\
@@ -664,7 +665,8 @@ Symbol &$\rho$\\
 		unit vector along the lattice streaming direction. $\textbf{u}$
 		is the macroscopic velocity of the fluid, which is a vector
 		field of velocity at a specific position and
-		time. ${c_s}$ is the speed of sound.\\
+		time. ${c_s}$ is the speed of sound. %\wss{This is the only equation (I think) where you use the over arrow to indicate a vector.  In some other cases you do not indicate at all which quantities are vectors.  Rather than the arrow notation, I suggest the less busy bold notation. Please how all of your vector quantities using bold face. You should introduce this convention at the beginning of your document.}
+		\\
 		\hline
 		Sources&  \citet{lbmbolton} \newline \citet{gibiansky} \newline \citet{mohamad2011lattice}\\
 		\hline
@@ -712,7 +714,8 @@ Label& \bf Reynolds Number\\
   Equation& $Re$ = $\frac{pl\mathrm{e}}{\eta}$ \\
   \hline
   Description & 
-                The ratio of inertial resistance to viscous
+                The ratio %\wss{ratio} 
+                of inertial resistance to viscous
                 resistance for a flowing fluid. $\rho$ is the density of the
                 fluid, $\mathrm{e}$ is the velocity, $l$ is the characteristic
                 length of the system, and $\eta$ is the viscosity. $Re$ will be used to refine \tref{T_BTE} in the future.\\
@@ -813,9 +816,10 @@ Label& \bf Reynolds Number\\
   One or more fluids with distinct properties can be simultaneously released into the boundary. The fluid parameters are defined in
   DD\ref{DD_Velocity}, DD\ref{DD_VelocityGradient} and DD\ref{DD_FluidDensity}. They are used in
   DD\ref{DD_Viscosity}, and in DD\ref{DD_RelaxationRate}.
+  %\wss{I like the traceability, but I don't see how this is a variability.  As far as assumptions go, I also do not know what is being said here.}
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_flowObject}:]
-  The dimensions of boundary conditions, including flow obstacles, may vary. This may be observed in DD\ref{DD_Viscosity} and \tref{T_ReynoldsNum}.
+  The dimensions of boundary conditions, including flow obstacles, may vary. This may be observed in DD\ref{DD_Viscosity} and \tref{T_ReynoldsNum}. %\wss{I'm not sure of the purpose of this assumption.}
   
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_lattice}:]
   The fluid flows through space via a lattice structure, moving between lattice
@@ -825,10 +829,12 @@ Label& \bf Reynolds Number\\
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_weightCoefficients}:]
   Weight coefficients are standard for each lattice model. See the Table
   \ref{coefficientweights}. This is referenced in DD\ref{DD_VELVIR}.
+  %\wss{I like this variability.  It isn't really connected to the rest of the document, since it doesn't tell me where weight coefficients are used, but it does tell me of the discrete set of choices that people use for the values.  We can make it a bit better when we add a data definition for the discretization.  (I'll be discussing this discretization DD separately.)}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_selectModel}:] The user
   will select the desired model prior to running the simulation. The position
   vectors in DD\ref{DD_RelaxationRate} and DD\ref{DD_PDF} are influenced by this.
+  %\wss{In the \LaTeX, you are not using 80 character line widths.  I've fixed this in a few spots, but it would be great if you could start working with an editor that supports 80 character line widths.}
 
 \end{itemize}
 
@@ -896,7 +902,7 @@ dimension & Set of \{1D, 2D, 3D\} & compile \\
 \label{table:inputVar}
 \end{center}
 \end{table}
-
+%\wss{You are on to something with this table, but there are some things that do not make sense to me.  Many of the variabilities are inputs, like viscosity, force etc.  I think it is cleaner to think of them as inputs, not variabilities.  I don't understand the ``boundary shape'' variability.  The model choice variability should be relabelled, dimension.  The number of velocity directions looks interesting.  This is a variability that should be explained.  I'm sure that it depends on the dimension variability, so this connection should also be explained.}
 \begin{table}[!h]
 \begin{center}
 \begin{tabular}{| c | c | c |}
@@ -922,7 +928,7 @@ exception check & \pbox{6cm}{boolean (false if no exception condition raised)} &
 \label{calcVar}
 \end{center}
 \end{table}
-
+%\wss{The D1Q2 etc variabilities are great.  You should explain your convention for their naming and connect them to the rest of the document.  It should help when we add a DD for the velocity discretization.}
 ~\newpage
 
 \subsubsection{Instance Models} \label{sec_instance}    
@@ -1183,6 +1189,8 @@ LBS generally read input parameters from a file and this should be the standard 
 \newpage
 
 \section{Appendix}
+
+%\wss{I really like what you have in the appendix.  It is obvious you have had a careful look at the existing solutions and made an effort to classify them by variabilities.  However, you have left out variabilities.  Please add the variabilities identified by Mohammad.  I sent you a spreadsheet created by him on September 12.  The name of the file is LBM Opensources.xls.  He has variabilities related to turbulence, and non-Newtonian fluids.  If you do not know the value of a given variability for a given package, you can enter a question mark for now.}
 
 \subsection{Symbolic Parameters}
 \label{symbolicpara}
