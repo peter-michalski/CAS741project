@@ -163,108 +163,72 @@ The following table is taken directly from the Module Guide document for this pr
 
 ~\newpage
 
-\section{MIS of M1: Hardware Hiding Module} \label{HHModule} \wss{Use labels for
-  cross-referencing}
+\section{MIS of M1: Hardware Hiding Module} \label{HHModule} 
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secrets of this module are the data structure and algorithms used to implement the virtual hardware.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+Hardware Hiding
 
 \subsection{Uses}
-
+N/A
 
 \subsection{Syntax}
+N/A
 
 \subsubsection{Exported Constants}
+N/A
 
 \subsubsection{Exported Access Programs}
-
-\begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
-\hline
-\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-\hline
-\wss{accessProg} & - & - & - \\
-\hline
-\end{tabular}
-\end{center}
+N/A
 
 \subsection{Semantics}
+N/A
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
-
+N/A
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+The module has external interaction with the environment when either the Output Module M11 (Section \ref{OUModule}) or Input Reading Module M3 (Section \ref{IRModule}) require its services for reading inputs or writing outputs.
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+M11 (Section \ref{OUModule}) or M3 (Section \ref{IRModule}) have called the modules services.
 
 \subsubsection{Access Routine Semantics}
-
-\noindent \wss{accessProg}():
-\begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
-\end{itemize}
-
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+N/A
 
 \subsubsection{Local Functions}
-
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+N/A
 
 \newpage
 
-\section{MIS of M2: System Control Module} \label{SCModule} \wss{Use labels for
-	cross-referencing}
+\section{MIS of M2: System Control Module} \label{SCModule}
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secret of this module is the algorithm to control \famname.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+System Control
 
 \subsection{Uses}
 
+\begin{itemize}
+	\item Output (Section \ref{OUModule})
+	\item Input Reading (Section \ref{IRModule})
+	\item LBM Control (Section \ref{LCModule})
+	\item Problem Parameter (Section \ref{PRModule})
+\end{itemize}
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
+N/A
 
 \subsubsection{Exported Access Programs}
-
-\begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
-		\hline
-		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-		\hline
-		\wss{accessProg} & - & - & - \\
-		\hline
-	\end{tabular}
-\end{center}
+N/A
 
 \subsection{Semantics}
 
@@ -309,32 +273,36 @@ The following table is taken directly from the Module Guide document for this pr
 
 \newpage
 
-\section{MIS of M3: Input Reading Module} \label{IRModule} \wss{Use labels for
-	cross-referencing}
+\section{MIS of M3: Input Reading Module} \label{IRModule} 
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secret of this module is the algorithm that gathers the input data.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+Input Reading
 
 \subsection{Uses}
 
+\begin{itemize}
+	\item Input Checking
+	\item Hardware Hiding
+\end{itemize}
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
+\textit{LIBRARY\_IN}: string\\
+\textit{DIMENSIONS\_IN}: $\mathbb{N}$\\
+\textit{VEL\_DIR\_IN}: $\mathbb{N}$\\
+\textit{INPUTS}: array of strings, $\mathbb{R}$, $\mathbb{N}$\\\\
+
 
 \subsubsection{Exported Access Programs}
 
 \begin{center}
 	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
 		\hline
-		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-		\hline
-		\wss{accessProg} & - & - & - \\
+		inputArray & string & array of strings, $\mathbb{R}$, $\mathbb{N}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -343,19 +311,113 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
+Input\_Location: string
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The System Control Module M2 (Section \ref{SCModule}) has called the inputArray function of this module.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{accessProg}():
+\begin{itemize}
+	\item transition: \wss{if appropriate} 
+	\item output: \wss{if appropriate} 
+	\item exception: \wss{if appropriate} 
+\end{itemize}
+
+\wss{A module without environment variables or state variables is unlikely to
+	have a state transition.  In this case a state transition can only occur if
+	the module is changing the state of another module.}
+
+\wss{Modules rarely have both a transition and an output.  In most cases you
+	will have one or the other.}
+
+\subsubsection{Local Functions}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		open & string & object & NOT\_FOUND ERR\_READ\\
+		readline & object & - & NO\_LINES\\
+		\hline
+	\end{tabular}
+\end{center}
+
+\newpage
+
+\section{MIS of M4: Input Checking Module} \label{ICModule} 
+
+This secret of this module is the algorithm that checks if input values fall within allowable parameters.
+
+\subsection{Module}
+
+Input Checking
+
+\subsection{Uses}
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		verifyInputs & string array & boolean & OUT\_OF\_BOUNDS UNKN\_PARM \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\textit{LIBRARIES}: set of strings: \{pyLBM\}\\
+\textit{DIMENSIONS}: set of $\mathbb{N}$: \{2\}\\
+\textit{VEL\_DIRS}: set of $\mathbb{N}$: \{9\}\\
+\textit{REYNOLDS\_MIN}: $\mathbb{R}$: \{0.001\}\\
+\textit{REYNOLDS\_MAX}: $\mathbb{R}$: \{5000\}\\
+\textit{DENSITY\_MIN}: $\mathbb{R}$: \{0.0708\}\\
+\textit{DENSITY\_MIN}: $\mathbb{R}$: \{13.6\}\\
+\textit{BULK\_VIS\_MIN}: $\mathbb{R}$: \{0.0001\}\\
+\textit{BULK\_VIS\_MIN}: $\mathbb{R}$: \{20000\}\\
+\textit{SHEAR\_VIS\_MIN}: $\mathbb{R}$: \{0.001\}\\
+\textit{SHEAR\_VIS\_MIN}: $\mathbb{R}$: \{20000\}\\
+\textit{TIME\_MIN}: $\mathbb{N}$: \{1\}\\
+\textit{LIBRARY\_IN}: string\\
+\textit{DIMENSIONS\_IN}: $\mathbb{N}$\\
+\textit{VEL\_DIR\_IN}: $\mathbb{N}$\\
+$Re$: $\mathbb{R}$\\
+$\rho$: $\mathbb{R}$\\
+$\eta_b$: $\mathbb{R}$\\
+$\eta_s$: $\mathbb{R}$\\
+$t$: $\mathbb{N}$\\
+$\mathrm{a}$: $\mathbb{R}$\\
+$c_s$: $\mathbb{R}$\\
+$\mathrm{e}$: $\mathbb{R}$\\
+$F$: $\mathbb{R}$\\
+$kg$: $\mathbb{R}$\\
+$A$: $\mathbb{R}$\\
+\textbf{u}: $\mathbb{R}$\\
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+
+The Input Reading Module M3 (Section \ref{IRModule}) has called the verifyInputs function of this module.
 
 \subsubsection{Access Routine Semantics}
 
@@ -382,19 +444,20 @@ The following table is taken directly from the Module Guide document for this pr
 
 \newpage
 
-\section{MIS of M4: Input Checking Module} \label{ICModule} \wss{Use labels for
-	cross-referencing}
+\section{MIS of M5: LBM Control Module} \label{LCModule}
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secret of this module is the algorithm which controls the LBM library.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+LBM Control
 
 \subsection{Uses}
 
+\begin{itemize}
+	\item Streaming
+	\item Collision
+\end{itemize}
 
 \subsection{Syntax}
 
@@ -407,7 +470,7 @@ The following table is taken directly from the Module Guide document for this pr
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		\wss{accessProg} & - & - & - \\
+		vortVal & array of strings, $\mathbb{R}$, $\mathbb{N}$ & array of $\mathbb{R}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -416,19 +479,14 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
+array of vorticity vector values
 
 \subsubsection{Environment Variables}
-
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The System Control Module M2 (Section \ref{SCModule}) has called the vortVal function of this module.
 
 \subsubsection{Access Routine Semantics}
 
@@ -455,23 +513,20 @@ The following table is taken directly from the Module Guide document for this pr
 
 \newpage
 
-\section{MIS of M5: LBM Control Module} \label{LCModule} \wss{Use labels for
-	cross-referencing}
+\section{MIS of M6: Streaming Module} \label{STModule}
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secret of this module is the algorithm to calculate the streaming pf particles.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+Streaming
 
 \subsection{Uses}
-
-
+N/A
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
+N/A
 
 \subsubsection{Exported Access Programs}
 
@@ -480,7 +535,7 @@ The following table is taken directly from the Module Guide document for this pr
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		\wss{accessProg} & - & - & - \\
+		bgkCollision & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -489,19 +544,15 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
+N/A
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The LBM Control Module M5 (Section \ref{LCModule}) has called the bgkCollision function of this module.
 
 \subsubsection{Access Routine Semantics}
 
@@ -521,30 +572,35 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		relatUpdate & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
+		equilDistrib & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
+		relaxRate & $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
+		\hline
+	\end{tabular}
+\end{center}
 
 \newpage
 
-\section{MIS of M6: Streaming Module} \label{STModule} \wss{Use labels for
-	cross-referencing}
+\section{MIS of M7: Collision Module} \label{COModule} 
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secret of this module is the algorithm to calculate the collision of particles.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+Collision
 
 \subsection{Uses}
-
+N/A
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
+N/A
 
 \subsubsection{Exported Access Programs}
 
@@ -553,7 +609,7 @@ The following table is taken directly from the Module Guide document for this pr
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		\wss{accessProg} & - & - & - \\
+		streamingFunc & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -561,20 +617,14 @@ The following table is taken directly from the Module Guide document for this pr
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
+N/A
 
 \subsubsection{Environment Variables}
-
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The LBM Control Module M5 (Section \ref{LCModule}) has called the streamingFunc function of this module.
 
 \subsubsection{Access Routine Semantics}
 
@@ -594,30 +644,37 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		prbDnsFunc & array of $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
+		\hline
+	\end{tabular}
+\end{center}
 
 \newpage
 
-\section{MIS of M7: Collision Module} \label{COModule} \wss{Use labels for
-	cross-referencing}
+\section{MIS of M8: Problem Module} \label{PRModule}
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secret of this module is the structure of the LBM input parameters.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+Problem Parameter
 
 \subsection{Uses}
 
+\begin{itemize}
+	\item Lattice
+	\item Boundary
+\end{itemize}
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
+N/A
 
 \subsubsection{Exported Access Programs}
 
@@ -626,7 +683,7 @@ The following table is taken directly from the Module Guide document for this pr
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		\wss{accessProg} & - & - & - \\
+		formatInput & array of $\mathbb{R}$, $\mathbb{N}$ & array of $\mathbb{R}$, $\mathbb{N}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -634,20 +691,14 @@ The following table is taken directly from the Module Guide document for this pr
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
+N/A
 
 \subsubsection{Environment Variables}
-
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The System Control Module M2 (Section \ref{SCModule}) has called the formatInput function of this module.
 
 \subsubsection{Access Routine Semantics}
 
@@ -666,31 +717,25 @@ The following table is taken directly from the Module Guide document for this pr
 	will have one or the other.}
 
 \subsubsection{Local Functions}
-
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
+N/A
 
 \newpage
 
-\section{MIS of M8: Problem Module} \label{PRModule} \wss{Use labels for
-	cross-referencing}
+\section{MIS of M9: Lattice Module} \label{LAModule} 
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secret of this module is the structure of the lattice model.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+Lattice
 
 \subsection{Uses}
-
+N/A
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
+N/A
 
 \subsubsection{Exported Access Programs}
 
@@ -699,7 +744,7 @@ The following table is taken directly from the Module Guide document for this pr
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		\wss{accessProg} & - & - & - \\
+		setLattice & array of $\mathbb{R}$ & array of $\mathbb{N}$ & No\_LATTICE \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -708,19 +753,14 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
+Array of tuples $<$$\mathbb{R}$$>$$<$$\mathbb{R}$$>$$<$$\mathbb{R},\mathbb{N}_0$...$\mathbb{R}_n$$>$ 
 
 \subsubsection{Environment Variables}
-
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The Problem Module M8 (Section \ref{PRModule}) has called the setLattice function of this module.
 
 \subsubsection{Access Routine Semantics}
 
@@ -739,32 +779,25 @@ The following table is taken directly from the Module Guide document for this pr
 	will have one or the other.}
 
 \subsubsection{Local Functions}
-
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
+N/A
 
 \newpage
 
-\section{MIS of M9: Lattice Module} \label{LAModule} \wss{Use labels for
-	cross-referencing}
+\section{MIS of M10: Boundary Module} \label{BOModule}
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secret of this module is the structure of the model boundary.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+Boundary
 
 \subsection{Uses}
-
+N/A
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-
+N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
@@ -772,7 +805,7 @@ The following table is taken directly from the Module Guide document for this pr
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		\wss{accessProg} & - & - & - \\
+		boundFunc & array of $\mathbb{R}$ & array of $\mathbb{R}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -781,19 +814,15 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
+N/A
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The Problem Module M8 (Section \ref{PRModule}) has called the boundFunc function of this module.
 
 \subsubsection{Access Routine Semantics}
 
@@ -813,30 +842,28 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
+N/A
 
 \newpage
 
-\section{MIS of M10: Boundary Module} \label{BOModule} \wss{Use labels for
-	cross-referencing}
+\section{MIS of M11: Output Module} \label{OUModule} 
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The algorithm to convert the LBM output into an image.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+Output
 
 \subsection{Uses}
 
+\begin{itemize}
+	\item System Control Module
+\end{itemize}
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
+N/A
 
 \subsubsection{Exported Access Programs}
 
@@ -845,7 +872,7 @@ The following table is taken directly from the Module Guide document for this pr
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		\wss{accessProg} & - & - & - \\
+		imageFunc & array of $\mathbb{R}$ & image format & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -853,20 +880,14 @@ The following table is taken directly from the Module Guide document for this pr
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
+N/A
 
 \subsubsection{Environment Variables}
-
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The System Control Module M2 (Section \ref{PRModule}) has called the imageFunc function of this module.
 
 \subsubsection{Access Routine Semantics}
 
@@ -885,84 +906,7 @@ The following table is taken directly from the Module Guide document for this pr
 	will have one or the other.}
 
 \subsubsection{Local Functions}
-
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
-
-\newpage
-
-\section{MIS of M11: Output Module} \label{OUModule} \wss{Use labels for
-	cross-referencing}
-
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
-
-\subsection{Module}
-
-\wss{Short name for the module}
-
-\subsection{Uses}
-
-
-\subsection{Syntax}
-
-\subsubsection{Exported Constants}
-
-\subsubsection{Exported Access Programs}
-
-\begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
-		\hline
-		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-		\hline
-		\wss{accessProg} & - & - & - \\
-		\hline
-	\end{tabular}
-\end{center}
-
-\subsection{Semantics}
-
-\subsubsection{State Variables}
-
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
-
-\subsubsection{Environment Variables}
-
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
-
-\subsubsection{Assumptions}
-
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
-
-\subsubsection{Access Routine Semantics}
-
-\noindent \wss{accessProg}():
-\begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
-\end{itemize}
-
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
-
-\subsubsection{Local Functions}
-
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
+N/A
 
 \newpage
 
