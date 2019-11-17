@@ -233,45 +233,40 @@ N/A
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-
-\wss{Not all modules will have state variables.  State variables give the module
-	a memory.}
+LIBRARY\_IN: string\\
+DIMENSIONS\_IN: $\mathbb{N}$\\
+VEL\_DIR\_IN: $\mathbb{N}$\\
+inputValues: array of strings, $\mathbb{R}$, $\mathbb{N}$\\
+LBMout: array of $\mathbb{R}$
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-	when the module has external interaction with the environment, such as for a
-	device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-	exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The user has run the {\famname} program.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
-\begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
-\end{itemize}
-
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+N/A
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
+\begin{center}
+	\begin{tabular}{p{4cm} p{4cm} p{2cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		LIBRARY\_IN & array of strings, $\mathbb{R}$, $\mathbb{N}$ & string &- \\
+		DIMENSIONS\_IN & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{N}$ &- \\
+		VEL\_DIR\_IN & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{N}$ &- \\
+		\hline
+	\end{tabular}
+\end{center}
 
-\newpage
+
+~\newpage
 
 \section{MIS of M3: Input Reading Module} \label{IRModule} 
 
@@ -291,10 +286,7 @@ Input Reading
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-\textit{LIBRARY\_IN}: string\\
-\textit{DIMENSIONS\_IN}: $\mathbb{N}$\\
-\textit{VEL\_DIR\_IN}: $\mathbb{N}$\\
-\textit{INPUTS}: array of strings, $\mathbb{R}$, $\mathbb{N}$\\\\
+inputValues: array of strings, $\mathbb{R}$, $\mathbb{N}$\\
 
 
 \subsubsection{Exported Access Programs}
@@ -302,7 +294,9 @@ Input Reading
 \begin{center}
 	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
 		\hline
-		inputArray & string & array of strings, $\mathbb{R}$, $\mathbb{N}$ & - \\
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		inputArray & & array of strings, $\mathbb{R}$, $\mathbb{N}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -323,19 +317,13 @@ The System Control Module M2 (Section \ref{SCModule}) has called the inputArray 
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent inputArray():
 \begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
+	\item output: inputValues := $+$(inputValues[i] $|$ string $\cup$ $\mathbb{R}$ $\cup$ $\mathbb{N}$ $|$ :readline)
+	\item exception: N/A
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+The function will read all lines from the input file and place each value into an array in the form array[key:string][value: string $\cup$ $\mathbb{R}$ $\cup$ $\mathbb{N}$]. There is no input into the file, the output will be the array. The location of the input file is in the state variable Input\_Location.
 
 \subsubsection{Local Functions}
 
@@ -345,7 +333,7 @@ The System Control Module M2 (Section \ref{SCModule}) has called the inputArray 
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
 		open & string & object & NOT\_FOUND ERR\_READ\\
-		readline & object & - & NO\_LINES\\
+		readline & object & - & NO\_LINES OUT\_BOUNDS\\
 		\hline
 	\end{tabular}
 \end{center}
@@ -375,7 +363,7 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		verifyInputs & string array & boolean & OUT\_OF\_BOUNDS UNKN\_PARM \\
+		verifyInputs & string array & & OUT\_OF\_BOUNDS UNKN\_PARM \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -421,26 +409,18 @@ The Input Reading Module M3 (Section \ref{IRModule}) has called the verifyInputs
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent verifyInputs():
 \begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
+	\item output: N/A
+	\item exception: OUT\_OF\_BOUNDS := if inputValue(i$_2$) $>$ parm\_max $\cup$ $<$ parm\_min $\Rightarrow$ ERROR
+	\item exception: UNKN\_PARM := if inputValue(i$_1$) != known\_parm $\Rightarrow$ ERROR
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+The function will iterate through each inputValue array key and check if the key is known to the program, and if the values of known keys falls within an acceptable range.
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
+N/A
 
 \newpage
 
@@ -490,26 +470,17 @@ The System Control Module M2 (Section \ref{SCModule}) has called the vortVal fun
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent vortVal():
 \begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
+	\item output: vortVal := (inputValues[0...n]$|$ array of $\mathbb{N}$$|$:streaming()*collision())
+	\item exception: N/A
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+The function will calculate the vorticity vector values, iterating through each velocity direction, calling the streaming and collision module functions.
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-	They are not necessarily something that is going to be implemented
-	explicitly.  Even if they are implemented, they are not exported; they only
-	have local scope.}
+N/A
 
 \newpage
 
@@ -558,17 +529,11 @@ The LBM Control Module M5 (Section \ref{LCModule}) has called the bgkCollision f
 
 \noindent \wss{accessProg}():
 \begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
+	\item output: bgkValue := (inputValues[0...n]$|$$\mathbb{N}$$|$:relatUpdate()*equilDistrib()*relaxRate())
+	\item exception: if $|$var$|$ $>$ $|$type$|$ $\cup$ $<$ $|$type$|$ $\Rightarrow$ ERROR
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+The function calculates the Bhatnagar-Gross-Krook collision operator value for each velocity direction (i) using the functions for the relaxation rate towards equilibrium, equilibrium distribution function, and relaxation update.
 
 \subsubsection{Local Functions}
 
@@ -605,7 +570,7 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{3cm} p{4cm} p{2cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
@@ -630,17 +595,11 @@ The LBM Control Module M5 (Section \ref{LCModule}) has called the streamingFunc 
 
 \noindent \wss{accessProg}():
 \begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
+	\item output: strmValue := (inputValues[0...n]$|$$\mathbb{N}$$|$:streamingFunc())
+	\item exception: if $|$var$|$ $>$ $|$type$|$ $\cup$ $<$ $|$type$|$ $\Rightarrow$ ERROR
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+The function calculates the streaming step value for each velocity direction (i) using the probability density function.
 
 \subsubsection{Local Functions}
 
@@ -702,19 +661,13 @@ The System Control Module M2 (Section \ref{SCModule}) has called the formatInput
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent vortVal():
 \begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
+	\item output: vortVal := (inputValues$|$ array of strings and $\mathbb{N}$$|$:setLattice()*boundFunc())
+	\item exception: N/A
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+The function will set up the structure for the LBM input parameters based on the library that the user has requested. The function will use the lattice and boundary module functions.
 
 \subsubsection{Local Functions}
 N/A
@@ -753,7 +706,7 @@ N/A
 
 \subsubsection{State Variables}
 
-Array of tuples $<$$\mathbb{R}$$>$$<$$\mathbb{R}$$>$$<$$\mathbb{R},\mathbb{N}_0$...$\mathbb{R}_n$$>$ 
+Array of tuples: parameterValues:= $<$$\mathbb{R}$$>$$<$$\mathbb{R}$$>$$<$$\mathbb{R},\mathbb{N}_0$...$\mathbb{N}_n$$>$ 
 
 \subsubsection{Environment Variables}
 N/A
@@ -764,19 +717,13 @@ The Problem Module M8 (Section \ref{PRModule}) has called the setLattice functio
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent setLattice():
 \begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
+	\item output: output := (DIMENSIONS\_IN, VEL\_DIR\_IN $|$ array of $\mathbb{N}$$|$:parameterValues)
+	\item exception: if DIMENSIONS\_IN $\cap$ VEL\_DIR\_IN $\notin$ parameterValues $\Rightarrow$ NO\_LATTICE
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+The function sets coefficient weight data for the selected lattice model.
 
 \subsubsection{Local Functions}
 N/A
@@ -826,19 +773,13 @@ The Problem Module M8 (Section \ref{PRModule}) has called the boundFunc function
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent boundFunc():
 \begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
+	\item output: output := (inputValues $|$ array of $\mathbb{N}$$|$:inputValues[])
+	\item exception: N/A
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+The function sets coefficient weight data for the selected lattice model.
 
 \subsubsection{Local Functions}
 
@@ -891,19 +832,13 @@ The System Control Module M2 (Section \ref{PRModule}) has called the imageFunc f
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent imageFunc():
 \begin{itemize}
-	\item transition: \wss{if appropriate} 
-	\item output: \wss{if appropriate} 
-	\item exception: \wss{if appropriate} 
+	\item output: (LBMout $|$ image format $|$:external image rendering function)
+	\item exception: N/A
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-	have a state transition.  In this case a state transition can only occur if
-	the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-	will have one or the other.}
+The function converts the information from the LBM algorithm output into an image format.
 
 \subsubsection{Local Functions}
 N/A
