@@ -140,12 +140,15 @@ information of the system in Section \ref{generalinfo}, which will be followed
 by a testing plan in Section \ref{testplan}. Finally, individual tests will be
 described in Section \ref{systest}.
 
-\section{General Information}
-\label{generalinfo}
+\section{General Information} \label{generalinfo}
+
+\wss{There should generally be text between section headings.  In this case a
+  ``roadmap'' of the contents of this section would be helpful.}
+
 \subsection{Summary}
 
 The software being tested is \famname. This software reads inputs from a file,
-and calculates outputs using Lattice Boltzmann Methods (LBM).The software
+and calculates outputs using Lattice Boltzmann Methods (LBM). The software
 outputs the results to the screen, to a file, and/or to memory.
 
 \noindent {\famname} can model many fluid dynamics problems, including
@@ -157,7 +160,13 @@ to the results of the pseudo-oracle pyLBM (\citet{pylbmcode}).
 
 The intended objective of this plan is to verify that functional requirements
 and non-functional requirements (NFR), as found in the CA titled Lattice
-Boltzmann Solvers (\citet{LBM_CA_PM}), have been met.
+Boltzmann Solvers (\citet{LBM_CA_PM}), have been met. \wss{Copying and pasting
+  your requirements here from your CA is a maintenance problem.  It will be
+  difficult to keep the two documents in sync.  You can just reference the
+  document where the requirements are, without repeating them.  You can even use
+  cross-referencing to reference labels in another document.  That is why the
+  original Blank Project Template has make files, so that running make will
+  update the references between documents.}
 
 \noindent The functional requirements are:
 \noindent \begin{itemize}
@@ -166,11 +175,14 @@ Boltzmann Solvers (\citet{LBM_CA_PM}), have been met.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system
   shall allow the user to select from a set of model and velocity direction
-  parameters.
+  parameters. \wss{This requirement has to be more specific.  What are the
+    velocity and direction parameters?  I feel like you summarized them in your CA.}
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system
   shall verify that the inputs fall within the allowable parameters of
-  variation.
+  variation. \wss{Where is this documented?  There should be a pointer to this
+    information.  Again, I think this is in your CA, which is another argument
+    for not reproducing the requirements here.}
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Instantiate}:] The system
   shall instantiate required data types and structures for the selected model.
@@ -193,9 +205,14 @@ Boltzmann Solvers (\citet{LBM_CA_PM}), have been met.
 \begin{enumerate}
 \item Correctness: The allowable error of the output results, per module, will
   be less than the average error taken from the results of a sample of OTS
-  solutions.
+  solutions. \wss{NFRs should not mention modules.  They should be about the
+    software as a whole.  You might want to specify correctness as the
+    comparison between the OTS solution and your solution running the test cases
+    defined in this document.}
 \item Maintainability: The system shall be documented with a CA, VnV plan, MG
   (Module Guide), MIS (Module Interface Specification), and User Guide.
+  \wss{This is how you intend to achieve maintainability, not how
+    maintainability is defined.}
 \item Performance: The system shall be able to run modules faster than a sample
   OTS implementation.
 \item Portability: The system shall be able to run on macOS, Windows, and Linux
@@ -216,31 +233,36 @@ Boltzmann Solvers (\citet{LBM_CA_PM}), have been met.
 
 \subsection{Relevant Documentation}
 
-The CA of {\famname} can be found in (\citet{LBM_CA_PM}).
-
+The CA of {\famname} can be found in (\citet{LBM_CA_PM}).  \wss{Although they
+  aren't written yet, you should fake this as if the design documentation is
+  written.  The documentation is also relevant for this problem.}
 \newpage
 
 \section{Plan}
 \label{testplan}	
 \subsection{Verification and Validation Team}
 
-This VnV plan will be conducted by Peter Michalski and several classmates.
+This VnV plan will be conducted by Peter Michalski and several
+classmates. \wss{Be specific and name the relevant classmates here.}
 
 \subsection{CA Verification Plan}
 
 The CA of {\famname} shall be verified in the following ways:
 
 \begin{enumerate}
-\item Feedback: Reviewers from the class shall provide feedback on GitHub.
+\item Feedback: Reviewers from the class shall provide feedback on
+  GitHub. \wss{Are you going to be more specific?  Is this task directed
+    feedback, or just ``read the document'' and tell me what you think?  Who
+    specifically is going to review the document?}
 \item Initial Review: The document shall be manually reviewed by the author
   using the SRS checklist upon its initial creation, as found in the CAS741
-  GitLab repository (\citet{CAS741_SRS_checklist}).
+  GitLab repository (\citet{CAS741_SRS_checklist}). \wss{Good!}
 \item Second Review: The document shall be manually reviewed by the author using
   the SRS checklist after VnV completion, as found in the CAS741 GitLab
-  repository (\citet{CAS741_SRS_checklist}).
+  repository (\citet{CAS741_SRS_checklist}). \wss{Good!}
 \item Final Review: The document shall be manually reviewed by the author using
   the SRS checklist after MG and MIS development, as found in the CAS741
-  repository (\citet{CAS741_SRS_checklist}).
+  repository (\citet{CAS741_SRS_checklist}). \wss{Great!}
 \end{enumerate}
 
 \subsection{Design Verification Plan}
@@ -284,6 +306,11 @@ listed in Section \ref{objectives}, are met. The file names containing the
 pseudo-oracle output data that the system output is tested against can be found
 in the specific test sections below.
 
+\wss{You do not actually have a validation step.  You should explain in this
+  section that validation is related to comparing the outputs of models to
+  experimental values.  Your software doesn't care whether the models agree with
+  reality, only that they the solutions are correct mathematically.}
+
 ~\newpage	 
 
 \section{System Test Description} \label{systest}
@@ -305,16 +332,20 @@ and R7, and will test out the input vales at their allowable edges.
 \begin{enumerate}
 
 \item{input-reading-id\refstepcounter{testcounter}\thetestcounter
-    A \label{inputreadingtest}\\}
+    A \label{inputreadingtest}}
 
-  Control: Program (P) reading of input values (V) from a file.\\
+  Control: Program (P) reading of input values (V) from a file.
 				
-  Initial State: No input file in Input directory.\\
+  Initial State: No input file in Input directory. \wss{If the initial state is
+    no input file, then wouldn't this test fail to generate output?  I would
+    think you would get an exception if the file does not exist?}
 					
   Input: A comma delimited text file, with inputs marked in the manner outlined
-  in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test
-  will be:\\$Re$: 500\\
- 
+  in the User Guide (\citet{LBM_UserGuide_PM}).
+
+  The input values for this test will be:
+
+  $Re$: 500\\ 
   $t$: 75\\
   $\rho$: 1.0\\
   $\eta_b$: 1.e-3\\
@@ -516,6 +547,13 @@ How test will be performed:
 
 \end{enumerate}
 
+\wss{The previous few tests are a bit repetitive.  I like the idea of testing
+  that the input checks are working, but you could likely summarize the
+  different tests cases in a table.  Give the outline as above for one test
+  case, but then substitute in a reference to the table and explain how the
+  table provides x number of additional tests.  You can still give each of the
+  tests an identifying label, but the label would be in the table.}
+
 ~\newpage
 
 \subsubsection{Von Karman Vortex Street}
@@ -525,7 +563,10 @@ How test will be performed:
 \paragraph{} These dynamic tests will compare {\famname} output with output from
 the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the
 same inputs as {\famname} for each test. The allowable error is AVERAGE\_ERROR,
-found in Section \ref{symbolpara}.
+found in Section \ref{symbolpara}. \wss{Rather than an allowed error, we might
+  be better off simply summarizing the calculated error.  Even if there is an
+  allowed error, a report of the actual error values is more useful information
+  than simply PASS/FAIL.}
 
 \begin{enumerate}
 
@@ -534,7 +575,8 @@ found in Section \ref{symbolpara}.
 Control: Program (P) module execution using inputs (V), and expecting output (O)
 to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: No input file in Input directory. \wss{Again, this seems like an
+  odd initial state.}\\
 					
 Input: A comma delimited file, with inputs marked in the manner outlined in the
 User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will
@@ -553,14 +595,23 @@ $\mathrm{e_{fac}}$ = 20\\
 $S$ = 64\\
 $\mathrm{D}$ = 2\\
 $\mathrm{Q}$ = 9\\
-	
+
+\wss{It is great that you will be using a pseudo-oracle.  However, it would be
+  nice to explain what the test inputs mean.  How would a scientist explain the
+  test you are running?  What is the physics of the test?  I haven't checked,
+  but I would guess that your pyl reference would explain the test cases more
+  than just listing numbers?}
+
 Output: Vorticity vector values printed to the screen. \\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The output vector values (C) of this test for pyLBM can be found in the
 file id3output.txt located in the OracleOutput folder. The result required for
 the test to pass is an average error rate between cells of the output vector (O)
-and (C) of less than or equal to AVERAGE\_ERROR.\\
+and (C) of less than or equal to AVERAGE\_ERROR. \wss{All of your tests that
+  compare to average error should instead be written to output the error
+  values.  I would also like to see your specific relative error calculation
+  formulae for each test case where you mention error.}
 
 How test will be performed:
 
@@ -578,11 +629,22 @@ How test will be performed:
   script.
 \end{enumerate}
 
+\wss{This shouldn't really be a manual test.  Everything described above can be
+  done algorithmically.  You can automate this test.  You will need to go
+  further to define the mathematical equation for error, but you would still
+  need to do this for the manual version.  As part of your development process,
+  I could certainly see you doing the test manually the first time, to help
+  understand how the pieces fit together.  Once you understand though, the
+  target should be automation.  This same comment about changing your manual
+  tests to automated tests applies for your other proposed tests as well.}
+
 \item{Reynolds-Rel-Error-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using  inputs (V) with varying $Re$
 parameter (I), and observing variance of the relative error ($E_r$) of the
-output (O) when compared to a control value (C) \\
+output (O) when compared to a control value (C).  \wss{If all of the tests are
+  the same except for the value of $Re$, then you could again use a table to
+  summarize the different test cases.}
 					
 Initial State: No input file in Input directory.\\
 					
@@ -1308,6 +1370,12 @@ steps (c) to (e).\\
 
 \end{enumerate}
 
+\wss{This maintainability measure is quite subjective, but I still like what you
+  are trying to do here.  The absolute value that Ao comes up with will not be
+  particularly meaningful, but the process may uncover some areas of concern, or
+  build confidence by the lack of areas of concern.  I think we will need better
+  measures for your MEng project, but this okay as a starting point.}
+
 \subsubsection{Performance}
 		
 \paragraph{Running Time}
@@ -1367,6 +1435,12 @@ pseudo-oracle.
 
 \end{enumerate}
 
+\wss{This tests sounds interesting.  I like that you did not set a target for
+  performance.  You are just going to report the percentage difference.  The
+  timers are in the code, right?  It reads as if they are going to be timed with
+  an external stop-watch, but I'm assuming starting the timer is something that
+  is done in the testing code.  This test should also be automated.}
+
 \subsubsection{Portability}
 		
 \paragraph{Operating System Portability}
@@ -1420,6 +1494,10 @@ of the vorticity vector to the vorticity vector values of the pseudo-oracle.\\
 
 \end{enumerate}
 
+\wss{For portability I suggest running all of your automated tests on all three
+  platforms, and reporting the results.  This is part of why we want automation,
+  and why we report the calculated relative error, rather than just PASS/FAIL.}
+
 \subsubsection{Robustness}
 		
 System robustness is tested through the Input Bounds test in Section \ref{testfr}.
@@ -1459,10 +1537,10 @@ $\mathrm{Q}$ = 9\\
 				
 Output/Result: Survey results.\\
 
-Test Case Derivation: This case is a check of the usability of {\famname}
-. Respondents will be asked to rank their experience of running a module. A
-final average grade of 3 will indicate that the users found the system to have
-average usability. The higher the score, the better the perception of
+Test Case Derivation: This case is a check of the usability of
+{\famname}. Respondents will be asked to rank their experience of running a
+module. A final average grade of 3 will indicate that the users found the system
+to have average usability. The higher the score, the better the perception of
 usability.\\
 	
 How test will be performed: 
@@ -1472,7 +1550,8 @@ How test will be performed:
 simulation using the provided input parameters.
 \item The participants will attempt to run the simulation.
 \item Upon completion of the attempt, the participants will be asked to answer
-the survey questions.
+the survey questions. \wss{Where is the survey?  You should point to your
+  appendix.}
 \item The questionnaire results will be tallied and averaged.
 \end{enumerate}
 
@@ -1615,9 +1694,13 @@ id21 & & & & & & & & & & \checkmark \\
 
 \end{itemize}
 
-\subsection{Usability Survey Questions}
-\label{usabilitysurevyquestions}
-Using the following rubric please rate the five statements found below:\\
+\wss{I like that you used a symbolic constant, although as I mentioned above, I
+  think the goal is to describe the error, rather than \emph{a priori} specify
+  the error bounds.}
+
+\subsection{Usability Survey Questions} \label{usabilitysurevyquestions}
+
+Using the following rubric please rate the five statements found below:
 \linebreak
 \indent 1 - strongly disagree\\
 \indent 2 - somewhat disagree\\
@@ -1632,6 +1715,8 @@ Using the following rubric please rate the five statements found below:\\
 \item The User Guide of this product explained the modules well.
 \item I would recommend this product.
 \end{enumerate}
+
+\wss{Good start on the survey questions.}
 
 ~\newpage
 \subsection{Input Data}
