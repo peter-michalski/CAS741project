@@ -91,7 +91,7 @@ Oct. 28, 2019 & 1.0 & Initial Document\\
   P & Program\\
   R & Functional Requirement\\
   SRS & Software Requirement Specification\\
-  V & Set of Inputs\\
+  V & Set of All Inputs\\
   VnV & Verification and Validation\\
   \bottomrule
 \end{tabular}\\
@@ -111,7 +111,6 @@ Oct. 28, 2019 & 1.0 & Initial Document\\
   $\mathrm{e_{fac}}$ & Velocity of Scheme\\
   $\mathrm{e_{max}}$ & Max Velocity in the Middle of Channel\\
   $\mathrm{e_{sch}}$ & Velocity Slowdown Factor\\
-  $E_r$ & Relative Error\\
   $\eta_b$ & Bulk Viscosity \\
   $\eta_s$ & Shear Viscosity \\
   $\mathbb{N}$ & natural numbers\\
@@ -203,12 +202,7 @@ Boltzmann Solvers (\citet{LBM_CA_PM}), have been met. \wss{Copying and pasting
 \noindent The NFRs are:
 
 \begin{enumerate}
-\item Correctness: The allowable error of the output results, per module, will
-  be less than the average error taken from the results of a sample of OTS
-  solutions. \wss{NFRs should not mention modules.  They should be about the
-    software as a whole.  You might want to specify correctness as the
-    comparison between the OTS solution and your solution running the test cases
-    defined in this document.}
+\item Correctness: The output results will be compared to the results taken from of a sample of OTS solutions. %\wss{NFRs should not mention modules.  They should be about the software as a whole.  You might want to specify correctness as the comparison between the OTS solution and your solution running the test cases defined in this document.}
 \item Maintainability: The system shall be documented with a CA, VnV plan, MG
   (Module Guide), MIS (Module Interface Specification), and User Guide.
   \wss{This is how you intend to achieve maintainability, not how
@@ -562,11 +556,7 @@ How test will be performed:
 \paragraph{Dynamic Testing - Manual:}
 \paragraph{} These dynamic tests will compare {\famname} output with output from
 the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the
-same inputs as {\famname} for each test. The allowable error is AVERAGE\_ERROR,
-found in Section \ref{symbolpara}. \wss{Rather than an allowed error, we might
-  be better off simply summarizing the calculated error.  Even if there is an
-  allowed error, a report of the actual error values is more useful information
-  than simply PASS/FAIL.}
+same inputs as {\famname} for each test. The difference in output between {\famname} and the pseudo-oracle will be compared and noted. %\wss{Rather than an allowed error, we might be better off simply summarizing the calculated error.  Even if there is an allowed error, a report of the actual error values is more useful information than simply PASS/FAIL.}
 
 \begin{enumerate}
 
@@ -606,12 +596,7 @@ Output: Vorticity vector values printed to the screen. \\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The output vector values (C) of this test for pyLBM can be found in the
-file id3output.txt located in the OracleOutput folder. The result required for
-the test to pass is an average error rate between cells of the output vector (O)
-and (C) of less than or equal to AVERAGE\_ERROR. \wss{All of your tests that
-  compare to average error should instead be written to output the error
-  values.  I would also like to see your specific relative error calculation
-  formulae for each test case where you mention error.}
+file id3output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values. %\wss{All of your tests that compare to average error should instead be written to output the error values.  I would also like to see your specific relative error calculation formulae for each test case where you mention error.}
 
 How test will be performed:
 
@@ -640,9 +625,8 @@ How test will be performed:
 
 \item{Reynolds-Rel-Error-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Control: Program (P) module execution using  inputs (V) with varying $Re$
-parameter (I), and observing variance of the relative error ($E_r$) of the
-output (O) when compared to a control value (C).  \wss{If all of the tests are
+Control: Program (P) module execution using inputs (V) with varying $Re$
+parameter (I), and observing the variance of the output (O) when compared to a control value (C).  \wss{If all of the tests are
   the same except for the value of $Re$, then you could again use a table to
   summarize the different test cases.}
 					
@@ -708,10 +692,7 @@ Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The C values of this test for pyLBM can be found in the files
 id4\_1\_output.txt, id4\_2\_output.txt and id4\_3\_output.txt, located in the
 OracleOutput folder. The files hold the C values for iterations 1, 2, and 3
-respectively. Each iteration will calculate the relative error of O to its
-respective C counterpart. The $E_r$ values of the iterations will be compared
-with the intent to discover how changes in $Re$ affect correctness. This may be
-helpful in improving correctness of the implementation.\\
+respectively. Each iteration will compare its output to its respective C counterpart. The intent is to discover how changes in $Re$ affect correctness. This may be helpful in improving correctness of the implementation.\\
 
 How test will be performed: 
 
@@ -726,9 +707,9 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
-  script. A relative error value will be calculated.
+  script.
 \item Steps (a) - (e) will be repeated for each test iteration.
-\item The $E_r$ of each iteration will be compared.
+\item The output value of each iteration will be compared to the pseudo-oracle value.
 \end{enumerate}
 					
 \item{laminar-test-id\refstepcounter{testcounter}\thetestcounter \\}
@@ -759,9 +740,7 @@ Output: Vorticity vector values printed to the screen.\\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The C values of this test for pyLBM can be found in the file
-id5output.txt located in the OracleOutput folder. The result required for the
-test to pass is an average error rate between cells of O and C of less than or
-equal to AVERAGE\_ERROR.\\
+id5output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 
 This test covers a very small Reynolds number representing laminar flow.\\
 
@@ -809,9 +788,7 @@ Output: Vorticity vector values printed to the screen. \\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The C values of this test for pyLBM can be found in the file
-id6output.txt located in the OracleOutput folder. The result required for the
-test to pass is an average error rate between O and C of less than or equal to
-AVERAGE\_ERROR.
+id6output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.
 
 This test covers a very large Reynolds number representing very turbulent flow.\\	
 					
@@ -858,9 +835,7 @@ Output: Vorticity vector values printed to the screen. \\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The C values of this test for pyLBM can be found in the file
-id7output.txt located in the OracleOutput folder. The result required for the
-test to pass is an average error rate between O and C of less than or equal to
-AVERAGE\_ERROR.\\
+id7output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 
 This test covers the low bound for density using a density of liquid hydrogen.\\
 					
@@ -907,9 +882,7 @@ Output: Vorticity vector values printed to the screen. \\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The C values of this test for pyLBM can be found in the file
-id8output.txt located in the OracleOutput folder. The result required for the
-test to pass is an average error rate between O and C of less than or equal to
-AVERAGE\_ERROR.\\
+id8output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 
 This test covers the high bound for density using a density close to that of mercury.\\
 					
@@ -956,9 +929,7 @@ Output: Vorticity vector values printed to the screen.  \\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The C values of this test for pyLBM can be found in the file
-id9output.txt located in the OracleOutput folder. The result required for the
-test to pass is an average error rate between O and C of less than or equal to
-AVERAGE\_ERROR.\\
+id9output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 This test covers the low bound for bulk viscosity.\\
 		
 How test will be performed: 
@@ -1003,9 +974,7 @@ Output: Vorticity vector values printed to the screen. \\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The C values of this test for pyLBM can be found in the file
-id10output.txt located in the OracleOutput folder. The result required for the
-test to pass is an average error rate between O and C of less than or equal to
-AVERAGE\_ERROR.\\
+id10output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 
 This test covers the high bound for bulk viscosity.\\
 					
@@ -1034,8 +1003,7 @@ script.\\
 \paragraph{Dynamic Testing - Manual:}
 \paragraph{} These dynamic tests will compare {\famname} output with output from
 the pseudo-oracle myLBM (\citet{pylbmcode}). The input oracle will have the same
-inputs as {\famname} for each test. The allowable error is AVERAGE\_ERROR, found
-in Section \ref{symbolpara}.
+inputs as {\famname} for each test.
 
 \begin{enumerate}
 
@@ -1064,8 +1032,7 @@ Output: Pressure gradient value printed to the screen.  \\
 Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
 which has a module for Poiseuille Flow. The output pressure gradient value of
 this test is to be compared to the C value from the pseudo-oracle,
--7.074e-03. The result required for the test to pass is an average error rate
-between O and C of less than or equal to AVERAGE\_ERROR.\\
+-7.074e-03.\\
 					
 How test will be performed: 
 
@@ -1105,8 +1072,7 @@ Output: Pressure gradient value printed to the screen. \\
 Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
 which has a module for Poiseuille Flow. The output pressure gradient value of
 this test is to be compared to the C value from the pseudo-oracle,
--4.103e-03. The result required for the test to pass is an average error rate
-between O and C of less than or equal to AVERAGE\_ERROR.\\
+-4.103e-03.\\
 					
 How test will be performed: 
 
@@ -1145,8 +1111,7 @@ Output: Pressure gradient value printed to the screen.  \\
 Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
 which has a module for Poiseuille Flow. The output pressure gradient value of
 this test is to be compared to the C value from the pseudo-oracle,
--1.522e-01. The result required for the test to pass is an average error rate
-between O and C of less than or equal to AVERAGE\_ERROR.\\
+-1.522e-01.\\
 
 How test will be performed: 
 
@@ -1184,8 +1149,7 @@ Output: Pressure gradient value printed to the screen. \\
 Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
 which has a module for Poiseuille Flow. The output pressure gradient value of
 this test is to be compared to the C output from the pseudo-oracle,
--1.462e-01. The result required for the test to pass is an average error rate
-between O and C of less than or equal to AVERAGE\_ERROR.\\
+-1.462e-01.\\
 
 How test will be performed: 
 
@@ -1223,8 +1187,7 @@ Output: Pressure gradient value printed to the screen.  \\
 Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
 which has a module for Poiseuille Flow. The output pressure gradient value of
 this test is to be compared to the C value from the pseudo-oracle,
--3.262e-03. The result required for the test to pass is an average error rate
-between O and C of less than or equal to AVERAGE\_ERROR.\\
+-3.262e-03.\
 
 How test will be performed: 
 
@@ -1262,8 +1225,7 @@ Output: Pressure gradient value printed to the screen. \\
 Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
 which has a module for Poiseuille Flow. The output pressure gradient value of
 this test is to be compared to the C value from the pseudo-oracle,
--1.604e-03. The result required for the test to pass is an average error rate
-between O and C of less than or equal to AVERAGE\_ERROR.\\
+-1.604e-03.\\
 					
 How test will be performed: 
 
@@ -1299,8 +1261,7 @@ Output: Pressure gradient value printed to the screen. \\
 Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
 which has a module for Poiseuille Flow. The output pressure gradient value of
 this test is to be compared to the C value from the pseudo-oracle,
--6.868e-01. The result required for the test to pass is an average error rate
-between O and C of less than or equal to AVERAGE\_ERROR.\\
+-6.868e-01.\\
 					
 How test will be performed: 
 
@@ -1323,8 +1284,7 @@ compared to the above output value from the pseudo-oracle.
 
 \subsubsection{Correctness}
 
-System correctness is tested via the functional tests of Section \ref{testfr}
-using an allowable AVERAGE\_ERROR as stated in Section \ref{symbolpara}.
+System correctness is tested via the functional tests of Section \ref{testfr}.
 
 \subsubsection{Maintainability}
 		
@@ -1472,10 +1432,7 @@ $\mathrm{Q}$ = 9\\
 
 					
 Output/Result: This case is a check of the ability of the LBM solution to run on
-multiple operating systems. The result required for the test to pass is a
-vorticity vector printed to the screen of each instance which matches, within
-the allowable AVERAGE\_ERROR, the vorticity vector value found in the file
-id20output.txt located in the OracleOutput folder.\\
+multiple operating systems. The test will check if vorticity vector values are printed to the screen in each of the instances. The values will be compared to the vorticity vector value found in the file id20output.txt located in the OracleOutput folder.\\
 					
 How test will be performed: 
 
@@ -1684,19 +1641,7 @@ id21 & & & & & & & & & & \checkmark \\
 
 \section{Appendix}
 
-
-\subsection{Symbolic Parameters}
-\label{symbolpara}
-\begin{itemize}
-
-\item[\label{Cons_AVERAGE_ERROR}]AVERAGE\_ERROR: 3\%\\This error allowance will
-  be used for both scalar and vector outputs, adjusted accordingly.
-
-\end{itemize}
-
-\wss{I like that you used a symbolic constant, although as I mentioned above, I
-  think the goal is to describe the error, rather than \emph{a priori} specify
-  the error bounds.}
+%\wss{I like that you used a symbolic constant, although as I mentioned above, I think the goal is to describe the error, rather than \emph{a priori} specify the error bounds.}
 
 \subsection{Usability Survey Questions} \label{usabilitysurevyquestions}
 
