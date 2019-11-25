@@ -87,9 +87,6 @@ found \href{https://github.com/peter-michalski/LatticeBoltzmannSolvers}{here} \c
 
 \section{Notation}
 
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
-
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
 \cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
@@ -106,8 +103,7 @@ The following table summarizes the primitive data types used by \famname.
 \toprule 
 \textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
 \midrule
-character & char & a single symbol or digit\\
-integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
+string & string & single or multiple symbols or digits\\
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 \bottomrule
@@ -136,7 +132,7 @@ The following table is taken directly from the Module Guide document for this pr
 		\midrule
 		
 		{Hardware-Hiding Module}
-		& M1: Hardware Hiding Module\\
+		& \\
 		\midrule
 		
 		\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
@@ -152,7 +148,9 @@ The following table is taken directly from the Module Guide document for this pr
 		\midrule
 		
 		\multirow{1}{0.3\textwidth}{Software Decision Module}
-		& M11: Output Module\\
+		& M11: Image Rendering Module\\
+		& M12: Data Structure Module\\
+		& M13: Input Types Module\\
 		\bottomrule
 		
 	\end{tabular}
@@ -163,63 +161,23 @@ The following table is taken directly from the Module Guide document for this pr
 
 ~\newpage
 
-\section{MIS of M1: Hardware Hiding Module} \label{HHModule} 
-
-The secrets of this module are the data structure and algorithms used to implement the virtual hardware.
-
-\subsection{Module}
-
-Hardware Hiding
-
-\subsection{Uses}
-N/A
-
-\subsection{Syntax}
-N/A
-
-\subsubsection{Exported Constants}
-N/A
-
-\subsubsection{Exported Access Programs}
-N/A
-
-\subsection{Semantics}
-N/A
-
-\subsubsection{State Variables}
-
-N/A
-\subsubsection{Environment Variables}
-
-The module has external interaction with the environment when either the Output Module M11 (Section \ref{OUModule}) or Input Reading Module M3 (Section \ref{IRModule}) require its services for reading inputs or writing outputs.
-
-\subsubsection{Assumptions}
-
-M11 (Section \ref{OUModule}) or M3 (Section \ref{IRModule}) have called the modules services.
-
-\subsubsection{Access Routine Semantics}
-N/A
-
-\subsubsection{Local Functions}
-N/A
-
-\newpage
-
 \section{MIS of M2: System Control Module} \label{SCModule}
 
 The secret of this module is the algorithm to control \famname.
 
 \subsection{Module}
 
-System Control
+SystemControl
 
 \subsection{Uses}
 
 \begin{itemize}
-	\item Output (Section \ref{OUModule})
+	\item Hardware Hiding
 	\item Input Reading (Section \ref{IRModule})
 	\item LBM Control (Section \ref{LCModule})
 	\item Problem Parameter (Section \ref{PRModule})
+	\item Image Rendering (Section \ref{OUModule})
+	\item Data Structure (Section \ref{DSModule})
 \end{itemize}
 
 \subsection{Syntax}
@@ -233,11 +191,11 @@ N/A
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-LIBRARY\_IN: string\\
-DIMENSIONS\_IN: $\mathbb{N}$\\
-VEL\_DIR\_IN: $\mathbb{N}$\\
-inputValues: array of strings, $\mathbb{R}$, $\mathbb{N}$\\
-LBMout: array of $\mathbb{R}$
+inputData: DataStructure\\
+problemData: $\mathbb{R}$ \& $\mathbb{N}$\\
+imageData: $\mathbb{R}$\\
+imageOut: PNG\\
+
 
 \subsubsection{Environment Variables}
 
@@ -258,12 +216,20 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		LIBRARY\_IN & array of strings, $\mathbb{R}$, $\mathbb{N}$ & string &- \\
-		DIMENSIONS\_IN & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{N}$ &- \\
-		VEL\_DIR\_IN & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{N}$ &- \\
+		mainFunction & - & - &- \\
 		\hline
 	\end{tabular}
 \end{center}
+
+\subsubsection{Local Function Semantics}
+
+\noindent mainFunction():
+\begin{itemize}
+	\item transition: $out$ := N/A
+	\item exception: N/A
+\end{itemize}
+
+The function calls other modules of {\famname} to solve the given problem. The function calls InputReading.inputArray(), followed by ProblemParameter.formatInput() and LBMControl.performLBM(). Finally the module calls ImageRendering.imageFunc() and sends the output of that function to the hardware.
 
 
 ~\newpage
@@ -274,29 +240,29 @@ The secret of this module is the algorithm that gathers the input data.
 
 \subsection{Module}
 
-Input Reading
+InputReading
 
 \subsection{Uses}
 
 \begin{itemize}
-	\item Input Checking
 	\item Hardware Hiding
+	\item Input Checking (Section \ref{ICModule})
+	\item Data Structure (Section \ref{DSModule})
 \end{itemize}
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-inputValues: array of strings, $\mathbb{R}$, $\mathbb{N}$\\
-
+N/A
 
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{2cm} p{4cm} p{3cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		inputArray & & array of strings, $\mathbb{R}$, $\mathbb{N}$ & - \\
+		inputArray & - & inputData: DataStructure & NotFound, ErrorRead \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -304,39 +270,29 @@ inputValues: array of strings, $\mathbb{R}$, $\mathbb{N}$\\
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-
-Input\_Location: string
+N/A
 
 \subsubsection{Environment Variables}
 
-N/A
+InputLocation (string): ``./Input/input.txt''
 
 \subsubsection{Assumptions}
 
-The System Control Module M2 (Section \ref{SCModule}) has called the inputArray function of this module.
+The System Control Module M2 (Section \ref{SCModule}) has called InputReading.inputArray().
 
 \subsubsection{Access Routine Semantics}
 
 \noindent inputArray():
 \begin{itemize}
-	\item output: inputValues := $+$(inputValues[i] $|$ string $\cup$ $\mathbb{R}$ $\cup$ $\mathbb{N}$ $|$ :readline)
-	\item exception: N/A
+	\item transition: $out$ := +(inputData[key][value] $\Leftarrow$ ./Input/input.txt)
+	\item exception: input.txt $\notin$ ./Input/ $\Rightarrow$ NotFound
+	\item exception: (inputData $\Leftarrow$ ?) $\Rightarrow$ ErrorRead
 \end{itemize}
 
-The function will read all lines from the input file and place each value into an array in the form array[key:string][value: string $\cup$ $\mathbb{R}$ $\cup$ $\mathbb{N}$]. There is no input into the file, the output will be the array. The location of the input file is in the state variable Input\_Location.
+The function will read all lines from the input file and place each value into inputData.
 
 \subsubsection{Local Functions}
-
-\begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
-		\hline
-		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-		\hline
-		open & string & object & NOT\_FOUND ERR\_READ\\
-		readline & object & - & NO\_LINES OUT\_BOUNDS\\
-		\hline
-	\end{tabular}
-\end{center}
+N/A
 
 \newpage
 
@@ -346,10 +302,13 @@ This secret of this module is the algorithm that checks if input values fall wit
 
 \subsection{Module}
 
-Input Checking
+InputChecking
 
 \subsection{Uses}
-N/A
+
+\begin{itemize}
+	\item Data Structure (Section \ref{DSModule})
+\end{itemize}
 
 \subsection{Syntax}
 
@@ -359,11 +318,11 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{2cm} p{3cm} p{3cm} p{2.5cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		verifyInputs & string array & & OUT\_OF\_BOUNDS UNKN\_PARM \\
+		verifyInputs & inputData: DataStructure & - & OutBounds, UnknwnParm \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -371,8 +330,9 @@ N/A
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-
-\textit{LIBRARIES}: set of strings: \{pyLBM\}\\
+The set of acceptableRanges is:\\
+\textit{LIBRARY}: set of $\mathbb{N}$: \{1\} - Libraries are associated by numbers in the program. The numbers are available for reference in the User Guide.\\
+\textit{PROBLEM}: set of $\mathbb{N}$: \{1\} - Problems are associated by numbers in the program. The numbers are available for reference in the User Guide.\\
 \textit{DIMENSIONS}: set of $\mathbb{N}$: \{2\}\\
 \textit{VEL\_DIRS}: set of $\mathbb{N}$: \{9\}\\
 \textit{REYNOLDS\_MIN}: $\mathbb{R}$: \{0.001\}\\
@@ -384,39 +344,24 @@ N/A
 \textit{SHEAR\_VIS\_MIN}: $\mathbb{R}$: \{0.001\}\\
 \textit{SHEAR\_VIS\_MIN}: $\mathbb{R}$: \{20000\}\\
 \textit{TIME\_MIN}: $\mathbb{N}$: \{1\}\\
-\textit{LIBRARY\_IN}: string\\
-\textit{DIMENSIONS\_IN}: $\mathbb{N}$\\
-\textit{VEL\_DIR\_IN}: $\mathbb{N}$\\
-$Re$: $\mathbb{R}$\\
-$\rho$: $\mathbb{R}$\\
-$\eta_b$: $\mathbb{R}$\\
-$\eta_s$: $\mathbb{R}$\\
-$t$: $\mathbb{N}$\\
-$\mathrm{a}$: $\mathbb{R}$\\
-$c_s$: $\mathbb{R}$\\
-$\mathrm{e}$: $\mathbb{R}$\\
-$F$: $\mathbb{R}$\\
-$kg$: $\mathbb{R}$\\
-$A$: $\mathbb{R}$\\
-\textbf{u}: $\mathbb{R}$\\
 
 \subsubsection{Environment Variables}
 N/A
 
 \subsubsection{Assumptions}
 
-The Input Reading Module M3 (Section \ref{IRModule}) has called the verifyInputs function of this module.
+The Input Reading Module M3 (Section \ref{IRModule}) has called InputChecking.verifyInputs().
 
 \subsubsection{Access Routine Semantics}
 
-\noindent verifyInputs():
+\noindent verifyInputs(inputData):
 \begin{itemize}
 	\item output: N/A
-	\item exception: OUT\_OF\_BOUNDS := if inputValue(i$_2$) $>$ parm\_max $\cup$ $<$ parm\_min $\Rightarrow$ ERROR
-	\item exception: UNKN\_PARM := if inputValue(i$_1$) != known\_parm $\Rightarrow$ ERROR
+	\item exception: (inputData[value] $>$ acceptableRanges) $\cup$ (inputData[value] $<$ acceptableRanges) $\Rightarrow$ OutBounds
+	\item exception: inputData[key] $\notin$ inputTypes $\Rightarrow$ UnknwnParm
 \end{itemize}
 
-The function will iterate through each inputValue array key and check if the key is known to the program, and if the values of known keys falls within an acceptable range.
+The function will iterate through each inputValue InputTypes key and check if the key is known to the program, as well as check if associated values of known keys fall within an acceptable range of the state variables.
 
 \subsubsection{Local Functions}
 
@@ -430,13 +375,13 @@ The secret of this module is the algorithm which controls the LBM library.
 
 \subsection{Module}
 
-LBM Control
+LBMControl
 
 \subsection{Uses}
 
 \begin{itemize}
-	\item Streaming
-	\item Collision
+	\item Streaming (Section \ref{STModule})
+	\item Collision (Section \ref{COModule})
 \end{itemize}
 
 \subsection{Syntax}
@@ -446,11 +391,11 @@ LBM Control
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		vortVal & array of strings, $\mathbb{R}$, $\mathbb{N}$ & array of $\mathbb{R}$ & - \\
+		performLBM & inputData: DataStructure, problemData: $\mathbb{R}$ \& $\mathbb{N}$ & imageData: $\mathbb{R}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -458,22 +403,22 @@ LBM Control
 \subsection{Semantics}
 
 \subsubsection{State Variables}
+imageData ($\mathbb{R}$)
 
-array of vorticity vector values
 
 \subsubsection{Environment Variables}
 N/A
 
 \subsubsection{Assumptions}
 
-The System Control Module M2 (Section \ref{SCModule}) has called the vortVal function of this module.
+The System Control Module M2 (Section \ref{SCModule}) has called LBMControl.performLBM().
 
 \subsubsection{Access Routine Semantics}
 
-\noindent vortVal():
+\noindent performLBM(inputData, problemData):
 \begin{itemize}
-	\item output: vortVal := (inputValues[0...n]$|$ array of $\mathbb{N}$$|$:streaming()*collision())
-	\item exception: N/A
+	\item transition: $out$ := imageData = $\mathbb{R}$ $\Leftarrow$ Streaming.streamingFunc(), $\mathbb{R}$ $\Leftarrow$ Collision.collisionFunc()
+\item exception: N/A
 \end{itemize}
 
 The function will calculate the vorticity vector values, iterating through each velocity direction, calling the streaming and collision module functions.
@@ -502,11 +447,11 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		bgkCollision & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
+		streamingFunc & Velocityi, Time, PositionVector, Force, Mass: $\mathbb{R}$ & $\mathbb{R}$ & NAN \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -518,36 +463,45 @@ N/A
 N/A
 
 \subsubsection{Environment Variables}
-
-N/A
+maxVariableSize = The maximum allowable value held in the variable.\\
+minVariableSize = The minimum allowable value held in the variable.
 
 \subsubsection{Assumptions}
 
-The LBM Control Module M5 (Section \ref{LCModule}) has called the bgkCollision function of this module.
+The LBM Control Module M5 (Section \ref{LCModule}) has called streaming.streamingFunc().
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent streamingFunc(Velocityi, Time, PositionVector, Force, Mass):
 \begin{itemize}
-	\item output: bgkValue := (inputValues[0...n]$|$$\mathbb{N}$$|$:relatUpdate()*equilDistrib()*relaxRate())
-	\item exception: if $|$var$|$ $>$ $|$type$|$ $\cup$ $<$ $|$type$|$ $\Rightarrow$ ERROR
+	\item transition: $out$ := $f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$
+	\item exception: ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $>$ maxVariableSize) $\cup$ ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
-The function calculates the Bhatnagar-Gross-Krook collision operator value for each velocity direction (i) using the functions for the relaxation rate towards equilibrium, equilibrium distribution function, and relaxation update.
+The function calculates the streaming step value for each velocity direction (i).
 
 \subsubsection{Local Functions}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		relatUpdate & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
-		equilDistrib & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
-		relaxRate & $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
+		pdfFunc ($f(\mathrm{\textbf{x}},\mathrm{e},t)$) & Velocityi, Time, PositionVector, Force, Mass: $\mathbb{R}$ & $\mathbb{R}$ & NAN \\
 		\hline
 	\end{tabular}
 \end{center}
+
+\subsubsection{Local Function Semantics}
+
+\noindent pdfFunc(Velocityi, Time, PositionVector, Force, Mass):
+\begin{itemize}
+	\item transition: $out$ := $f(\mathrm{\textbf{x}},\mathrm{e},t) = f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$
+	\item exception: ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $>$ maxVariableSize) $\cup$ ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $<$ minVariableSize) $\Rightarrow$ NAN
+\end{itemize}
+
+The function finds the probability that a particle is at position $\textbf{x}$ and has velocity $\mathrm{e}$ at time t.\\
+
 
 \newpage
 
@@ -570,11 +524,11 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{3cm} p{4cm} p{2cm} p{2cm}}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		streamingFunc & array of strings, $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
+		collisionFunc & RelaxationRate, Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$ & NAN \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -585,33 +539,53 @@ N/A
 N/A
 
 \subsubsection{Environment Variables}
-N/A
+maxVariableSize = The maximum allowable value held in the variable.\\
+minVariableSize = The minimum allowable value held in the variable.
 
 \subsubsection{Assumptions}
 
-The LBM Control Module M5 (Section \ref{LCModule}) has called the streamingFunc function of this module.
+The LBM Control Module M5 (Section \ref{LCModule}) has called Collision.streamingFunc().
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent collisionFunc(RelaxationRate, Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound, VelocityDirection):
 \begin{itemize}
-	\item output: strmValue := (inputValues[0...n]$|$$\mathbb{N}$$|$:streamingFunc())
-	\item exception: if $|$var$|$ $>$ $|$type$|$ $\cup$ $<$ $|$type$|$ $\Rightarrow$ ERROR
+	\item transition: $out$ := $\frac{1}{\tau}(f_{i}^{eq}-f_{i})$
+	\item exception: ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\cup$ ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
-The function calculates the streaming step value for each velocity direction (i) using the probability density function.
+The function calculates the collision step value for each velocity direction (i).
 
 \subsubsection{Local Functions}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		prbDnsFunc & array of $\mathbb{R}$, $\mathbb{N}$ & $\mathbb{R}$ & NAN\_ERROR \\
+		edfFunc ($f_{i}^{eq})$ & Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$ & NAN \\
+		relFunc ($f_{i}$) & Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$  & NAN \\
 		\hline
 	\end{tabular}
 \end{center}
+
+\subsubsection{Local Function Semantics}
+
+\noindent edfFunc(Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound, VelocityDirection):
+\begin{itemize}
+	\item transition: $out$ := $f_{i}^{eq} = w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$
+	\item exception: ($w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$ $>$ maxVariableSize) $\cup$ ($w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$ $<$ minVariableSize) $\Rightarrow$ NAN
+\end{itemize}
+
+The function calculates the equilibrium distribution for each velocity direction (i).\\
+
+\noindent relFunc(Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound, VelocityDirection):
+\begin{itemize}
+	\item transition: $out$ := $f_{i} = f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$
+	\item exception: ($f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\cup$ ($f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
+\end{itemize}
+
+The function calculates the relaxation update for each velocity direction (i).\\
 
 \newpage
 
@@ -621,13 +595,14 @@ The secret of this module is the structure of the LBM input parameters.
 
 \subsection{Module}
 
-Problem Parameter
+ProblemParameter
 
 \subsection{Uses}
 
 \begin{itemize}
-	\item Lattice
-	\item Boundary
+	\item Lattice (Section \ref{LAModule})
+	\item Boundary (Section \ref{BOModule})
+	\item Data Structure (Section \ref{DSModule})
 \end{itemize}
 
 \subsection{Syntax}
@@ -638,11 +613,11 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		formatInput & array of $\mathbb{R}$, $\mathbb{N}$ & array of $\mathbb{R}$, $\mathbb{N}$ & - \\
+		formatInput & inputData: DataStructure & problemData: $\mathbb{R}$ \& $\mathbb{N}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -657,17 +632,17 @@ N/A
 
 \subsubsection{Assumptions}
 
-The System Control Module M2 (Section \ref{SCModule}) has called the formatInput function of this module.
+The System Control Module M2 (Section \ref{SCModule}) has called ProblemParameter.formatInput().
 
 \subsubsection{Access Routine Semantics}
 
-\noindent vortVal():
+\noindent formatInput(inputData):
 \begin{itemize}
-	\item output: vortVal := (inputValues$|$ array of strings and $\mathbb{N}$$|$:setLattice()*boundFunc())
+	\item transition: $out$ := problemData = $\mathbb{N}$ $\in$ inputData, $\mathbb{R}$ $\Leftarrow$ Boundary.getBoundary(), $\mathbb{R}$ $\Leftarrow$ Lattice.getWeights()
 	\item exception: N/A
 \end{itemize}
 
-The function will set up the structure for the LBM input parameters based on the library that the user has requested. The function will use the lattice and boundary module functions.
+The function will set up the structure for the LBM input parameters based on the library that the user has requested. The function will use the Lattice and Boundary module functions.
 
 \subsubsection{Local Functions}
 N/A
@@ -683,21 +658,25 @@ The secret of this module is the structure of the lattice model.
 Lattice
 
 \subsection{Uses}
-N/A
+\begin{itemize}
+	\item Data Structure (Section \ref{DSModule})
+\end{itemize}
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
+parameterValues := (9, 4/9, 1/9, 1/9, 1/9, 1/9, 1/36, 1/36, 1/36, 1/36) 
+
+The above holds the coefficient weights for velocity directions of a Q9 model.
 
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		setLattice & array of $\mathbb{R}$ & array of $\mathbb{N}$ & No\_LATTICE \\
+		getWeights & inputData: DataStructure & $\mathbb{R}$ & NoLattice \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -705,25 +684,24 @@ N/A
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-
-Array of tuples: parameterValues:= $<$$\mathbb{R}$$>$$<$$\mathbb{R}$$>$$<$$\mathbb{R},\mathbb{N}_0$...$\mathbb{N}_n$$>$ 
+N/A
 
 \subsubsection{Environment Variables}
 N/A
 
 \subsubsection{Assumptions}
 
-The Problem Module M8 (Section \ref{PRModule}) has called the setLattice function of this module.
+The Problem Module M8 (Section \ref{PRModule}) has called Lattice.getWeights().
 
 \subsubsection{Access Routine Semantics}
 
-\noindent setLattice():
+\noindent getWeights(inputData):
 \begin{itemize}
-	\item output: output := (DIMENSIONS\_IN, VEL\_DIR\_IN $|$ array of $\mathbb{N}$$|$:parameterValues)
-	\item exception: if DIMENSIONS\_IN $\cap$ VEL\_DIR\_IN $\notin$ parameterValues $\Rightarrow$ NO\_LATTICE
+	\item transition: $out$ := Weighti ($\mathbb{R}$) $\in$ parameterValues
+	\item exception: inputData[VelocityDirections] $\notin$ parameterValues $\Rightarrow$ NoLattice
 \end{itemize}
 
-The function sets coefficient weight data for the selected lattice model.
+The function sets coefficient weight data for the input lattice model, and returns an error if the weight data is not available for the input lattice model.
 
 \subsubsection{Local Functions}
 N/A
@@ -739,7 +717,9 @@ The secret of this module is the structure of the model boundary.
 Boundary
 
 \subsection{Uses}
-N/A
+\begin{itemize}
+	\item Data Structure (Section \ref{DSModule})
+\end{itemize}
 
 \subsection{Syntax}
 
@@ -748,11 +728,11 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		boundFunc & array of $\mathbb{R}$ & array of $\mathbb{R}$ & - \\
+		getBoundary & inputData: DataStructure & $\mathbb{R}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -769,17 +749,17 @@ N/A
 
 \subsubsection{Assumptions}
 
-The Problem Module M8 (Section \ref{PRModule}) has called the boundFunc function of this module.
+The Problem Module M8 (Section \ref{PRModule}) has called Boundary.getBoundary().
 
 \subsubsection{Access Routine Semantics}
 
-\noindent boundFunc():
+\noindent getBoundary(inputData):
 \begin{itemize}
-	\item output: output := (inputValues $|$ array of $\mathbb{N}$$|$:inputValues[])
+	\item transition: $out$ := $\mathbb{R}$ $\in$ DataStructure
 	\item exception: N/A
 \end{itemize}
 
-The function sets coefficient weight data for the selected lattice model.
+The function returns the boundary from the DataStructure library.
 
 \subsubsection{Local Functions}
 
@@ -787,19 +767,17 @@ N/A
 
 \newpage
 
-\section{MIS of M11: Output Module} \label{OUModule} 
+\section{MIS of M11: Image Rendering Module} \label{OUModule} 
 
 The algorithm to convert the LBM output into an image.
 
 \subsection{Module}
 
-Output
+ImageRendering
 
 \subsection{Uses}
 
-\begin{itemize}
-	\item System Control Module
-\end{itemize}
+N/A
 
 \subsection{Syntax}
 
@@ -813,7 +791,7 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		imageFunc & array of $\mathbb{R}$ & image format & - \\
+		imageFunc & imageData: $\mathbb{R}$ & imageOut: PNG & IncorrectFormat \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -828,17 +806,133 @@ N/A
 
 \subsubsection{Assumptions}
 
-The System Control Module M2 (Section \ref{PRModule}) has called the imageFunc function of this module.
+The System Control Module M2 (Section \ref{PRModule}) has called ImageRendering.imageFunc() of this module.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent imageFunc():
+\noindent imageFunc(imageData):
 \begin{itemize}
-	\item output: (LBMout $|$ image format $|$:external image rendering function)
+	\item transition: $out$ := imageOut: PNG
+	\item exception: ( imageData[?] $|$ ? $\neq$ $\mathbb{R}$ $\Rightarrow$ IncorrectFormat) (? is not a real number)
+\end{itemize}
+
+The function converts the information from the LBM algorithm output (for example the vorticity vector values) into an image format using an external image library.
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+
+\section{MIS of M12: Data Structure Module} \label{DSModule} 
+
+The format of a non-primitive data structure for input variables.
+
+\subsection{Module}
+
+DataStructure
+
+\subsection{Uses}
+\begin{itemize}
+	\item Input Types (Section \ref{ITModule})
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		init & - & - & - \\
+		add & InputTypes, $\mathbb{R}$ & - & IncorrectFormat \\
+		getElm &InputTypes & $\mathbb{R}$ & DoesNotExist \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+$s$: set of tuple of (key: InputType, value: $\mathbb{R}$)
+
+\subsubsection{State Invariant}
+N/A
+
+\subsubsection{Assumptions}
+
+DataStructure.init() is called before any other access program.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent init():
+\begin{itemize}
+	\item transition: $s$ := \{\}
 	\item exception: N/A
 \end{itemize}
 
-The function converts the information from the LBM algorithm output into an image format.
+\noindent add(InputTypes, $\mathbb{R}$):
+\begin{itemize}
+	\item transition: $s$ := $s$ $\cup$ \{$\langle$ InputTypes, $\mathbb{R}$ $\rangle$\}
+	\item exception: ($\langle$ InputTypes, ?$\rangle$ $\in$ $s$ $\Rightarrow$ IncorrectFormat) (? is not a real number)
+\end{itemize}
+
+\noindent remove(InputTypes):
+\begin{itemize}
+	\item transition: $s$ := $s$ - \{$\langle$ InputTypes, $\mathbb{R}$ $\rangle$\} where $\langle$ InputTypes, $\mathbb{R}$ $\rangle$ $\in $$s$
+	\item exception: ($\langle$ InputTypes, $\mathbb{R}$ $\rangle$ $\notin$ $s$ $\Rightarrow$ DoesNotExist)
+\end{itemize}
+
+\noindent getElm(InputTypes):
+\begin{itemize}
+	\item transition: $out$ := $\langle$ InputTypes, $\mathbb{R}$ $\rangle$ $\in$ $s$
+	\item exception: ($\langle$ InputTypes, $\mathbb{R}$ $\rangle$ $\notin$ $s$ $\Rightarrow$ DoesNotExist)
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+
+\section{MIS of M13: Input Types Module} \label{ITModule} 
+
+The input types for the non-primitive data structures.
+
+\subsection{Module}
+
+InputTypes
+
+\subsection{Uses}
+
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+InputTypes (string) = \{Library, Problem, Dimensions, VelocityDirections, ReynoldsNumber, Density, BulkViscosity, ShearViscosity, Time, Density, Viscosity, AccelerationRate, SpeedSound, Velocity, Force, Mass, CrossSectionalArea, MacroscopicVelocity, RelaxationRate\}
+ 
+\subsubsection{Exported Access Programs}
+N/A
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{State Invariant}
+N/A
+
+\subsubsection{Assumptions}
+
+The Data Structure Module M12 (Section \ref{DSModule}) will only use a set of the above InputTypes.
+
+\subsubsection{Access Routine Semantics}
+N/A
 
 \subsubsection{Local Functions}
 N/A
@@ -852,6 +946,21 @@ N/A
 
 \section{Appendix} \label{Appendix}
 
-\wss{Extra information if required}
+\begin{longtable}{l p{12cm}}
+	\caption{Possible Exceptions} \\
+	\toprule
+	\textbf{Message ID} & \textbf{Error Message} \\
+	\midrule
+	DoesNotExist & Error: The input type does not exist.\\ 
+	ErrorRead & Error: Could not read the input file. \\
+	IncorrectFormat & Error: The format is not a real number.\\
+	NAN & Error: The calculated result is not a number.\\
+	NoLattice & Error: The chosen velocity directions do not have a known lattice structure.\\
+	NotFound & Error: Input file not found. \\
+	OutBounds & Error: The input file parameter X is out of bounds. Please see the User Guide.\\
+	UnknwnParm & Error: The parameter X is not known to the system. Please see the User Guide.\\	
+	\bottomrule
+\end{longtable}
+
 
 \end{document}

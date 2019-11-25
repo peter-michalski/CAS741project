@@ -168,6 +168,8 @@ change.
 \item[\refstepcounter{acnum} \actheacnum \label{acModels}:] The format of the lattice models.
 \item[\refstepcounter{acnum} \actheacnum \label{acBoundary}:] The format of the boundary conditions.
 \item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The output image rendering algorithm. 
+\item[\refstepcounter{acnum} \actheacnum \label{acDS}:] The format of non-primitive data structures. 
+\item[\refstepcounter{acnum} \actheacnum \label{acIT}:] The input types of non-primitive data structures. 
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -202,7 +204,9 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mPR}:] Problem Module
 \item [\refstepcounter{mnum} \mthemnum \label{mLA}:] Lattice Module
 \item [\refstepcounter{mnum} \mthemnum \label{mBO}:] Boundary Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOU}:] Output Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOU}:] Image Rendering Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDS}:] Data Structure Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIT}:] Input Types Module
 \end{description}
 
 
@@ -230,7 +234,9 @@ actually be implemented.
 \midrule
 
 \multirow{1}{0.3\textwidth}{Software Decision Module}
-& \mref{mOU} Output Module\\
+& \mref{mOU} Image Rendering Module\\
+& \mref{mDS} Data Structure Module\\
+& \mref{mIT} Input Types Module\\
 \bottomrule
 
 \end{tabular}
@@ -314,8 +320,8 @@ to be implemented.
 \subsubsection{LBM Control Module (\mref{mLC})}
 
 \begin{description}
-	\item[Secrets:]The algorithm to control which LBM library will be executed.
-	\item[Services:]Controls which LBM library will be used to solve a problem.
+	\item[Secrets:]The algorithm to control how the LBM library will be executed.
+	\item[Services:]Controls how the chosen LBM library will solve the problem.
 	\item[Implemented By:] \famname
 \end{description}
 
@@ -347,7 +353,7 @@ to be implemented.
 
 \begin{description}
 	\item[Secrets:]The structure of the lattice model.
-	\item[Services:]Converts data for the selected lattice model into a data structure for \mref{mPR}.
+	\item[Services:]Gathers data for the selected lattice model into a data structure for \mref{mPR}.
 	\item[Implemented By:] \famname
 \end{description}
 
@@ -374,12 +380,28 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Output Module (\mref{mOU})}
+\subsubsection{Image Rendering Module (\mref{mOU})}
 
 \begin{description}
 	\item[Secrets:] The algorithm to convert the LBM algorithm output into an image.
-	\item[Services:] Converts the information from the LBM algorithm into an image format for saving.
+	\item[Services:] Converts the information from the LBM algorithm into an image.
 	\item[Implemented By:] --
+\end{description}
+
+\subsubsection{Data Structure Module (\mref{mDS})}
+
+\begin{description}
+	\item[Secrets:] The format of non-primitive data structures used in \famname .
+	\item[Services:] Provides non-primitive data types in \famname . 
+	\item[Implemented By:] \famname
+\end{description}
+
+\subsubsection{Input Types Module (\mref{mIT})}
+
+\begin{description}
+	\item[Secrets:] The input types for the non-primitive data structures used in \famname .
+	\item[Services:] Specifies non-primitive data types in \famname . 
+	\item[Implemented By:] \famname
 \end{description}
 
 ~\newpage
@@ -397,13 +419,13 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mSC}, \mref{mIR}\\
-R2 & \mref{mSC}, \mref{mLA}\\
-R3 & \mref{mSC}, \mref{mIC}\\
-R4 & \mref{mSC}, \mref{mPR}, \mref{mLA}, \mref{mBO}\\
-R5 & \mref{mSC}, \mref{mPR}, \mref{mLA}\\
-R6 & \mref{mSC}, \mref{mLC}, \mref{mST}, \mref{mCO}\\
-R7 & \mref{mHH}, \mref{mSC}, \mref{mOU}\\
+R1 & \mref{mHH}, \mref{mSC}, \mref{mIR}, \mref{mDS}, \mref{mIT}\\
+R2 & \mref{mSC}, \mref{mLA}, \mref{mDS}, \mref{mIT}\\
+R3 & \mref{mSC}, \mref{mIC}, \mref{mDS}, \mref{mIT}\\
+R4 & \mref{mSC}, \mref{mPR}, \mref{mLA}, \mref{mBO}, \mref{mDS}, \mref{mIT}\\
+R5 & \mref{mSC}, \mref{mPR}, \mref{mLA}, \mref{mDS}, \mref{mIT}\\
+R6 & \mref{mSC}, \mref{mLC}, \mref{mST}, \mref{mCO}, \mref{mDS}, \mref{mIT}\\
+R7 & \mref{mHH}, \mref{mSC}, \mref{mOU}, \mref{mDS}, \mref{mIT}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -427,6 +449,8 @@ R7 & \mref{mHH}, \mref{mSC}, \mref{mOU}\\
 \acref{acModels} & \mref{mLA}\\
 \acref{acBoundary} & \mref{mBO}\\
 \acref{acOutput} & \mref{mOU}\\
+\acref{acDS} & \mref{mDS}\\
+\acref{acIT} & \mref{mIT}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
