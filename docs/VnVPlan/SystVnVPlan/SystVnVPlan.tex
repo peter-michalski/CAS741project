@@ -626,73 +626,57 @@ How test will be performed:
 \item{Reynolds-Rel-Error-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V) with varying $Re$
-parameter (I), and observing the variance of the output (O) when compared to a control value (C).  \wss{If all of the tests are
-  the same except for the value of $Re$, then you could again use a table to
-  summarize the different test cases.}
+parameter (I), and observing the variance of the output (O) when compared to a control value (C).  %\wss{If all of the tests are the same except for the value of $Re$, then you could again use a table to summarize the different test cases.}
+				
 					
 Initial State: No input file in Input directory.\\
 					
-Input (first iteration of test): A comma delimited file, with inputs marked in
-the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input
-values for this test will be:\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for each of the iterations of this test will be:\\
 
-Input (second iteration of test): A comma delimited file, with inputs marked in
-the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input
-values for this test will be:\\
-$Re$: 1500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
-
-Input (third iteration of test): A comma delimited file, with inputs marked in
-the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input
-values for this test will be:\\
-$Re$: 2500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{| c | c | c | c | c | c |}
+			\hline
+			Input & Iteration 1 & Iteration 2 & Iteration 3 & Iteration 4 & Iteration 5 \\
+			\hline
+			$Re$ & 500 & 1500 & 2500 & 5000 & 7500 \\
+			\hline
+			$t$ & 75& 75& 75& 75& 75\\
+			\hline
+			$\rho$ & 1.0& 1.0& 1.0& 1.0& 1.0\\
+			\hline
+			$\eta_b$ & 1.e-3& 1.e-3& 1.e-3& 1.e-3& 1.e-3\\
+			\hline
+			$X_{min}$ & 0.& 0.& 0.& 0.& 0.\\
+			\hline
+			$X_{max}$ & 3.& 3.& 3.& 3.& 3.\\
+			\hline
+			$Y_{min}$ & 0.& 0.& 0.& 0.& 0.\\
+			\hline
+			$Y_{max}$ & 1.& 1.& 1.& 1.& 1.\\
+			\hline
+			$R$ & 0.05& 0.05& 0.05& 0.05& 0.05\\
+			\hline
+			$\mathrm{e_{sch}}$ & 1.& 1.& 1.& 1.& 1.\\
+			\hline
+			$\mathrm{e_{fac}}$ & 20& 20& 20& 20& 20\\
+			\hline
+			$S$ & 64& 64& 64& 64& 64\\
+			\hline
+			$\mathrm{D}$ & 2& 2& 2& 2& 2\\
+			\hline
+			$\mathrm{Q}$ & 9& 9& 9& 9& 9\\
+			\hline
+		\end{tabular}
+		\caption{Reynolds Test Inputs}
+	\end{center}
+\end{table} 
 
 Output: In each iteration we will have vorticity vector values printed to the screen.\\
 
 Test Case Derivation: This case is a comparison with the pseudo-oracle
 pyLBM. The C values of this test for pyLBM can be found in the files
-id4\_1\_output.txt, id4\_2\_output.txt and id4\_3\_output.txt, located in the
-OracleOutput folder. The files hold the C values for iterations 1, 2, and 3
-respectively. Each iteration will compare its output to its respective C counterpart. The intent is to discover how changes in $Re$ affect correctness. This may be helpful in improving correctness of the implementation.\\
+id4\_1\_output.txt, id4\_2\_output.txt, id4\_3\_output.txt, id4\_4\_output.txt, and id4\_5\_output.txt located in the OracleOutput folder. The files hold the C values for iterations 1 to 5 respectively. Each iteration will compare its output to its respective C counterpart. The intent is to discover how changes in $Re$ affect correctness. This may be helpful in improving correctness of the implementation.\\
 
 How test will be performed: 
 
