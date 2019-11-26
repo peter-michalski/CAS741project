@@ -20,7 +20,7 @@
 \usepackage{pbox}
 \usepackage{makecell}
 \usepackage[mathscr]{euscript}
-
+\externaldocument{../VnVPlan/SystVnVPlan/SystVnVPlan}
 
 \DeclareSymbolFont{rsfs}{U}{rsfs}{m}{n}
 \DeclareSymbolFontAlphabet{\mathscrsfs}{rsfs}
@@ -101,7 +101,7 @@
 
 \pagenumbering{roman}
 
-\section{Revision History}
+\section{Revision History} \label{CAREVHISTORY}
 
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
@@ -1005,7 +1005,7 @@ This section provides the functional requirements, the business tasks that the
 software is expected to complete, and the nonfunctional requirements, the
 qualities that the software is expected to exhibit.
 
-\subsection{Family of Functional Requirements}
+\subsection{Family of Functional Requirements} \label{CAFRS}
 
 \noindent \begin{itemize}
 
@@ -1013,7 +1013,7 @@ qualities that the software is expected to exhibit.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system shall allow the user to select from a set of model and velocity direction parameters, listed in Table \ref{table:inputVar}, as per A\ref{A_selectModel}.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system shall verify that the inputs fall within the allowable parameters of variation, see Table \ref{table:inputVar}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system shall verify that the inputs fall within the allowable parameters of variation, see Table \ref{table:fstagevar}.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Instantiate}:] The system shall instantiate required data types and structures for the selected model.
 
@@ -1027,13 +1027,13 @@ qualities that the software is expected to exhibit.
 
 ~\newpage
 
-\subsection{Non-Functional Requirements}
+\subsection{Non-Functional Requirements}\label{CANFRS}
 
 The following are non-functional requirements (NFRs), and their metrics, for a family of LBS. They are defined in Section \ref{termdef}:
 
 \begin{enumerate}
-\item Correctness: The output results will be compared to the results taken from of a sample of OTS solutions.
-\item Maintainability: The system shall be documented with a Commonality Analysis (CA), Verification and Validation (VnV) plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
+\item Correctness: The output results will be compared to the results taken from of a sample of OTS solutions. See \ref{CorrectnessTest} of the System VnV Plan.
+\item Maintainability: The system documentation, including the Commonality Analysis (CA), Verification and Validation (VnV) Plans, MG (Module Guide), MIS (Module Interface Specification), and User Guide, will be traceable and easy to follow.
 \item Performance: The system shall be able to run modules faster than a sample OTS implementation.
 \item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
 \item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.

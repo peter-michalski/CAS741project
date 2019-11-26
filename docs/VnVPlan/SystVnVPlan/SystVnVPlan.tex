@@ -3,7 +3,10 @@
 \usepackage{amsmath, mathtools}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-
+\usepackage{xr}
+\externaldocument[ext1-]{../../SRS/CA}
+\externaldocument[ext2-]{../../Design/MG/MG}
+\externaldocument[ext3-]{../../Design/MIS/MIS}
 
 \usepackage{caption}
 \usepackage{pdflscape}
@@ -32,7 +35,6 @@
 \input{../../Common}
 
 \begin{document}
-
 
 \title{System Verification and Validation Plan for \famname} 
 \author{Peter Michalski}
@@ -140,9 +142,8 @@ by a testing plan in Section \ref{testplan}. Finally, individual tests will be
 described in Section \ref{systest}.
 
 \section{General Information} \label{generalinfo}
-
-\wss{There should generally be text between section headings.  In this case a
-  ``roadmap'' of the contents of this section would be helpful.}
+This section of the document will begin with a summary of {\famname}, objectives and a listing of relevant documents.
+%\wss{There should generally be text between section headings.  In this case a ``roadmap'' of the contents of this section would be helpful.}
 
 \subsection{Summary}
 
@@ -158,78 +159,46 @@ to the results of the pseudo-oracle pyLBM (\citet{pylbmcode}).
 \subsection{Objectives} \label{objectives}
 
 The intended objective of this plan is to verify that functional requirements
-and non-functional requirements (NFR), as found in the CA titled Lattice
-Boltzmann Solvers (\citet{LBM_CA_PM}), have been met. \wss{Copying and pasting
-  your requirements here from your CA is a maintenance problem.  It will be
-  difficult to keep the two documents in sync.  You can just reference the
-  document where the requirements are, without repeating them.  You can even use
-  cross-referencing to reference labels in another document.  That is why the
-  original Blank Project Template has make files, so that running make will
-  update the references between documents.}
+and non-functional requirements (NFR), as found in Section \ref{ext1-CAFRS} and Section \ref{ext1-CANFRS} of the CA titled Lattice Boltzmann Solvers (\citet{LBM_CA_PM}), have been met. %\wss{Copying and pasting your requirements here from your CA is a maintenance problem.  It will be difficult to keep the two documents in sync.  You can just reference the document where the requirements are, without repeating them.  You can even use cross-referencing to reference labels in another document.  That is why the original Blank Project Template has make files, so that running make will update the references between documents.}
 
-\noindent The functional requirements are:
-\noindent \begin{itemize}
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall
-  read a set of input fluid parameters.
+%\noindent The functional requirements are:
+%\noindent \begin{itemize}
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall read a set of input fluid parameters.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system
-  shall allow the user to select from a set of model and velocity direction
-  parameters. \wss{This requirement has to be more specific.  What are the
-    velocity and direction parameters?  I feel like you summarized them in your CA.}
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system shall allow the user to select from a set of model and velocity direction parameters.  %\wss{This requirement has to be more specific.  What are the velocity and direction parameters?  I feel like you summarized them in your CA.} %Yes they are summarized in the CA. I have temporarily commented out this section in order to keep your comments and respond to them.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system
-  shall verify that the inputs fall within the allowable parameters of
-  variation. \wss{Where is this documented?  There should be a pointer to this
-    information.  Again, I think this is in your CA, which is another argument
-    for not reproducing the requirements here.}
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system shall verify that the inputs fall within the allowable parameters of variation. %\wss{Where is this documented?  There should be a pointer to this information.  Again, I think this is in your CA, which is another argument for not reproducing the requirements here.} %The CA has this documented.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Instantiate}:] The system
-  shall instantiate required data types and structures for the selected model.
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Instantiate}:] The system shall instantiate required data types and structures for the selected model.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_CoefficientWeights}:] The
-  system shall import the relevant coefficient weights for the selected model.
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_CoefficientWeights}:] The system shall import the relevant coefficient weights for the selected model.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] The system shall
-  calculate and store the predicted fluid parameters, iterating through
-  streaming and collision processes over the desired model time.
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] The system shall calculate and store the predicted fluid parameters, iterating through streaming and collision processes over the desired model time.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The system shall
-  output the results of the calculations in a manner consistent with the
-  decisions made regarding variabilities.
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The system shall output the results of the calculations in a manner consistent with the decisions made regarding variabilities.
 
-\end{itemize}
+%\end{itemize}
 
-\noindent The NFRs are:
+%\noindent The NFRs are:
 
-\begin{enumerate}
-\item Correctness: The output results will be compared to the results taken from of a sample of OTS solutions. %\wss{NFRs should not mention modules.  They should be about the software as a whole.  You might want to specify correctness as the comparison between the OTS solution and your solution running the test cases defined in this document.}
-\item Maintainability: The system shall be documented with a CA, VnV plan, MG
-  (Module Guide), MIS (Module Interface Specification), and User Guide.
-  \wss{This is how you intend to achieve maintainability, not how
-    maintainability is defined.}
-\item Performance: The system shall be able to run modules faster than a sample
-  OTS implementation.
-\item Portability: The system shall be able to run on macOS, Windows, and Linux
-  operating systems.
-\item Reliability: The mean time between failures (MTBF) will be longer than the
-  average MTBF of a sample of the OTS solutions.
-\item Reusability: Individual modules of the system can be removed and reused in
-  other systems.
-\item Robustness: The system shall behave reasonably in circumstances that were
-  not anticipated in the requirements specification
-  \cite{ghezzi1991fundamentals}.
-\item Scalability: The system must be able to support additional computational
-  models.
-\item Understandability: New users must easily understand which LBM models are
-  available in {\famname}.
-\item Usability: Users will find the system easy to use.
-\end{enumerate}
+%\begin{enumerate}
+%\item Correctness: The output results will be compared to the results taken from of a sample of OTS solutions. %\wss{NFRs should not mention modules.  They should be about the software as a whole.  You might want to specify correctness as the comparison between the OTS solution and your solution running the test cases defined in this document.} %This has been addressed in the CA
+%\item Maintainability: The system shall be documented with a CA, VnV plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
+  %\wss{This is how you intend to achieve maintainability, not how maintainability is defined.} %This is changed in the CA
+%\item Performance: The system shall be able to run modules faster than a sample OTS implementation.
+%\item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
+%\item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
+%\item Reusability: Individual modules of the system can be removed and reused in other systems.
+%\item Robustness: The system shall behave reasonably in circumstances that were not anticipated in the requirements specification \cite{ghezzi1991fundamentals}.
+%\item Scalability: The system must be able to support additional computational models.
+%\item Understandability: New users must easily understand which LBM models are available in {\famname}.
+%\item Usability: Users will find the system easy to use.
+%\end{enumerate}
 
 \subsection{Relevant Documentation}
 
-The CA of {\famname} can be found in (\citet{LBM_CA_PM}).  \wss{Although they
-  aren't written yet, you should fake this as if the design documentation is
-  written.  The documentation is also relevant for this problem.}
+The CA of {\famname} can be found in (\citet{LBM_CA_PM}).The link to Section \ref{ext1-CAREVHISTORY} navigates to the document, beginning with the revision history. The MG can be found in (\citet{LBM_MG_PM}). The link to Section \ref{ext2-MGREVHISTORY} navigates to the document, beginning with the revision history. The MIS can be found in (\citet{LBM_MIS_PM}). The link to Section \ref{ext3-MISREVHISTORY} navigates to the document, beginning with the revision history.
+	%\wss{Although they aren't written yet, you should fake this as if the design documentation is written.  The documentation is also relevant for this problem.}
 \newpage
 
 \section{Plan}
@@ -237,26 +206,23 @@ The CA of {\famname} can be found in (\citet{LBM_CA_PM}).  \wss{Although they
 \subsection{Verification and Validation Team}
 
 This VnV plan will be conducted by Peter Michalski and several
-classmates. \wss{Be specific and name the relevant classmates here.}
+classmates, including the primary reviewer Ao Dong, and secondary reviewers Sasha Soraine, Bo Cao, and Zhi Zhang. %\wss{Be specific and name the relevant classmates here.}
 
 \subsection{CA Verification Plan}
 
 The CA of {\famname} shall be verified in the following ways:
 
 \begin{enumerate}
-\item Feedback: Reviewers from the class shall provide feedback on
-  GitHub. \wss{Are you going to be more specific?  Is this task directed
-    feedback, or just ``read the document'' and tell me what you think?  Who
-    specifically is going to review the document?}
+\item Feedback: Classmates, including all primary and secondary reviewers listed above, shall provide feedback on GitHub. They shall read the document and provide insight on how to improve the documents and {\famname}. %\wss{Are you going to be more specific?  Is this task directed feedback, or just ``read the document'' and tell me what you think?  Who specifically is going to review the document?}
 \item Initial Review: The document shall be manually reviewed by the author
   using the SRS checklist upon its initial creation, as found in the CAS741
-  GitLab repository (\citet{CAS741_SRS_checklist}). \wss{Good!}
+  GitLab repository (\citet{CAS741_SRS_checklist}). %\wss{Good!}
 \item Second Review: The document shall be manually reviewed by the author using
   the SRS checklist after VnV completion, as found in the CAS741 GitLab
-  repository (\citet{CAS741_SRS_checklist}). \wss{Good!}
+  repository (\citet{CAS741_SRS_checklist}). %\wss{Good!}
 \item Final Review: The document shall be manually reviewed by the author using
   the SRS checklist after MG and MIS development, as found in the CAS741
-  repository (\citet{CAS741_SRS_checklist}). \wss{Great!}
+  repository (\citet{CAS741_SRS_checklist}). %\wss{Great!}
 \end{enumerate}
 
 \subsection{Design Verification Plan}
@@ -295,15 +261,9 @@ in \ref{testfr}. This will be followed by reviewing the NFRs as outlined in
 
 \subsection{Software Validation Plan}
 
-{\famname} shall be validated by ensuring that all functional requirements, as
-listed in Section \ref{objectives}, are met. The file names containing the
-pseudo-oracle output data that the system output is tested against can be found
-in the specific test sections below.
+{\famname} does not have a validation step. Validation is related to comparing the outputs of models to experimental values. {\famname} is simply concerned that its solution is correct mathematically.
 
-\wss{You do not actually have a validation step.  You should explain in this
-  section that validation is related to comparing the outputs of models to
-  experimental values.  Your software doesn't care whether the models agree with
-  reality, only that they the solutions are correct mathematically.}
+%\wss{You do not actually have a validation step.  You should explain in this section that validation is related to comparing the outputs of models to experimental values.  Your software doesn't care whether the models agree with reality, only that they the solutions are correct mathematically.}
 
 ~\newpage	 
 
@@ -330,9 +290,7 @@ and R7, and will test out the input vales at their allowable edges.
 
   Control: Program (P) reading of input values (V) from a file.
 				
-  Initial State: No input file in Input directory. \wss{If the initial state is
-    no input file, then wouldn't this test fail to generate output?  I would
-    think you would get an exception if the file does not exist?}
+  Initial State: input.txt file is in the Input directory. %\wss{If the initial state is no input file, then wouldn't this test fail to generate output?  I would think you would get an exception if the file does not exist?}
 					
   Input: A comma delimited text file, with inputs marked in the manner outlined
   in the User Guide (\citet{LBM_UserGuide_PM}).
@@ -398,7 +356,7 @@ How test will be performed:
 
 Control: Program (P) reading of input values (V) from a file.\\
 
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 
 Input: A comma delimited text file with the following input:\\
 ccQseHfFspBLAYZjCGZtJYMAdeAc
@@ -423,39 +381,70 @@ How test will be performed:
 \end{enumerate}
 			
 \paragraph{Input Bounds}
+This test will be composed of two parts:
+\begin{enumerate}
+						
+\item{input-bounds-id\refstepcounter{testcounter}\thetestcounter A \label{inputboundstest}}
+\item{input-bounds-id\ref{inputboundstest}B\\}
 
-\begin{enumerate}			
+Control: Program (P) testing of high and low input values (V) read from a file.\\
 					
-\item{input-bounds-id\refstepcounter{testcounter}\thetestcounter A \label{inputboundstest}\\}
-
-Control: Program (P) testing of high input values (V) read from a file.\\
-					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 Input: A comma delimited file, with inputs marked in the manner outlined in the
 User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will
-be:\\$Re$: 500000\\
-$t$: 0\\
-$\rho$: 15\\
-$\eta_b$: 100\\
-$\eta_s$: 30000\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$\mathrm{e_{max}}$ = 0.1\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
+be:\\
+
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{| c | c | c |}
+			\hline
+			Input & id2A & id2B \\
+			\hline
+			$Re$ & 50000 & -500000 \\
+			\hline
+			$t$ & 0& 0\\
+			\hline
+			$\rho$ & 15& -15\\
+			\hline
+			$\eta_b$ & 100& -100\\
+			\hline
+			$\eta_s$ & 30000& -30000\\
+			\hline
+			$X_{min}$ & 0.& 0.\\
+			\hline
+			$X_{max}$ & 3.& 3.\\
+			\hline
+			$Y_{min}$ & 0.& 0.\\
+			\hline
+			$Y_{max}$ & 1.& 1.\\
+			\hline
+			$R$ & 0.05& 0.05\\
+			\hline
+			$\mathrm{e_{sch}}$ & 1.& 1.\\
+			\hline
+			$\mathrm{e_{fac}}$ & 20& 20\\
+			\hline
+			$\mathrm{e_{max}}$ & 0.1& 0.1\\
+			\hline
+			$S$ & 64& 64\\
+			\hline
+			$\mathrm{D}$ & 2& 2\\
+			\hline
+			$\mathrm{Q}$ & 9& 9\\
+			\hline
+			$D_{l}$ & 2& 2\\
+			\hline
+			$D_{w}$ & 1& 1\\
+			\hline
+		\end{tabular}
+		\caption{Input Bounds Test Inputs}
+	\end{center}
+\end{table}
 	
 Output: A descriptive failure message printed to the screen as seen below, or on the command line depending on how the system is run. In
 the below figure, X will contain all parameter names that are out of bounds. In
-this test that will include $Re$, $t$, $\rho$, $\eta_b$, and $\eta_s$.
+both tests that will include $Re$, $t$, $\rho$, $\eta_b$, and $\eta_s$.
 
 \begin{figure}[h!]
 \begin{center}
@@ -483,70 +472,9 @@ How test will be performed:
 
 \end{enumerate}
 
-\item{input-bounds-id\ref{inputboundstest}B\\}
-
-Control: Program (P) testing of low input values (V) read from a file.\\
-
-Initial State: No input file in Input directory.\\
-
-Input: A comma delimited file, with inputs marked in the manner outlined in the
-User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will
-be:\\$Re$: -500000\\
-$t$: 0\\
-$\rho$: -15\\
-$\eta_b$: -100\\
-$\eta_s$: -30000\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$\mathrm{e_{max}}$ = 0.1\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
-
-Output: A descriptive failure message printed to the screen as seen below, or on the command line depending on how the system is run. In
-the below figure, X will contain all parameter names that are out of bounds. In
-this test that will include $Re$, $t$, $\rho$, $\eta_b$, and $\eta_s$.
-
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[width=0.6\textwidth]{errorMessage.jpeg}
-		\caption{Input out of Bounds}
-		\label{Fig_InputError}
-	\end{center}
-\end{figure}
-
-Test Case Derivation: 
-I (individual inputs) are an element of V. P(V) is incorrect if P:V and at least
-one I is out of bounds as per Table \ref{table:inputdatabounds}: Input Data
-Bounds. This test satisfies R3.\\
-
-How test will be performed: 
-
-\begin{enumerate}
-\item Outside of the system, the input values will be written to a comma
-  delimited text file titled input.txt, as outlined in the User Guide
-  (\citet{LBM_UserGuide_PM}).
-\item The file will be placed into the Input directory, under the home directory
-  of the project.
-\item {\famname} will be run.
-\item If the test is successful, the system will output a descriptive error message, as seen above, to the screen.\\
 \end{enumerate}
 
-\end{enumerate}
-
-\wss{The previous few tests are a bit repetitive.  I like the idea of testing
-  that the input checks are working, but you could likely summarize the
-  different tests cases in a table.  Give the outline as above for one test
-  case, but then substitute in a reference to the table and explain how the
-  table provides x number of additional tests.  You can still give each of the
-  tests an identifying label, but the label would be in the table.}
+%\wss{The previous few tests are a bit repetitive.  I like the idea of testing that the input checks are working, but you could likely summarize the different tests cases in a table.  Give the outline as above for one test case, but then substitute in a reference to the table and explain how the table provides x number of additional tests.  You can still give each of the tests an identifying label, but the label would be in the table.}
 
 ~\newpage
 
@@ -565,8 +493,7 @@ same inputs as {\famname} for each test. The difference in output between {\famn
 Control: Program (P) module execution using inputs (V), and expecting output (O)
 to match a control value (C).\\
 					
-Initial State: No input file in Input directory. \wss{Again, this seems like an
-  odd initial state.}\\
+Initial State: input.txt file is in the Input directory. %\wss{Again, this seems like an odd initial state.}\\
 					
 Input: A comma delimited file, with inputs marked in the manner outlined in the
 User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will
@@ -629,7 +556,7 @@ Control: Program (P) module execution using inputs (V) with varying $Re$
 parameter (I), and observing the variance of the output (O) when compared to a control value (C).  %\wss{If all of the tests are the same except for the value of $Re$, then you could again use a table to summarize the different test cases.}
 				
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for each of the iterations of this test will be:\\
 
@@ -701,7 +628,7 @@ How test will be performed:
 Control: Program (P) module execution using inputs (V), and expecting output (O)
 to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -749,7 +676,7 @@ How test will be performed:
 Control: Program (P) module execution using inputs (V), and expecting output (O)
 to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -796,7 +723,7 @@ How test will be performed:
 Control: Program (P) module execution using inputs (V), and expecting output (O)
 to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -843,7 +770,7 @@ How test will be performed:
 Control: Program (P) module execution using inputs (V), and expecting output (O)
 to match a control value (C).\\
 
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -889,7 +816,7 @@ How test will be performed:
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -935,7 +862,7 @@ How test will be performed:
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -995,7 +922,7 @@ inputs as {\famname} for each test.
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -1034,7 +961,7 @@ compared to the above output value from the pseudo-oracle.
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -1075,7 +1002,7 @@ compared to the above output value from the pseudo-oracle.
 Control: Program (P) module execution using inputs (V), and expecting output (O)
 to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -1113,7 +1040,7 @@ compared to the above output value from the pseudo-oracle.
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -1151,7 +1078,7 @@ compared to the above output value from the pseudo-oracle.
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -1189,7 +1116,7 @@ compared to the above output value from the pseudo-oracle.
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -1225,7 +1152,7 @@ How test will be performed:
 Control: Program (P) module execution using inputs (V), and expecting output (O)
 to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
 A comma delimited file, with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
@@ -1266,7 +1193,7 @@ compared to the above output value from the pseudo-oracle.
 \subsection{Tests for Nonfunctional Requirements}
 \label{nfrtest}
 
-\subsubsection{Correctness}
+\subsubsection{Correctness} \label{CorrectnessTest}
 
 System correctness is tested via the functional tests of Section \ref{testfr}.
 
@@ -1314,11 +1241,7 @@ steps (c) to (e).\\
 
 \end{enumerate}
 
-\wss{This maintainability measure is quite subjective, but I still like what you
-  are trying to do here.  The absolute value that Ao comes up with will not be
-  particularly meaningful, but the process may uncover some areas of concern, or
-  build confidence by the lack of areas of concern.  I think we will need better
-  measures for your MEng project, but this okay as a starting point.}
+%\wss{This maintainability measure is quite subjective, but I still like what you are trying to do here.  The absolute value that Ao comes up with will not be particularly meaningful, but the process may uncover some areas of concern, or build confidence by the lack of areas of concern.  I think we will need better measures for your MEng project, but this okay as a starting point.}
 
 \subsubsection{Performance}
 		
@@ -1328,7 +1251,7 @@ steps (c) to (e).\\
 
 \item{performance-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Type: Running Time\\
+Type: Running Time - Automated Test\\
 					
 Initial State: Input file is in the appropriate directory. The file contains the
 required parameter values for 2 different modules - Von Karman Vortex Street and
@@ -1379,11 +1302,7 @@ pseudo-oracle.
 
 \end{enumerate}
 
-\wss{This tests sounds interesting.  I like that you did not set a target for
-  performance.  You are just going to report the percentage difference.  The
-  timers are in the code, right?  It reads as if they are going to be timed with
-  an external stop-watch, but I'm assuming starting the timer is something that
-  is done in the testing code.  This test should also be automated.}
+%\wss{This tests sounds interesting.  I like that you did not set a target for performance.  You are just going to report the percentage difference.  The timers are in the code, right?  It reads as if they are going to be timed with an external stop-watch, but I'm assuming starting the timer is something that is done in the testing code.  This test should also be automated.} %Yes, this will be timed by the code. I have made the clarification.
 
 \subsubsection{Portability}
 		
@@ -1491,8 +1410,7 @@ How test will be performed:
 simulation using the provided input parameters.
 \item The participants will attempt to run the simulation.
 \item Upon completion of the attempt, the participants will be asked to answer
-the survey questions. \wss{Where is the survey?  You should point to your
-  appendix.}
+the survey questions, found in SubSection \ref{usabilitysurevyquestions}. %\wss{Where is the survey?  You should point to your appendix.}
 \item The questionnaire results will be tallied and averaged.
 \end{enumerate}
 
@@ -1645,7 +1563,7 @@ Using the following rubric please rate the five statements found below:
 \item I would recommend this product.
 \end{enumerate}
 
-\wss{Good start on the survey questions.}
+%\wss{Good start on the survey questions.}
 
 ~\newpage
 \subsection{Input Data}
