@@ -50,6 +50,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Oct. 28, 2019 & 1.0 & Initial Document\\
+Nov. 27, 2019 & 2.0 & Initial Issues Resolved\\
 \bottomrule
 \end{tabularx}
 
@@ -115,7 +116,7 @@ Oct. 28, 2019 & 1.0 & Initial Document\\
   $\mathrm{e_{sch}}$ & Velocity Slowdown Factor\\
   $\eta_b$ & Bulk Viscosity \\
   $\eta_s$ & Shear Viscosity \\
-  $\mathbb{N}$ & natural numbers\\
+  $\mathbb{N}$ & Natural Numbers\\
   $\mathrm{Q}$ & Signifies Number of Velocity Directions of Lattice Model\\
   $R$ & Radius of Cylinder\\
   $Re$ & Reynolds Number\\
@@ -481,8 +482,11 @@ How test will be performed:
 \subsubsection{Von Karman Vortex Street}
 \label{frvkvs}
 		
-\paragraph{Dynamic Testing - Manual:}
-\paragraph{} These dynamic tests will compare {\famname} output with output from
+\paragraph{Dynamic Testing - Automated:}
+\paragraph{} 
+A Von Karman vortex street is a fluid dynamics problem involving a repeating pattern of vortices caused by flow separation around a physical obstacle (\citet{vonkarman}).
+\paragraph{}
+These dynamic tests will compare {\famname} output with output from
 the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the
 same inputs as {\famname} for each test. The difference in output between {\famname} and the pseudo-oracle will be compared and noted. %\wss{Rather than an allowed error, we might be better off simply summarizing the calculated error.  Even if there is an allowed error, a report of the actual error values is more useful information than simply PASS/FAIL.}
 
@@ -513,11 +517,7 @@ $S$ = 64\\
 $\mathrm{D}$ = 2\\
 $\mathrm{Q}$ = 9\\
 
-\wss{It is great that you will be using a pseudo-oracle.  However, it would be
-  nice to explain what the test inputs mean.  How would a scientist explain the
-  test you are running?  What is the physics of the test?  I haven't checked,
-  but I would guess that your pyl reference would explain the test cases more
-  than just listing numbers?}
+%\wss{It is great that you will be using a pseudo-oracle.  However, it would be nice to explain what the test inputs mean.  How would a scientist explain the test you are running?  What is the physics of the test?  I haven't checked,m but I would guess that your pyl reference would explain the test cases more than just listing numbers?} %I have added an introduction to the tests; the inputs are defined in the symbols table. While I have combined some tests into tables where it is easy and convenient to read, I have also decided to keep some sets of similar tests seperate instead of putting them into one table. I have done this with tests that have varying descriptions and output comparison files. 
 
 Output: Vorticity vector values printed to the screen. \\
 
@@ -538,17 +538,10 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
-  script.
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
-\wss{This shouldn't really be a manual test.  Everything described above can be
-  done algorithmically.  You can automate this test.  You will need to go
-  further to define the mathematical equation for error, but you would still
-  need to do this for the manual version.  As part of your development process,
-  I could certainly see you doing the test manually the first time, to help
-  understand how the pieces fit together.  Once you understand though, the
-  target should be automation.  This same comment about changing your manual
-  tests to automated tests applies for your other proposed tests as well.}
+%\wss{This shouldn't really be a manual test.  Everything described above can be done algorithmically.  You can automate this test.  You will need to go further to define the mathematical equation for error, but you would still need to do this for the manual version.  As part of your development process, I could certainly see you doing the test manually the first time, to help understand how the pieces fit together.  Once you understand though, the target should be automation.  This same comment about changing your manual tests to automated tests applies for your other proposed tests as well.}
 
 \item{Reynolds-Rel-Error-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
@@ -668,7 +661,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
-  script.
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
 \item{turbulent-test-id\refstepcounter{testcounter}\thetestcounter \\}
@@ -715,7 +708,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
-  script.
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
 \item{low-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
@@ -762,7 +755,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
-  script.
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
 \item{high-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
@@ -809,7 +802,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
-  script.
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
 \item{low-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
@@ -855,7 +848,7 @@ How test will be performed:
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
-  script.
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
 \item{high-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
@@ -902,7 +895,7 @@ of the project.
 \item Upon completion of the module, the output values of the vorticity vector
 will be compared to the vorticity vector values from pyLBM - comparison will be
 done per cell. Comparisons can be done manually using Excel or through a
-script.\\
+script, using the equation for relative error found in Section \ref{eqerror}.\\
 \end{enumerate}
 
 \end{enumerate}
@@ -911,7 +904,9 @@ script.\\
 \subsubsection{Poiseuille Flow}
 \label{frpf}
 
-\paragraph{Dynamic Testing - Manual:}
+\paragraph{Dynamic Testing - Automated:}
+\paragraph{} 
+Poiseuille flow is the movement of a fluid through a circular tube.
 \paragraph{} These dynamic tests will compare {\famname} output with output from
 the pseudo-oracle myLBM (\citet{pylbmcode}). The input oracle will have the same
 inputs as {\famname} for each test.
@@ -1306,57 +1301,9 @@ pseudo-oracle.
 
 \subsubsection{Portability}
 		
-\paragraph{Operating System Portability}
+Portability is tested by performing the functional tests of Section \ref{frvkvs} and Section \ref{frpf} on three operating systems (virtual machines can be used for this): macOS, Windows, Linux. Test output will be compared and recorded.
 
-\begin{enumerate}
-
-\item{portability-test-id\refstepcounter{testcounter}\thetestcounter \\}
-
-Type: Portability Check\\
-					
-Initial State: Have PyCharm IDE installed on three separate operating systems
-(virtual machines can be used for this): macOS, Windows, Linux. \\
-					
-Input/Condition: A comma delimited file with the following input parameters and values:\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
-
-					
-Output/Result: This case is a check of the ability of the LBM solution to run on
-multiple operating systems. The test will check if vorticity vector values are printed to the screen in each of the instances. The values will be compared to the vorticity vector value found in the file id20output.txt located in the OracleOutput folder.\\
-					
-How test will be performed: 
-
-\begin{enumerate}
-
-\item The input parameter values will be written, by the author, to a comma
-delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory
-of the project, in each of the operating system instances.
-\item The Von Karman Vortex Street module shall be modified by the author to
-print the vorticity vector as output.
-\item The author shall run the Von Karman Vortex Street module.
-\item Upon completion of the module, the author will compare the output values
-of the vorticity vector to the vorticity vector values of the pseudo-oracle.\\
-\end{enumerate}
-
-\end{enumerate}
-
-\wss{For portability I suggest running all of your automated tests on all three
-  platforms, and reporting the results.  This is part of why we want automation,
-  and why we report the calculated relative error, rather than just PASS/FAIL.}
+%\wss{For portability I suggest running all of your automated tests on all three platforms, and reporting the results.  This is part of why we want automation, and why we report the calculated relative error, rather than just PASS/FAIL.}
 
 \subsubsection{Robustness}
 		
@@ -1469,8 +1416,6 @@ id19 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkma
 \hline
 id20 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id21 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
-\hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Test Cases and Functional Requirements}
 \end{center}
@@ -1524,9 +1469,7 @@ id18 & & \checkmark & & & & & & & &\\
 \hline
 id19 & & & \checkmark & & & & & & &\\
 \hline
-id20 & \checkmark & & & \checkmark & & & & & &\\
-\hline
-id21 & & & & & & & & & & \checkmark \\
+id20 & & & & & & & & & & \checkmark \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Test Cases and NFRs}
@@ -1625,5 +1568,13 @@ can be any $\mathbb{N}$. Fixed value variables of tests in this testing report
 are: $X_{min}$, $X_{max}$, $Y_{min}$, $Y_{max}$, $R$, $D_{l}$, $D_{w}$,
 $\mathrm{e_{sch}}$, $\mathrm{e_{fac}}$, $\mathrm{e_{max}}$, $S$ (module
 specific), $\mathrm{D}$, and $\mathrm{Q}$.
+
+\subsection{Mathematical Equation for Error}
+\label{eqerror}
+
+For the purpose of testing, the equation for error is:\\
+
+\% relative error = $\frac{ |{\famname}\ output\ -\ pseudo-oracle\ output| }{pseudo-oracle\ output}$
+
 
 \end{document}
