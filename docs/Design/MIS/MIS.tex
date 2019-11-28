@@ -77,9 +77,11 @@ See CA Documentation for \famname \ \citep{LBM_CA_PM}.
 
 \section{Introduction}
 
-The following document details the Module Interface Specifications for
-\famname , which provides a library of services based on Lattice Boltzmann Methods (LBM).
-LBM are a family of fluid dynamics algorithms for simulating single-phase and multiphase fluid flows, often incorporating additional physical complexities \citep{chen1998lattice}.
+The following document details the Module Interface Specifications for \famname
+, which provides a library of services based on Lattice Boltzmann Methods (LBM).
+LBM are a family of fluid dynamics algorithms for simulating single-phase and
+multiphase fluid flows, often incorporating additional physical complexities
+\citep{chen1998lattice}.
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
@@ -192,7 +194,8 @@ N/A
 
 \subsubsection{State Variables}
 inputData: DataStructure\\
-problemData: $\mathbb{R}$ \& $\mathbb{N}$\\
+problemData: $\mathbb{R}$ \& $\mathbb{N}$ \wss{What does this notation mean?
+  This does not look like proper mathematics.}\\ 
 imageData: $\mathbb{R}$\\
 imageOut: PNG\\
 
@@ -203,7 +206,7 @@ N/A
 
 \subsubsection{Assumptions}
 
-The user has run the {\famname} program.
+The user has run the {\famname} program.  \wss{I don't understand this assumption.}
 
 \subsubsection{Access Routine Semantics}
 
@@ -229,7 +232,11 @@ N/A
 	\item exception: N/A
 \end{itemize}
 
-The function calls other modules of {\famname} to solve the given problem. The function calls InputReading.inputArray(), followed by ProblemParameter.formatInput() and LBMControl.performLBM(). Finally the module calls ImageRendering.imageFunc() and sends the output of that function to the hardware.
+The function calls other modules of {\famname} to solve the given problem. The
+function calls InputReading.inputArray(), followed by
+ProblemParameter.formatInput() and LBMControl.performLBM(). Finally the module
+calls ImageRendering.imageFunc() and sends the output of that function to the
+hardware. \wss{This is vague.  Can you write this as pseudo code?}
 
 
 ~\newpage
@@ -274,7 +281,9 @@ N/A
 
 \subsubsection{Environment Variables}
 
-InputLocation (string): ``./Input/input.txt''
+InputLocation (string): ``./Input/input.txt'' \wss{The environment variable is
+  the file, not the files name.  Have a look at the example at
+  \url{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/blob/master/Assignments/PreviousYears/2018/A2/A2.pdf}}
 
 \subsubsection{Assumptions}
 
@@ -284,9 +293,15 @@ The System Control Module M2 (Section \ref{SCModule}) has called InputReading.in
 
 \noindent inputArray():
 \begin{itemize}
-	\item transition: $out$ := +(inputData[key][value] $\Leftarrow$ ./Input/input.txt)
+	\item transition: $out$ := +(inputData[key][value] $\Leftarrow$
+          ./Input/input.txt) \wss{I have no idea what this notation means.  A
+            transition field does not have an output.  The left pointing arrow
+            is not a notation that Hoffman and Strooper use.}
 	\item exception: input.txt $\notin$ ./Input/ $\Rightarrow$ NotFound
 	\item exception: (inputData $\Leftarrow$ ?) $\Rightarrow$ ErrorRead
+          \wss{You should use a conditional rule to combine all of your
+            exceptions in one rule.  Two exception fields is confusing, and not
+            part of the template.}
 \end{itemize}
 
 The function will read all lines from the input file and place each value into inputData.
@@ -327,12 +342,22 @@ N/A
 	\end{tabular}
 \end{center}
 
+\wss{The DataStructure module documents an abstract object, but here you are
+  using DataStructure as a type.  If it is an ADT, it should be documented
+  differently.  If it is an abstract object, you cannot pass it as a parameter;
+  you simply use it in that case.}
 \subsection{Semantics}
 
 \subsubsection{State Variables}
 The set of acceptableRanges is:\\
-\textit{LIBRARY}: set of $\mathbb{N}$: \{1\} - Libraries are associated by numbers in the program. The numbers are available for reference in the User Guide.\\
-\textit{PROBLEM}: set of $\mathbb{N}$: \{1\} - Problems are associated by numbers in the program. The numbers are available for reference in the User Guide.\\
+\textit{LIBRARY}: set of $\mathbb{N}$: \{1\} - Libraries are associated by
+numbers in the program. The numbers are available for reference in the User
+Guide. \wss{What does this notation mean?  Is the entry after the second full
+  colon the value of the state variable?  Is it the initial value of the state
+  variable, or is this a constant?}\\
+\textit{PROBLEM}: set of $\mathbb{N}$: \{1\} - Problems are associated by
+numbers in the program. The numbers are available for reference in the User
+Guide.\\
 \textit{DIMENSIONS}: set of $\mathbb{N}$: \{2\}\\
 \textit{VEL\_DIRS}: set of $\mathbb{N}$: \{9\}\\
 \textit{REYNOLDS\_MIN}: $\mathbb{R}$: \{0.001\}\\
@@ -350,7 +375,10 @@ N/A
 
 \subsubsection{Assumptions}
 
-The Input Reading Module M3 (Section \ref{IRModule}) has called InputChecking.verifyInputs().
+The Input Reading Module M3 (Section \ref{IRModule}) has called
+InputChecking.verifyInputs().  \wss{This is confusing.  This module assumes that
+  this module has already been called?  This sounds like unwanted recursion in
+  the documentation.}
 
 \subsubsection{Access Routine Semantics}
 
@@ -359,9 +387,12 @@ The Input Reading Module M3 (Section \ref{IRModule}) has called InputChecking.ve
 	\item output: N/A
 	\item exception: (inputData[value] $>$ acceptableRanges) $\cup$ (inputData[value] $<$ acceptableRanges) $\Rightarrow$ OutBounds
 	\item exception: inputData[key] $\notin$ inputTypes $\Rightarrow$ UnknwnParm
-\end{itemize}
+\end{itemize} \wss{Where does value come from?  This variable is not bound to
+  anything in this expression.  Do you want a quantification over all values?}
 
-The function will iterate through each inputValue InputTypes key and check if the key is known to the program, as well as check if associated values of known keys fall within an acceptable range of the state variables.
+The function will iterate through each inputValue InputTypes key and check if
+the key is known to the program, as well as check if associated values of known
+keys fall within an acceptable range of the state variables.
 
 \subsubsection{Local Functions}
 
@@ -400,24 +431,47 @@ LBMControl
 	\end{tabular}
 \end{center}
 
+\wss{You need to decide whether DataStructure is an abstract object, or an
+  abstract data type.}
+\wss{I think (?)  you are using problemData to hold real and natural number
+  data.  You need to be more specific about the type of problemData.  Is it a
+  tuple with named fields?  I know you want to leave things open for different
+  uses.  In that case you could define specific options for the problemData type
+  and instantiate the one in this spec that makes sense for the program family
+  member in use.  To keep things simple for the final implementation, maybe you
+  can just pick a type of problem and document the fields of the problemData
+  type specifically for that type of problem?}
+
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-imageData ($\mathbb{R}$)
-
+imageData ($\mathbb{R}$) \wss{the image data is a single real number?} \wss{The
+  LBM calculations output an image?  I would much rather the output is the
+  velocity (or whatever CFD parameter is of interest).  This data can then be
+  turned into an image by another routine, or simply returned to the user, and
+  they can make their own image.  An image as output is not very reusable in
+  another context.}
 
 \subsubsection{Environment Variables}
 N/A
 
 \subsubsection{Assumptions}
 
-The System Control Module M2 (Section \ref{SCModule}) has called LBMControl.performLBM().
+The System Control Module M2 (Section \ref{SCModule}) has called
+LBMControl.performLBM().  \wss{This recursive assumption is showing up again.
+  :-)  I think this is an assumption you want in the System Control Module, not here?}
 
 \subsubsection{Access Routine Semantics}
 
 \noindent performLBM(inputData, problemData):
 \begin{itemize}
-	\item transition: $out$ := imageData = $\mathbb{R}$ $\Leftarrow$ Streaming.streamingFunc(), $\mathbb{R}$ $\Leftarrow$ Collision.collisionFunc()
+	\item transition: $out$ := imageData = $\mathbb{R}$ $\Leftarrow$
+          Streaming.streamingFunc(), $\mathbb{R}$ $\Leftarrow$
+          Collision.collisionFunc() \wss{transitions change the state, outputs
+            output values. I don't know which you are trying to do here.  The
+            left arrows are also confusing.  If you don't know a notation for
+            what you are trying to say, you are better off saying it in words,
+            than inventing a notation.}
 \item exception: N/A
 \end{itemize}
 
@@ -465,6 +519,7 @@ N/A
 \subsubsection{Environment Variables}
 maxVariableSize = The maximum allowable value held in the variable.\\
 minVariableSize = The minimum allowable value held in the variable.
+\wss{These are not environment variables.}
 
 \subsubsection{Assumptions}
 
@@ -478,6 +533,12 @@ The LBM Control Module M5 (Section \ref{LCModule}) has called streaming.streamin
 	\item exception: ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $>$ maxVariableSize) $\cup$ ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
+\wss{What is the connection between the parameters of the streaming function and
+  the equation given in the transition?  What is the mapping between x, e,
+  Velocityi, etc?  You should use the same symbols in the input as you use for
+  the transition.}
+\wss{The confusion between transition and output has to be addressed throughout
+  the document.}
 The function calculates the streaming step value for each velocity direction (i).
 
 \subsubsection{Local Functions}
@@ -502,7 +563,9 @@ The function calculates the streaming step value for each velocity direction (i)
 
 The function finds the probability that a particle is at position $\textbf{x}$ and has velocity $\mathrm{e}$ at time t.\\
 
-
+\wss{Where is the local function used in the specification of Streaming Module?
+  Local functions are only used within the spec of one module.  They are not
+  used elsewhere, or part of the required implementation.}
 \newpage
 
 \section{MIS of M7: Collision Module} \label{COModule} 
@@ -553,6 +616,10 @@ The LBM Control Module M5 (Section \ref{LCModule}) has called Collision.streamin
 	\item transition: $out$ := $\frac{1}{\tau}(f_{i}^{eq}-f_{i})$
 	\item exception: ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\cup$ ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
+
+\wss{I do not see the mapping between the parameters and the transition
+  equation.  I won't continue to write this comment, but it applies throughout
+  this document.}
 
 The function calculates the collision step value for each velocity direction (i).
 
@@ -756,6 +823,13 @@ The Problem Module M8 (Section \ref{PRModule}) has called Boundary.getBoundary()
 \noindent getBoundary(inputData):
 \begin{itemize}
 	\item transition: $out$ := $\mathbb{R}$ $\in$ DataStructure
+          \wss{DataStructure is not a set or a sequence (I don't think?), so
+            this operation does not make sense.  Moreover, $\mathbb{R}$ is the
+            set of real numbers.  For this to ever return True, DataStructure
+            would have to be a set of sets of real numbers, with the possibility
+            that one of those sets is all the real numbers.  Also, this
+            expression evaluates to True of False, but the type of your output
+            is real.}
 	\item exception: N/A
 \end{itemize}
 
@@ -802,7 +876,8 @@ N/A
 N/A
 
 \subsubsection{Environment Variables}
-N/A
+N/A \wss{An environment variable for the png file would make sense here, rather
+  than outputting the PNG file.}
 
 \subsubsection{Assumptions}
 
@@ -859,7 +934,12 @@ N/A
 
 \subsubsection{State Variables}
 
-$s$: set of tuple of (key: InputType, value: $\mathbb{R}$)
+$s$: set of tuple of (key: InputType, value: $\mathbb{R}$)  \wss{You are using a
+  variable as a type here.  Our mathematical framework does not handle dependent
+  types.  I'm sure there is an abstract mathematics we could use here, but using
+that would be a big jump when there is so much work to do to get the regular
+Hoffman and Strooper math correct.  I suggest that you document for one LB type
+of problem and drop the goal of being generic.}
 
 \subsubsection{State Invariant}
 N/A
@@ -914,7 +994,14 @@ N/A
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-InputTypes (string) = \{Library, Problem, Dimensions, VelocityDirections, ReynoldsNumber, Density, BulkViscosity, ShearViscosity, Time, Density, Viscosity, AccelerationRate, SpeedSound, Velocity, Force, Mass, CrossSectionalArea, MacroscopicVelocity, RelaxationRate\}
+InputTypes (string) = \{Library, Problem, Dimensions, VelocityDirections,
+ReynoldsNumber, Density, BulkViscosity, ShearViscosity, Time, Density,
+Viscosity, AccelerationRate, SpeedSound, Velocity, Force, Mass,
+CrossSectionalArea, MacroscopicVelocity, RelaxationRate\} \wss{You might be on
+  to a good idea here, but I can't tell.  If there are a finite set of options,
+  you should use an enumerated type, not a string.  I'm not sure what you are
+  trying to do.  My advice above is to be less generic.  I think documenting one
+  specific problem is enough of a challenge.}
  
 \subsubsection{Exported Access Programs}
 N/A
