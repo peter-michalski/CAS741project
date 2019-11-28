@@ -1,10 +1,12 @@
 \documentclass[12pt, titlepage]{article}
 
-
 \usepackage{amsmath, mathtools}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-
+\usepackage{xr}
+\externaldocument[ext1-]{../../SRS/CA}
+\externaldocument[ext2-]{../../Design/MG/MG}
+\externaldocument[ext3-]{../../Design/MIS/MIS}
 
 \usepackage{caption}
 \usepackage{pdflscape}
@@ -26,15 +28,15 @@
 }
 \usepackage[sort&compress,square,comma,numbers]{natbib}
 \newcounter{reqnum} %Requirement Number
-\newcommand{\myprogname}{Lattice Boltzmann Solver} 
-
+\newcommand{\famname}{Lattice Boltzmann Solver} 
+\newcounter{testcounter} %Test Number
+\newcommand{\athetestcounter}{P\thetestcounter}
 \input{../../Comments}
 \input{../../Common}
 
 \begin{document}
 
-
-\title{System Verification and Validation Plan for \myprogname} 
+\title{System Verification and Validation Plan for \famname} 
 \author{Peter Michalski}
 \date{\today}
 	
@@ -47,7 +49,8 @@
 \begin{tabularx}{\textwidth}{p{4cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-October 28, 2019 & 1.0 & Initial Document\\
+Oct. 28, 2019 & 1.0 & Initial Document\\
+Nov. 27, 2019 & 2.0 & Initial Issues Resolved\\
 \bottomrule
 \end{tabularx}
 
@@ -66,6 +69,7 @@ October 28, 2019 & 1.0 & Initial Document\\
 \section{Symbols, Abbreviations and Acronyms}
 
 \subsection{Abbreviations and Acronyms}
+
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{l l} 
   \toprule		
@@ -76,7 +80,6 @@ October 28, 2019 & 1.0 & Initial Document\\
   A & Assumption\\
   C & Pseudo-Oracle Control Value\\
   CA & Commonality Analysis\\
-  V & All Input Values\\
   I & Individual Parameter Input Values\\
   IDE & Integrated Development Environment\\
   LBM & Lattice Boltzmann Method\\
@@ -91,6 +94,7 @@ October 28, 2019 & 1.0 & Initial Document\\
   P & Program\\
   R & Functional Requirement\\
   SRS & Software Requirement Specification\\
+  V & Set of All Inputs\\
   VnV & Verification and Validation\\
   \bottomrule
 \end{tabular}\\
@@ -104,26 +108,25 @@ October 28, 2019 & 1.0 & Initial Document\\
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  $Re$ & Reynolds Number\\
-  $\rho$ & Density \\
-  $t$ & Time \\
-  $\eta_b$ & Bulk Viscosity \\
-  $\eta_s$ & Shear Viscosity \\
-  $\mathbb{N}$ & natural numbers\\
-  $X_{min}$ & Lowest X-Axis Interval of Boundary\\
-  $X_{max}$ & Highest X-Axis Interval of Boundary\\
-  $Y_{min}$ & Lowest Y-Axis Interval of Boundary\\
-  $Y_{max}$ & Highest Y-Axis Interval of Boundary\\
-  $R$ & Radius of Cylinder\\
-  $\mathrm{e_{sch}}$ & Velocity Slowdown Factor\\
-  $\mathrm{e_{fac}}$ & Velocity of Scheme\\
-  $S$ & Spatial Step - Number of Spatial Subsections\\
-  $\mathrm{e_{max}}$ & Max Velocity in the Middle of Channel\\
   $\mathrm{D}$ & Signifies the Dimension Component of Lattice Model\\
-  $\mathrm{Q}$ & Signifies Number of Velocity Directions of Lattice Model\\
   $D_{l}$ & Length of the Domain\\
   $D_{w}$ & Width of the Domain\\
-  $E_r$ & Relative Error\\
+  $\mathrm{e_{fac}}$ & Velocity of Scheme\\
+  $\mathrm{e_{max}}$ & Max Velocity in the Middle of Channel\\
+  $\mathrm{e_{sch}}$ & Velocity Slowdown Factor\\
+  $\eta_b$ & Bulk Viscosity \\
+  $\eta_s$ & Shear Viscosity \\
+  $\mathbb{N}$ & Natural Numbers\\
+  $\mathrm{Q}$ & Signifies Number of Velocity Directions of Lattice Model\\
+  $R$ & Radius of Cylinder\\
+  $Re$ & Reynolds Number\\
+  $\rho$ & Density \\
+  $S$ & Spatial Step - Number of Spatial Subsections\\
+  $t$ & Time \\
+  $X_{max}$ & Highest X-Axis Interval of Boundary\\
+  $X_{min}$ & Lowest X-Axis Interval of Boundary\\
+  $Y_{max}$ & Highest Y-Axis Interval of Boundary\\
+  $Y_{min}$ & Lowest Y-Axis Interval of Boundary\\
   \bottomrule
 \end{tabular}\\
 
@@ -131,116 +134,150 @@ October 28, 2019 & 1.0 & Initial Document\\
 
 \pagenumbering{arabic}
 
-\noindent This document covers the system Verification and Validation (VnV) of \myprogname . Functional and non-functional requirements, as found in Section \ref{objectives} and retrieved from the Commonality Analysis (CA) (\citet{LBM_CA_PM}), will be tested. The document will outline the general information of the system in Section \ref{generalinfo}, which will be followed by a testing plan in Section \ref{testplan}. Finally, individual tests will be described in Section \ref{systest}. 
+\noindent This document covers the system Verification and Validation (VnV) of
+\famname . Functional and non-functional requirements, as found in Section
+\ref{objectives} and retrieved from the Commonality Analysis (CA)
+(\citet{LBM_CA_PM}), will be tested. The document will outline the general
+information of the system in Section \ref{generalinfo}, which will be followed
+by a testing plan in Section \ref{testplan}. Finally, individual tests will be
+described in Section \ref{systest}.
 
-\section{General Information}
-\label{generalinfo}
+\section{General Information} \label{generalinfo}
+This section of the document will begin with a summary of {\famname}, objectives and a listing of relevant documents.
+%\wss{There should generally be text between section headings.  In this case a ``roadmap'' of the contents of this section would be helpful.}
+
 \subsection{Summary}
 
-The software being tested is \myprogname . This software reads inputs from a file, and calculates outputs using Lattice Boltzmann Methods (LBM).The software outputs the results to the screen, to a file, and/or to memory.\\ 
+The software being tested is \famname. This software reads inputs from a file,
+and calculates outputs using Lattice Boltzmann Methods (LBM). The software
+outputs the results to the screen, to a file, and/or to memory.
 
-\noindent {\myprogname} can model many fluid dynamics problems, including Poiseuille Flow and Von Karman Vortex Street. Both of these problems will be used in our functional test cases, as the results of {\myprogname} can be compared to the results of the pseudo-oracle pyLBM (\citet{pylbmcode}).
+\noindent {\famname} can model many fluid dynamics problems, including
+Poiseuille Flow and Von Karman Vortex Street. Both of these problems will be
+used in our functional test cases, as the results of {\famname} can be compared
+to the results of the pseudo-oracle pyLBM (\citet{pylbmcode}).
 
-\subsection{Objectives}
-\label{objectives}
+\subsection{Objectives} \label{objectives}
 
-The intended objective of this plan is to verify that functional requirements and non-functional requirements (NFR), as found in the CA titled Lattice Boltzmann Solvers (\citet{LBM_CA_PM}), have been met.\\ 
+The intended objective of this plan is to verify that functional requirements
+and non-functional requirements (NFR), as found in Section \ref{ext1-CAFRS} and Section \ref{ext1-CANFRS} of the CA titled Lattice Boltzmann Solvers (\citet{LBM_CA_PM}), have been met. %\wss{Copying and pasting your requirements here from your CA is a maintenance problem.  It will be difficult to keep the two documents in sync.  You can just reference the document where the requirements are, without repeating them.  You can even use cross-referencing to reference labels in another document.  That is why the original Blank Project Template has make files, so that running make will update the references between documents.}
 
-\noindent The functional requirements are:\\
-\noindent \begin{itemize}
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall read a set of input fluid parameters.
+%\noindent The functional requirements are:
+%\noindent \begin{itemize}
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] The system shall read a set of input fluid parameters.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system shall allow the user to select from a set of model and velocity direction parameters.
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_ModelInputs}:] The system shall allow the user to select from a set of model and velocity direction parameters.  %\wss{This requirement has to be more specific.  What are the velocity and direction parameters?  I feel like you summarized them in your CA.} %Yes they are summarized in the CA. I have temporarily commented out this section in order to keep your comments and respond to them.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system shall verify that the inputs fall within the allowable parameters of variation.
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_CheckInputs}:] The system shall verify that the inputs fall within the allowable parameters of variation. %\wss{Where is this documented?  There should be a pointer to this information.  Again, I think this is in your CA, which is another argument for not reproducing the requirements here.} %The CA has this documented.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Instantiate}:] The system shall instantiate required data types and structures for the selected model.
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Instantiate}:] The system shall instantiate required data types and structures for the selected model.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_CoefficientWeights}:] The system shall import the relevant coefficient weights for the selected model.
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_CoefficientWeights}:] The system shall import the relevant coefficient weights for the selected model.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] The system shall calculate and store the predicted fluid parameters, iterating through streaming and collision processes over the desired model time.
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] The system shall calculate and store the predicted fluid parameters, iterating through streaming and collision processes over the desired model time.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The system shall output the results of the calculations in a manner consistent with the decisions made regarding variabilities.\\
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] The system shall output the results of the calculations in a manner consistent with the decisions made regarding variabilities.
 
-\end{itemize}
+%\end{itemize}
 
-\noindent The NFRs are:
+%\noindent The NFRs are:
 
-\begin{enumerate}
-\item Correctness: The allowable error of the output results, per module, will be less than the average error taken from the results of a sample of OTS solutions.
-\item Maintainability: The system shall be documented with a CA, VnV plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
-\item Performance: The system shall be able to run modules faster than the pseudo-oracle pyLBM.
-\item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
-\item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
-\item Reusability: Individual modules of the system can be removed and reused in other systems.
-\item Robustness: The system will not crash when a user provides invalid input.
-\item Scalability: The system must be able to support additional computational models.
-\item Understandability: New users must easily understand which LBM models are available in {\myprogname}.
-\item Usability: Users will find the system easy to use.
-\end{enumerate}
-
+%\begin{enumerate}
+%\item Correctness: The output results will be compared to the results taken from of a sample of OTS solutions. %\wss{NFRs should not mention modules.  They should be about the software as a whole.  You might want to specify correctness as the comparison between the OTS solution and your solution running the test cases defined in this document.} %This has been addressed in the CA
+%\item Maintainability: The system shall be documented with a CA, VnV plan, MG (Module Guide), MIS (Module Interface Specification), and User Guide.
+  %\wss{This is how you intend to achieve maintainability, not how maintainability is defined.} %This is changed in the CA
+%\item Performance: The system shall be able to run modules faster than a sample OTS implementation.
+%\item Portability: The system shall be able to run on macOS, Windows, and Linux operating systems.
+%\item Reliability: The mean time between failures (MTBF) will be longer than the average MTBF of a sample of the OTS solutions.
+%\item Reusability: Individual modules of the system can be removed and reused in other systems.
+%\item Robustness: The system shall behave reasonably in circumstances that were not anticipated in the requirements specification \cite{ghezzi1991fundamentals}.
+%\item Scalability: The system must be able to support additional computational models.
+%\item Understandability: New users must easily understand which LBM models are available in {\famname}.
+%\item Usability: Users will find the system easy to use.
+%\end{enumerate}
 
 \subsection{Relevant Documentation}
 
-The CA of {\myprogname} can be found in (\citet{LBM_CA_PM}).\\ 
-
+The CA of {\famname} can be found in (\citet{LBM_CA_PM}).The link to Section \ref{ext1-CAREVHISTORY} navigates to the document, beginning with the revision history. The MG can be found in (\citet{LBM_MG_PM}). The link to Section \ref{ext2-MGREVHISTORY} navigates to the document, beginning with the revision history. The MIS can be found in (\citet{LBM_MIS_PM}). The link to Section \ref{ext3-MISREVHISTORY} navigates to the document, beginning with the revision history.
+	%\wss{Although they aren't written yet, you should fake this as if the design documentation is written.  The documentation is also relevant for this problem.}
 \newpage
 
 \section{Plan}
 \label{testplan}	
 \subsection{Verification and Validation Team}
 
-This VnV plan will be conducted by Peter Michalski and several classmates.
+This VnV plan will be conducted by Peter Michalski and several
+classmates, including the primary reviewer Ao Dong, and secondary reviewers Sasha Soraine, Bo Cao, and Zhi Zhang. %\wss{Be specific and name the relevant classmates here.}
 
 \subsection{CA Verification Plan}
 
-The CA of {\myprogname} shall be verified in the following ways:
+The CA of {\famname} shall be verified in the following ways:
 
 \begin{enumerate}
-\item Feedback: Reviewers from the class shall provide feedback on GitHub.
-\item Initial Review: The document shall be manually reviewed by the author using the SRS checklist upon its initial creation, as found in the CAS741 GitLab repository (\citet{CAS741_SRS_checklist}).
-\item Second Review: The document shall be manually reviewed by the author using the SRS checklist after VnV completion, as found in the CAS741 GitLab repository (\citet{CAS741_SRS_checklist}).
-\item Final Review: The document shall be manually reviewed by the author using the SRS checklist after MG and MIS development, as found in the CAS741 repository (\citet{CAS741_SRS_checklist}).
+\item Feedback: Classmates, including all primary and secondary reviewers listed above, shall provide feedback on GitHub. They shall read the document and provide insight on how to improve the documents and {\famname}. %\wss{Are you going to be more specific?  Is this task directed feedback, or just ``read the document'' and tell me what you think?  Who specifically is going to review the document?}
+\item Initial Review: The document shall be manually reviewed by the author
+  using the SRS checklist upon its initial creation, as found in the CAS741
+  GitLab repository (\citet{CAS741_SRS_checklist}). %\wss{Good!}
+\item Second Review: The document shall be manually reviewed by the author using
+  the SRS checklist after VnV completion, as found in the CAS741 GitLab
+  repository (\citet{CAS741_SRS_checklist}). %\wss{Good!}
+\item Final Review: The document shall be manually reviewed by the author using
+  the SRS checklist after MG and MIS development, as found in the CAS741
+  repository (\citet{CAS741_SRS_checklist}). %\wss{Great!}
 \end{enumerate}
 
 \subsection{Design Verification Plan}
 
-The design shall be verified by ensuring that functional requirements and NFRs are tested, as listed in Section \ref{objectives}.\\
+The design shall be verified by ensuring that functional requirements and NFRs
+are tested, as listed in Section \ref{objectives}.
 
-\noindent The system functional requirements shall be tested first, as outlined in \ref{testfr}. This will be followed by reviewing the NFRs as outlined in \ref{nfrtest}.
-
+\noindent The system functional requirements shall be tested first, as outlined
+in \ref{testfr}. This will be followed by reviewing the NFRs as outlined in
+\ref{nfrtest}.
 
 \subsection{Implementation Verification Plan}
   
 \noindent The implementation shall be verified in the following ways:
 
 \begin{enumerate}
-\item Code Walkthrough - Author: Module unit code shall be inspected for functional errors by the author immediately after MS document version 1.0 is developed. A rubber duck debugging method will be followed. Any defects shall be immediately fixed. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
-\item Code Walkthrough - Peer: Module unit code shall be inspected for functional errors by Ao Dong after MS document version 1.0 is submitted on GitHub. Defects shall be noted in GitHub using issue creation. This plan is described in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
-\item Dynamic Unit Tests - Author: Dynamic unit test will be carried out, as listed in Section 5.1 of the document Unit Verification and Validation Plan for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
-\item System Tests: System tests will be carried out as listed in Section \ref{systest}. The author shall conduct the tests of the functional requirements. Tests of the NFRs shall be conducted by those listed in the outline of each test.
+\item Code Walkthrough - Author: Module unit code shall be inspected for
+  functional errors by the author immediately after MIS document version 1.0 is
+  developed. A rubber duck debugging method will be followed. Any defects shall
+  be immediately fixed. This plan is described in Section 5.1 of the document
+  Unit Verification and Validation Plan for Lattice Boltzmann Solver
+  (\citet{LBM_UVNV_PM}).
+\item Code Walkthrough - Peer: Module unit code shall be inspected for
+  functional errors by Ao Dong after MIS document version 1.0 is submitted on
+  GitHub. Defects shall be noted in GitHub using issue creation. This plan is
+  described in Section 5.1 of the document Unit Verification and Validation Plan
+  for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
+\item Dynamic Unit Tests - Author: Dynamic unit test will be carried out, as
+  listed in Section 5.1 of the document Unit Verification and Validation Plan
+  for Lattice Boltzmann Solver (\citet{LBM_UVNV_PM}).
+\item System Tests: System tests will be carried out as listed in Section
+  \ref{systest}. The author shall conduct the tests of the functional
+  requirements. Tests of the NFRs shall be conducted by those listed in the
+  outline of each test.
 \end{enumerate}
-
-
 
 \subsection{Software Validation Plan}
 
-{\myprogname} shall be validated by ensuring that all functional requirements, as listed in Section \ref{objectives}, are met. The file names containing the pseudo-oracle output data that the system output is tested against can be found in the specific test sections below.
+{\famname} does not have a validation step. Validation is related to comparing the outputs of models to experimental values. {\famname} is simply concerned that its solution is correct mathematically.
 
+%\wss{You do not actually have a validation step.  You should explain in this section that validation is related to comparing the outputs of models to experimental values.  Your software doesn't care whether the models agree with reality, only that they the solutions are correct mathematically.}
 
 ~\newpage	 
 
-
-\section{System Test Description}
-
-\label{systest}
-
+\section{System Test Description} \label{systest}
 
 \subsection{Tests for Functional Requirements}
 
 \label{testfr}
 
-The subsections below are designed to cover several of the functional requirements of the system. Subsection \ref{frinput} will cover R1 and R3. Subsections \ref{frvkvs} and \ref{frpf} will cover R1, R2, R3, R4, R5, R6, and R7, and will test out the input vales at their allowable edges.
+The subsections below are designed to cover several of the functional
+requirements of the system. Subsection \ref{frinput} will cover R1 and
+R3. Subsections \ref{frvkvs} and \ref{frpf} will cover R1, R2, R3, R4, R5, R6,
+and R7, and will test out the input vales at their allowable edges.
 
 \subsubsection{Input}
 \label{frinput}
@@ -249,32 +286,38 @@ The subsections below are designed to cover several of the functional requiremen
 
 \begin{enumerate}
 
-\item{input-reading-id1\\}
+\item{input-reading-id\refstepcounter{testcounter}\thetestcounter
+    A \label{inputreadingtest}}
 
-Control: Program (P) reading of input values (V) from a file.\\
+  Control: Program (P) reading of input values (V) from a file.
+				
+  Initial State: input.txt file is in the Input directory. %\wss{If the initial state is no input file, then wouldn't this test fail to generate output?  I would think you would get an exception if the file does not exist?}
 					
-Initial State: No input file in Input directory.\\
-					
-Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$\mathrm{e_{max}}$ = 0.1\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
+  Input: A comma delimited text file, with inputs marked in the manner outlined
+  in the User Guide (\citet{LBM_UserGuide_PM}).
+
+  The input values for this test will be:
+
+  $Re$: 500\\ 
+  $t$: 75\\
+  $\rho$: 1.0\\
+  $\eta_b$: 1.e-3\\
+  $X_{min}$ = 0.\\
+  $X_{max}$ = 3.\\
+  $Y_{min}$ = 0.\\
+  $Y_{max}$ = 1.\\
+  $R$ = 0.05\\
+  $\mathrm{e_{sch}}$ = 1.\\
+  $\mathrm{e_{fac}}$ = 20\\
+  $\mathrm{e_{max}}$ = 0.1\\
+  $S$ = 64\\
+  $\mathrm{D}$ = 2\\
+  $\mathrm{Q}$ = 9\\
+  $D_{l}$ = 2\\
+  $D_{w}$ = 1\\
 
 					
-Output: All inputs printed to the screen as output (O). An error message of ``cannot read file" should be shown if the system could not read the file.\\
+Output: All inputs printed to the screen as output (O).\\
 Outputs printed to the screen:\\
 $Re$: 500\\
 $t$: 75\\
@@ -296,49 +339,113 @@ $D_{w}$ = 1\\
 
 Test Case Derivation: P(V) is correct if P:V -$>$ O and O = V\\
 
-The result required for the test to pass is the successful printing of all input values to the screen. This test satisfies R1.\\
+The result required for the test to pass is the successful printing of all input
+values to the screen. This test satisfies R1.\\
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
-\item The module TestInput found under the home directory will be run using pyCharm.
-\item If successful, The system will output the input parameters to the screen. If unsuccessful, the system will output an error message to the screen.
+\item Outside of the system, the input parameter values will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+  of the project.
+\item {\famname} will be run.
+\item If successful, The system will output the input parameters to the screen.
 \end{enumerate}
+
+\item{input-reading-id\ref{inputreadingtest}B\\}
+
+Control: Program (P) reading of input values (V) from a file.\\
+
+Initial State: input.txt file is in the Input directory.\\
+
+Input: A comma delimited text file with the following input:\\
+ccQseHfFspBLAYZjCGZtJYMAdeAc
+
+Output: An error message of ``cannot read file" should be shown.\\
+
+Test Case Derivation: P(V) is correct if P:V -$>$ Error Message \\
+
+The result required for the test to pass is the successful printing of the error message. This test satisfies R1.\\
+
+How test will be performed: 
+
+\begin{enumerate}
+\item Outside of the system, the input parameter value will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+  of the project.
+\item {\famname} will be run.
+\item If successful, the system will output an error message to the screen.
+\end{enumerate}
+
 \end{enumerate}
 			
 \paragraph{Input Bounds}
+This test will be composed of two parts:
+\begin{enumerate}
+						
+\item{input-bounds-id\refstepcounter{testcounter}\thetestcounter A \label{inputboundstest}}
+\item{input-bounds-id\ref{inputboundstest}B\\}
 
-\begin{enumerate}			
+Control: Program (P) testing of high and low input values (V) read from a file.\\
 					
-\item{input-bounds-id2\\}
+Initial State: input.txt file is in the Input directory.\\
+					
+Input: A comma delimited file, with inputs marked in the manner outlined in the
+User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will
+be:\\
 
-Control: Program (P) testing of input values (V) read from a file.\\
-					
-Initial State: No input file in Input directory.\\
-					
-Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\$Re$: 500000\\
-$t$: 0\\
-$\rho$: 15\\
-$\eta_b$: 100\\
-$\eta_s$: 30000\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$\mathrm{e_{max}}$ = 0.1\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
-
-					
-Output: A descriptive failure message printed to the screen as seen below. In the below figure, X will contain all parameter names that are out of bounds. In this test that will include $Re$, $t$, $\rho$, $\eta_b$, and $\eta_s$.
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{| c | c | c |}
+			\hline
+			Input & id2A & id2B \\
+			\hline
+			$Re$ & 50000 & -500000 \\
+			\hline
+			$t$ & 0& 0\\
+			\hline
+			$\rho$ & 15& -15\\
+			\hline
+			$\eta_b$ & 100& -100\\
+			\hline
+			$\eta_s$ & 30000& -30000\\
+			\hline
+			$X_{min}$ & 0.& 0.\\
+			\hline
+			$X_{max}$ & 3.& 3.\\
+			\hline
+			$Y_{min}$ & 0.& 0.\\
+			\hline
+			$Y_{max}$ & 1.& 1.\\
+			\hline
+			$R$ & 0.05& 0.05\\
+			\hline
+			$\mathrm{e_{sch}}$ & 1.& 1.\\
+			\hline
+			$\mathrm{e_{fac}}$ & 20& 20\\
+			\hline
+			$\mathrm{e_{max}}$ & 0.1& 0.1\\
+			\hline
+			$S$ & 64& 64\\
+			\hline
+			$\mathrm{D}$ & 2& 2\\
+			\hline
+			$\mathrm{Q}$ & 9& 9\\
+			\hline
+			$D_{l}$ & 2& 2\\
+			\hline
+			$D_{w}$ & 1& 1\\
+			\hline
+		\end{tabular}
+		\caption{Input Bounds Test Inputs}
+	\end{center}
+\end{table}
+	
+Output: A descriptive failure message printed to the screen as seen below, or on the command line depending on how the system is run. In
+the below figure, X will contain all parameter names that are out of bounds. In
+both tests that will include $Re$, $t$, $\rho$, $\eta_b$, and $\eta_s$.
 
 \begin{figure}[h!]
 \begin{center}
@@ -349,39 +456,52 @@ Output: A descriptive failure message printed to the screen as seen below. In th
 \end{figure}
 
 Test Case Derivation: 
-I (individual inputs) are an element of V. P(V) is incorrect if P:V and at least one I is out of bounds as per Table \ref{table:inputdatabounds}: Input Data Bounds. This test satisfies R3.\\ 
-
+I (individual inputs) are an element of V. P(V) is incorrect if P:V and at least
+one I is out of bounds as per Table \ref{table:inputdatabounds}: Input Data
+Bounds. This test satisfies R3.\\
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide (\citet{LBM_UserGuide_PM}).
-\item The file will be placed into the Input directory, under the home directory of the project.
-\item The module TestInput found under the home directory will be run using a python IDE.
+\item Outside of the system, the input values will be written to a comma
+  delimited text file titled input.txt, as outlined in the User Guide
+  (\citet{LBM_UserGuide_PM}).
+\item The file will be placed into the Input directory, under the home directory
+  of the project.
+\item {\famname} will be run.
 \item If the test is successful, the system will output a descriptive error message, as seen above, to the screen.\\
 
-
 \end{enumerate}
 
 \end{enumerate}
+
+%\wss{The previous few tests are a bit repetitive.  I like the idea of testing that the input checks are working, but you could likely summarize the different tests cases in a table.  Give the outline as above for one test case, but then substitute in a reference to the table and explain how the table provides x number of additional tests.  You can still give each of the tests an identifying label, but the label would be in the table.}
 
 ~\newpage
 
 \subsubsection{Von Karman Vortex Street}
 \label{frvkvs}
 		
-\paragraph{Dynamic Testing - Manual:}
-\paragraph{} These dynamic tests will compare {\myprogname} output with output from the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the same inputs as {\myprogname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
+\paragraph{Dynamic Testing - Automated:}
+\paragraph{} 
+A Von Karman vortex street is a fluid dynamics problem involving a repeating pattern of vortices caused by flow separation around a physical obstacle (\citet{vonkarman}).
+\paragraph{}
+These dynamic tests will compare {\famname} output with output from
+the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the
+same inputs as {\famname} for each test. The difference in output between {\famname} and the pseudo-oracle will be compared and noted. %\wss{Rather than an allowed error, we might be better off simply summarizing the calculated error.  Even if there is an allowed error, a report of the actual error values is more useful information than simply PASS/FAIL.}
 
 \begin{enumerate}
 
-\item{tutorial-test-id3\\}
+\item{tutorial-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O)
+to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory. %\wss{Again, this seems like an odd initial state.}\\
 					
-Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+Input: A comma delimited file, with inputs marked in the manner outlined in the
+User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will
+be:\\
 $Re$: 500\\
 $t$: 75\\
 $\rho$: 1.0\\
@@ -397,100 +517,114 @@ $S$ = 64\\
 $\mathrm{D}$ = 2\\
 $\mathrm{Q}$ = 9\\
 
-		
+%\wss{It is great that you will be using a pseudo-oracle.  However, it would be nice to explain what the test inputs mean.  How would a scientist explain the test you are running?  What is the physics of the test?  I haven't checked,m but I would guess that your pyl reference would explain the test cases more than just listing numbers?} %I have added an introduction to the tests; the inputs are defined in the symbols table. While I have combined some tests into tables where it is easy and convenient to read, I have also decided to keep some sets of similar tests seperate instead of putting them into one table. I have done this with tests that have varying descriptions and output comparison files. 
+
 Output: Vorticity vector values printed to the screen. \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The output vector values (C) of this test for pyLBM can be found in the file id3output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of the output vector (O) and (C) of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle
+pyLBM. The output vector values (C) of this test for pyLBM can be found in the
+file id3output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values. %\wss{All of your tests that compare to average error should instead be written to output the error values.  I would also like to see your specific relative error calculation formulae for each test case where you mention error.}
 
-
-How test will be performed: 
+How test will be performed:
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item The Von Karman Vortex Street module shall be modified by the author to
+  print the vorticity vector as output.
+\item Outside of the system, the input parameter values will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+  of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
+\item Upon completion of the module, the output values of the vorticity vector
+  will be compared to the vorticity vector values from pyLBM - comparison will
+  be done per cell. Comparisons can be done manually using Excel, or through a
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
-\item{Reynolds-Rel-Error-test-id4\\}
+%\wss{This shouldn't really be a manual test.  Everything described above can be done algorithmically.  You can automate this test.  You will need to go further to define the mathematical equation for error, but you would still need to do this for the manual version.  As part of your development process, I could certainly see you doing the test manually the first time, to help understand how the pieces fit together.  Once you understand though, the target should be automation.  This same comment about changing your manual tests to automated tests applies for your other proposed tests as well.}
 
-Control: Program (P) module execution using  inputs (V) with varying $Re$ parameter (I), and observing variance of the relative error ($E_r$) of the output (O) when compared to a control value (C) \\
+\item{Reynolds-Rel-Error-test-id\refstepcounter{testcounter}\thetestcounter \\}
+
+Control: Program (P) module execution using inputs (V) with varying $Re$
+parameter (I), and observing the variance of the output (O) when compared to a control value (C).  %\wss{If all of the tests are the same except for the value of $Re$, then you could again use a table to summarize the different test cases.}
+				
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-Input (first iteration of test): A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for each of the iterations of this test will be:\\
 
-Input (second iteration of test): A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-$Re$: 1500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{| c | c | c | c | c | c |}
+			\hline
+			Input & Iteration 1 & Iteration 2 & Iteration 3 & Iteration 4 & Iteration 5 \\
+			\hline
+			$Re$ & 500 & 1500 & 2500 & 5000 & 7500 \\
+			\hline
+			$t$ & 75& 75& 75& 75& 75\\
+			\hline
+			$\rho$ & 1.0& 1.0& 1.0& 1.0& 1.0\\
+			\hline
+			$\eta_b$ & 1.e-3& 1.e-3& 1.e-3& 1.e-3& 1.e-3\\
+			\hline
+			$X_{min}$ & 0.& 0.& 0.& 0.& 0.\\
+			\hline
+			$X_{max}$ & 3.& 3.& 3.& 3.& 3.\\
+			\hline
+			$Y_{min}$ & 0.& 0.& 0.& 0.& 0.\\
+			\hline
+			$Y_{max}$ & 1.& 1.& 1.& 1.& 1.\\
+			\hline
+			$R$ & 0.05& 0.05& 0.05& 0.05& 0.05\\
+			\hline
+			$\mathrm{e_{sch}}$ & 1.& 1.& 1.& 1.& 1.\\
+			\hline
+			$\mathrm{e_{fac}}$ & 20& 20& 20& 20& 20\\
+			\hline
+			$S$ & 64& 64& 64& 64& 64\\
+			\hline
+			$\mathrm{D}$ & 2& 2& 2& 2& 2\\
+			\hline
+			$\mathrm{Q}$ & 9& 9& 9& 9& 9\\
+			\hline
+		\end{tabular}
+		\caption{Reynolds Test Inputs}
+	\end{center}
+\end{table} 
 
-Input (third iteration of test): A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-$Re$: 2500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
-
-		
 Output: In each iteration we will have vorticity vector values printed to the screen.\\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the files id4\_1\_output.txt, id4\_2\_output.txt and id4\_3\_output.txt, located in the OracleOutput folder. The files hold the C values for iterations 1, 2, and 3 respectively. Each iteration will calculate the relative error of O to its respective C counterpart. The $E_r$ values of the iterations will be compared with the intent to discover how changes in $Re$ affect correctness. This may be helpful in improving correctness of the implementation.\\	
+Test Case Derivation: This case is a comparison with the pseudo-oracle
+pyLBM. The C values of this test for pyLBM can be found in the files
+id4\_1\_output.txt, id4\_2\_output.txt, id4\_3\_output.txt, id4\_4\_output.txt, and id4\_5\_output.txt located in the OracleOutput folder. The files hold the C values for iterations 1 to 5 respectively. Each iteration will compare its output to its respective C counterpart. The intent is to discover how changes in $Re$ affect correctness. This may be helpful in improving correctness of the implementation.\\
 
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item The Von Karman Vortex Street module shall be modified by the author to
+  print the vorticity vector as output.
+\item Outside of the system, the input parameter values will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+  of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script. A relative error value will be calculated.\\
+\item Upon completion of the module, the output values of the vorticity vector
+  will be compared to the vorticity vector values from pyLBM - comparison will
+  be done per cell. Comparisons can be done manually using Excel, or through a
+  script.
 \item Steps (a) - (e) will be repeated for each test iteration.
-\item The $E_r$ of each iteration will be compared.\\
+\item The output value of each iteration will be compared to the pseudo-oracle value.
 \end{enumerate}
 					
-\item{laminar-test-id5\\}
+\item{laminar-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O)
+to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $Re$: 0.0001\\
 $t$: 75\\
 $\rho$: 1.0\\
@@ -508,27 +642,37 @@ $\mathrm{Q}$ = 9\\
 					
 Output: Vorticity vector values printed to the screen.\\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id5output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between cells of O and C of less than or equal to AVERAGE\_ERROR.\\
-This test covers a very small Reynolds number representing laminar flow.\\	
+Test Case Derivation: This case is a comparison with the pseudo-oracle
+pyLBM. The C values of this test for pyLBM can be found in the file
+id5output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 
-					
+This test covers a very small Reynolds number representing laminar flow.\\
+
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item The Von Karman Vortex Street module shall be modified by the author to
+  print the vorticity vector as output.
+\item Outside of the system, the input parameter values will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+  of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
+\item Upon completion of the module, the output values of the vorticity vector
+  will be compared to the vorticity vector values from pyLBM - comparison will
+  be done per cell. Comparisons can be done manually using Excel, or through a
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
-\item{turbulent-test-id6\\}
+\item{turbulent-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O)
+to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $Re$: 50000\\
 $t$: 75\\
 $\rho$: 1.0\\
@@ -546,27 +690,36 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id6output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
-This test covers a very large Reynolds number representing very turbulent flow.\\	
+Test Case Derivation: This case is a comparison with the pseudo-oracle
+pyLBM. The C values of this test for pyLBM can be found in the file
+id6output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.
 
+This test covers a very large Reynolds number representing very turbulent flow.\\	
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The Von Karman Vortex Street module shall be modified by the author to
+  print the vorticity vector as output.
+\item Outside of the system, the input parameter values will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
+\item Upon completion of the module, the output values of the vorticity vector
+  will be compared to the vorticity vector values from pyLBM - comparison will
+  be done per cell. Comparisons can be done manually using Excel, or through a
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
-\item{low-density-test-id7\\}
+\item{low-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O)
+to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $Re$: 500\\
 $t$: 75\\
 $\rho$: 7.08e-2\\
@@ -584,27 +737,36 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id7output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
-This test covers the low bound for density using a density of liquid hydrogen.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle
+pyLBM. The C values of this test for pyLBM can be found in the file
+id7output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 
+This test covers the low bound for density using a density of liquid hydrogen.\\
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The Von Karman Vortex Street module shall be modified by the author to
+  print the vorticity vector as output.
+\item Outside of the system, the input parameter values will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
+\item Upon completion of the module, the output values of the vorticity vector
+  will be compared to the vorticity vector values from pyLBM - comparison will
+  be done per cell. Comparisons can be done manually using Excel, or through a
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
-\item{high-density-test-id8\\}
+\item{high-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O)
+to match a control value (C).\\
+
+Initial State: input.txt file is in the Input directory.\\
 					
-Initial State: No input file in Input directory.\\
-					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $Re$: 500\\
 $t$: 75\\
 $\rho$: 13.6\\
@@ -622,27 +784,36 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id8output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
-This test covers the high bound for density using a density close to that of mercury.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle
+pyLBM. The C values of this test for pyLBM can be found in the file
+id8output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 
+This test covers the high bound for density using a density close to that of mercury.\\
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The Von Karman Vortex Street module shall be modified by the author to
+  print the vorticity vector as output.
+\item Outside of the system, the input parameter values will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
+\item Upon completion of the module, the output values of the vorticity vector
+  will be compared to the vorticity vector values from pyLBM - comparison will
+  be done per cell. Comparisons can be done manually using Excel, or through a
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
-\item{low-bulk-viscosity-test-id9\\}
+\item{low-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+
 $Re$: 500\\
 $t$: 75\\
 $\rho$: 1.0\\
@@ -660,27 +831,34 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id9output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle
+pyLBM. The C values of this test for pyLBM can be found in the file
+id9output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 This test covers the low bound for bulk viscosity.\\
-
-					
+		
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The Von Karman Vortex Street module shall be modified by the author to
+  print the vorticity vector as output.
+\item Outside of the system, the input parameter values will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel, or through a script.\\
+\item Upon completion of the module, the output values of the vorticity vector
+  will be compared to the vorticity vector values from pyLBM - comparison will
+  be done per cell. Comparisons can be done manually using Excel, or through a
+  script, using the equation for relative error found in Section \ref{eqerror}.
 \end{enumerate}
 
-\item{high-bulk-viscosity-test-id10\\}
+\item{high-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $Re$: 500\\
 $t$: 75\\
 $\rho$: 1.0\\
@@ -698,18 +876,26 @@ $\mathrm{Q}$ = 9\\
 
 Output: Vorticity vector values printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM. The C values of this test for pyLBM can be found in the file id10output.txt located in the OracleOutput folder. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
-This test covers the high bound for bulk viscosity.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle
+pyLBM. The C values of this test for pyLBM can be found in the file
+id10output.txt located in the OracleOutput folder. The output values of {\famname} will be compared to the pseudo-oracle output values.\\
 
+This test covers the high bound for bulk viscosity.\\
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item The Von Karman Vortex Street module shall be modified by the author to
+  print the vorticity vector as output.
+\item Outside of the system, the input parameter values will be written to a
+  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+of the project.
 \item The module for Von Karman Vortex Street will be selected to run.
-\item Upon completion of the module, the output values of the vorticity vector will be compared to the vorticity vector values from pyLBM - comparison will be done per cell. Comparisons can be done manually using Excel or through a script.\\
+\item Upon completion of the module, the output values of the vorticity vector
+will be compared to the vorticity vector values from pyLBM - comparison will be
+done per cell. Comparisons can be done manually using Excel or through a
+script, using the equation for relative error found in Section \ref{eqerror}.\\
 \end{enumerate}
 
 \end{enumerate}
@@ -718,18 +904,23 @@ How test will be performed:
 \subsubsection{Poiseuille Flow}
 \label{frpf}
 
-\paragraph{Dynamic Testing - Manual:}
-\paragraph{} These dynamic tests will compare {\myprogname} output with output from the pseudo oracle myLBM (\citet{pylbmcode}). The input oracle will have the same inputs as {\myprogname} for each test. The allowable error is AVERAGE\_ERROR, found in Section \ref{symbolpara}.
+\paragraph{Dynamic Testing - Automated:}
+\paragraph{} 
+Poiseuille flow is the movement of a fluid through a circular tube.
+\paragraph{} These dynamic tests will compare {\famname} output with output from
+the pseudo-oracle myLBM (\citet{pylbmcode}). The input oracle will have the same
+inputs as {\famname} for each test.
 
 \begin{enumerate}
 
-\item{tutorial-test-id11\\}
+\item{tutorial-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $t$: 50\\
 $\rho$: 1\\
 $\eta_b$: 1.e-2\\
@@ -744,25 +935,32 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -7.074e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
-
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
+which has a module for Poiseuille Flow. The output pressure gradient value of
+this test is to be compared to the C value from the pseudo-oracle,
+-7.074e-03.\\
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item Outside of the system, the input parameter values will be written to a
+comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+of the project.
 \item The module for Poiseuille Flow will be selected to run.
-\item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
+\item Upon completion of the module, the pressure gradient output value will be
+compared to the above output value from the pseudo-oracle.
 \end{enumerate}			
 
-\item{low-density-test-id12\\}
+\item{low-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+
 $t$: 50\\
 $\rho$: 0.0708\\
 $\eta_b$: 1.e-2\\
@@ -777,25 +975,32 @@ $X_{min}$ = 0.\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -4.103e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
-
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
+which has a module for Poiseuille Flow. The output pressure gradient value of
+this test is to be compared to the C value from the pseudo-oracle,
+-4.103e-03.\\
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item Outside of the system, the input parameter values will be written to a
+comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+of the project.
 \item The module for Poiseuille Flow will be selected to run.
-\item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
+\item Upon completion of the module, the pressure gradient output value will be
+compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{high-density-test-id13\\}
+\item{high-density-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O)
+to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $t$: 50\\
 $\rho$: 13.6\\
 $\eta_b$: 1.e-2\\
@@ -807,28 +1012,33 @@ $\mathrm{e_{sch}}$ = 1.\\
 $\mathrm{e_{max}}$ = 0.1\\
 $X_{min}$ = 0.\\
 
-					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -1.522e-01. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
+which has a module for Poiseuille Flow. The output pressure gradient value of
+this test is to be compared to the C value from the pseudo-oracle,
+-1.522e-01.\\
 
-					
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item Outside of the system, the input parameter values will be written to a
+comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+of the project.
 \item The module for Poiseuille Flow will be selected to run.
-\item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
+\item Upon completion of the module, the pressure gradient output value will be
+compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{low-bulk-viscosity-test-id14\\}
+\item{low-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $t$: 50\\
 $\rho$: 1\\
 $\eta_b$: 1.e-4\\
@@ -840,28 +1050,33 @@ $\mathrm{e_{sch}}$ = 1.\\
 $\mathrm{e_{max}}$ = 0.1\\
 $X_{min}$ = 0.\\
 
-					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C output from the pseudo-oracle, -1.462e-01. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
+which has a module for Poiseuille Flow. The output pressure gradient value of
+this test is to be compared to the C output from the pseudo-oracle,
+-1.462e-01.\\
 
-					
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item Outside of the system, the input parameter values will be written to a
+comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+of the project.
 \item The module for Poiseuille Flow will be selected to run.
-\item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
+\item Upon completion of the module, the pressure gradient output value will be
+compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{high-bulk-viscosity-test-id15\\}
+\item{high-bulk-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $t$: 50\\
 $\rho$: 1\\
 $\eta_b$: 20000\\
@@ -873,28 +1088,33 @@ $\mathrm{e_{sch}}$ = 1.\\
 $\mathrm{e_{max}}$ = 0.1\\
 $X_{min}$ = 0.\\
 
-					
 Output: Pressure gradient value printed to the screen.  \\
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -3.262e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
+which has a module for Poiseuille Flow. The output pressure gradient value of
+this test is to be compared to the C value from the pseudo-oracle,
+-3.262e-03.\
 
-					
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item Outside of the system, the input parameter values will be written to a
+comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+of the project.
 \item The module for Poiseuille Flow will be selected to run.
-\item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
+\item Upon completion of the module, the pressure gradient output value will be
+compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{low-shear-viscosity-test-id16\\}
+\item{low-shear-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $t$: 50\\
 $\rho$: 1\\
 $\eta_b$: 1.e-2\\
@@ -906,11 +1126,12 @@ $\mathrm{e_{sch}}$ = 1.\\
 $\mathrm{e_{max}}$ = 0.1\\
 $X_{min}$ = 0.\\
 
-					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -1.604e-03. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
-
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
+which has a module for Poiseuille Flow. The output pressure gradient value of
+this test is to be compared to the C value from the pseudo-oracle,
+-1.604e-03.\\
 					
 How test will be performed: 
 
@@ -921,13 +1142,15 @@ How test will be performed:
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
-\item{high-shear-viscosity-test-id17\\}
+\item{high-shear-viscosity-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Control: Program (P) module execution using inputs (V), and expecting output (O) to match a control value (C).\\
+Control: Program (P) module execution using inputs (V), and expecting output (O)
+to match a control value (C).\\
 					
-Initial State: No input file in Input directory.\\
+Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
+A comma delimited file, with inputs marked in the manner outlined in the User
+Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
 $t$: 50\\
 $\rho$: 1\\
 $\eta_b$: 1.e-2\\
@@ -938,20 +1161,24 @@ $D_{w}$ = 1\\
 $\mathrm{e_{sch}}$ = 1.\\
 $\mathrm{e_{max}}$ = 0.1\\
 $X_{min}$ = 0.\\
-
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
-Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM, which has a module for Poiseuille Flow. The output pressure gradient value of this test is to be compared to the C value from the pseudo-oracle, -6.868e-01. The result required for the test to pass is an average error rate between O and C of less than or equal to AVERAGE\_ERROR.\\
-
+Test Case Derivation: This case is a comparison with the pseudo-oracle pyLBM,
+which has a module for Poiseuille Flow. The output pressure gradient value of
+this test is to be compared to the C value from the pseudo-oracle,
+-6.868e-01.\\
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
+\item Outside of the system, the input parameter values will be written to a
+comma delimited text file titled input.txt, as outlined in the User Guide.
+\item The file will be placed into the Input directory, under the home directory
+of the project.
 \item The module for Poiseuille Flow will be selected to run.
-\item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
+\item Upon completion of the module, the pressure gradient output value will be
+compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
 \end{enumerate}
@@ -961,9 +1188,9 @@ How test will be performed:
 \subsection{Tests for Nonfunctional Requirements}
 \label{nfrtest}
 
-\subsubsection{Correctness}
+\subsubsection{Correctness} \label{CorrectnessTest}
 
-System correctness is tested via the functional tests of Section \ref{testfr} using an allowable AVERAGE\_ERROR as stated in A8 of the CA (\citet{LBM_CA_PM}).
+System correctness is tested via the functional tests of Section \ref{testfr}.
 
 \subsubsection{Maintainability}
 		
@@ -971,29 +1198,45 @@ System correctness is tested via the functional tests of Section \ref{testfr} us
 
 \begin{enumerate}
 
-\item{maintainability-id18\\}
+\item{maintainability-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Type: Maintainability Walkthrough\\
 					
 Initial State: Maintainability of the repository has not been tested.\\
 					
-Input/Condition: A production version of {\myprogname} has been released.\\
+Input/Condition: A production version of {\famname} has been released.\\
 					
 Output/Result: A graded report describing the maintainability of the repository.\\
 
-Test Case Derivation: This test will determine if the system documentation allows for easy maintainability by checking how much documentation is available, as well as reviewing its clarity and traceability. A score of higher than 3 in each of the tested categories will indicate that the system documentation is maintainable.\\ 
+Test Case Derivation: This test will determine if the system documentation
+allows for easy maintainability by checking how much documentation is available,
+as well as reviewing its clarity and traceability. A score of higher than 3 in
+each of the tested categories will indicate that the system documentation is
+maintainable.\\
 					
 How test will be performed: 
 
 \begin{enumerate}
-\item Ao Dong shall check the repository for the following documentation: SRS/CA, VnV Plan, MG, MIS, User Guide.
+\item Ao Dong shall check the repository for the following documentation:
+SRS/CA, VnV Plan, MG, MIS, User Guide.
 \item Ao Dong shall mark 1 point for each of the above documents.
-\item Ao Dong shall read through each of the above documents and provide a grade between 1 and 5 for clarity of the writing. A score of 1 represents a document that is hard to understand, and a score of 5 represents a document that is easy to understand. The user shall divide the sum of the scores for all of the reports by 5.
-\item Ao Dong shall read through each of the above documents and provide a grade between 1 and 5 for traceability within the document. A score of 1 represents no links within the report, and a score of 5 represents many links between sections of the report. The user shall then divide the sum of the scores for all of the reports by 5.
-\item Ao Dong will generate a brief report with the above three values, from steps (c) to (e).\\
+\item Ao Dong shall read through each of the above documents and provide a grade
+between 1 and 5 for clarity of the writing. A score of 1 represents a document
+that is hard to understand, and a score of 5 represents a document that is easy
+to understand. The user shall divide the sum of the scores for all of the
+reports by 5.
+\item Ao Dong shall read through each of the above documents and provide a grade
+between 1 and 5 for traceability within the document. A score of 1 represents no
+links within the report, and a score of 5 represents many links between sections
+of the report. The user shall then divide the sum of the scores for all of the
+reports by 5.
+\item Ao Dong will generate a brief report with the above three values, from
+steps (c) to (e).\\
 \end{enumerate}
 
 \end{enumerate}
+
+%\wss{This maintainability measure is quite subjective, but I still like what you are trying to do here.  The absolute value that Ao comes up with will not be particularly meaningful, but the process may uncover some areas of concern, or build confidence by the lack of areas of concern.  I think we will need better measures for your MEng project, but this okay as a starting point.}
 
 \subsubsection{Performance}
 		
@@ -1001,11 +1244,13 @@ How test will be performed:
 
 \begin{enumerate}
 
-\item{performance-id19\\}
+\item{performance-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
-Type: Running Time\\
+Type: Running Time - Automated Test\\
 					
-Initial State: Input file is in the appropriate directory. The file contains the required parameter values for 2 different modules - Von Karman Vortex Street and Poiseuille Flow.\\
+Initial State: Input file is in the appropriate directory. The file contains the
+required parameter values for 2 different modules - Von Karman Vortex Street and
+Poiseuille Flow.\\
 					
 Input/Condition: A comma delimited file with the following input parameters and values:\\
 $Re$: 500\\
@@ -1024,69 +1269,45 @@ $\mathrm{D}$ = 2\\
 $\mathrm{Q}$ = 9\\
 					
 Output/Result: A timed comparison of running
-each of the two system modules, Von Karman Vortex Street and Poiseuille Flow, against the psuedo-oracle pyLBM using pyCharm IDE. The test will be passed if both system modules are faster than the pseudo-oracle.\\
+each of the two system modules, Von Karman Vortex Street and Poiseuille Flow,
+against the psuedo-oracle pyLBM using pyCharm IDE. The percentage difference in
+running time between {\famname} and the pseudo-oracle will noted and analyzed.\\
 
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written, by the author, to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project.
-\item The author shall first start a timer and then select the Poiseuille Flow module to run.
-\item Upon completion of the module the author shall note the module running time.
-\item The author shall repeat steps (c) to (d) for the Von Karman Vortex Street module. 
-\item The author shall then run each of the problems, Poiseuille Flow and Von Karman Vortex Street, using the pseudo-oralce pyLBM using pyCharm IDE, making sure to time the running of each problem.
-\item The author shall compare the running time of each of the two system modules, Von Karman Vortex Street and Poiseuille Flow, against the psuedo-oracle.\\
+\item Outside of the system, the input parameter values will be written, by the
+author, to a comma delimited text file titled input.txt, as outlined in the User
+Guide.
+\item The file will be placed into the Input directory, under the home directory
+of the project.
+\item The system shall start a timer when the Poiseuille Flow module is selected to run.
+\item Upon completion of the module the author shall note the module running
+time, which will be printed by the system.
+\item The author shall repeat steps (c) to (d) for the Von Karman Vortex Street
+module.
+\item The author shall then run each of the problems, Poiseuille Flow and Von
+Karman Vortex Street, using the pseudo-oracle pyLBM using pyCharm IDE, making
+sure to capture the running time of each problem.
+\item The author shall compare the running time of each of the two system
+modules, Von Karman Vortex Street and Poiseuille Flow, against the
+pseudo-oracle.
+\item The system environment will be kept as constant as reasonably possible in order to prevent timing errors. Identical background programs will be running between tests of the modules and the pseudo-oracle.
 \end{enumerate}
 
 \end{enumerate}
+
+%\wss{This tests sounds interesting.  I like that you did not set a target for performance.  You are just going to report the percentage difference.  The timers are in the code, right?  It reads as if they are going to be timed with an external stop-watch, but I'm assuming starting the timer is something that is done in the testing code.  This test should also be automated.} %Yes, this will be timed by the code. I have made the clarification.
 
 \subsubsection{Portability}
 		
-\paragraph{Operating System Portability}
+Portability is tested by performing the functional tests of Section \ref{frvkvs} and Section \ref{frpf} on three operating systems (virtual machines can be used for this): macOS, Windows, Linux. Test output will be compared and recorded.
 
-\begin{enumerate}
-
-\item{portability-id20\\}
-
-Type: Portability Check\\
-					
-Initial State: Have PyCharm IDE installed on three separate operating systems (virtual machines can be used for this): macOS, Windows, Linux. \\
-					
-Input/Condition: A comma delimited file with the following input parameters and values:\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
-
-					
-Output/Result: This case is a check of the ability of the LBM solution to run on multiple operating systems. The result required for the test to pass is a vorticity vector printed to the screen of each instance which matches, within the allowable AVERAGE\_ERROR, the vorticity vector value found in the file id20output.txt located in the OracleOutput folder.\\
-					
-How test will be performed: 
-
-\begin{enumerate}
-
-\item The input parameter values will be written, by the author, to a comma delimited text file titled input.txt, as outlined in the User Guide.
-\item The file will be placed into the Input directory, under the home directory of the project, in each of the operating system instances.
-\item The Von Karman Vortex Street module shall be modified by the author to print the vorticity vector as output.
-\item The author shall run the Von Karman Vortex Street module.
-\item Upon completion of the module, the author will compare the output values of the vorticity vector to the vorticity vector values of the pseudo-oracle.\\
-\end{enumerate}
-
-\end{enumerate}
+%\wss{For portability I suggest running all of your automated tests on all three platforms, and reporting the results.  This is part of why we want automation, and why we report the calculated relative error, rather than just PASS/FAIL.}
 
 \subsubsection{Robustness}
 		
-System robustness is tested through the Input Bounds test (input-bounds-id2) in Section \ref{testfr}.
+System robustness is tested through the Input Bounds test in Section \ref{testfr}.
 
 \subsubsection{Usability}
 
@@ -1094,13 +1315,17 @@ System robustness is tested through the Input Bounds test (input-bounds-id2) in 
 
 \begin{enumerate}
 
-\item{usability-id21\\}
+\item{usability-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Type: Usability Survey\\
 					
-Initial State: The {\myprogname} repository, the below input parameters, and an instruction to run the Von Karman Vortex Street module are provided to three anonymous users via GitHub.\\
+Initial State: The {\famname} repository, the below input parameters, and an
+instruction to run the Von Karman Vortex Street module are provided to three
+anonymous users via GitHub.\\
 					
-Input/Condition: A usability survey with the questions listed in Section \ref{usabilitysurevyquestions} and a comma delimited file with the following input parameters and values:\\
+Input/Condition: A usability survey with the questions listed in Section
+\ref{usabilitysurevyquestions} and a comma delimited file with the following
+input parameters and values:\\
 $Re$: 500\\
 $t$: 75\\
 $\rho$: 1.0\\
@@ -1119,14 +1344,20 @@ $\mathrm{Q}$ = 9\\
 				
 Output/Result: Survey results.\\
 
-Test Case Derivation: This case is a check of the usability of the LBM solver. Respondents will be asked to rank their experience of running a module. A final average grade of higher than 3 will indicate that the users found the system to be user friendly.\\
+Test Case Derivation: This case is a check of the usability of
+{\famname}. Respondents will be asked to rank their experience of running a
+module. A final average grade of 3 will indicate that the users found the system
+to have average usability. The higher the score, the better the perception of
+usability.\\
 	
 How test will be performed: 
 
 \begin{enumerate}
-\item Each participant will be instructed to run a Von Karman Vortex Street simulation using the provided input parameters.
+\item Each participant will be instructed to run a Von Karman Vortex Street
+simulation using the provided input parameters.
 \item The participants will attempt to run the simulation.
-\item Upon completion of the attempt, the participants will be asked to answer the survey questions.
+\item Upon completion of the attempt, the participants will be asked to answer
+the survey questions, found in SubSection \ref{usabilitysurevyquestions}. %\wss{Where is the survey?  You should point to your appendix.}
 \item The questionnaire results will be tallied and averaged.
 \end{enumerate}
 
@@ -1141,9 +1372,13 @@ How test will be performed:
 \hline
 & R1 & R2 & R3 & R4 & R5 & R6 & R7\\
 \hline
-id1 & \checkmark & & & & & &\\
+id1A & \checkmark & & & & & &\\
 \hline
-id2 & & & \checkmark & & & &\\
+id1B & \checkmark & & & & & &\\
+\hline
+id2A & & & \checkmark & & & &\\
+\hline
+id2B & & & \checkmark & & & &\\
 \hline
 id3 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
@@ -1181,8 +1416,6 @@ id19 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkma
 \hline
 id20 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \hline
-id21 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
-\hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Test Cases and Functional Requirements}
 \end{center}
@@ -1194,9 +1427,13 @@ id21 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkma
 \hline
 Cases / NFR & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
 \hline
-id1 & & & & & & & & & &\\
+id1A & & & & & & & & & &\\
 \hline
-id2 & & & & & & & \checkmark & & &\\
+id1B & & & & & & & & & &\\
+\hline
+id2A & & & & & & & \checkmark & & &\\
+\hline
+id2B & & & & & & & \checkmark & & &\\
 \hline
 id3 & \checkmark & & & & & & & & &\\
 \hline
@@ -1232,9 +1469,7 @@ id18 & & \checkmark & & & & & & & &\\
 \hline
 id19 & & & \checkmark & & & & & & &\\
 \hline
-id20 & \checkmark & & & \checkmark & & & & & &\\
-\hline
-id21 & & & & & & & & & & \checkmark \\
+id20 & & & & & & & & & & \checkmark \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Test Cases and NFRs}
@@ -1251,18 +1486,11 @@ id21 & & & & & & & & & & \checkmark \\
 
 \section{Appendix}
 
+%\wss{I like that you used a symbolic constant, although as I mentioned above, I think the goal is to describe the error, rather than \emph{a priori} specify the error bounds.}
 
-\subsection{Symbolic Parameters}
-\label{symbolpara}
-\begin{itemize}
+\subsection{Usability Survey Questions} \label{usabilitysurevyquestions}
 
-\item[\label{Cons_AVERAGE_ERROR}]AVERAGE\_ERROR: 3\%\\This error allowance will be used for both scalar and vector outputs, adjusted accordingly.
-
-\end{itemize}
-
-\subsection{Usability Survey Questions}
-\label{usabilitysurevyquestions}
-Please answer the following five questions using the rubric:\\
+Using the following rubric please rate the five statements found below:
 \linebreak
 \indent 1 - strongly disagree\\
 \indent 2 - somewhat disagree\\
@@ -1277,6 +1505,8 @@ Please answer the following five questions using the rubric:\\
 \item The User Guide of this product explained the modules well.
 \item I would recommend this product.
 \end{enumerate}
+
+%\wss{Good start on the survey questions.}
 
 ~\newpage
 \subsection{Input Data}
@@ -1331,6 +1561,20 @@ $D_{w}$ & 1\\
 \end{table}
 
 
-\noindent The upper and lower bounds of $Re$, $\rho$, $\eta_b$ and $\eta_s$ are derived from the allowable input range of the pseudo-oracle pyLBM. Input values outside of these bounds are known to sometimes return NAN module results. $t$ can be any $\mathbb{N}$. Fixed value variables of tests in this testing report are: $X_{min}$, $X_{max}$, $Y_{min}$, $Y_{max}$, $R$, $D_{l}$, $D_{w}$, $\mathrm{e_{sch}}$, $\mathrm{e_{fac}}$, $\mathrm{e_{max}}$, $S$ (module specific), $\mathrm{D}$, and $\mathrm{Q}$.
+\noindent The upper and lower bounds of $Re$, $\rho$, $\eta_b$ and $\eta_s$ are
+derived from the allowable input range of the pseudo-oracle pyLBM. Input values
+outside of these bounds are known to sometimes return NAN module results. $t$
+can be any $\mathbb{N}$. Fixed value variables of tests in this testing report
+are: $X_{min}$, $X_{max}$, $Y_{min}$, $Y_{max}$, $R$, $D_{l}$, $D_{w}$,
+$\mathrm{e_{sch}}$, $\mathrm{e_{fac}}$, $\mathrm{e_{max}}$, $S$ (module
+specific), $\mathrm{D}$, and $\mathrm{Q}$.
+
+\subsection{Mathematical Equation for Error}
+\label{eqerror}
+
+For the purpose of testing, the equation for error is:\\
+
+\% relative error = $\frac{ |{\famname}\ output\ -\ pseudo-oracle\ output| }{pseudo-oracle\ output}$
+
 
 \end{document}

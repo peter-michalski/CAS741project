@@ -35,13 +35,16 @@ urlcolor=cyan          % color of external links
 
 \input{../../Comments}
 
-\newcommand{\progname}{Program Name}
+\newcommand{\famname}{Lattice Boltzmann Solvers}
+
+\newcounter{mnum}
+\newcommand{\mthemnum}{M\themnum}
 
 \begin{document}
 
-\title{Module Interface Specification for ...}
+\title{Module Interface Specification for \famname}
 
-\author{Author Name}
+\author{Peter Michalski}
 
 \date{\today}
 
@@ -49,13 +52,12 @@ urlcolor=cyan          % color of external links
 
 \pagenumbering{roman}
 
-\section{Revision History}
+\section{Revision History} \label{MISREVHISTORY}
 
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Nov. 25, 2019 & 1.0 & Initial Document\\
 \bottomrule
 \end{tabularx}
 
@@ -63,9 +65,7 @@ Date 2 & 1.1 & Notes\\
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
-
-\wss{Also add any additional symbols, abbreviations or acronyms}
+See CA Documentation for \famname \ \citep{LBM_CA_PM}.
 
 \newpage
 
@@ -78,16 +78,14 @@ See SRS Documentation at \wss{give url}
 \section{Introduction}
 
 The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+\famname , which provides a library of services based on Lattice Boltzmann Methods (LBM).
+LBM are a family of fluid dynamics algorithms for simulating single-phase and multiphase fluid flows, often incorporating additional physical complexities \citep{chen1998lattice}.
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+found \href{https://github.com/peter-michalski/LatticeBoltzmannSolvers}{here} \citep{LBM_PM}.
 
 \section{Notation}
-
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
 
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
@@ -96,7 +94,7 @@ with the addition that template modules have been adapted from
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
-The following table summarizes the primitive data types used by \progname. 
+The following table summarizes the primitive data types used by \famname. 
 
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
@@ -105,8 +103,7 @@ The following table summarizes the primitive data types used by \progname.
 \toprule 
 \textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
 \midrule
-character & char & a single symbol or digit\\
-integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
+string & string & single or multiple symbols or digits\\
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 \bottomrule
@@ -114,62 +111,278 @@ real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 \end{center}
 
 \noindent
-The specification of \progname \ uses some derived data types: sequences, strings, and
+The specification of \famname \ uses some derived data types: sequences, strings, and
 tuples. Sequences are lists filled with elements of the same data type. Strings
 are sequences of characters. Tuples contain a list of values, potentially of
-different types. In addition, \progname \ uses functions, which
+different types. In addition, \famname \ uses functions, which
 are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
+
+~\newpage
 
 \section{Module Decomposition}
 
 The following table is taken directly from the Module Guide document for this project.
 
 \begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding} & ~ \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
-\bottomrule
-
-\end{tabular}
-\caption{Module Hierarchy}
-\label{TblMH}
+	\centering
+	\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+		\toprule
+		\textbf{Level 1} & \textbf{Level 2}\\
+		\midrule
+		
+		{Hardware-Hiding Module}
+		& \\
+		\midrule
+		
+		\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
+		& M2: System Control Module\\
+		& M3: Input Reading Module\\
+		& M4: Input Checking Module\\
+		& M5: LBM Control Module\\
+		& M6: Streaming Module\\
+		& M7: Collision Module\\ 
+		& M8: Problem Module\\
+		& M9: Lattice Module\\
+		& M10: Boundary Module\\
+		\midrule
+		
+		\multirow{1}{0.3\textwidth}{Software Decision Module}
+		& M11: Image Rendering Module\\
+		& M12: Data Structure Module\\
+		& M13: Input Types Module\\
+		\bottomrule
+		
+	\end{tabular}
+	\caption{Module Hierarchy}
+	\label{TblMH}
 \end{table}
 
-\newpage
+
 ~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
+\section{MIS of M2: System Control Module} \label{SCModule}
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+The secret of this module is the algorithm to control \famname.
 
 \subsection{Module}
 
-\wss{Short name for the module}
+SystemControl
 
 \subsection{Uses}
 
+\begin{itemize}
+	\item Hardware Hiding
+	\item Input Reading (Section \ref{IRModule})
+	\item LBM Control (Section \ref{LCModule})
+	\item Problem Parameter (Section \ref{PRModule})
+	\item Image Rendering (Section \ref{OUModule})
+	\item Data Structure (Section \ref{DSModule})
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+N/A
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+inputData: DataStructure\\
+problemData: $\mathbb{R}$ \& $\mathbb{N}$\\
+imageData: $\mathbb{R}$\\
+imageOut: PNG\\
+
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+The user has run the {\famname} program.
+
+\subsubsection{Access Routine Semantics}
+
+N/A
+
+\subsubsection{Local Functions}
+
+\begin{center}
+	\begin{tabular}{p{4cm} p{4cm} p{2cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		mainFunction & - & - &- \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsubsection{Local Function Semantics}
+
+\noindent mainFunction():
+\begin{itemize}
+	\item transition: $out$ := N/A
+	\item exception: N/A
+\end{itemize}
+
+The function calls other modules of {\famname} to solve the given problem. The function calls InputReading.inputArray(), followed by ProblemParameter.formatInput() and LBMControl.performLBM(). Finally the module calls ImageRendering.imageFunc() and sends the output of that function to the hardware.
+
+
+~\newpage
+
+\section{MIS of M3: Input Reading Module} \label{IRModule} 
+
+The secret of this module is the algorithm that gathers the input data.
+
+\subsection{Module}
+
+InputReading
+
+\subsection{Uses}
+
+\begin{itemize}
+	\item Hardware Hiding
+	\item Input Checking (Section \ref{ICModule})
+	\item Data Structure (Section \ref{DSModule})
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{3cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		inputArray & - & inputData: DataStructure & NotFound, ErrorRead \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+
+InputLocation (string): ``./Input/input.txt''
+
+\subsubsection{Assumptions}
+
+The System Control Module M2 (Section \ref{SCModule}) has called InputReading.inputArray().
+
+\subsubsection{Access Routine Semantics}
+
+\noindent inputArray():
+\begin{itemize}
+	\item transition: $out$ := +(inputData[key][value] $\Leftarrow$ ./Input/input.txt)
+	\item exception: input.txt $\notin$ ./Input/ $\Rightarrow$ NotFound
+	\item exception: (inputData $\Leftarrow$ ?) $\Rightarrow$ ErrorRead
+\end{itemize}
+
+The function will read all lines from the input file and place each value into inputData.
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+
+\section{MIS of M4: Input Checking Module} \label{ICModule} 
+
+This secret of this module is the algorithm that checks if input values fall within allowable parameters.
+
+\subsection{Module}
+
+InputChecking
+
+\subsection{Uses}
+
+\begin{itemize}
+	\item Data Structure (Section \ref{DSModule})
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{3cm} p{3cm} p{2.5cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		verifyInputs & inputData: DataStructure & - & OutBounds, UnknwnParm \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+The set of acceptableRanges is:\\
+\textit{LIBRARY}: set of $\mathbb{N}$: \{1\} - Libraries are associated by numbers in the program. The numbers are available for reference in the User Guide.\\
+\textit{PROBLEM}: set of $\mathbb{N}$: \{1\} - Problems are associated by numbers in the program. The numbers are available for reference in the User Guide.\\
+\textit{DIMENSIONS}: set of $\mathbb{N}$: \{2\}\\
+\textit{VEL\_DIRS}: set of $\mathbb{N}$: \{9\}\\
+\textit{REYNOLDS\_MIN}: $\mathbb{R}$: \{0.001\}\\
+\textit{REYNOLDS\_MAX}: $\mathbb{R}$: \{5000\}\\
+\textit{DENSITY\_MIN}: $\mathbb{R}$: \{0.0708\}\\
+\textit{DENSITY\_MIN}: $\mathbb{R}$: \{13.6\}\\
+\textit{BULK\_VIS\_MIN}: $\mathbb{R}$: \{0.0001\}\\
+\textit{BULK\_VIS\_MIN}: $\mathbb{R}$: \{20000\}\\
+\textit{SHEAR\_VIS\_MIN}: $\mathbb{R}$: \{0.001\}\\
+\textit{SHEAR\_VIS\_MIN}: $\mathbb{R}$: \{20000\}\\
+\textit{TIME\_MIN}: $\mathbb{N}$: \{1\}\\
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+
+The Input Reading Module M3 (Section \ref{IRModule}) has called InputChecking.verifyInputs().
+
+\subsubsection{Access Routine Semantics}
+
+\noindent verifyInputs(inputData):
+\begin{itemize}
+	\item output: N/A
+	\item exception: (inputData[value] $>$ acceptableRanges) $\cup$ (inputData[value] $<$ acceptableRanges) $\Rightarrow$ OutBounds
+	\item exception: inputData[key] $\notin$ inputTypes $\Rightarrow$ UnknwnParm
+\end{itemize}
+
+The function will iterate through each inputValue InputTypes key and check if the key is known to the program, as well as check if associated values of known keys fall within an acceptable range of the state variables.
+
+\subsubsection{Local Functions}
+
+N/A
+
+\newpage
+
+\section{MIS of M5: LBM Control Module} \label{LCModule}
+
+The secret of this module is the algorithm which controls the LBM library.
+
+\subsection{Module}
+
+LBMControl
+
+\subsection{Uses}
+
+\begin{itemize}
+	\item Streaming (Section \ref{STModule})
+	\item Collision (Section \ref{COModule})
+\end{itemize}
 
 \subsection{Syntax}
 
@@ -178,65 +391,576 @@ The following table is taken directly from the Module Guide document for this pr
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
-\hline
-\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-\hline
-\wss{accessProg} & - & - & - \\
-\hline
-\end{tabular}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		performLBM & inputData: DataStructure, problemData: $\mathbb{R}$ \& $\mathbb{N}$ & imageData: $\mathbb{R}$ & - \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+imageData ($\mathbb{R}$)
+
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+
+The System Control Module M2 (Section \ref{SCModule}) has called LBMControl.performLBM().
+
+\subsubsection{Access Routine Semantics}
+
+\noindent performLBM(inputData, problemData):
+\begin{itemize}
+	\item transition: $out$ := imageData = $\mathbb{R}$ $\Leftarrow$ Streaming.streamingFunc(), $\mathbb{R}$ $\Leftarrow$ Collision.collisionFunc()
+\item exception: N/A
+\end{itemize}
+
+The function will calculate the vorticity vector values, iterating through each velocity direction, calling the streaming and collision module functions.
+
+\subsubsection{Local Functions}
+
+N/A
+
+\newpage
+
+\section{MIS of M6: Streaming Module} \label{STModule}
+
+The secret of this module is the algorithm to calculate the streaming pf particles.
+
+\subsection{Module}
+
+Streaming
+
+\subsection{Uses}
+N/A
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		streamingFunc & Velocityi, Time, PositionVector, Force, Mass: $\mathbb{R}$ & $\mathbb{R}$ & NAN \\
+		\hline
+	\end{tabular}
 \end{center}
 
 \subsection{Semantics}
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+N/A
 
 \subsubsection{Environment Variables}
-
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+maxVariableSize = The maximum allowable value held in the variable.\\
+minVariableSize = The minimum allowable value held in the variable.
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The LBM Control Module M5 (Section \ref{LCModule}) has called streaming.streamingFunc().
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent streamingFunc(Velocityi, Time, PositionVector, Force, Mass):
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+	\item transition: $out$ := $f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$
+	\item exception: ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $>$ maxVariableSize) $\cup$ ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+The function calculates the streaming step value for each velocity direction (i).
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+\begin{center}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		pdfFunc ($f(\mathrm{\textbf{x}},\mathrm{e},t)$) & Velocityi, Time, PositionVector, Force, Mass: $\mathbb{R}$ & $\mathbb{R}$ & NAN \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsubsection{Local Function Semantics}
+
+\noindent pdfFunc(Velocityi, Time, PositionVector, Force, Mass):
+\begin{itemize}
+	\item transition: $out$ := $f(\mathrm{\textbf{x}},\mathrm{e},t) = f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$
+	\item exception: ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $>$ maxVariableSize) $\cup$ ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $<$ minVariableSize) $\Rightarrow$ NAN
+\end{itemize}
+
+The function finds the probability that a particle is at position $\textbf{x}$ and has velocity $\mathrm{e}$ at time t.\\
+
+
+\newpage
+
+\section{MIS of M7: Collision Module} \label{COModule} 
+
+The secret of this module is the algorithm to calculate the collision of particles.
+
+\subsection{Module}
+
+Collision
+
+\subsection{Uses}
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{3cm} p{3cm} p{3cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		collisionFunc & RelaxationRate, Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$ & NAN \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+maxVariableSize = The maximum allowable value held in the variable.\\
+minVariableSize = The minimum allowable value held in the variable.
+
+\subsubsection{Assumptions}
+
+The LBM Control Module M5 (Section \ref{LCModule}) has called Collision.streamingFunc().
+
+\subsubsection{Access Routine Semantics}
+
+\noindent collisionFunc(RelaxationRate, Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound, VelocityDirection):
+\begin{itemize}
+	\item transition: $out$ := $\frac{1}{\tau}(f_{i}^{eq}-f_{i})$
+	\item exception: ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\cup$ ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
+\end{itemize}
+
+The function calculates the collision step value for each velocity direction (i).
+
+\subsubsection{Local Functions}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		edfFunc ($f_{i}^{eq})$ & Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$ & NAN \\
+		relFunc ($f_{i}$) & Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$  & NAN \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsubsection{Local Function Semantics}
+
+\noindent edfFunc(Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound, VelocityDirection):
+\begin{itemize}
+	\item transition: $out$ := $f_{i}^{eq} = w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$
+	\item exception: ($w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$ $>$ maxVariableSize) $\cup$ ($w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$ $<$ minVariableSize) $\Rightarrow$ NAN
+\end{itemize}
+
+The function calculates the equilibrium distribution for each velocity direction (i).\\
+
+\noindent relFunc(Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound, VelocityDirection):
+\begin{itemize}
+	\item transition: $out$ := $f_{i} = f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$
+	\item exception: ($f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\cup$ ($f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
+\end{itemize}
+
+The function calculates the relaxation update for each velocity direction (i).\\
+
+\newpage
+
+\section{MIS of M8: Problem Module} \label{PRModule}
+
+The secret of this module is the structure of the LBM input parameters.
+
+\subsection{Module}
+
+ProblemParameter
+
+\subsection{Uses}
+
+\begin{itemize}
+	\item Lattice (Section \ref{LAModule})
+	\item Boundary (Section \ref{BOModule})
+	\item Data Structure (Section \ref{DSModule})
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		formatInput & inputData: DataStructure & problemData: $\mathbb{R}$ \& $\mathbb{N}$ & - \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+
+The System Control Module M2 (Section \ref{SCModule}) has called ProblemParameter.formatInput().
+
+\subsubsection{Access Routine Semantics}
+
+\noindent formatInput(inputData):
+\begin{itemize}
+	\item transition: $out$ := problemData = $\mathbb{N}$ $\in$ inputData, $\mathbb{R}$ $\Leftarrow$ Boundary.getBoundary(), $\mathbb{R}$ $\Leftarrow$ Lattice.getWeights()
+	\item exception: N/A
+\end{itemize}
+
+The function will set up the structure for the LBM input parameters based on the library that the user has requested. The function will use the Lattice and Boundary module functions.
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+
+\section{MIS of M9: Lattice Module} \label{LAModule} 
+
+The secret of this module is the structure of the lattice model.
+
+\subsection{Module}
+
+Lattice
+
+\subsection{Uses}
+\begin{itemize}
+	\item Data Structure (Section \ref{DSModule})
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+parameterValues := (9, 4/9, 1/9, 1/9, 1/9, 1/9, 1/36, 1/36, 1/36, 1/36) 
+
+The above holds the coefficient weights for velocity directions of a Q9 model.
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		getWeights & inputData: DataStructure & $\mathbb{R}$ & NoLattice \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+
+The Problem Module M8 (Section \ref{PRModule}) has called Lattice.getWeights().
+
+\subsubsection{Access Routine Semantics}
+
+\noindent getWeights(inputData):
+\begin{itemize}
+	\item transition: $out$ := Weighti ($\mathbb{R}$) $\in$ parameterValues
+	\item exception: inputData[VelocityDirections] $\notin$ parameterValues $\Rightarrow$ NoLattice
+\end{itemize}
+
+The function sets coefficient weight data for the input lattice model, and returns an error if the weight data is not available for the input lattice model.
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+
+\section{MIS of M10: Boundary Module} \label{BOModule}
+
+The secret of this module is the structure of the model boundary.
+
+\subsection{Module}
+
+Boundary
+
+\subsection{Uses}
+\begin{itemize}
+	\item Data Structure (Section \ref{DSModule})
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{3cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		getBoundary & inputData: DataStructure & $\mathbb{R}$ & - \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+N/A
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+The Problem Module M8 (Section \ref{PRModule}) has called Boundary.getBoundary().
+
+\subsubsection{Access Routine Semantics}
+
+\noindent getBoundary(inputData):
+\begin{itemize}
+	\item transition: $out$ := $\mathbb{R}$ $\in$ DataStructure
+	\item exception: N/A
+\end{itemize}
+
+The function returns the boundary from the DataStructure library.
+
+\subsubsection{Local Functions}
+
+N/A
+
+\newpage
+
+\section{MIS of M11: Image Rendering Module} \label{OUModule} 
+
+The algorithm to convert the LBM output into an image.
+
+\subsection{Module}
+
+ImageRendering
+
+\subsection{Uses}
+
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		imageFunc & imageData: $\mathbb{R}$ & imageOut: PNG & IncorrectFormat \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+
+The System Control Module M2 (Section \ref{PRModule}) has called ImageRendering.imageFunc() of this module.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent imageFunc(imageData):
+\begin{itemize}
+	\item transition: $out$ := imageOut: PNG
+	\item exception: ( imageData[?] $|$ ? $\neq$ $\mathbb{R}$ $\Rightarrow$ IncorrectFormat) (? is not a real number)
+\end{itemize}
+
+The function converts the information from the LBM algorithm output (for example the vorticity vector values) into an image format using an external image library.
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+
+\section{MIS of M12: Data Structure Module} \label{DSModule} 
+
+The format of a non-primitive data structure for input variables.
+
+\subsection{Module}
+
+DataStructure
+
+\subsection{Uses}
+\begin{itemize}
+	\item Input Types (Section \ref{ITModule})
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		init & - & - & - \\
+		add & InputTypes, $\mathbb{R}$ & - & IncorrectFormat \\
+		getElm &InputTypes & $\mathbb{R}$ & DoesNotExist \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+$s$: set of tuple of (key: InputType, value: $\mathbb{R}$)
+
+\subsubsection{State Invariant}
+N/A
+
+\subsubsection{Assumptions}
+
+DataStructure.init() is called before any other access program.
+
+\subsubsection{Access Routine Semantics}
+
+\noindent init():
+\begin{itemize}
+	\item transition: $s$ := \{\}
+	\item exception: N/A
+\end{itemize}
+
+\noindent add(InputTypes, $\mathbb{R}$):
+\begin{itemize}
+	\item transition: $s$ := $s$ $\cup$ \{$\langle$ InputTypes, $\mathbb{R}$ $\rangle$\}
+	\item exception: ($\langle$ InputTypes, ?$\rangle$ $\in$ $s$ $\Rightarrow$ IncorrectFormat) (? is not a real number)
+\end{itemize}
+
+\noindent remove(InputTypes):
+\begin{itemize}
+	\item transition: $s$ := $s$ - \{$\langle$ InputTypes, $\mathbb{R}$ $\rangle$\} where $\langle$ InputTypes, $\mathbb{R}$ $\rangle$ $\in $$s$
+	\item exception: ($\langle$ InputTypes, $\mathbb{R}$ $\rangle$ $\notin$ $s$ $\Rightarrow$ DoesNotExist)
+\end{itemize}
+
+\noindent getElm(InputTypes):
+\begin{itemize}
+	\item transition: $out$ := $\langle$ InputTypes, $\mathbb{R}$ $\rangle$ $\in$ $s$
+	\item exception: ($\langle$ InputTypes, $\mathbb{R}$ $\rangle$ $\notin$ $s$ $\Rightarrow$ DoesNotExist)
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+
+\section{MIS of M13: Input Types Module} \label{ITModule} 
+
+The input types for the non-primitive data structures.
+
+\subsection{Module}
+
+InputTypes
+
+\subsection{Uses}
+
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+InputTypes (string) = \{Library, Problem, Dimensions, VelocityDirections, ReynoldsNumber, Density, BulkViscosity, ShearViscosity, Time, Density, Viscosity, AccelerationRate, SpeedSound, Velocity, Force, Mass, CrossSectionalArea, MacroscopicVelocity, RelaxationRate\}
+ 
+\subsubsection{Exported Access Programs}
+N/A
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{State Invariant}
+N/A
+
+\subsubsection{Assumptions}
+
+The Data Structure Module M12 (Section \ref{DSModule}) will only use a set of the above InputTypes.
+
+\subsubsection{Access Routine Semantics}
+N/A
+
+\subsubsection{Local Functions}
+N/A
 
 \newpage
 
 \bibliographystyle {plainnat}
-\bibliography {../../../refs/References}
+\bibliography{../../../refs/References}
 
 \newpage
 
 \section{Appendix} \label{Appendix}
 
-\wss{Extra information if required}
+\begin{longtable}{l p{12cm}}
+	\caption{Possible Exceptions} \\
+	\toprule
+	\textbf{Message ID} & \textbf{Error Message} \\
+	\midrule
+	DoesNotExist & Error: The input type does not exist.\\ 
+	ErrorRead & Error: Could not read the input file. \\
+	IncorrectFormat & Error: The format is not a real number.\\
+	NAN & Error: The calculated result is not a number.\\
+	NoLattice & Error: The chosen velocity directions do not have a known lattice structure.\\
+	NotFound & Error: Input file not found. \\
+	OutBounds & Error: The input file parameter X is out of bounds. Please see the User Guide.\\
+	UnknwnParm & Error: The parameter X is not known to the system. Please see the User Guide.\\	
+	\bottomrule
+\end{longtable}
+
 
 \end{document}
