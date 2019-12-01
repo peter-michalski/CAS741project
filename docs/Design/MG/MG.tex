@@ -110,10 +110,12 @@ Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
   structures must obtain it by calling access programs belonging to that module.
 \end{itemize}
 
-After completing the first stage of the design, the Commonality Analysis (CA)  (refer to \citet{LBM_CA_PM}), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
+After completing the first stage of the design, the Commonality Analysis (CA)
+(refer to \citet{LBM_CA_PM}), the Module Guide (MG) is
+developed~\citep{ParnasEtAl1984}. The MG specifies the modular structure of the
+system and is intended to allow both designers and maintainers to easily
+identify the parts of the software.  The potential readers of this document are
+as follows:
 
 \begin{itemize}
 \item New project members: This document can be a guide for a new project member
@@ -478,6 +480,9 @@ because they use modules from the lower levels.
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
+
+\wss{The figure looks like only the Data Structure module can use the Input
+  Types Module.  Shouldn't many of the modules be able to use these types?}
 
 ~\newpage
 %\section*{References}
