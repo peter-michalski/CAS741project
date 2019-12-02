@@ -385,8 +385,8 @@ InputChecking.verifyInputs().  \wss{This is confusing.  This module assumes that
 
 \noindent verifyInputs(inputData):
 \begin{itemize}
-	\item output: (inputData[value] $!>$ acceptableRanges) $\cap$ (inputData[value] $!<$ acceptableRanges) $\Rightarrow$ return True
-	\item exception: (inputData[value] $>$ acceptableRanges) $\cup$ (inputData[value] $<$ acceptableRanges) $\Rightarrow$ OutBounds
+	\item output: (inputData[value] $!>$ acceptableRanges) $\land$ (inputData[value] $!<$ acceptableRanges) $\Rightarrow$ return True
+	\item exception: (inputData[value] $>$ acceptableRanges) $\lor$ (inputData[value] $<$ acceptableRanges) $\Rightarrow$ OutBounds
 	\item exception: inputData[key] $\notin$ inputTypes $\Rightarrow$ UnknwnParm
 \end{itemize} \wss{Where does value come from?  This variable is not bound to
   anything in this expression.  Do you want a quantification over all values?}
@@ -526,7 +526,7 @@ The LBM Control Module M5 (Section \ref{LCModule}) has called streaming.streamin
 \noindent streamingFunc(Velocityi, Time, PositionVector, Force, Mass):
 \begin{itemize}
 	\item transition: $out$ := $f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$
-	\item exception: ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $>$ maxVariableSize) $\cup$ ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $<$ minVariableSize) $\Rightarrow$ NAN
+	\item exception: ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $>$ maxVariableSize) $\lor$ ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
 \wss{What is the connection between the parameters of the streaming function and
@@ -554,7 +554,7 @@ The function calculates the streaming step value for each velocity direction (i)
 \noindent pdfFunc(Velocityi, Time, PositionVector, Force, Mass):
 \begin{itemize}
 	\item transition: $out$ := $f(\mathrm{\textbf{x}},\mathrm{e},t) = f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$
-	\item exception: ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $>$ maxVariableSize) $\cup$ ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $<$ minVariableSize) $\Rightarrow$ NAN
+	\item exception: ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $>$ maxVariableSize) $\lor$ ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
 The function finds the probability that a particle is at position $\textbf{x}$ and has velocity $\mathrm{e}$ at time t.\\
@@ -610,7 +610,7 @@ The LBM Control Module M5 (Section \ref{LCModule}) has called Collision.streamin
 \noindent collisionFunc(RelaxationRate, Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound, VelocityDirection):
 \begin{itemize}
 	\item transition: $out$ := $\frac{1}{\tau}(f_{i}^{eq}-f_{i})$
-	\item exception: ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\cup$ ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
+	\item exception: ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\lor$ ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
 \wss{I do not see the mapping between the parameters and the transition
@@ -637,7 +637,7 @@ The function calculates the collision step value for each velocity direction (i)
 \noindent edfFunc(Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound, VelocityDirection):
 \begin{itemize}
 	\item transition: $out$ := $f_{i}^{eq} = w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$
-	\item exception: ($w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$ $>$ maxVariableSize) $\cup$ ($w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$ $<$ minVariableSize) $\Rightarrow$ NAN
+	\item exception: ($w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$ $>$ maxVariableSize) $\lor$ ($w_{i}p(1 + 3 \cdot \frac{\textbf{e}_\textbf{i}\cdot\textbf{u}}{c_s^2}+\frac{9}{2} \cdot \frac{(\textbf{e}_\textbf{i}\cdot\textbf{u})^2}{c_s^4}-\frac{3}{2} \cdot \frac{\textbf{u}\cdot\textbf{u}}{c_s^4})$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
 The function calculates the equilibrium distribution for each velocity direction (i).\\
@@ -645,7 +645,7 @@ The function calculates the equilibrium distribution for each velocity direction
 \noindent relFunc(Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound, VelocityDirection):
 \begin{itemize}
 	\item transition: $out$ := $f_{i} = f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$
-	\item exception: ($f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\cup$ ($f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
+	\item exception: ($f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\lor$ ($f_{i} - \frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
 The function calculates the relaxation update for each velocity direction (i).\\
