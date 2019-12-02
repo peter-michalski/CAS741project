@@ -513,9 +513,8 @@ N/A
 N/A
 
 \subsubsection{Environment Variables}
-maxVariableSize = The maximum allowable value held in the variable.\\
-minVariableSize = The minimum allowable value held in the variable.
-\wss{These are not environment variables.}
+N/A
+%\wss{These are not environment variables.}
 
 \subsubsection{Assumptions}
 
@@ -526,7 +525,7 @@ The LBM Control Module M5 (Section \ref{LCModule}) has called streaming.streamin
 \noindent streamingFunc(Velocityi, Time, PositionVector, Force, Mass):
 \begin{itemize}
 	\item transition: $out$ := $f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$
-	\item exception: ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $>$ maxVariableSize) $\lor$ ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $<$ minVariableSize) $\Rightarrow$ NAN
+	\item exception: ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $>$ maximum size of primitive data type) $\Rightarrow$ NAN
 \end{itemize}
 
 \wss{What is the connection between the parameters of the streaming function and
@@ -554,7 +553,7 @@ The function calculates the streaming step value for each velocity direction (i)
 \noindent pdfFunc(Velocityi, Time, PositionVector, Force, Mass):
 \begin{itemize}
 	\item transition: $out$ := $f(\mathrm{\textbf{x}},\mathrm{e},t) = f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$
-	\item exception: ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $>$ maxVariableSize) $\lor$ ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $<$ minVariableSize) $\Rightarrow$ NAN
+	\item exception: ($f(\mathrm{\textbf{x}} +\mathrm{e}dt, \mathrm{e} + \frac{F}{kg}dt, t + dt)$) $>$ maximum size of primitive data type) $\Rightarrow$ NAN
 \end{itemize}
 
 The function finds the probability that a particle is at position $\textbf{x}$ and has velocity $\mathrm{e}$ at time t.\\
