@@ -197,7 +197,7 @@ N/A
 inputData: DataStructure\\
 problemData: $\mathbb{R}$ \& $\mathbb{N}$ \wss{What does this notation mean?
   This does not look like proper mathematics.}\\ 
-imageData: $\mathbb{R}$\\
+imageData: array[$\mathbb{R}$]\\
 imageOut: PNG\\
 
 
@@ -427,7 +427,7 @@ LBMControl
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		performLBM & inputData: DataStructure, problemData: $\mathbb{R}$ \& $\mathbb{N}$ & imageData: $\mathbb{R}$ & - \\
+		performLBM & inputData: DataStructure, problemData: $\mathbb{R}$ \& $\mathbb{N}$ & imageData[$\mathbb{R}$] & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -446,12 +446,7 @@ LBMControl
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-imageData ($\mathbb{R}$) \wss{the image data is a single real number?} \wss{The
-  LBM calculations output an image?  I would much rather the output is the
-  velocity (or whatever CFD parameter is of interest).  This data can then be
-  turned into an image by another routine, or simply returned to the user, and
-  they can make their own image.  An image as output is not very reusable in
-  another context.}
+imageData[$\mathbb{R}$] %\wss{the image data is a single real number?} %\pm{No, it is an array. I have updated the variable to reflect this.} \wss{The LBM calculations output an image?  I would much rather the output is the velocity (or whatever CFD parameter is of interest).  This data can then be turned into an image by another routine, or simply returned to the user, and they can make their own image.  An image as output is not very reusable in another context.} %\pm{The library and problem that will first be implemented will show the image, future additions to the library will include additional numerical output}
 
 \subsubsection{Environment Variables}
 N/A
@@ -866,7 +861,7 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		imageFunc & imageData: $\mathbb{R}$ & imageOut: PNG & IncorrectFormat \\
+		imageFunc & imageData[$\mathbb{R}]$ & imageOut: PNG & IncorrectFormat \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -886,10 +881,10 @@ The System Control Module M2 (Section \ref{PRModule}) has called ImageRendering.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent imageFunc(imageData):
+\noindent imageFunc(imageData[]):
 \begin{itemize}
 	\item transition: $out$ := imageOut: PNG
-	\item exception: ( imageData[?] $|$ ? $\neq$ $\mathbb{R}$ $\Rightarrow$ IncorrectFormat) (? is not a real number)
+	\item exception: ( imageData[] $\neq$ $\mathbb{R}$ $\Rightarrow$ IncorrectFormat)
 \end{itemize}
 
 The function converts the information from the LBM algorithm output (for example the vorticity vector values) into an image format using an external image library.
@@ -960,7 +955,7 @@ DataStructure.init() is called before any other access program.
 \noindent add(InputTypes, $\mathbb{R}$):
 \begin{itemize}
 	\item transition: $s$ := $s$ $\cup$ \{$\langle$ InputTypes, $\mathbb{R}$ $\rangle$\}
-	\item exception: ($\langle$ InputTypes, ?$\rangle$ $\in$ $s$ $\Rightarrow$ IncorrectFormat) (? is not a real number)
+	\item exception: ($\langle$ InputTypes, value $\rangle$ $|$ value is not a $\mathbb{R}$ $\Rightarrow$ IncorrectFormat) 
 \end{itemize}
 
 \noindent remove(InputTypes):
