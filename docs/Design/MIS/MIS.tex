@@ -105,9 +105,10 @@ The following table summarizes the primitive data types used by \famname.
 \toprule 
 \textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
 \midrule
-string & string & single or multiple symbols or digits\\
+Boolean & Boolean & true or false\\
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+string & string & single or multiple symbols or digits\\
 \bottomrule
 \end{tabular} 
 \end{center}
@@ -337,7 +338,7 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		verifyInputs & inputData: DataStructure & - & OutBounds, UnknwnParm \\
+		verifyInputs & inputData: DataStructure & Boolean & OutBounds, UnknwnParm \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -384,7 +385,7 @@ InputChecking.verifyInputs().  \wss{This is confusing.  This module assumes that
 
 \noindent verifyInputs(inputData):
 \begin{itemize}
-	\item output: N/A
+	\item output: (inputData[value] $!>$ acceptableRanges) $\cap$ (inputData[value] $!<$ acceptableRanges) $\Rightarrow$ return True
 	\item exception: (inputData[value] $>$ acceptableRanges) $\cup$ (inputData[value] $<$ acceptableRanges) $\Rightarrow$ OutBounds
 	\item exception: inputData[key] $\notin$ inputTypes $\Rightarrow$ UnknwnParm
 \end{itemize} \wss{Where does value come from?  This variable is not bound to
