@@ -427,7 +427,7 @@ LBMControl
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		performLBM & inputData: DataStructure, problemData: $\mathbb{R}$ \& $\mathbb{N}$ & imageData[$\mathbb{R}$] & - \\
+		performLBM & inputData: DataStructure, problemData: $\mathbb{R}$ \& $\mathbb{N}$ & imageData: array[$\mathbb{R}$] & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -446,7 +446,7 @@ LBMControl
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-imageData[$\mathbb{R}$] %\wss{the image data is a single real number?} %\pm{No, it is an array. I have updated the variable to reflect this.} \wss{The LBM calculations output an image?  I would much rather the output is the velocity (or whatever CFD parameter is of interest).  This data can then be turned into an image by another routine, or simply returned to the user, and they can make their own image.  An image as output is not very reusable in another context.} %\pm{The library and problem that will first be implemented will show the image, future additions to the library will include additional numerical output}
+imageData: array[$\mathbb{R}$] %\wss{the image data is a single real number?} %\pm{No, it is an array. I have updated the variable to reflect this.} \wss{The LBM calculations output an image?  I would much rather the output is the velocity (or whatever CFD parameter is of interest).  This data can then be turned into an image by another routine, or simply returned to the user, and they can make their own image.  An image as output is not very reusable in another context.} %\pm{The library and problem that will first be implemented will show the image, future additions to the library will include additional numerical output}
 
 \subsubsection{Environment Variables}
 N/A
@@ -501,7 +501,7 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		streamingFunc & Velocityi, Time, PositionVector, Force, Mass: $\mathbb{R}$ & $\mathbb{R}$ & NAN \\
+		streamingFunc & Velocityi: $\mathbb{R}$, Time: $\mathbb{N}$, PositionVector: $\mathbb{R}$, Force: $\mathbb{R}$, Mass: $\mathbb{R}$ & $\mathbb{R}$ & NAN \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -544,7 +544,7 @@ The function calculates the streaming step value for each velocity direction (i)
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		pdfFunc ($f(\mathrm{\textbf{x}},\mathrm{e},t)$) & Velocityi, Time, PositionVector, Force, Mass: $\mathbb{R}$ & $\mathbb{R}$ & NAN \\
+		pdfFunc ($f(\mathrm{\textbf{x}},\mathrm{e},t)$) & Velocityi: $\mathbb{R}$, Time: $\mathbb{N}$, PositionVector: $\mathbb{R}$, Force: $\mathbb{R}$, Mass: $\mathbb{R}$ & $\mathbb{R}$ & NAN \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -587,7 +587,7 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		collisionFunc & RelaxationRate, Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$ & NAN \\
+		collisionFunc & RelaxationRate : $\mathbb{R}$, Weighti: $\mathbb{R}$, Density: $\mathbb{R}$, UnitVector: $\mathbb{R}$, MacroscopicVelocity: $\mathbb{R}$, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$ & NAN \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -626,8 +626,8 @@ The function calculates the collision step value for each velocity direction (i)
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		edfFunc ($f_{i}^{eq})$ & Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$ & NAN \\
-		relFunc ($f_{i}$) & Weighti, Density, UnitVector, MacroscopicVelocity, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$  & NAN \\
+		edfFunc ($f_{i}^{eq})$ & Weighti: $\mathbb{R}$, Density: $\mathbb{R}$, UnitVector: $\mathbb{R}$, MacroscopicVelocity: $\mathbb{R}$, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$ & NAN \\
+		relFunc ($f_{i}$) & Weighti: $\mathbb{R}$, Density: $\mathbb{R}$, UnitVector: $\mathbb{R}$, MacroscopicVelocity: $\mathbb{R}$, SpeedSound: $\mathbb{R}$, VelocityDirection: $\mathbb{N}$ & $\mathbb{R}$  & NAN \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -861,7 +861,7 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		imageFunc & imageData[$\mathbb{R}]$ & imageOut: PNG & IncorrectFormat \\
+		imageFunc & imageData: array[$\mathbb{R}]$ & imageOut: PNG & IncorrectFormat \\
 		\hline
 	\end{tabular}
 \end{center}
