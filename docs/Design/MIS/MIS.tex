@@ -334,11 +334,11 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{3cm} p{3cm} p{2.5cm}}
+	\begin{tabular}{p{2cm} p{3cm} p{3cm} p{3cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		verifyInputs & inputData: DataStructure & Boolean & OutBounds, UnknwnParm \\
+		verifyInputs & inputData: DataStructure & Boolean & OutBounds, UnknwnParm, MssngPrb \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -1036,6 +1036,7 @@ N/A
 	DoesNotExist & Error: The input type does not exist.\\ 
 	ErrorRead & Error: Could not read the input file. \\
 	IncorrectFormat & Error: The format is not a real number.\\
+	MssngPrb & Error: The input.txt file is missing (or has incorrect) required fields for the designated problem. Please see the User Guide.\\
 	NAN & Error: The calculated result is not a number.\\
 	NoLattice & Error: The chosen velocity directions do not have a known lattice structure.\\
 	NotFound & Error: Input file not found. \\

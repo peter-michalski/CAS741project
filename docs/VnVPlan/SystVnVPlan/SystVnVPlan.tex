@@ -51,6 +51,7 @@
 \midrule
 Oct. 28, 2019 & 1.0 & Initial Document\\
 Nov. 27, 2019 & 2.0 & Initial Issues Resolved\\
+Dec. 10, 2019 & 3.0 & Updates for Initial Source Code\\
 \bottomrule
 \end{tabularx}
 
@@ -61,8 +62,6 @@ Nov. 27, 2019 & 2.0 & Initial Issues Resolved\\
 \newpage
 
 \listoftables
-
-\listoffigures
 
 \newpage
 
@@ -96,6 +95,7 @@ Nov. 27, 2019 & 2.0 & Initial Issues Resolved\\
   SRS & Software Requirement Specification\\
   V & Set of All Inputs\\
   VnV & Verification and Validation\\
+  X & Out of Bounds Variable\\
   \bottomrule
 \end{tabular}\\
 
@@ -111,22 +111,16 @@ Nov. 27, 2019 & 2.0 & Initial Issues Resolved\\
   $\mathrm{D}$ & Signifies the Dimension Component of Lattice Model\\
   $D_{l}$ & Length of the Domain\\
   $D_{w}$ & Width of the Domain\\
-  $\mathrm{e_{fac}}$ & Velocity of Scheme\\
-  $\mathrm{e_{max}}$ & Max Velocity in the Middle of Channel\\
-  $\mathrm{e_{sch}}$ & Velocity Slowdown Factor\\
+  $\mathrm{e}$ & Velocity\\
   $\eta_b$ & Bulk Viscosity \\
   $\eta_s$ & Shear Viscosity \\
   $\mathbb{N}$ & Natural Numbers\\
   $\mathrm{Q}$ & Signifies Number of Velocity Directions of Lattice Model\\
-  $R$ & Radius of Cylinder\\
   $Re$ & Reynolds Number\\
   $\rho$ & Density \\
   $S$ & Spatial Step - Number of Spatial Subsections\\
+  Size & Preset size of the model\\
   $t$ & Time \\
-  $X_{max}$ & Highest X-Axis Interval of Boundary\\
-  $X_{min}$ & Lowest X-Axis Interval of Boundary\\
-  $Y_{max}$ & Highest Y-Axis Interval of Boundary\\
-  $Y_{min}$ & Lowest Y-Axis Interval of Boundary\\
   \bottomrule
 \end{tabular}\\
 
@@ -283,7 +277,7 @@ and R7, and will test out the input vales at their allowable edges.
 \label{frinput}
 		
 \paragraph{Input Reading}
-
+\label{inputreading}
 \begin{enumerate}
 
 \item{input-reading-id\refstepcounter{testcounter}\thetestcounter
@@ -293,52 +287,40 @@ and R7, and will test out the input vales at their allowable edges.
 				
   Initial State: input.txt file is in the Input directory. %\wss{If the initial state is no input file, then wouldn't this test fail to generate output?  I would think you would get an exception if the file does not exist?}
 					
-  Input: A comma delimited text file, with inputs marked in the manner outlined
+  Input: A text file with inputs marked in the manner outlined
   in the User Guide (\citet{LBM_UserGuide_PM}).
 
   The input values for this test will be:\\
-  Library: 1\\
-  Problem: 1\\	
-  $Re$: 500\\ 
-  $t$: 75\\
-  $\rho$: 1.0\\
-  $\eta_b$: 1.e-3\\
-  $X_{min}$ = 0.\\
-  $X_{max}$ = 3.\\
-  $Y_{min}$ = 0.\\
-  $Y_{max}$ = 1.\\
-  $R$ = 0.05\\
-  $\mathrm{e_{sch}}$ = 1.\\
-  $\mathrm{e_{fac}}$ = 20\\
-  $\mathrm{e_{max}}$ = 0.1\\
-  $S$ = 64\\
-  $\mathrm{D}$ = 2\\
-  $\mathrm{Q}$ = 9\\
-  $D_{l}$ = 2\\
-  $D_{w}$ = 1\\
+  Library 1\\
+  Problem 1\\	
+  $Re$ 500\\ 
+  $t$ 75\\
+  $\rho$ 1\\
+  $\eta_b$ 0.001\\
+  Size 1\\
+  $\mathrm{e}$ 1\\
+  $S$ 64\\
+  $\mathrm{D}$ 2\\
+  $\mathrm{Q}$ 9\\
+  $D_{l}$ 2\\
+  $D_{w}$ 1\\
 
 					
 Output: All inputs printed to the screen as output (O).\\
 Outputs printed to the screen:\\
-Library: 1\\
-Problem: 1\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$\mathrm{e_{max}}$ = 0.1\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
+Library 1\\
+Problem 1\\
+ReynoldsNumber 500\\
+$t$ 75\\
+$\rho$ 1\\
+$\eta_b$ 0.001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$S$ 64\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
+$D_{l}$ 2\\
+$D_{w}$ 1\\
 
 Test Case Derivation: P(V) is correct if P:V -$>$ O and O = V\\
 
@@ -348,10 +330,10 @@ values to the screen. This test satisfies R1.\\
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
   of the project.
+\item The input reading module will be modified to print the input data prior to verifying it.  
 \item {\famname} will be run.
 \item If successful, The system will output the input parameters to the screen.
 \end{enumerate}
@@ -362,10 +344,10 @@ Control: Program (P) reading of input values (V) from a file.\\
 
 Initial State: input.txt file is in the Input directory.\\
 
-Input: A comma delimited text file with the following input:\\
+Input: A text file with the following input:\\
 ccQseHfFspBLAYZjCGZtJYMAdeAc
 
-Output: An error message of ``cannot read file" should be shown.\\
+Output: An error message of ``Could not read the input file." should be shown.\\
 
 Test Case Derivation: P(V) is correct if P:V -$>$ Error Message \\
 
@@ -374,8 +356,7 @@ The result required for the test to pass is the successful printing of the error
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter value will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter value will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
   of the project.
 \item {\famname} will be run.
@@ -395,7 +376,7 @@ Control: Program (P) testing of high and low input values (V) read from a file.\
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-Input: A comma delimited file, with inputs marked in the manner outlined in the
+Input: A file with inputs marked in the manner outlined in the
 User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will
 be:\\
 
@@ -409,7 +390,7 @@ be:\\
 			  \hline
 			Problem & 1 & 1\\
 			\hline
-			$Re$ & 50000 & -500000 \\
+			ReynoldsNumber & 50000 & -500000 \\
 			\hline
 			$t$ & 0& 0\\
 			\hline
@@ -419,21 +400,9 @@ be:\\
 			\hline
 			$\eta_s$ & 30000& -30000\\
 			\hline
-			$X_{min}$ & 0.& 0.\\
+			Size & 1& 1\\
 			\hline
-			$X_{max}$ & 3.& 3.\\
-			\hline
-			$Y_{min}$ & 0.& 0.\\
-			\hline
-			$Y_{max}$ & 1.& 1.\\
-			\hline
-			$R$ & 0.05& 0.05\\
-			\hline
-			$\mathrm{e_{sch}}$ & 1.& 1.\\
-			\hline
-			$\mathrm{e_{fac}}$ & 20& 20\\
-			\hline
-			$\mathrm{e_{max}}$ & 0.1& 0.1\\
+			$\mathrm{e}$ & 1.& 1.\\
 			\hline
 			$S$ & 64& 64\\
 			\hline
@@ -450,17 +419,7 @@ be:\\
 	\end{center}
 \end{table}
 	
-Output: A descriptive failure message printed to the screen as seen below, or on the command line depending on how the system is run. In
-the below figure, X will contain all parameter names that are out of bounds. In
-both tests that will include $Re$, $t$, $\rho$, $\eta_b$, and $\eta_s$.
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{errorMessage.jpeg}
-\caption{Input out of Bounds}
-\label{Fig_InputError}
-\end{center}
-\end{figure}
+Output: An error message of ``The input.txt file parameter X is out of bounds. Please see the User Guide.'' printed to log\_file.log. The variable X represents the parameter that is out of bounds. A separate message will be printed for each parameter. In both tests that will include $Re$, $t$, $\rho$, $\eta_b$, and $\eta_s$.
 
 Test Case Derivation: 
 I (individual inputs) are an element of V. P(V) is incorrect if P:V and at least
@@ -470,13 +429,12 @@ Bounds. This test satisfies R3.\\
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input values will be written to a comma
-  delimited text file titled input.txt, as outlined in the User Guide
+\item Outside of the system, the input values will be written to a text file titled input.txt, as outlined in the User Guide
   (\citet{LBM_UserGuide_PM}).
 \item The file will be placed into the Input directory, under the home directory
   of the project.
 \item {\famname} will be run.
-\item If the test is successful, the system will output a descriptive error message, as seen above, to the screen.\\
+\item If the test is successful, the system will print a descriptive error message to the log file.\\
 
 \end{enumerate}
 
@@ -495,7 +453,7 @@ A Von Karman vortex street is a fluid dynamics problem involving a repeating pat
 \paragraph{}
 These dynamic tests will compare {\famname} output with output from
 the pseudo-oracle myLBM (\citet{pylbmcode}). The pseudo-oracle will have the
-same inputs as {\famname} for each test. The difference in output between {\famname} and the pseudo-oracle will be compared and noted. %\wss{Rather than an allowed error, we might be better off simply summarizing the calculated error.  Even if there is an allowed error, a report of the actual error values is more useful information than simply PASS/FAIL.}
+same inputs as {\famname} for each test. The difference in output between {\famname} and the pseudo-oracle will be compared and noted. In order to perform this test, the Module M2SystemControl will need to be modified. The vorticity function will need to print the vorticity vector value to the screen before returning it. %\wss{Rather than an allowed error, we might be better off simply summarizing the calculated error.  Even if there is an allowed error, a report of the actual error values is more useful information than simply PASS/FAIL.}
 
 \begin{enumerate}
 
@@ -506,25 +464,19 @@ to match a control value (C).\\
 					
 Initial State: input.txt file is in the Input directory. %\wss{Again, this seems like an odd initial state.}\\
 					
-Input: A comma delimited file, with inputs marked in the manner outlined in the
+Input: A file with inputs marked in the manner outlined in the
 User Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will
 be:\\
-Library: 1\\
-Problem: 1\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+Library 1\\
+Problem 1\\
+$Re$ 500\\
+$t$ 75\\
+$\rho$ 1\\
+$\eta_b$ 0.001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 
 %\wss{It is great that you will be using a pseudo-oracle.  However, it would be nice to explain what the test inputs mean.  How would a scientist explain the test you are running?  What is the physics of the test?  I haven't checked,m but I would guess that your pyl reference would explain the test cases more than just listing numbers?} %I have added an introduction to the tests; the inputs are defined in the symbols table. While I have combined some tests into tables where it is easy and convenient to read, I have also decided to keep some sets of similar tests seperate instead of putting them into one table. I have done this with tests that have varying descriptions and output comparison files. 
 
@@ -539,11 +491,10 @@ How test will be performed:
 \begin{enumerate}
 \item The Von Karman Vortex Street module shall be modified by the author to
   print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
   of the project.
-\item The module for Von Karman Vortex Street will be selected to run.
+\item {\famname} shall be run.  
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
@@ -560,7 +511,7 @@ parameter (I), and observing the variance of the output (O) when compared to a c
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-Input: A comma delimited file, with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for each of the iterations of this test will be:\\
+Input: A file with inputs marked in the manner outlined in the User Guide (\citet{LBM_UserGuide_PM}).\\The input values for each of the iterations of this test will be:\\
 
 \begin{table}[!h]
 	\begin{center}
@@ -576,25 +527,13 @@ Input: A comma delimited file, with inputs marked in the manner outlined in the 
 			\hline
 			$t$ & 75& 75& 75& 75& 75\\
 			\hline
-			$\rho$ & 1.0& 1.0& 1.0& 1.0& 1.0\\
+			$\rho$ & 1& 1& 1& 1& 1\\
 			\hline
-			$\eta_b$ & 1.e-3& 1.e-3& 1.e-3& 1.e-3& 1.e-3\\
+			$\eta_b$ & 0.001& 0.001& 0.001& 0.001& 0.001\\
 			\hline
-			$X_{min}$ & 0.& 0.& 0.& 0.& 0.\\
+			Size & 1& 1& 1& 1& 1\\
 			\hline
-			$X_{max}$ & 3.& 3.& 3.& 3.& 3.\\
-			\hline
-			$Y_{min}$ & 0.& 0.& 0.& 0.& 0.\\
-			\hline
-			$Y_{max}$ & 1.& 1.& 1.& 1.& 1.\\
-			\hline
-			$R$ & 0.05& 0.05& 0.05& 0.05& 0.05\\
-			\hline
-			$\mathrm{e_{sch}}$ & 1.& 1.& 1.& 1.& 1.\\
-			\hline
-			$\mathrm{e_{fac}}$ & 20& 20& 20& 20& 20\\
-			\hline
-			$S$ & 64& 64& 64& 64& 64\\
+			$\mathrm{e}$ & 1& 1& 1& 1& 1\\
 			\hline
 			$\mathrm{D}$ & 2& 2& 2& 2& 2\\
 			\hline
@@ -616,11 +555,10 @@ How test will be performed:
 \begin{enumerate}
 \item The Von Karman Vortex Street module shall be modified by the author to
   print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
   of the project.
-\item The module for Von Karman Vortex Street will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
@@ -636,24 +574,18 @@ to match a control value (C).\\
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-Library: 1\\
-Problem: 1\\
-$Re$: 0.0001\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+Library 1\\
+Problem 1\\
+$Re$ 0.0001\\
+$t$ 75\\
+$\rho$ 1\\
+$\eta_b$ 0.001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 					
 Output: Vorticity vector values printed to the screen.\\
 
@@ -668,11 +600,10 @@ How test will be performed:
 \begin{enumerate}
 \item The Von Karman Vortex Street module shall be modified by the author to
   print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
   of the project.
-\item The module for Von Karman Vortex Street will be selected to run.
+\item {\famname} shall be run.  
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
@@ -686,24 +617,18 @@ to match a control value (C).\\
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-Library: 1\\
-Problem: 1\\
-$Re$: 50000\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+Library 1\\
+Problem 1\\
+$Re$ 50000\\
+$t$ 75\\
+$\rho$ 1\\
+$\eta_b$ 0.001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
@@ -718,10 +643,9 @@ How test will be performed:
 \begin{enumerate}
 \item The Von Karman Vortex Street module shall be modified by the author to
   print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
-\item The module for Von Karman Vortex Street will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
@@ -735,24 +659,18 @@ to match a control value (C).\\
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-Library: 1\\
-Problem: 1\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 7.08e-2\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+Library 1\\
+Problem 1\\
+$Re$ 500\\
+$t$ 75\\
+$\rho$ 0.0708\\
+$\eta_b$ 0.001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
@@ -767,10 +685,9 @@ How test will be performed:
 \begin{enumerate}
 \item The Von Karman Vortex Street module shall be modified by the author to
   print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
-\item The module for Von Karman Vortex Street will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
@@ -784,24 +701,18 @@ to match a control value (C).\\
 
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-  Library: 1\\
-Problem: 1\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 13.6\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+  Library 1\\
+Problem 1\\
+$Re$ 500\\
+$t$ 75\\
+$\rho$ 13.6\\
+$\eta_b$ 0.001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 
 Output: Vorticity vector values printed to the screen. \\
 
@@ -816,10 +727,9 @@ How test will be performed:
 \begin{enumerate}
 \item The Von Karman Vortex Street module shall be modified by the author to
   print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
-\item The module for Von Karman Vortex Street will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
@@ -832,24 +742,18 @@ Control: Program (P) module execution using inputs (V), and expecting output (O)
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-  Library: 1\\
-Problem: 1\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-4\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+  Library 1\\
+Problem 1\\
+$Re$ 500\\
+$t$ 75\\
+$\rho$ 1\\
+$\eta_b$ 0.0001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 
 Output: Vorticity vector values printed to the screen.  \\
 
@@ -863,10 +767,9 @@ How test will be performed:
 \begin{enumerate}
 \item The Von Karman Vortex Street module shall be modified by the author to
   print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
-\item The module for Von Karman Vortex Street will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the output values of the vorticity vector
   will be compared to the vorticity vector values from pyLBM - comparison will
   be done per cell. Comparisons can be done manually using Excel, or through a
@@ -879,24 +782,18 @@ Control: Program (P) module execution using inputs (V), and expecting output (O)
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-  Library: 1\\
-Problem: 1\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-2\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+  Library 1\\
+Problem 1\\
+$Re$ 500\\
+$t$ 75\\
+$\rho$ 1\\
+$\eta_b$ 0.01\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 
 Output: Vorticity vector values printed to the screen. \\ 
 
@@ -911,11 +808,10 @@ How test will be performed:
 \begin{enumerate}
 \item The Von Karman Vortex Street module shall be modified by the author to
   print the vorticity vector as output.
-\item Outside of the system, the input parameter values will be written to a
-  comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
 of the project.
-\item The module for Von Karman Vortex Street will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the output values of the vorticity vector
 will be compared to the vorticity vector values from pyLBM - comparison will be
 done per cell. Comparisons can be done manually using Excel or through a
@@ -943,20 +839,18 @@ Control: Program (P) module execution using inputs (V), and expecting output (O)
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-  Library: 1\\
-Problem: 2\\
-$t$: 50\\
-$\rho$: 1\\
-$\eta_b$: 1.e-2\\
-$\eta_s$: 1.e-2\\
-$S$ = 16\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{max}}$ = 0.1\\
-$X_{min}$ = 0.\\
+  Library 1\\
+Problem 2\\
+$t$ 50\\
+$\rho$ 1\\
+$\eta_b$ 0.01\\
+$\eta_s$ 0.01\\
+$S$ 16\\
+$D_{l}$ 2\\
+$D_{w}$ 1\\
+$\mathrm{e}$ 1\\
 
 					
 Output: Pressure gradient value printed to the screen.  \\
@@ -969,11 +863,10 @@ this test is to be compared to the C value from the pseudo-oracle,
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a
-comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
 of the project.
-\item The module for Poiseuille Flow will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the pressure gradient output value will be
 compared to the above output value from the pseudo-oracle.
 \end{enumerate}			
@@ -984,20 +877,18 @@ Control: Program (P) module execution using inputs (V), and expecting output (O)
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-Library: 1\\
-Problem: 2\\
-$t$: 50\\
-$\rho$: 0.0708\\
-$\eta_b$: 1.e-2\\
-$\eta_s$: 1.e-2\\
-$S$ = 16\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{max}}$ = 0.1\\
-$X_{min}$ = 0.\\
+Library 1\\
+Problem 2\\
+$t$ 50\\
+$\rho$ 0.0708\\
+$\eta_b$ 0.01\\
+$\eta_s$ 0.01\\
+$S$ 16\\
+$D_{l}$ 2\\
+$D_{w}$ 1\\
+$\mathrm{e}$ 1\\
 
 					
 Output: Pressure gradient value printed to the screen. \\ 
@@ -1010,11 +901,10 @@ this test is to be compared to the C value from the pseudo-oracle,
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a
-comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
 of the project.
-\item The module for Poiseuille Flow will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the pressure gradient output value will be
 compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
@@ -1026,20 +916,18 @@ to match a control value (C).\\
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-Library: 1\\
-Problem: 2\\
-$t$: 50\\
-$\rho$: 13.6\\
-$\eta_b$: 1.e-2\\
-$\eta_s$: 1.e-2\\
-$S$ = 16\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{max}}$ = 0.1\\
-$X_{min}$ = 0.\\
+Library 1\\
+Problem 2\\
+$t$ 50\\
+$\rho$ 13.6\\
+$\eta_b$ 0.01\\
+$\eta_s$ 0.01\\
+$S$ 16\\
+$D_{l}$ 2\\
+$D_{w}$ 1\\
+$\mathrm{e}$ 1\\
 
 Output: Pressure gradient value printed to the screen.  \\
 
@@ -1051,11 +939,10 @@ this test is to be compared to the C value from the pseudo-oracle,
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a
-comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
 of the project.
-\item The module for Poiseuille Flow will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the pressure gradient output value will be
 compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
@@ -1066,20 +953,18 @@ Control: Program (P) module execution using inputs (V), and expecting output (O)
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-Library: 1\\
-Problem: 2\\
-$t$: 50\\
-$\rho$: 1\\
-$\eta_b$: 1.e-4\\
-$\eta_s$: 1.e-2\\
-$S$ = 16\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{max}}$ = 0.1\\
-$X_{min}$ = 0.\\
+Library 1\\
+Problem 2\\
+$t$ 50\\
+$\rho$ 1\\
+$\eta_b$ 0.0001\\
+$\eta_s$ 0.01\\
+$S$ 16\\
+$D_{l}$ 2\\
+$D_{w}$ 1\\
+$\mathrm{e}$ 1\\
 
 Output: Pressure gradient value printed to the screen. \\ 
 
@@ -1091,11 +976,10 @@ this test is to be compared to the C output from the pseudo-oracle,
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a
-comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
 of the project.
-\item The module for Poiseuille Flow will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the pressure gradient output value will be
 compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
@@ -1106,20 +990,18 @@ Control: Program (P) module execution using inputs (V), and expecting output (O)
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-Library: 1\\
-Problem: 2\\
-$t$: 50\\
-$\rho$: 1\\
-$\eta_b$: 20000\\
-$\eta_s$: 1.e-2\\
-$S$ = 16\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{max}}$ = 0.1\\
-$X_{min}$ = 0.\\
+Library 1\\
+Problem 2\\
+$t$ 50\\
+$\rho$ 1\\
+$\eta_b$ 20000\\
+$\eta_s$ 0.01\\
+$S$ 16\\
+$D_{l}$ 2\\
+$D_{w}$ 1\\
+$\mathrm{e}$ 1\\
 
 Output: Pressure gradient value printed to the screen.  \\
 
@@ -1131,11 +1013,10 @@ this test is to be compared to the C value from the pseudo-oracle,
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a
-comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
 of the project.
-\item The module for Poiseuille Flow will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the pressure gradient output value will be
 compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
@@ -1146,20 +1027,19 @@ Control: Program (P) module execution using inputs (V), and expecting output (O)
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-Library: 1\\
-Problem: 2\\
-$t$: 50\\
-$\rho$: 1\\
-$\eta_b$: 1.e-2\\
-$\eta_s$: 1.e-3\\
-$S$ = 16\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{max}}$ = 0.1\\
-$X_{min}$ = 0.\\
+Library 1\\
+Problem 2\\
+$t$ 50\\
+$\rho$ 1\\
+$\eta_b$ 0.01\\
+$\eta_s$ 0.001\\
+$S$ 16\\
+$D_{l}$ 2\\
+$D_{w}$ 1\\
+$\mathrm{e}$ 1\\
+
 
 Output: Pressure gradient value printed to the screen. \\ 
 
@@ -1171,9 +1051,9 @@ this test is to be compared to the C value from the pseudo-oracle,
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory of the project.
-\item The module for Poiseuille Flow will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the pressure gradient output value will be compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
 
@@ -1184,20 +1064,18 @@ to match a control value (C).\\
 					
 Initial State: input.txt file is in the Input directory.\\
 					
-A comma delimited file, with inputs marked in the manner outlined in the User
+A file with inputs marked in the manner outlined in the User
 Guide (\citet{LBM_UserGuide_PM}).\\The input values for this test will be:\\
-Library: 1\\
-Problem: 2\\
-$t$: 50\\
-$\rho$: 1\\
-$\eta_b$: 1.e-2\\
-$\eta_s$: 20000\\
-$S$ = 16\\
-$D_{l}$ = 2\\
-$D_{w}$ = 1\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{max}}$ = 0.1\\
-$X_{min}$ = 0.\\
+Library 1\\
+Problem 2\\
+$t$ 50\\
+$\rho$ 1\\
+$\eta_b$ 0.01\\
+$\eta_s$ 20000\\
+$S$ 16\\
+$D_{l}$ 2\\
+$D_{w}$ 1\\
+$\mathrm{e}$ 1\\
 					
 Output: Pressure gradient value printed to the screen. \\ 
 
@@ -1209,11 +1087,10 @@ this test is to be compared to the C value from the pseudo-oracle,
 How test will be performed: 
 
 \begin{enumerate}
-\item Outside of the system, the input parameter values will be written to a
-comma delimited text file titled input.txt, as outlined in the User Guide.
+\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
 \item The file will be placed into the Input directory, under the home directory
 of the project.
-\item The module for Poiseuille Flow will be selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module, the pressure gradient output value will be
 compared to the above output value from the pseudo-oracle.
 \end{enumerate}	
@@ -1287,41 +1164,31 @@ Type: Running Time - Automated Test\\
 					
 Initial State: Input file is in the appropriate directory. In the first test the file contains the required parameter values for Von Karman Vortex Street and in the second test it contains the required parameter values for Poiseuille Flow.\\
 					
-Input/Condition of first test: A comma delimited file with the following input parameters and values:\\
-Library: 1\\
-Problem: 1\\
-$Re$: 500\\
-$t$: 200\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+Input/Condition of first test: A file with the following input parameters and values:\\
+Library 1\\
+Problem 1\\
+$Re$ 500\\
+$t$ 200\\
+$\rho$ 1\\
+$\eta_b$ 0.001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$S$ 64\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 
-Input/Condition of second test: A comma delimited file with the following input parameters and values:\\
-Library: 1\\
-Problem: 2\\
-$Re$: 500\\
-$t$: 200\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+Input/Condition of second test: A file with the following input parameters and values:\\
+Library 1\\
+Problem 2\\
+$Re$ 500\\
+$t$ 200\\
+$\rho$ 1\\
+$\eta_b$ 0.001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$S$ 64\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 					
 Output/Result: A timed comparison of running
 each of the two system modules, Von Karman Vortex Street and Poiseuille Flow,
@@ -1331,15 +1198,16 @@ running time between {\famname} and the pseudo-oracle will noted and analyzed.\\
 How test will be performed: 
 
 \begin{enumerate}
+\item M2SystemControl will be modified to start a timer when the program is run, and to print the running time upon completion.	
 \item Outside of the system, the input parameter values will be written, by the
-author, to a comma delimited text file titled input.txt, as outlined in the User
+author, to a text file titled input.txt, as outlined in the User
 Guide.
 \item The file will be placed into the Input directory, under the home directory
 of the project.
-\item The system shall start a timer when the Poiseuille Flow module is selected to run.
+\item {\famname} shall be run.
 \item Upon completion of the module the author shall note the module running
 time, which will be printed by the system.
-\item The author shall repeat steps (a) to (d) for the Von Karman Vortex Street
+\item The author shall repeat steps (b) to (e) for the Von Karman Vortex Street
 module.
 \item The author shall then run each of the problems, Poiseuille Flow and Von
 Karman Vortex Street, using the pseudo-oracle pyLBM using pyCharm IDE, making
@@ -1379,24 +1247,19 @@ instruction to run the Von Karman Vortex Street module are provided to three
 anonymous users via GitHub.\\
 					
 Input/Condition: A usability survey with the questions listed in Section
-\ref{usabilitysurevyquestions} and a comma delimited file with the following
+\ref{usabilitysurevyquestions} and a file with the following
 input parameters and values:\\
-Library: 1\\
-Problem: 1\\
-$Re$: 500\\
-$t$: 75\\
-$\rho$: 1.0\\
-$\eta_b$: 1.e-3\\
-$X_{min}$ = 0.\\
-$X_{max}$ = 3.\\
-$Y_{min}$ = 0.\\
-$Y_{max}$ = 1.\\
-$R$ = 0.05\\
-$\mathrm{e_{sch}}$ = 1.\\
-$\mathrm{e_{fac}}$ = 20\\
-$S$ = 64\\
-$\mathrm{D}$ = 2\\
-$\mathrm{Q}$ = 9\\
+Library 1\\
+Problem 1\\
+$Re$ 500\\
+$t$ 75\\
+$\rho$ 1\\
+$\eta_b$ 0.001\\
+Size 1\\
+$\mathrm{e}$ 1\\
+$S$ 64\\
+$\mathrm{D}$ 2\\
+$\mathrm{Q}$ 9\\
 
 				
 Output/Result: Survey results.\\
@@ -1559,7 +1422,7 @@ Using the following rubric please rate the five statements found below:
 \item The formatting of the input file was easy to understand.
 \item The location to place the input file was easy to find.
 \item Navigating to the correct module was straightforward.
-\item The User Guide of this product explained the modules well.
+\item The MG and MIS of this product explain the modules well.
 \item I would recommend this product.
 \end{enumerate}
 
@@ -1585,23 +1448,11 @@ $\eta_s$ & 0.001 - 20000\\
 \hline
 $t$ & $\mathbb{N}$\\
 \hline
-$X_{min}$ & 0.\\
+Size & 1\\
 \hline
-$X_{max}$ & 3.\\
+$\mathrm{e}$ & 1\\
 \hline
-$Y_{min}$ & 0.\\
-\hline
-$Y_{max}$ & 1.\\
-\hline
-$R$ & 0.05\\
-\hline
-$\mathrm{e_{sch}}$ & 1.\\
-\hline
-$\mathrm{e_{fac}}$ & 20\\
-\hline
-$\mathrm{e_{max}}$ & 0.1\\
-\hline
-$S$ & 64 or 16 (module specific)\\
+$S$ & 16\\
 \hline
 $\mathrm{D}$ & 2\\
 \hline
@@ -1622,9 +1473,8 @@ $D_{w}$ & 1\\
 derived from the allowable input range of the pseudo-oracle pyLBM. Input values
 outside of these bounds are known to sometimes return NAN module results. $t$
 can be any $\mathbb{N}$. Fixed value variables of tests in this testing report
-are: $X_{min}$, $X_{max}$, $Y_{min}$, $Y_{max}$, $R$, $D_{l}$, $D_{w}$,
-$\mathrm{e_{sch}}$, $\mathrm{e_{fac}}$, $\mathrm{e_{max}}$, $S$ (module
-specific), $\mathrm{D}$, and $\mathrm{Q}$.
+are: Size, $D_{l}$, $D_{w}$,
+$\mathrm{e}$, $S$ (module specific), $\mathrm{D}$, and $\mathrm{Q}$.
 
 \subsection{Mathematical Equation for Error}
 \label{eqerror}

@@ -1,0 +1,9 @@
+{'box': {'x': [0.0, 3.0], 'y': [0.0, 1.0], 'label': [0, 2, 0, 0]}, 'elements': [+--------+
+| Circle |
++--------+
+    - dimension: 2
+    - center: [0.3      0.515625]
+    - radius: 0.05
+    - label: [1]
+    - type: solid], 'space_step': 0.015625, 'scheme_velocity': 1.0, 'parameters': {LA: 1.0}, 'schemes': [{'velocities': [0, 1, 2, 3, 4, 5, 6, 7, 8], 'conserved_moments': [rho, qx, qy], 'polynomials': [1, LA*X, LA*Y, 3*X**2 + 3*Y**2 - 4, -21*X**2/2 - 21*Y**2/2 + 9*(X**2 + Y**2)**2/2 + 4, 3*X*(X**2 + Y**2) - 5*X, 3*Y*(X**2 + Y**2) - 5*Y, X**2 - Y**2, X*Y], 'relaxation_parameters': [0.0, 0.0, 0.0, 1.4450867052023122, 1.4450867052023122, 1.9923493783869939, 1.9923493783869939, 1.9923493783869939, 1.9923493783869939], 'equilibrium': [rho, qx, qy, -2*rho + 3.0*qx**2/LA**2 + 3.0*qy**2/LA**2, rho - 3.0*qx**2/LA**2 - 3.0*qy**2/LA**2, -qx/LA, -qy/LA, 1.0*qx**2/LA**2 - 1.0*qy**2/LA**2, 1.0*qx*qy/LA**2]}], 'init': {rho: 1.0, qx: 0.0, qy: 0.0}, 'boundary_conditions': {0: {'method': {0: <class 'pylbm.boundary.BouzidiBounceBack'>}, 'value': <function format_input.<locals>.bc_in at 0x7fa34346ff28>}, 1: {'method': {0: <class 'pylbm.boundary.BouzidiBounceBack'>}}, 2: {'method': {0: <class 'pylbm.boundary.NeumannX'>}}}, 'generator': 'cython'}
+{'x_min': 0.0, 'x_max': 3.0, 'y_min': 0.0, 'y_max': 1.0} 

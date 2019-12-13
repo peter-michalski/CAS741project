@@ -1,15 +1,299 @@
-must install into python environment:
-numpy
-matplotlib.pyplot
-time
-pylbm 
+\documentclass[12pt, titlepage]{article}
 
 
-with conda:
-conda install pylbm -c conda-forge
+\usepackage{amsmath, mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 
-with pypi:
-pip install pylbm
 
-from source:
-git clone https://github.com/pylbm/pylbm
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{caption}
+\usepackage{pbox}
+\usepackage{makecell}
+
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+\usepackage{xr}
+\externaldocument[ext1-]{../SRS/CA}
+\externaldocument[ext2-]{../Design/MG/MG}
+\externaldocument[ext3-]{../Design/MIS/MIS}
+\externaldocument[ext4-]{../VnVPlan/SystVnVPlan/SystVnVPlan}
+\externaldocument[ext4-]{../VnVPlan/UnitVnVPlan/UnitVnVPlan}
+\usepackage[sort&compress,square,comma,numbers]{natbib}
+\newcounter{reqnum} %Requirement Number
+\newcommand{\myprogname}{Lattice Boltzmann Solver} 
+\newcounter{uvtestcounter} %Test Number
+\newcommand{\atheuvtestcounter}{P\theuvtestcounter}
+
+\input{../Comments}
+\input{../Common}
+
+\begin{document}
+
+\title{User Guide for \myprogname} 
+\author{Peter Michalski}
+\date{\today}
+	
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{4cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+Dec. 12, 2019 & 1.0 & Initial Document\\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\tableofcontents
+
+~\newpage
+
+\listoftables
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+Please see Section \ref{ext1-CASYMBOLS} and Section \ref{ext1-CAABBACR} of the Commonality Analysis (\citet{LBM_CA_PM}).
+
+~\newpage
+
+\pagenumbering{arabic}
+
+\section{General Information}
+\label{generalinfo}
+
+\subsection{Purpose}
+\label{purpose}
+
+\noindent The purpose of this document is to help users of {\myprogname}.
+
+\subsection{Scope}
+
+The document has separate sections that address usage of the system and references which arise in other documents of {\myprogname}.
+
+~\newpage
+
+\section{Quick Start}
+\label{quickstart}
+This section outlines how to use {\myprogname}.
+
+\subsection{Environment Setup}
+
+The following python libraries need to be installed on the system:
+\begin{enumerate}
+	\item datetime
+	\item logging
+	\item matplotlib.pyplot
+	\item numpy
+	\item os
+	\item pylbm
+	\item sumpy
+	\item sys
+	\item time
+\end{enumerate}
+
+\noindent Depending on your Python version, many of these should already be available. \\
+
+\noindent pyLBM can be installed in the following ways:
+
+\begin{enumerate}
+	\item with conda:
+	
+	conda install pylbm -c conda-forge
+	
+	\item with pypi:
+	
+	pip install pylbm
+	
+	\item from source:
+	
+	git clone https://github.com/pylbm/pylbm
+\end{enumerate}
+
+\subsection{Using {\myprogname}}
+\label{usingprog}
+
+\subsubsection{Inputs}
+\label{inputs}
+The inputs.txt file shall be placed into the Input directory found within the src directory.\\
+
+
+\noindent The inputs of the input.txt file shall be structured in the following manner:\\ 
+
+Key Value
+
+Key Value
+
+etc..\\
+
+For example:\\
+
+Library 1
+
+Problem 1\\
+
+\noindent The keys required for a Von Karman Vortex Street problem (Problem 1) using pyLBM (Library 1) are:
+\begin{enumerate}
+	\item Dimensions
+	\item VelocityDirections
+	\item ReynoldsNumber
+	\item Density
+	\item BulkViscosity
+	\item Time
+	\item Size
+\end{enumerate}
+
+
+\noindent The acceptable range of inputs can be found in Table \ref{table:fstageiminrange} of Section \ref{inrange}. 
+
+\subsubsection{Running {\myprogname}}
+
+Run M2SystemControl.py to run {\myprogname}.
+
+\subsection{Error Messages}
+
+The following are error messages that reference this User Guide:
+
+\begin{enumerate}
+	\item MssngProb : The input.txt file is missing (or has incorrect) required parameters for the designated problem. Please see the User Guide.\\
+	
+	Required parameters (keys) for the designated problem can be found in Section \ref{inputs}.\\
+	
+	\item OuBounds: The input file parameter X is out of bounds. Please see the
+	User Guide.\\ 
+	
+	Allowable input bounds can be found in Table \ref{table:fstageiminrange} in Section \ref{inputkeymap}.\\
+	
+	\item UnknwnParm: The parameter X is not known to the system. Please see
+	the User Guide.\\
+	
+	Correct parameters (keys) can be found in the column ``\textbf{Correct Input File Key}'' of Table \ref{table:InputMapping} in Section \ref{inputkeymap}.\\
+\end{enumerate}
+
+~\newpage
+
+\section{References from Other Documents}
+\label{otherdocs}
+This section addresses references to this document from other documents of {\myprogname}.
+	
+\subsection{MIS}
+
+This section addresses references from the MIS (\citet{LBM_MIS_PM}).\\
+
+Libraries available in the first implementation:
+\begin{enumerate}
+	\item pyLBM
+\end{enumerate}
+
+Problems solved in the first implementation:
+\begin{enumerate}
+	\item Von Karman Vortex Street
+\end{enumerate}
+
+\subsection{System VnV}
+
+This section addresses references from the System VnV (\citet{LBM_SVNV_PM}).
+Please see Section \ref{usingprog}.
+
+
+\subsection{Unit VnV}
+
+This section addresses references from the Unit VnV (\citet{LBM_UVNV_PM}).
+Please see Section \ref{usingprog}.
+
+~\newpage
+\clearpage
+\bibliographystyle {plainnat}
+\bibliography {../../refs/References}
+
+~\newpage
+\section{Appendix}
+
+\subsection{Input Key Mapping}
+\label{inputkeymap}
+
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{| c | c | c |}
+			\hline
+			\textbf{System VnV Symbol} & \textbf{Unit VnV Symbol} & \textbf{Correct Input File Key}\\
+			\hline
+			$\eta_b$&BulkViscosity & BulkViscosity \\
+			\hline
+			$\rho$&Density & Density\\
+			\hline
+			$\mathrm{D}$&Dimensions & Dimensions\\
+			\hline
+			Library&Library & Library\\
+			\hline
+			Problem&Problem & Problem\\
+			\hline
+			$Re$&ReynoldsNumber & ReynoldsNumber\\
+			\hline
+			$\eta_s$&ShearViscosity & ShearViscosity\\
+			\hline
+			Size&Size & Size\\
+			\hline
+			$t$&Time & Time\\
+			\hline
+			$\mathrm{Q}$&VelocityDirections & VelocityDirections\\
+			\hline
+		\end{tabular}
+		\caption{First Stage Implementation Input Mapping}
+		\label{table:InputMapping}
+	\end{center}
+\end{table} 
+
+~\newpage
+\subsection{Input Range}
+\label{inrange}
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{| c | c | c |}
+			\hline
+			\textbf{Input Key} & \textbf{Minimum Value} & \textbf{Maximum Value}\\
+			\hline
+			BulkViscosity & 0.0001 & 20000 \\
+			\hline
+			Density & 0.0708 & 13.6 \\
+			\hline
+			Dimensions & 2 & 2 \\
+			\hline
+			Library & 1 & 1\\
+			\hline
+			Problem & 1 & 1\\
+			\hline
+			ReynoldsNumber & 0.0001 & 50000\\
+			\hline
+			ShearViscosity & 0.001 & 20000\\
+			\hline
+			Size & 1 & 1\\
+			\hline
+			Time & 1 & N/A\\
+			\hline
+			VelocityDirections & 9 & 9\\
+			\hline
+		\end{tabular}
+		\caption{First Stage Implementation Input Range}
+		\label{table:fstageiminrange}
+	\end{center}
+\end{table}
+
+\end{document}
