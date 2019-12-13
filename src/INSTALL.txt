@@ -1,1 +1,1 @@
-Instructions for installation and running of software.
+Please see the User Guide for instructions for installation and running of software.
