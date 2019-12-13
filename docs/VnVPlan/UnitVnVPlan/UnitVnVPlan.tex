@@ -29,6 +29,7 @@
 \externaldocument[ext2-]{../../Design/MG/MG}
 \externaldocument[ext3-]{../../Design/MIS/MIS}
 \externaldocument[ext4-]{../../VnVPlan/SystVnVPlan/SystVnVPlan}
+\externaldocument[ext5-]{../../UserGuide/UserGuide}
 \usepackage[sort&compress,square,comma,numbers]{natbib}
 \newcounter{reqnum} %Requirement Number
 \newcommand{\myprogname}{Lattice Boltzmann Solver} 
@@ -153,7 +154,7 @@ This module calls and combines all other modules. It is covered in entirety in S
 	
 	How test will be performed: 
 	\begin{enumerate}
-		\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
+		\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 		\item The file will be placed into the Input directory, under the home directory of the project.
 		\item M2SystemControl module shall be modified to print the problem parameters and boundary data variable contents.
 		\item {\myprogname} shall be run. 
@@ -195,7 +196,7 @@ This module calls and combines all other modules. It is covered in entirety in S
 	
 	How test will be performed: 
 	\begin{enumerate}
-		\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
+		\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 		\item The file will be placed into the Input directory, under the home directory of the project.
 		\item M2SystemControl module shall be modified to print the pyLBM return contents.
 		\item {\myprogname} shall be run. 
@@ -274,7 +275,7 @@ Test Case Derivation:  The first section of this module will check if the user p
 
 How test will be performed: 
 \begin{enumerate}
-	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
+	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 	\item The file will be placed into the Input directory, under the home directory of the project.
 	\item M4InputChecking module shall be modified to print ``All parameters known.'' if all keys are known.
 	\item {\myprogname} shall be run. 
@@ -316,7 +317,7 @@ Test Case Derivation: The first section of this module will check if the user pr
 
 How test will be performed: 
 \begin{enumerate}
-	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
+	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 	\item The file will be placed into the Input directory, under the home directory of the project.
 	\item {\myprogname} shall be run. 
 	\item The log file will be checked for the appropriate error message.
@@ -356,7 +357,7 @@ Test Case Derivation: The final section of this module will check if the selecte
 
 How test will be performed: 
 \begin{enumerate}
-	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
+	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 	\item The file will be placed into the Input directory, under the home directory of the project.
 	\item {\myprogname} shall be run. 
 	\item The log file shall be read.
@@ -398,7 +399,7 @@ Test Case Derivation: The final section of this module will check if the selecte
 
 How test will be performed: 
 \begin{enumerate}
-	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
+	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 	\item The file will be placed into the Input directory, under the home directory of the project.
 	\item M4InputChecking module shall be modified to print ``Required input variables present'' if all required inputs are present.
 	\item {\myprogname} shall be run. 
@@ -460,7 +461,7 @@ Test Case Derivation: This module sets up the problem and boundary data that wil
 
 How test will be performed: 
 \begin{enumerate}
-	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
+	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 	\item The file will be placed into the Input directory, under the home directory of the project.
 	\item M8Problem module shall be modified to print the return variable.
 	\item {\myprogname} shall be run. 
@@ -538,7 +539,7 @@ RelaxationRate 1\\
 	
 	How test will be performed: 
 	\begin{enumerate}
-	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
+	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 	\item The file will be placed into the Input directory, under the home directory of the project.
 	\item M10Boundary module shall be modified to print the return variable.
 	\item {\myprogname} shall be run. 
@@ -586,7 +587,7 @@ The ReynoldsNumber parameter will be incremented in 5 iterations of the test, an
 How test will be performed:
 \begin{enumerate}
 	\item M2SystemControl will be modified to time the running of the simulation section of the module representing the M5LBMControl module. The time will be output to the screen.
-	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in the User Guide.
+	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 	\item The file will be placed into the Input directory, under the home directory of the project.
 	\item {\myprogname} shall be run. 
 	\item The output time shall be noted.
