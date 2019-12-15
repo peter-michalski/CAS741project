@@ -8,6 +8,10 @@
 \usepackage{graphicx}
 \usepackage{colortbl}
 \usepackage{xr}
+\externaldocument[ext1-]{../../SRS/CA}
+\externaldocument[ext2-]{../MG/MG}
+\externaldocument[ext3-]{../../VnVPlan/SystVnVPlan/SystVnVPlan}
+\externaldocument[ext4-]{../../UserGuide/UserGuide}
 \usepackage{hyperref}
 \usepackage{longtable}
 \usepackage{xfrac}
@@ -58,6 +62,7 @@ urlcolor=cyan          % color of external links
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Nov. 25, 2019 & 1.0 & Initial Document\\
+Dec. 13, 2019 & 2.0 & Fix Initial Issues\\
 \bottomrule
 \end{tabularx}
 
@@ -179,6 +184,7 @@ SystemControl
 	\item Input Reading (Section \ref{IRModule})
 	\item LBM Control (Section \ref{LCModule})
 	\item Problem Parameter (Section \ref{PRModule})
+	\item Boundary (Section \ref{BOModule})
 	\item Image Rendering (Section \ref{OUModule})
 	\item Data Structure (Section \ref{DSModule})
 \end{itemize}
@@ -195,10 +201,10 @@ N/A
 
 \subsubsection{State Variables}
 inputData: DataStructure\\
-problemData: $\mathbb{R}$ \& $\mathbb{N}$ \wss{What does this notation mean?
-  This does not look like proper mathematics.}\\ 
+problemParameters: A library dependent structure of LBM input parameters ($\mathbb{R}$).\\ %\wss{What does this notation mean? This does not look like proper mathematics.}\\ 
+boundaryData: A dimension and problem dependent dictionary of boundary dimensions ($\mathbb{R}$).\\
+solution: A library dependent structure of LBM solution parameters ($\mathbb{R}$).\\
 imageData: array[$\mathbb{R}$]\\
-imageOut: PNG\\
 
 
 \subsubsection{Environment Variables}
@@ -207,7 +213,7 @@ N/A
 
 \subsubsection{Assumptions}
 
-The user has run the {\famname} program.  \wss{I don't understand this assumption.}
+A correctly formatted input.txt file is in the Input directory.%\wss{I don't understand this assumption.}
 
 \subsubsection{Access Routine Semantics}
 
@@ -235,9 +241,22 @@ N/A
 
 The function calls other modules of {\famname} to solve the given problem. The
 function calls InputReading.inputArray(), followed by
-ProblemParameter.formatInput() and LBMControl.performLBM(). Finally the module
+ProblemParameter.formatInput(), Boundary.getBoundary(), and LBMControl.performLBM(). Finally the module
 calls ImageRendering.imageFunc() and sends the output of that function to the
-hardware. \wss{This is vague.  Can you write this as pseudo code?}
+hardware.\\
+
+
+\noindent Procedure mainFunction():\\
+\indent inputData = InputReading.inputArray()\\
+\indent if inputData[Library] == 1 AND inputData[Problem] == 1:\\
+\indent \indent problemParameters = ProblemParameter.formatInput(inputData)\\
+\indent \indent boundaryData = Boundary.getBoundary(inputData)\\
+\indent solution = LBMControl.performLBM(problemParameters)\\
+\indent imageData = imageImageRendering.imageFunc(solution, boundaryData)\\
+\indent Hardware.print(imageData)\\
+
+
+%\wss{This is vague.  Can you write this as pseudo code?}
 
 
 ~\newpage
@@ -278,34 +297,28 @@ N/A
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-N/A
+inputData: DataStructure\\
+readingError: Boolean
 
 \subsubsection{Environment Variables}
 
-InputLocation (string): ``./Input/input.txt'' \wss{The environment variable is
-  the file, not the files name.  Have a look at the example at
-  \url{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/blob/master/Assignments/PreviousYears/2018/A2/A2.pdf}}
+input: lines of a string followed by a $\mathbb{R}$%\wss{The environment variable is the file, not the files name.  Have a look at the example at \url{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/blob/master/Assignments/PreviousYears/2018/A2/A2.pdf}}
 
 \subsubsection{Assumptions}
-
-The System Control Module M2 (Section \ref{SCModule}) has called InputReading.inputArray().
+N/A
+%The System Control Module M2 (Section \ref{SCModule}) has called InputReading.inputArray(). %\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 
 \noindent inputArray():
 \begin{itemize}
-	\item transition: $out$ := +(inputData[key][value] $\Leftarrow$
-          ./Input/input.txt) \wss{I have no idea what this notation means.  A
-            transition field does not have an output.  The left pointing arrow
-            is not a notation that Hoffman and Strooper use.}
-	\item exception: input.txt $\notin$ ./Input/ $\Rightarrow$ NotFound
-	\item exception: (inputData $\Leftarrow$ ?) $\Rightarrow$ ErrorRead
-          \wss{You should use a conditional rule to combine all of your
-            exceptions in one rule.  Two exception fields is confusing, and not
-            part of the template.}
+	\item transition: inputData := +input\\
+	
+	Each line of the input file, consisting of a string key followed by a $\mathbb{R}$ value, will be read and placed into inputData.
+	%\wss{I have no idea what this notation means.  A transition field does not have an output.  The left pointing arrow is not a notation that Hoffman and Strooper use.}
+	\item exception: if )input.txt $\notin$ ./Input/) $\Rightarrow$ NotFound  and if (inputData $\Leftarrow$ ?) $\Rightarrow$ readingError = False $\Rightarrow$ ErrorRead
+          %\wss{You should use a conditional rule to combine all of your exceptions in one rule.  Two exception fields is confusing, and not part of the template.}
 \end{itemize}
-
-The function will read all lines from the input file and place each value into inputData.
 
 \subsubsection{Local Functions}
 N/A
@@ -343,24 +356,19 @@ N/A
 	\end{tabular}
 \end{center}
 
-\wss{The DataStructure module documents an abstract object, but here you are
-  using DataStructure as a type.  If it is an ADT, it should be documented
-  differently.  If it is an abstract object, you cannot pass it as a parameter;
-  you simply use it in that case.}
+%\wss{The DataStructure module documents an abstract object, but here you are using DataStructure as a type.  If it is an ADT, it should be documented differently.  If it is an abstract object, you cannot pass it as a parameter; you simply use it in that case.} I have updated the DataStructure Module to be an ADT
 \subsection{Semantics}
 
 \subsubsection{State Variables}
 The set of acceptableRanges is:\\
-\textit{LIBRARY}: set of $\mathbb{N}$: \{1\} - Libraries are associated by
+\textit{LIBRARY}: $\mathbb{N}$: \{1\} - Libraries are associated by
 numbers in the program. The numbers are available for reference in the User
-Guide. \wss{What does this notation mean?  Is the entry after the second full
-  colon the value of the state variable?  Is it the initial value of the state
-  variable, or is this a constant?}\\
-\textit{PROBLEM}: set of $\mathbb{N}$: \{1\} - Problems are associated by
+Guide.\\ %\wss{What does this notation mean?  Is the entry after the second full colon the value of the state variable?  Is it the initial value of the statevariable, or is this a constant?} The second entry is a constant. As only one problem library will be developed in the first iteration, each of these state variables will simply be a constant. Later on some of the variables will be sets of acceptable values.
+\textit{PROBLEM}: $\mathbb{N}$: \{1\} - Problems are associated by
 numbers in the program. The numbers are available for reference in the User
 Guide.\\
-\textit{DIMENSIONS}: set of $\mathbb{N}$: \{2\}\\
-\textit{VEL\_DIRS}: set of $\mathbb{N}$: \{9\}\\
+\textit{DIMENSIONS}: $\mathbb{N}$: \{2\}\\
+\textit{VEL\_DIRS}: $\mathbb{N}$: \{9\}\\
 \textit{REYNOLDS\_MIN}: $\mathbb{R}$: \{0.001\}\\
 \textit{REYNOLDS\_MAX}: $\mathbb{R}$: \{5000\}\\
 \textit{DENSITY\_MIN}: $\mathbb{R}$: \{0.0708\}\\
@@ -376,20 +384,18 @@ N/A
 
 \subsubsection{Assumptions}
 
-The Input Reading Module M3 (Section \ref{IRModule}) has called
-InputChecking.verifyInputs().  \wss{This is confusing.  This module assumes that
-  this module has already been called?  This sounds like unwanted recursion in
-  the documentation.}
+N/A
+%The Input Reading Module M3 (Section \ref{IRModule}) has called
+%InputChecking.verifyInputs().  %\wss{This is confusing.  This module assumes that this module has already been called?  This sounds like unwanted recursion in the documentation.} %\pm What is meant here is that this module can only be used if M3 has called it. There is no other way that this module is accessed (at time of first implementation). This has been kept here for clarification to the reader of the document, although one could gather this information from other documentation. After some thought, I have decided to remove all such assumptions in this document, as they are a repetition of what is found in the MG, and this information in multiple spots can be hard to maintain.
 
 \subsubsection{Access Routine Semantics}
 
 \noindent verifyInputs(inputData):
 \begin{itemize}
 	\item output: (inputData[value] $!>$ acceptableRanges) $\land$ (inputData[value] $!<$ acceptableRanges) $\Rightarrow$ return True
-	\item exception: (inputData[value] $>$ acceptableRanges) $\lor$ (inputData[value] $<$ acceptableRanges) $\Rightarrow$ OutBounds
-	\item exception: inputData[key] $\notin$ inputTypes $\Rightarrow$ UnknwnParm
-\end{itemize} \wss{Where does value come from?  This variable is not bound to
-  anything in this expression.  Do you want a quantification over all values?}
+	\item exception: if ((inputData[value] $>$ acceptableRanges) $\lor$ (inputData[value] $<$ acceptableRanges) $\Rightarrow$) OutBounds and if (
+	inputData[key] $\notin$ inputTypes) $\Rightarrow$ UnknwnParm
+\end{itemize} %\wss{Where does value come from?  This variable is not bound toanything in this expression.  Do you want a quantification over all values?} The value comes from the DataStructure dictionary represented by the inputData variable for which key is the key. This is explained directly below
 
 The function will iterate through each inputValue InputTypes key and check if
 the key is known to the program, as well as check if associated values of known
@@ -427,21 +433,13 @@ LBMControl
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		performLBM & inputData: DataStructure, problemData: $\mathbb{R}$ \& $\mathbb{N}$ & imageData: array[$\mathbb{R}$] & - \\
+		performLBM & inputData: DataStructure, problemData: $\mathbb{R}$& imageData: array[$\mathbb{R}$] & - \\
 		\hline
 	\end{tabular}
 \end{center}
 
-\wss{You need to decide whether DataStructure is an abstract object, or an
-  abstract data type.}
-\wss{I think (?)  you are using problemData to hold real and natural number
-  data.  You need to be more specific about the type of problemData.  Is it a
-  tuple with named fields?  I know you want to leave things open for different
-  uses.  In that case you could define specific options for the problemData type
-  and instantiate the one in this spec that makes sense for the program family
-  member in use.  To keep things simple for the final implementation, maybe you
-  can just pick a type of problem and document the fields of the problemData
-  type specifically for that type of problem?}
+%\wss{You need to decide whether DataStructure is an abstract object, or an abstract data type.} %\pm {has been updated to data type}
+%\wss{I think (?)  you are using problemData to hold real and natural number data.  You need to be more specific about the type of problemData.  Is it a tuple with named fields?  I know you want to leave things open for different uses.  In that case you could define specific options for the problemData type and instantiate the one in this spec that makes sense for the program family member in use.  To keep things simple for the final implementation, maybe you can just pick a type of problem and document the fields of the problemData type specifically for that type of problem?} %\pm {in the library I am implementing, problemData is a dictionary, however parts of that dictionary appear to be a dctionary of dictionaries, I will attempt to specify this as best I can in the probemData module}
 
 \subsection{Semantics}
 
@@ -452,26 +450,19 @@ imageData: array[$\mathbb{R}$] %\wss{the image data is a single real number?} %\
 N/A
 
 \subsubsection{Assumptions}
-
-The System Control Module M2 (Section \ref{SCModule}) has called
-LBMControl.performLBM().  \wss{This recursive assumption is showing up again.
-  :-)  I think this is an assumption you want in the System Control Module, not here?}
+N/A
+%The System Control Module M2 (Section \ref{SCModule}) has called LBMControl.performLBM().  \wss{This recursive assumption is showing up again.  :-)  I think this is an assumption you want in the System Control Module, not here?} %\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 
 \noindent performLBM(inputData, problemData):
 \begin{itemize}
-	\item transition: $out$ := imageData = $\mathbb{R}$ $\Leftarrow$
-          Streaming.streamingFunc(), $\mathbb{R}$ $\Leftarrow$
-          Collision.collisionFunc() \wss{transitions change the state, outputs
-            output values. I don't know which you are trying to do here.  The
-            left arrows are also confusing.  If you don't know a notation for
-            what you are trying to say, you are better off saying it in words,
-            than inventing a notation.}
+	\item transition: $out$ := imageData %\wss{transitions change the state, outputs output values. I don't know which you are trying to do here.  The left arrows are also confusing.  If you don't know a notation for what you are trying to say, you are better off saying it in words, than inventing a notation.} 
+	
+	This function will generate imageData output for the desired problem using the provided parameters of inputData and problemData. It will perform the major aspects of the LBM modeling including moving fluid particles to neighbouring nodes using the Streaming Module, and handling collisions between particles using the Collision Module, iterating over time. The variable imageData will hold the vorticity vector values. The first stage of implementation will use a library for this function.
+	
 \item exception: N/A
 \end{itemize}
-
-The function will calculate the vorticity vector values, iterating through each velocity direction, calling the streaming and collision module functions.
 
 \subsubsection{Local Functions}
 
@@ -517,8 +508,8 @@ N/A
 %\wss{These are not environment variables.}
 
 \subsubsection{Assumptions}
-
-The LBM Control Module M5 (Section \ref{LCModule}) has called streaming.streamingFunc().
+N/A
+%The LBM Control Module M5 (Section \ref{LCModule}) has called streaming.streamingFunc().%\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 
@@ -528,13 +519,13 @@ The LBM Control Module M5 (Section \ref{LCModule}) has called streaming.streamin
 	\item exception: ($f_i(\mathrm{\textbf{x}} +\mathrm{e}_i dt, t + dt) - f_i(\mathrm{\textbf{x}},t)$ $>$ maximum size of primitive data type) $\Rightarrow$ NAN
 \end{itemize}
 
-\wss{What is the connection between the parameters of the streaming function and
-  the equation given in the transition?  What is the mapping between x, e,
-  Velocityi, etc?  You should use the same symbols in the input as you use for
-  the transition.}
-\wss{The confusion between transition and output has to be addressed throughout
-  the document.}
-The function calculates the streaming step value for each velocity direction (i).
+%\wss{What is the connection between the parameters of the streaming function and the equation given in the transition?  What is the mapping between x, e, Velocityi, etc?  You should use the same symbols in the input as you use for the transition.}
+%\wss{The confusion between transition and output has to be addressed throughout the document.}
+%\pm {note below}
+
+The function calculates the streaming step value for each velocity direction (i).\\
+
+The mapping/connections of the parameters and equation variables can be found in Section \ref{ext1-CASYMBOLS} of the CA and Section \ref{ext3-svnvsymbols} of the System VnV Plan.
 
 \subsubsection{Local Functions}
 
@@ -558,9 +549,7 @@ The function calculates the streaming step value for each velocity direction (i)
 
 The function finds the probability that a particle is at position $\textbf{x}$ and has velocity $\mathrm{e}$ at time t.\\
 
-\wss{Where is the local function used in the specification of Streaming Module?
-  Local functions are only used within the spec of one module.  They are not
-  used elsewhere, or part of the required implementation.}
+%\wss{Where is the local function used in the specification of Streaming Module? Local functions are only used within the spec of one module.  They are not used elsewhere, or part of the required implementation.} \pm {it is used in the transition of the streamingFunc}
 \newpage
 
 \section{MIS of M7: Collision Module} \label{COModule} 
@@ -601,8 +590,8 @@ maxVariableSize = The maximum allowable value held in the variable.\\
 minVariableSize = The minimum allowable value held in the variable.
 
 \subsubsection{Assumptions}
-
-The LBM Control Module M5 (Section \ref{LCModule}) has called Collision.streamingFunc().
+N/A
+%The LBM Control Module M5 (Section \ref{LCModule}) has called Collision.streamingFunc(). %\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 
@@ -612,11 +601,11 @@ The LBM Control Module M5 (Section \ref{LCModule}) has called Collision.streamin
 	\item exception: ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $>$ maxVariableSize) $\lor$ ($\frac{1}{\tau}(f_{i}^{eq}-f_{i})$ $<$ minVariableSize) $\Rightarrow$ NAN
 \end{itemize}
 
-\wss{I do not see the mapping between the parameters and the transition
-  equation.  I won't continue to write this comment, but it applies throughout
-  this document.}
+%\wss{I do not see the mapping between the parameters and the transitionequation.  I won't continue to write this comment, but it applies throughout this document.} \pm{linked below}
 
-The function calculates the collision step value for each velocity direction (i).
+The function calculates the collision step value for each velocity direction (i).\\
+
+The mapping/connections of the parameters and equation variables can be found in Section \ref{ext1-CASYMBOLS} of the CA and Section \ref{ext3-svnvsymbols} of the System VnV Plan.
 
 \subsubsection{Local Functions}
 
@@ -663,7 +652,6 @@ ProblemParameter
 
 \begin{itemize}
 	\item Lattice (Section \ref{LAModule})
-	\item Boundary (Section \ref{BOModule})
 	\item Data Structure (Section \ref{DSModule})
 \end{itemize}
 
@@ -679,7 +667,7 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		formatInput & inputData: DataStructure & problemData: $\mathbb{R}$ \& $\mathbb{N}$ & - \\
+		formatInput & inputData: DataStructure & problemData: $\mathbb{R}$ & - \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -693,18 +681,18 @@ N/A
 N/A
 
 \subsubsection{Assumptions}
-
-The System Control Module M2 (Section \ref{SCModule}) has called ProblemParameter.formatInput().
+N/A
+%The System Control Module M2 (Section \ref{SCModule}) has called ProblemParameter.formatInput(). %\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 
 \noindent formatInput(inputData):
 \begin{itemize}
-	\item transition: $out$ := problemData = $\mathbb{N}$ $\in$ inputData, $\mathbb{R}$ $\Leftarrow$ Boundary.getBoundary(), $\mathbb{R}$ $\Leftarrow$ Lattice.getWeights()
+	\item transition: $out$ := problemData = $\mathbb{N}$ $\in$ inputData, $\mathbb{R}$ $\Leftarrow$ Boundary.getBoundary()
 	\item exception: N/A
 \end{itemize}
 
-The function will set up the structure for the LBM input parameters based on the library that the user has requested. The function will use the Lattice and Boundary module functions.
+The function will set up the structure for the LBM input parameters based on the library that the user has requested. The function will use the Lattice Module functions and input dictionary to create a dictionary that will be input into the LBM Control Module.
 
 \subsubsection{Local Functions}
 N/A
@@ -752,14 +740,15 @@ N/A
 N/A
 
 \subsubsection{Assumptions}
-
-The Problem Module M8 (Section \ref{PRModule}) has called Lattice.getWeights().
+N/A
+%The Problem Module M8 (Section \ref{PRModule}) has called Lattice.getWeights().
+%\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 
 \noindent getWeights(inputData):
 \begin{itemize}
-	\item transition: $out$ := Weighti ($\mathbb{R}$) $\in$ parameterValues
+	\item transition: $out$ := if (inputData[VelocityDirections] == 9) $\land$ (inputData[Dimensions] == 2) $\Rightarrow$ return parameterValues
 	\item exception: inputData[VelocityDirections] $\notin$ parameterValues $\Rightarrow$ NoLattice
 \end{itemize}
 
@@ -786,7 +775,9 @@ Boundary
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
+
+boundary\_data = \{``x\_min'': 0., ``x\_max'': 3., ``y\_min'': 0., ``y\_max'': 1.\}
+
 \subsubsection{Exported Access Programs}
 
 \begin{center}
@@ -810,21 +801,15 @@ N/A
 N/A
 
 \subsubsection{Assumptions}
-
-The Problem Module M8 (Section \ref{PRModule}) has called Boundary.getBoundary().
+N/A
+%The Problem Module M8 (Section \ref{PRModule}) has called Boundary.getBoundary(). %\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 
 \noindent getBoundary(inputData):
 \begin{itemize}
-	\item transition: $out$ := $\mathbb{R}$ $\in$ DataStructure
-          \wss{DataStructure is not a set or a sequence (I don't think?), so
-            this operation does not make sense.  Moreover, $\mathbb{R}$ is the
-            set of real numbers.  For this to ever return True, DataStructure
-            would have to be a set of sets of real numbers, with the possibility
-            that one of those sets is all the real numbers.  Also, this
-            expression evaluates to True of False, but the type of your output
-            is real.}
+	\item transition: $out$ := if (inputData[Library] == 1) $\land$ (inputData[Problem] == 1) $\land$ (inputData[Size] == 1) $\Rightarrow$ returns boundary\_data
+          %\wss{DataStructure is not a set or a sequence (I don't think?), so this operation does not make sense.  Moreover, $\mathbb{R}$ is the set of real numbers.  For this to ever return True, DataStructure would have to be a set of sets of real numbers, with the possibility that one of those sets is all the real numbers.  Also, this expression evaluates to True of False, but the type of your output is real.}
 	\item exception: N/A
 \end{itemize}
 
@@ -860,7 +845,7 @@ N/A
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		imageFunc & imageData: array[$\mathbb{R}]$ & imageOut: PNG & IncorrectFormat \\
+		imageFunc & imageData: array[$\mathbb{R}]$ & & IncorrectFormat \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -871,12 +856,13 @@ N/A
 N/A
 
 \subsubsection{Environment Variables}
-N/A \wss{An environment variable for the png file would make sense here, rather
-  than outputting the PNG file.}
+imageOut: PNG 
+
+%\wss{An environment variable for the png file would make sense here, rather than outputting the PNG file.}
 
 \subsubsection{Assumptions}
-
-The System Control Module M2 (Section \ref{PRModule}) has called ImageRendering.imageFunc() of this module.
+N/A
+%The System Control Module M2 (Section \ref{PRModule}) has called ImageRendering.imageFunc() of this module. %\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 
@@ -893,11 +879,11 @@ N/A
 
 \newpage
 
-\section{MIS of M12: Data Structure Module} \label{DSModule} 
+\section{MIS of M12: Data Structure Template Module} \label{DSModule} 
 
 The format of a non-primitive data structure for input variables.
 
-\subsection{Module}
+\subsection{Template Module}
 
 DataStructure
 
@@ -908,15 +894,15 @@ DataStructure
 
 \subsection{Syntax}
 
-\subsubsection{Exported Constants}
+\subsubsection{Exported Types}
 N/A
 
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+	\begin{tabular}{p{4cm} p{3cm} p{4cm} p{2cm}}
 		\hline
-		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\textbf{Routine Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
 		init & - & - & - \\
 		add & InputTypes, $\mathbb{R}$ & - & IncorrectFormat \\
@@ -929,19 +915,15 @@ N/A
 
 \subsubsection{State Variables}
 
-$s$: set of tuple of (key: InputType, value: $\mathbb{R}$)  \wss{You are using a
-  variable as a type here.  Our mathematical framework does not handle dependent
-  types.  I'm sure there is an abstract mathematics we could use here, but using
-that would be a big jump when there is so much work to do to get the regular
-Hoffman and Strooper math correct.  I suggest that you document for one LB type
-of problem and drop the goal of being generic.}
+$s$: set of tuple of (key: InputType, value: $\mathbb{R}$)  %\wss{You are using a variable as a type here.  Our mathematical framework does not handle dependent types.  I'm sure there is an abstract mathematics we could use here, but using that would be a big jump when there is so much work to do to get the regular Hoffman and Strooper math correct.  I suggest that you document for one LB type of problem and drop the goal of being generic.} %I have changed InputType to an ADT
 
 \subsubsection{State Invariant}
 N/A
 
 \subsubsection{Assumptions}
-
-DataStructure.init() is called before any other access program.
+N/A
+%DataStructure.init() is called before any other access program.
+%\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 
@@ -992,11 +974,7 @@ N/A
 InputTypes (string) = \{Library, Problem, Dimensions, VelocityDirections,
 ReynoldsNumber, Density, BulkViscosity, ShearViscosity, Time, Density,
 Viscosity, AccelerationRate, SpeedSound, Velocity, Force, Mass,
-CrossSectionalArea, MacroscopicVelocity, RelaxationRate\} \wss{You might be on
-  to a good idea here, but I can't tell.  If there are a finite set of options,
-  you should use an enumerated type, not a string.  I'm not sure what you are
-  trying to do.  My advice above is to be less generic.  I think documenting one
-  specific problem is enough of a challenge.}
+CrossSectionalArea, MacroscopicVelocity, RelaxationRate\} %\wss{You might be on to a good idea here, but I can't tell.  If there are a finite set of options, you should use an enumerated type, not a string.  I'm not sure what you are trying to do.  My advice above is to be less generic.  I think documenting one specific problem is enough of a challenge.} \pm {I have decided to use strings for keys in the dictionary, as this will be easier to troubleshoot for both the initial develper as well as later developers and users. Some of the keys will not be used int the first stage of implementation, but I will keep them as they will be used in the second stage of implementation, some of which will already be built into the first stage implemention.}
  
 \subsubsection{Exported Access Programs}
 N/A
@@ -1010,8 +988,8 @@ N/A
 N/A
 
 \subsubsection{Assumptions}
-
-The Data Structure Module M12 (Section \ref{DSModule}) will only use a set of the above InputTypes.
+N/A 
+%The Data Structure Module M12 (Section \ref{DSModule}) will only use a set of the above InputTypes. %\pm This has been removed and explained in my comments of M4 Assumptions
 
 \subsubsection{Access Routine Semantics}
 N/A

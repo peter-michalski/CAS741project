@@ -4,7 +4,6 @@ from M10Boundary import *
 from M12DataStructure import *
 
 def format_input(input_data):
-    lattice = get_weights(input_data)
     boundary = get_boundary(input_data)
 
     if input_data["Library"] == 1:
