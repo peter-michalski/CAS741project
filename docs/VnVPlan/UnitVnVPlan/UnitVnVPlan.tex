@@ -114,6 +114,7 @@ This test plan has been built with reference to the MIS document (\citet{LBM_MIS
 \subsection{Tests for Functional Requirements}
 
 \subsubsection{Module M2SystemControl}
+\label{m2frtest}
 
 This module calls and combines all other modules. It is covered in entirety in Section \ref{ext4-frvkvs} of the System VnV Plan (\citet{LBM_SVNV_PM}), which conducts a black box test of the module. The tests below will verify subsections of the module, which are introduced in Section \ref{ext3-SCModule} of the MIS (\citet{LBM_MIS_PM}): that the problem and boundary data are correctly set up, and that the simulation is performed.
 
@@ -150,7 +151,7 @@ This module calls and combines all other modules. It is covered in entirety in S
 	
 	Output: It should be the same as that found in problem-boundary-data-id1.txt of the UnitVnVPlan directory.
 	
-	Test Case Derivation: This module calls the M8Problem module to set up the problem and boundary data that will be input into the M5LBMControl module. In order for this to succeed it first passes the system input data into M8Problem module. This test verifies that what is returned by M8Problem module is correctly formatted, and that the problem parameters and boundary data variables of this module correctly store the data.
+	Test Case Derivation: This module calls the M8Problem module to set up the problem and boundary data that will be input into the M5LBMControl module. In order for this to succeed it first passes the system input data into M8Problem module and M10Boundary module. This test verifies that what is returned by M8Problem module and M10Boundary module is correctly formatted, and that the problem parameters and boundary data variables of this module correctly store the data.
 	
 	How test will be performed: 
 	\begin{enumerate}
@@ -353,7 +354,7 @@ RelaxationRate 1\\
 
 Output: A message of ``The input.txt file is missing (or has incorrect) required parameters for the designated problem. Please see the User Guide.'' printed log\_file.log.
 
-Test Case Derivation: The final section of this module will check if the selected Library and Problem have all addition required inputs present in the input.txt file. If any are missing there will be an error message printed to the log\_file.log file, and the system will exit. This test will verify that the system will recognize if some required inputs are missing and print an appropriate error message.
+Test Case Derivation: The final section of this module will check if the selected Library and Problem have all required inputs present in the input.txt file. If any are missing there will be an error message printed to the log\_file.log file, and the system will exit. This test will verify that the system will recognize if some required inputs are missing and print an appropriate error message.
 
 How test will be performed: 
 \begin{enumerate}
@@ -393,7 +394,7 @@ Mass 1\\
 MacroscopicVelocity 1\\
 RelaxationRate 1\\
 
-Output: A message of ``Required input variables present'' printed to the screen.
+Output: A message of ``Required input variables present.'' printed to the screen.
 
 Test Case Derivation: The final section of this module will check if the selected Library and Problem have all addition required inputs present in the input.txt file. If any are missing there will be an error message printed to the log\_file.log file, and the system will exit. This test will verify that if all required inputs are present, the system will know to proceed. 
 
@@ -401,7 +402,7 @@ How test will be performed:
 \begin{enumerate}
 	\item Outside of the system, the input parameter values will be written to a text file titled input.txt, as outlined in Section \ref{ext5-inputs} of the User Guide.
 	\item The file will be placed into the Input directory, under the home directory of the project.
-	\item M4InputChecking module shall be modified to print ``Required input variables present'' if all required inputs are present.
+	\item M4InputChecking module shall be modified to print ``Required input variables present.'' if all required inputs are present.
 	\item {\myprogname} shall be run. 
 	\item The output shall be observed for the verifying message.
 \end{enumerate}
@@ -421,6 +422,7 @@ This section will not be implemented in the first iteration of system developmen
 This section will not be implemented in the first iteration of system development for reasons stated in \ref{UTDMF}.
 
 \subsubsection{Module M8Problem}
+\label{m8problemmoduletest}
 
 This module sets up the structure of the LBM input parameters, as outlined in Section \ref{ext3-PRModule} of the MIS (\citet{LBM_MIS_PM}. Since we are only implementing one library and problem in the first iteration of system development we will only test this module for that problem, comparing the output to a pseudo-oracle implementation of pyLBM.
 
@@ -471,6 +473,7 @@ How test will be performed:
 \end{enumerate}
 
 \subsubsection{Module M9Lattice}
+\label{M9lattice}
 
 This module sets up the structure of the lattice model, as outlined in Section \ref{ext3-LAModule} of the MIS (\citet{LBM_MIS_PM}. The single library that will be implemented in the first iteration of system development will not require the functionality of this module, as it will be part of the library in M5LBMControl module; however, preliminary development of this module will be started, which will be tested here.
 
@@ -499,6 +502,7 @@ How test will be performed:
 \end{enumerate}
 
 \subsubsection{Module M10Boundary}
+\label{M10Boundary}
 
 This module sets up the structure of the model boundary, as outlined in Section \ref{ext3-BOModule} of the MIS (\citet{LBM_MIS_PM}. The first iteration of system development will include a single fixed boundary. The entirety of the module will be tested here, returning the single fixed boundary.
 
@@ -568,6 +572,7 @@ This module will not yet be tested as it will currently only set a variable.
 Several tests for NFRs have been covered in Section \ref{ext4-nfrtest} of the System VnV Plan (\citet{LBM_SVNV_PM}). The tests below will add to and further enhance NFR testing. The tests below will cover performance and scalability. Robustness has been tested in Section \ref{inreading} and Section \ref{inchecking}.
 
 \subsubsection{Module M2SystemControl}
+\label{M2performance}
 		
 \begin{enumerate}
 
@@ -600,6 +605,7 @@ How test will be performed:
 
 
 \subsubsection{Module M9Lattice}
+\label{M9scalability}
 
 \begin{enumerate}
 	

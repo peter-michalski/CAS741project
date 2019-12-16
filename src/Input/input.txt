@@ -3,7 +3,7 @@ Problem 1
 Dimensions 2
 VelocityDirections 9
 Size 1
-ReynoldsNumber 1200
+ReynoldsNumber 700
 Density 1
 BulkViscosity 0.01
 ShearViscosity 1

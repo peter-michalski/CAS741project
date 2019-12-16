@@ -6,6 +6,7 @@ import logging
 import sys
 
 
+
 def main_function():
     logging.basicConfig(filename="log_file.log", level=logging.INFO)
 
@@ -24,6 +25,10 @@ def main_function():
             solution = pylbm.Simulation(problem_parameters)
             while solution.t < input_data["Time"]:
                 solution.one_time_step()
+
+            print("here")
+            print(solution)
+            print("here")
 
             # create the image (based on pylbm tutorial) - this is M11
             viewer = pylbm.viewer.matplotlib_viewer
