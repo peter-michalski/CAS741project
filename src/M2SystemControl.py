@@ -4,10 +4,12 @@ from M12DataStructure import *
 from M8Problem import *
 import logging
 import sys
+import time
 
 
 
 def main_function():
+    s0 = time.time()
     logging.basicConfig(filename="log_file.log", level=logging.INFO)
 
     input_data = input_array()
@@ -26,10 +28,6 @@ def main_function():
             while solution.t < input_data["Time"]:
                 solution.one_time_step()
 
-            print("here")
-            print(solution)
-            print("here")
-
             # create the image (based on pylbm tutorial) - this is M11
             viewer = pylbm.viewer.matplotlib_viewer
             fig = viewer.Fig()
@@ -44,6 +42,9 @@ def main_function():
             ax.title = 'Von Karman vortex street at t = {0:f}'.format(solution.t)
 
             # output the image to the screen - M1
-            fig.show()
 
+            s1 = time.time()
+            s2 = s1-s0
+            print(s2)
+            fig.show()
 main_function()

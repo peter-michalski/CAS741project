@@ -504,7 +504,7 @@ How test will be performed:
 
 %\wss{This shouldn't really be a manual test.  Everything described above can be done algorithmically.  You can automate this test.  You will need to go further to define the mathematical equation for error, but you would still need to do this for the manual version.  As part of your development process, I could certainly see you doing the test manually the first time, to help understand how the pieces fit together.  Once you understand though, the target should be automation.  This same comment about changing your manual tests to automated tests applies for your other proposed tests as well.}
 
-\item{Reynolds-Rel-Error-test-id\refstepcounter{testcounter}\thetestcounter \\}
+\item{Reynolds-rel-error-test-id\refstepcounter{testcounter}\thetestcounter \\}
 
 Control: Program (P) module execution using inputs (V) with varying $Re$
 parameter (I), and observing the variance of the output (O) when compared to a control value (C).  %\wss{If all of the tests are the same except for the value of $Re$, then you could again use a table to summarize the different test cases.}
@@ -1154,6 +1154,7 @@ steps (c) to (e).\\
 %\wss{This maintainability measure is quite subjective, but I still like what you are trying to do here.  The absolute value that Ao comes up with will not be particularly meaningful, but the process may uncover some areas of concern, or build confidence by the lack of areas of concern.  I think we will need better measures for your MEng project, but this okay as a starting point.}
 
 \subsubsection{Performance}
+\label{secperf}
 		
 \paragraph{Running Time}
 
@@ -1286,6 +1287,7 @@ the survey questions, found in SubSection \ref{usabilitysurevyquestions}. %\wss{
 
 ~\newpage
 \subsection{Traceability Between Test Cases and Requirements}
+\label{tracereqs}
 
 \begin{table}[!h]
 \begin{center}
@@ -1339,6 +1341,7 @@ id20 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkma
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Test Cases and Functional Requirements}
+\label{Table:TRACFR}
 \end{center}
 \end{table}   
 
@@ -1394,6 +1397,7 @@ id20 & & & & & & & & & & \checkmark \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Test Cases and NFRs}
+\label{Table:TRACNFR}
 \end{center}
 \end{table}   
 

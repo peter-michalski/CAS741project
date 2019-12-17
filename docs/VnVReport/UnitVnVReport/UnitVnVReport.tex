@@ -25,7 +25,7 @@
 
 \begin{document}
 
-\title{Test Report: \myprogname} 
+\title{Unit Test Report: \myprogname} 
 \author{Peter Michalski}
 \date{\today}
 	
@@ -198,7 +198,7 @@ No changes are necessary to the first stage of implementation due to these test 
 
 \section{Automated Testing}
 
-The Unit VnV Plan (\citet{LBM_UVNV_PM}) specifies which unit tests were to be automated. Time constraints have resulted in manual testing of the tests reported in this document.
+The Unit VnV Plan (\citet{LBM_UVNV_PM}) specifies which unit tests were to be automated. Time constraints have resulted in manual testing of the tests reported in this document; however they will be automated in January 2020.
 
 \section{Trace to Requirements}
 \label{traceabilitytoreq}
@@ -287,47 +287,11 @@ A complete description of NFRs is found in Section \ref{ext1-CANFRS} of the CA (
 \section{Trace to Modules}	
 \label{modulecoverage}	
 
-A complete description of modules is found in the MG (\citet{LBM_MG_PM}).
-
-\begin{table}[!h]
-	\begin{center}
-		\begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c | c | c | c |}
-			\hline
-			Cases / Modules & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13\\
-			\hline
-			id1 & &\checkmark & & & & & & & & & & &\\
-			\hline
-			id2 && \checkmark& & & & & & & & & & &\\
-			\hline
-			id3 & && \checkmark&  & & & & & & & & &\\
-			\hline
-			id4 & & &&\checkmark &  & & & & & & & &\\
-			\hline
-			id5 & && &\checkmark &  & & & & & & & &\\
-			\hline
-			id6 & && &\checkmark & & & & & & & & &\\
-			\hline
-			id7 & & &&\checkmark &  & & & & & & & &\\
-			\hline
-			id8 & & & & & & & & \checkmark& & & & &\\
-			\hline
-			id9 & & & & & & & & & \checkmark& & & &\\
-			\hline
-			id10 & & & & & & & & & & \checkmark& & &\\
-			\hline
-			id11 & &\checkmark & & & & & & & & & & &\\
-			\hline
-			id12 & & & & & & & & &\checkmark & & & &\\
-			\hline
-		\end{tabular}
-		\caption{Traceability Matrix Showing the Connections Between Test Cases and Modules}
-		\label{Table:MODCOV}
-	\end{center}
-\end{table}  
+A complete description of modules is found in the MG (\citet{LBM_MG_PM}). A traceability of unit tests to modules can be found in Table \ref{ext6-Table:MODCOVT} in Section \ref{ext6-tracemod} of the Unit VnV Plan (\citet{LBM_UVNV_PM}).
 
 \section{Code Coverage Metrics}
 
-Module coverage is guaranteed for those modules that are implemented and not outsourced to external libraries. Module coverage is outline in Table \ref{Table:MODCOV} of Section \ref{modulecoverage}.
+Module coverage is guaranteed for those modules that are implemented and not outsourced to external libraries. Module coverage is outline in Table \ref{ext6-Table:MODCOVT} in Section \ref{ext6-tracemod} of the Unit VnV Plan (\citet{LBM_UVNV_PM}).
 
 ~\newpage
 

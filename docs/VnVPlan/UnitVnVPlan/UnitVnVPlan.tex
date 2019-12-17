@@ -634,76 +634,43 @@ How test will be performed:
 ~\newpage
 
 \subsection{Traceability Between Test Cases and Modules}
+\label{tracemod}
 
 \begin{table}[!h]
 	\begin{center}
-		\begin{tabular}{| c | c | c | c | c | c | c | c |}
+		\begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c | c | c | c |}
 			\hline
-			& R1 & R2 & R3 & R4 & R5 & R6 & R7\\
+			Cases / Modules & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13\\
 			\hline
-			id1 & \checkmark &\checkmark & \checkmark& \checkmark& \checkmark& &\\
+			id1 & &\checkmark & & & & & & & & & & &\\
 			\hline
-			id2 & \checkmark &\checkmark & \checkmark& \checkmark& \checkmark& \checkmark&\\
+			id2 && \checkmark& & & & & & & & & & &\\
 			\hline
-			id3 & \checkmark & & & & & & \\
+			id3 & && \checkmark&  & & & & & & & & &\\
 			\hline
-			id4 & \checkmark &\checkmark &\checkmark & & & & \\
+			id4 & & &&\checkmark &  & & & & & & & &\\
 			\hline
-			id5 & \checkmark &\checkmark &\checkmark & & & & \\
+			id5 & && &\checkmark &  & & & & & & & &\\
 			\hline
-			id6 & \checkmark &\checkmark &\checkmark & & & & \\
+			id6 & && &\checkmark & & & & & & & & &\\
 			\hline
-			id7 & \checkmark & & \checkmark& & & & \\
+			id7 & & &&\checkmark &  & & & & & & & &\\
 			\hline
-			id8 & \checkmark &\checkmark & \checkmark& \checkmark & \checkmark& & \\
+			id8 & & & & & & & & \checkmark& & & & &\\
 			\hline
-			id9 & & \checkmark& & \checkmark& \checkmark& & \\
+			id9 & & & & & & & & & \checkmark& & & &\\
 			\hline
-			id10 & \checkmark & \checkmark& \checkmark& \checkmark& & & \\
+			id10 & & & & & & & & & & \checkmark& & &\\
 			\hline
-			id11 & \checkmark & \checkmark& \checkmark&\checkmark & \checkmark& \checkmark& \\
+			id11 & &\checkmark & & & & & & & & & & &\\
 			\hline
-			id12 & & \checkmark & & \checkmark& \checkmark& & \\
-			\hline
-		\end{tabular}
-		\caption{Traceability Matrix Showing the Connections Between Test Cases and Functional Requirements}
-	\end{center}
-\end{table}   
-
-\begin{table}[!h]
-	\begin{center}
-		\begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c |}
-			\hline
-			Cases / NFR & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
-			\hline
-			id1 & & & & & & & & & &\\
-			\hline
-			id2 & \checkmark& & & & & & & & &\\
-			\hline
-			id3 & & & & & & & & & &\\
-			\hline
-			id4 & & & & & & & & & &\\
-			\hline
-			id5 & & & & & & & & & &\\
-			\hline
-			id6 & & & & & & & & & &\\
-			\hline
-			id7 & & & & & & & & & &\\
-			\hline
-			id8 & \checkmark& & & & & & & & &\\
-			\hline
-			id9 & & & & & & & & & &\\
-			\hline
-			id10 & & & & & & & & & &\\
-			\hline
-			id11 & & & \checkmark& & & & & & &\\
-			\hline
-			id12 & & & & & & & & \checkmark& &\\
+			id12 & & & & & & & & &\checkmark & & & &\\
 			\hline
 		\end{tabular}
-		\caption{Traceability Matrix Showing the Connections Between Test Cases and NFRs}
+		\caption{Traceability Matrix Showing the Connections Between Test Cases and Modules}
+		\label{Table:MODCOVT}
 	\end{center}
-\end{table}   
+\end{table}  
 
 ~\newpage
 \clearpage
