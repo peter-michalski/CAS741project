@@ -3,13 +3,13 @@ from M3InputReading import *
 from M12DataStructure import *
 from M8Problem import *
 import logging
+np.set_printoptions(threshold=sys.maxsize)
 import sys
-import time
 
 
 
 def main_function():
-    s0 = time.time()
+
     logging.basicConfig(filename="log_file.log", level=logging.INFO)
 
     input_data = input_array()
@@ -43,8 +43,5 @@ def main_function():
 
             # output the image to the screen - M1
 
-            s1 = time.time()
-            s2 = s1-s0
-            print(s2)
             fig.show()
 main_function()
