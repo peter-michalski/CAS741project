@@ -2,16 +2,36 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
-
-\title{Reflection Report on [Title of Project]}
-
-\author{author name}
-
-\date{}
-
+\usepackage[round]{natbib}
+\newcommand{\myprogname}{Lattice Boltzmann Solver} 
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{xr}
+\externaldocument[ext1-]{../SRS/CA}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=red,
+	urlcolor=blue
+}
 \input{../Comments}
 
 \begin{document}
+	
+\title{System Test Report: \myprogname} 
+\author{Peter Michalski}
+\date{\today}
+
+\maketitle
+
+\pagenumbering{roman}	
+
+~\newpage
+
+\section{Revision History}
 
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
@@ -19,9 +39,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+Dec. 18 & Peter Michalski & Initial Development\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -30,22 +48,34 @@ Date2 & Name(s) & Description of changes\\
 
 \maketitle
 
-Put your introductory blurb here.
+This document is a reflection of the development of {\myprogname}, which provides services based on Lattice Boltzmann Methods (LBM).
 
 \section{Project Overview}
 
-\plt{Summarize the original project goals and requirements}
+The goal of {\myprogname} is to predict changes in fluid characteristics such as location, velocity and pressure over time using LBM.\\
+
+\noindent The functional requirements of {\myprogname} can be found in Section \ref{ext1-CAFRS} of the Commonality Analysis (\citet{LBM_CA_PM}). The non-functional requirements can be found in Section \ref{ext1-CANFRS} of that document.
+
 
 \section{Key Accomplishments}
 
-\plt{What went well?  This can be what went well with the documentation, the
-  coding, the project management, etc.}
+The templates and language of the documentation allowed for good traceability. Referencing the documentation was straightforward, as was updating it.\\
+
+\noindent The Module Guide (\citet{LBM_MG_PM}) and Module Implementation Specification (\citet{LBM_MIS_PM}) allowed for quick and easy development of {\myprogname}.\\
+
+\noindent The design process was very helpful in managing the development of {\myprogname}.
 
 \section{Key Problem Areas}
 
-\plt{What went wrong?  This can be what went wrong with the documentation, the
-  technology, the coding, time management, etc.}
+\noindent The scope of {\myprogname} was too large to complete in the original time-frame, which needed to be extended. Only one library problem could be developed and tested in the first stage of implementation.
 
 \section{What Would you Do Differently Next Time}
+
+\noindent As the scope of the project was too broad, I would consider reducing it if I were to attempt to complete it in the current time-frame. Alternatively, if the time-frame were extended, I would increase the time  between deliverables. 
+
+~\newpage
+
+\bibliographystyle {plainnat}
+\bibliography {../../refs/References}
 
 \end{document}
